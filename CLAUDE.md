@@ -32,7 +32,8 @@ Pushes to `main` branch on `https://github.com/Mateob6/Mateob6.github.io.git`. G
 - `presentations.html` — Selected conference presentations
 - `awards.html` — Awards & grants
 - `groups.html` — Research groups (Minciencias ranked)
-- `lang.js` — Shared language toggle script (EN/ES switcher)
+- `lang.js` — Shared language toggle script (EN/ES switcher with flag icons)
+- `google5845fe3ac49f41f4.html` — Google Search Console verification file
 - `photo.jpg` — Profile photo used in hero section
 
 ## Architecture
@@ -42,6 +43,7 @@ Pushes to `main` branch on `https://github.com/Mateob6/Mateob6.github.io.git`. G
 - **CSS custom properties** on `:root`: `--bg`, `--bg-card`, `--ink`, `--muted`, `--accent`, `--accent-light`, `--accent-glow`, `--warm`, `--warm-light`, `--rule`, `--shadow`, `--shadow-hover`.
 - **Layout**: `.page` container with `max-width: 820px`, responsive breakpoint at `700px`.
 - **Animations**: `fadeUp` keyframe applied with staggered delays on sections.
+- **SEO**: `index.html` includes meta description, author, keywords, and canonical URL (`https://mateob6.github.io`). Google Search Console verified via `google5845fe3ac49f41f4.html`.
 
 ## Index Page Order
 
@@ -61,10 +63,10 @@ Hero → About → Skills bar → Education | Profiles (dual-row) → Institutio
 
 ## Bilingual Support (EN/ES)
 
-- Toggle button (fixed top-right, circular) switches between English and Spanish.
+- Toggle button (fixed top-right, pill-shaped with flag emoji 🇬🇧/🇪🇸) switches between English and Spanish.
 - Translatable text uses dual `<span class="en">` / `<span class="es">` inline elements. Block content uses `<p class="en">` / `<p class="es">`.
 - CSS rules `html[lang="es"] .en { display: none }` / `html[lang="en"] .es { display: none }` control visibility (in each page's inline `<style>`).
-- Language preference saved in `localStorage` under key `lang` (default: `en`).
+- Language preference saved in `localStorage` under key `lang` (default: `es`).
 - Inline `<script>` in each page's `<head>` sets `html[lang]` before first paint (no flash of wrong language).
 - `lang.js` (loaded with `defer`) injects the toggle button and handles title switching via `data-title-en` / `data-title-es` attributes on `<html>`.
 - **Not translated** (stays in original language): publication titles, presentation titles, course names, research group names, university names, professional titles ("Profesor hora cátedra"), technical skills (Python, R), profile names (ORCID, GitHub), badges (CIDEAS, AI, A1, A), author names, journal names.
