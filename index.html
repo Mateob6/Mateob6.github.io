@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-title-en="Mateo Belalcazar" data-title-es="Mateo Belalcazar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mateo Belalcazar</title>
+    <meta name="description" content="Mateo Belalcázar — Doctoral researcher in Psychology at Universidad del Valle, Colombia. Research in cognitive development, neuropsychology, psychological measurement, and computational methods.">
+    <meta name="author" content="Mateo Belalcázar">
+    <meta name="keywords" content="Mateo Belalcázar, psychology, statistics, Universidad del Valle, CIDEAS, cognitive development, neuropsychology, psychological measurement">
+    <link rel="canonical" href="https://mateob6.github.io">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
@@ -321,7 +325,23 @@
         section:nth-of-type(6) { animation: fadeUp 0.6s ease 0.45s both; }
         section:nth-of-type(7) { animation: fadeUp 0.6s ease 0.5s both; }
         section:nth-of-type(8) { animation: fadeUp 0.6s ease 0.55s both; }
+        /* Language toggle */
+        html[lang="es"] .en { display: none; }
+        html[lang="en"] .es { display: none; }
+        #lang-toggle {
+            position: fixed; top: 1.2rem; right: 1.2rem; z-index: 1000;
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 1.5px solid var(--rule);
+            background: var(--bg-card); color: var(--accent);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.04em; cursor: pointer;
+            box-shadow: 0 2px 10px rgba(28,28,28,0.08);
+            transition: all 0.2s;
+        }
+        #lang-toggle:hover { background: var(--accent); color: white; border-color: var(--accent); }
     </style>
+    <script>document.documentElement.lang=localStorage.getItem('lang')||'en'</script>
 </head>
 <body>
     <div class="page">
@@ -333,11 +353,11 @@
             <div class="hero-info">
                 <h1>Mateo Belalcazar</h1>
                 <p class="hero-email"><a href="mailto:mateo.belalcazar6@gmail.com">mateo.belalcazar6@gmail.com</a></p>
-                <p class="hero-tagline">Doctoral Researcher in Psychology · Universidad del Valle</p>
+                <p class="hero-tagline"><span class="en">Doctoral Researcher in Psychology · Universidad del Valle</span><span class="es">Investigador Doctoral en Psicología · Universidad del Valle</span></p>
                 <div class="hero-badges">
                     <a href="https://psicologia.univalle.edu.co/155-instituto-cideas/834-instituto-cideas" target="_blank" class="badge badge--green">CIDEAS</a>
                     <span class="badge badge--warm">AI</span>
-                    <span class="badge badge--warm">Statistics × Psychology</span>
+                    <span class="badge badge--warm"><span class="en">Statistics × Psychology</span><span class="es">Estadística × Psicología</span></span>
                 </div>
             </div>
         </div>
@@ -345,50 +365,53 @@
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <h2>Research Interests</h2>
+                <h2><span class="en">Research Interests</span><span class="es">Intereses de Investigación</span></h2>
                 <div class="section-line"></div>
             </div>
             <div class="interests">
-                <span class="interest-tag">Cognitive Development</span>
-                <span class="interest-tag">Neuropsychology</span>
-                <span class="interest-tag">Educational Psychology</span>
-                <span class="interest-tag">Psychological Measurement</span>
-                <span class="interest-tag">Embodied Cognition</span>
+                <span class="interest-tag"><span class="en">Cognitive Development</span><span class="es">Desarrollo Cognitivo</span></span>
+                <span class="interest-tag"><span class="en">Neuropsychology</span><span class="es">Neuropsicología</span></span>
+                <span class="interest-tag"><span class="en">Educational Psychology</span><span class="es">Psicología Educativa</span></span>
+                <span class="interest-tag"><span class="en">Psychological Measurement</span><span class="es">Medición Psicológica</span></span>
+                <span class="interest-tag"><span class="en">Embodied Cognition</span><span class="es">Cognición Corporeizada</span></span>
             </div>
         </section>
 
         <section class="about">
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <h2>About</h2>
+                <h2><span class="en">About</span><span class="es">Acerca de</span></h2>
                 <div class="section-line"></div>
             </div>
-            <p>I am a doctoral student in Psychology at Universidad del Valle (CIDEAS), Colombia, with a background in Statistics and Psychology. My work spans cognitive development, neuropsychology, educational psychology, and psychological measurement.</p>
-            <p>My doctoral research explores the representation of psychological constructs, integrating philosophy of science and computational methods. My technical contributions draw on programming in Python and R, multivariate statistics, and machine learning.</p>
-            <p>I am also a lecturer at Universidad del Valle and a research consultant at Pontificia Universidad Javeriana Cali, where I work on curriculum alignment and assessment design.</p>
+            <p class="en">I am a doctoral student in Psychology at Universidad del Valle (CIDEAS), Colombia, with a background in Statistics and Psychology. My work spans cognitive development, neuropsychology, educational psychology, and psychological measurement.</p>
+            <p class="es">Soy estudiante de doctorado en Psicología en la Universidad del Valle (CIDEAS), Colombia, con formación en Estadística y Psicología. Mi trabajo abarca el desarrollo cognitivo, la neuropsicología, la psicología educativa y la medición psicológica.</p>
+            <p class="en">My doctoral research explores the representation of psychological constructs, integrating philosophy of science and computational methods. My technical contributions draw on programming in Python and R, multivariate statistics, and machine learning.</p>
+            <p class="es">Mi investigación doctoral explora la representación de constructos psicológicos, integrando filosofía de la ciencia y métodos computacionales. Mis contribuciones técnicas se apoyan en programación en Python y R, estadística multivariada y aprendizaje automático.</p>
+            <p class="en">I am also a lecturer at Universidad del Valle and a research consultant at Pontificia Universidad Javeriana Cali, where I work on curriculum alignment and assessment design.</p>
+            <p class="es">También soy docente en la Universidad del Valle y consultor de investigación en la Pontificia Universidad Javeriana Cali, donde trabajo en alineación curricular y diseño de evaluaciones.</p>
         </section>
 
         <div class="dual-row">
             <div>
-                <h2>Education</h2>
+                <h2><span class="en">Education</span><span class="es">Educación</span></h2>
                 <div class="edu-compact">
                     <div class="edu-c-item">
-                        <div class="edu-c-degree">PhD in Psychology <em>(in progress)</em></div>
+                        <div class="edu-c-degree"><span class="en">PhD in Psychology</span><span class="es">Doctorado en Psicología</span> <em>(<span class="en">in progress</span><span class="es">en curso</span>)</em></div>
                         <div class="edu-c-detail">Universidad del Valle — CIDEAS · 2025–present</div>
                     </div>
                     <div class="edu-c-item">
-                        <div class="edu-c-degree">M.Sc. in Statistics</div>
+                        <div class="edu-c-degree"><span class="en">M.Sc. in Statistics</span><span class="es">M.Sc. en Estadística</span></div>
                         <div class="edu-c-detail">Universidad del Valle · 2020–2022</div>
                     </div>
                     <div class="edu-c-item">
-                        <div class="edu-c-degree">B.Sc. in Psychology</div>
+                        <div class="edu-c-degree"><span class="en">B.Sc. in Psychology</span><span class="es">B.Sc. en Psicología</span></div>
                         <div class="edu-c-detail">Universidad del Valle · 2014–2019</div>
                     </div>
                 </div>
             </div>
             <div class="dual-divider"></div>
             <div class="profiles-col">
-                <h2>Profiles</h2>
+                <h2><span class="en">Profiles</span><span class="es">Perfiles</span></h2>
                 <div class="profiles-grid">
                     <a href="https://orcid.org/0000-0001-8276-9734" target="_blank" class="profile-link">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 8h1v8H9zM12 8h2.5a2.5 2.5 0 010 5H12V8z"/></svg>
@@ -419,7 +442,7 @@
         </div>
 
         <div class="affiliation-bar">
-            <h2>Institutional Affiliation</h2>
+            <h2><span class="en">Institutional Affiliation</span><span class="es">Afiliación Institucional</span></h2>
             <div class="affiliation-items">
                 <a href="https://www.univalle.edu.co/" target="_blank" class="affiliation-link">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -433,31 +456,31 @@
         </div>
 
         <div class="skills-bar">
-            <h2>Skills</h2>
+            <h2><span class="en">Skills</span><span class="es">Habilidades</span></h2>
             <span class="skill-pill">Python</span>
             <span class="skill-pill">R</span>
-            <span class="skill-pill skill-pill--outline">Machine Learning</span>
-            <span class="skill-pill skill-pill--outline">Multivariate Statistics</span>
-            <span class="skill-pill skill-pill--outline">Cognitive Development</span>
+            <span class="skill-pill skill-pill--outline"><span class="en">Machine Learning</span><span class="es">Aprendizaje Automático</span></span>
+            <span class="skill-pill skill-pill--outline"><span class="en">Multivariate Statistics</span><span class="es">Estadística Multivariada</span></span>
+            <span class="skill-pill skill-pill--outline"><span class="en">Cognitive Development</span><span class="es">Desarrollo Cognitivo</span></span>
         </div>
 
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                <h2>Publications</h2>
+                <h2><span class="en">Publications</span><span class="es">Publicaciones</span></h2>
                 <div class="section-line"></div>
             </div>
             <div class="pub-card">
                 <div class="pub-card-header">
                     <div class="pub-title"><a href="https://doi.org/10.21615/cesp.7772">Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional</a></div>
-                    <span class="pub-type">Article</span>
+                    <span class="pub-type"><span class="en">Article</span><span class="es">Artículo</span></span>
                 </div>
                 <div class="pub-meta">González Cano, L.J., Uribe Guscas, I.J., <strong>Belalcazar Correa, M.</strong>, &amp; Valencia Serrano, M. (2026). <em>Revista CES Psicología.</em></div>
             </div>
             <div class="pub-card">
                 <div class="pub-card-header">
                     <div class="pub-title"><a href="https://doi.org/10.1080/13854046.2024.2343159">Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment</a></div>
-                    <span class="pub-type">Article</span>
+                    <span class="pub-type"><span class="en">Article</span><span class="es">Artículo</span></span>
                 </div>
                 <div class="pub-meta">Martínez-Flórez, J.F., <strong>Belalcazar, M.</strong>, Alvarez, A., Erazo, O., Sevilla, S., &amp; Parra, M.A. (2024). <em>The Clinical Neuropsychologist.</em></div>
             </div>
@@ -467,8 +490,8 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                     </div>
                     <div>
-                        <div class="teaching-cta-title">All Publications</div>
-                        <div class="teaching-cta-sub">4 publications · Articles &amp; Book chapters</div>
+                        <div class="teaching-cta-title"><span class="en">All Publications</span><span class="es">Todas las Publicaciones</span></div>
+                        <div class="teaching-cta-sub"><span class="en">4 publications · Articles &amp; Book chapters</span><span class="es">4 publicaciones · Artículos y Capítulos de libro</span></div>
                     </div>
                 </div>
                 <span class="teaching-cta-arrow">→</span>
@@ -478,7 +501,7 @@
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-                <h2>Presentations</h2>
+                <h2><span class="en">Presentations</span><span class="es">Presentaciones</span></h2>
                 <div class="section-line"></div>
             </div>
             <a href="presentations.html" class="teaching-cta">
@@ -487,8 +510,8 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
                     </div>
                     <div>
-                        <div class="teaching-cta-title">Selected Presentations</div>
-                        <div class="teaching-cta-sub">4 presentations · International &amp; National conferences</div>
+                        <div class="teaching-cta-title"><span class="en">Selected Presentations</span><span class="es">Presentaciones Seleccionadas</span></div>
+                        <div class="teaching-cta-sub"><span class="en">4 presentations · International &amp; National conferences</span><span class="es">4 presentaciones · Conferencias internacionales y nacionales</span></div>
                     </div>
                 </div>
                 <span class="teaching-cta-arrow">→</span>
@@ -499,7 +522,7 @@
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg>
-                <h2>Teaching</h2>
+                <h2><span class="en">Teaching</span><span class="es">Docencia</span></h2>
                 <div class="section-line"></div>
             </div>
             <a href="teaching.html" class="teaching-cta">
@@ -508,8 +531,8 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg>
                     </div>
                     <div>
-                        <div class="teaching-cta-title">Teaching Experience</div>
-                        <div class="teaching-cta-sub">3 universities · Undergraduate &amp; Graduate courses</div>
+                        <div class="teaching-cta-title"><span class="en">Teaching Experience</span><span class="es">Experiencia Docente</span></div>
+                        <div class="teaching-cta-sub"><span class="en">3 universities · Undergraduate &amp; Graduate courses</span><span class="es">3 universidades · Cursos de pregrado y posgrado</span></div>
                     </div>
                 </div>
                 <span class="teaching-cta-arrow">→</span>
@@ -519,7 +542,7 @@
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                <h2>Awards</h2>
+                <h2><span class="en">Awards</span><span class="es">Premios</span></h2>
                 <div class="section-line"></div>
             </div>
             <a href="awards.html" class="teaching-cta">
@@ -528,8 +551,8 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
                     </div>
                     <div>
-                        <div class="teaching-cta-title">Awards &amp; Grants</div>
-                        <div class="teaching-cta-sub">4 awards · Teaching, research &amp; thesis honors</div>
+                        <div class="teaching-cta-title"><span class="en">Awards &amp; Grants</span><span class="es">Premios y Becas</span></div>
+                        <div class="teaching-cta-sub"><span class="en">4 awards · Teaching, research &amp; thesis honors</span><span class="es">4 premios · Reconocimientos en docencia, investigación y tesis</span></div>
                     </div>
                 </div>
                 <span class="teaching-cta-arrow">→</span>
@@ -539,7 +562,7 @@
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-                <h2>Research Groups</h2>
+                <h2><span class="en">Research Groups</span><span class="es">Grupos de Investigación</span></h2>
                 <div class="section-line"></div>
             </div>
             <a href="groups.html" class="teaching-cta">
@@ -548,15 +571,16 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
                     </div>
                     <div>
-                        <div class="teaching-cta-title">Research Groups</div>
-                        <div class="teaching-cta-sub">2 groups · Minciencias A1 &amp; A</div>
+                        <div class="teaching-cta-title"><span class="en">Research Groups</span><span class="es">Grupos de Investigación</span></div>
+                        <div class="teaching-cta-sub"><span class="en">2 groups · Minciencias A1 &amp; A</span><span class="es">2 grupos · Minciencias A1 y A</span></div>
                     </div>
                 </div>
                 <span class="teaching-cta-arrow">→</span>
             </a>
         </section>
 
-        <footer>Cali, Colombia · Updated February 2026</footer>
+        <footer><span class="en">Cali, Colombia · Updated February 2026</span><span class="es">Cali, Colombia · Actualizado en febrero de 2026</span></footer>
     </div>
+    <script src="lang.js" defer></script>
 </body>
 </html>
