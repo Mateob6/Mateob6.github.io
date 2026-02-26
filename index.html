@@ -54,8 +54,6 @@
             position: relative;
             z-index: 1;
         }
-
-        /* Hero */
         .hero {
             display: flex;
             align-items: center;
@@ -105,11 +103,13 @@
         .badge {
             font-size: 0.75rem; font-weight: 500;
             padding: 0.3rem 0.75rem; border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.2s;
         }
         .badge--green { background: var(--accent-light); color: var(--accent); }
+        .badge--green:hover { background: var(--accent); color: white; }
         .badge--warm { background: var(--warm-light); color: #8a6340; }
-
-        /* Education + Profiles side by side */
+        .badge--warm:hover { background: var(--warm); color: white; }
         .dual-row {
             display: grid;
             grid-template-columns: 1fr 1px 1fr;
@@ -120,16 +120,12 @@
             border-radius: 16px;
             box-shadow: 0 1px 10px var(--shadow);
         }
-        .dual-divider {
-            background: var(--rule);
-        }
+        .dual-divider { background: var(--rule); }
         .dual-row h2 {
             font-size: 0.75rem; font-weight: 600;
             text-transform: uppercase; letter-spacing: 0.1em;
             color: var(--accent); margin-bottom: 1rem;
         }
-
-        /* Education in dual */
         .edu-compact { position: relative; padding-left: 1.2rem; }
         .edu-compact::before {
             content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem;
@@ -145,8 +141,6 @@
         .edu-c-item:last-child::before { border-color: var(--warm); }
         .edu-c-degree { font-size: 0.9rem; font-weight: 500; line-height: 1.4; }
         .edu-c-detail { font-size: 0.78rem; color: var(--muted); }
-
-        /* Profiles in dual */
         .profiles-grid {
             display: flex;
             flex-direction: column;
@@ -166,8 +160,6 @@
             border-color: var(--accent-light);
         }
         .profile-link svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--accent); }
-
-        /* Sections */
         section { margin-bottom: 2.5rem; }
         .section-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.2rem; }
         .section-header svg { width: 20px; height: 20px; color: var(--accent); }
@@ -176,14 +168,10 @@
             text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);
         }
         .section-line { flex: 1; height: 1px; background: var(--rule); }
-
-        /* About */
         .about p {
             font-family: 'Source Serif 4', Georgia, serif;
             font-size: 1.05rem; line-height: 1.75; color: #3a3a3a; margin-bottom: 0.8rem;
         }
-
-        /* Research Interests */
         .interests { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .interest-tag {
             font-size: 0.82rem; padding: 0.4rem 0.9rem;
@@ -191,8 +179,6 @@
             border: 1px solid var(--rule); transition: all 0.2s;
         }
         .interest-tag:hover { border-color: var(--accent); background: var(--accent-light); }
-
-        /* Publication Cards */
         .pub-card {
             padding: 1.3rem 1.5rem; background: var(--bg-card);
             border-radius: 14px; margin-bottom: 0.8rem;
@@ -213,19 +199,13 @@
         }
         .pub-type--chapter { background: var(--warm-light); color: #8a6340; }
         .pub-meta { font-size: 0.82rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.5; }
-
-        /* Presentations */
         .pres-item { padding: 0.8rem 0; border-bottom: 1px solid var(--rule); font-size: 0.9rem; color: #3a3a3a; line-height: 1.6; }
         .pres-item:last-child { border-bottom: none; }
         .pres-location { font-size: 0.78rem; color: var(--muted); font-weight: 500; }
-
-        /* Awards */
         .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
         .award-card { padding: 1rem 1.2rem; background: var(--bg-card); border-radius: 12px; box-shadow: 0 1px 6px var(--shadow); }
         .award-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.2rem; }
         .award-source { font-size: 0.75rem; color: var(--muted); }
-
-        /* Research Groups */
         .group-card {
             display: flex; align-items: center; gap: 1rem;
             padding: 1rem 1.2rem; background: var(--bg-card);
@@ -239,22 +219,47 @@
         }
         .group-name { font-size: 0.88rem; font-weight: 500; }
         .group-detail { font-size: 0.78rem; color: var(--muted); }
-
-        /* Skills */
         .skills-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .skill-pill {
             font-size: 0.82rem; font-weight: 500;
             padding: 0.45rem 1rem; border-radius: 8px;
             background: var(--ink); color: var(--bg);
         }
-
-        /* Footer */
+        /* Teaching CTA */
+        .teaching-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.3rem 1.5rem;
+            background: var(--bg-card);
+            border-radius: 14px;
+            box-shadow: 0 1px 8px var(--shadow);
+            text-decoration: none;
+            color: var(--ink);
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .teaching-cta:hover {
+            box-shadow: 0 3px 15px var(--shadow-hover);
+            border-color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+        .teaching-cta-left {
+            display: flex; align-items: center; gap: 0.8rem;
+        }
+        .teaching-cta-icon {
+            width: 42px; height: 42px; border-radius: 12px;
+            background: var(--accent-light);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent);
+        }
+        .teaching-cta-title { font-size: 0.95rem; font-weight: 500; }
+        .teaching-cta-sub { font-size: 0.78rem; color: var(--muted); }
+        .teaching-cta-arrow { color: var(--accent); font-size: 1.2rem; }
         footer {
             text-align: center; margin-top: 3rem; padding-top: 1.5rem;
             border-top: 1px solid var(--rule); font-size: 0.78rem; color: var(--muted);
         }
-
-        /* Responsive */
         @media (max-width: 700px) {
             .hero { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
             .hero::before { width: 100%; height: 4px; border-radius: 20px 20px 0 0; }
@@ -265,8 +270,6 @@
             .dual-divider { height: 1px; width: 100%; }
             .awards-grid { grid-template-columns: 1fr; }
         }
-
-        /* Animations */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -286,24 +289,22 @@
 <body>
     <div class="page">
 
-        <!-- Hero -->
         <div class="hero">
             <div class="hero-photo">
                 <img src="photo.jpg" alt="Mateo Belalcázar">
             </div>
             <div class="hero-info">
                 <h1>Mateo Belalcázar</h1>
-                <p class="hero-email"><a href="mailto:mateo.belalcazar@correounivalle.edu.co">mateo.belalcazar@correounivalle.edu.co</a></p>
+                <p class="hero-email"><a href="mailto:mateo.belalcazar6@gmail.com">mateo.belalcazar6@gmail.com</a></p>
                 <p class="hero-tagline">Doctoral Researcher in Psychology · Universidad del Valle</p>
                 <div class="hero-badges">
-                    <span class="badge badge--green">CIDEAS</span>
-                    <span class="badge badge--green">Pontificia U. Javeriana</span>
+                    <a href="https://psicologia.univalle.edu.co/155-instituto-cideas/834-instituto-cideas" target="_blank" class="badge badge--green">CIDEAS</a>
+                    <span class="badge badge--warm">AI</span>
                     <span class="badge badge--warm">Statistics × Psychology</span>
                 </div>
             </div>
         </div>
 
-        <!-- Education + Profiles -->
         <div class="dual-row">
             <div>
                 <h2>Education</h2>
@@ -354,7 +355,6 @@
             </div>
         </div>
 
-        <!-- About -->
         <section class="about">
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -366,7 +366,6 @@
             <p>I am also a lecturer at Universidad del Valle and a research consultant at Pontificia Universidad Javeriana Cali, where I work on curriculum alignment and assessment design.</p>
         </section>
 
-        <!-- Research Interests -->
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -382,7 +381,6 @@
             </div>
         </section>
 
-        <!-- Publications -->
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -419,7 +417,6 @@
             </div>
         </section>
 
-        <!-- Selected Presentations -->
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
@@ -432,7 +429,27 @@
             <div class="pres-item">Rol de la experiencia corporal y háptica en la navegación por estimación y referencia en individuos con discapacidad visual.<br><span class="pres-location">Congreso Colombiano de Psicología · Barranquilla, Colombia · 2019</span></div>
         </section>
 
-        <!-- Awards -->
+        <!-- Teaching CTA -->
+        <section>
+            <div class="section-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg>
+                <h2>Teaching</h2>
+                <div class="section-line"></div>
+            </div>
+            <a href="teaching.html" class="teaching-cta">
+                <div class="teaching-cta-left">
+                    <div class="teaching-cta-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg>
+                    </div>
+                    <div>
+                        <div class="teaching-cta-title">Teaching Experience</div>
+                        <div class="teaching-cta-sub">3 universities · Undergraduate &amp; Graduate courses</div>
+                    </div>
+                </div>
+                <span class="teaching-cta-arrow">→</span>
+            </a>
+        </section>
+
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
@@ -459,7 +476,6 @@
             </div>
         </section>
 
-        <!-- Research Groups -->
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
@@ -482,7 +498,6 @@
             </div>
         </section>
 
-        <!-- Technical Skills -->
         <section>
             <div class="section-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
