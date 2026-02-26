@@ -112,7 +112,7 @@
         .badge--warm:hover { background: var(--warm); color: white; }
         .dual-row {
             display: grid;
-            grid-template-columns: 1fr 1px 1fr;
+            grid-template-columns: 1fr 1px 1fr 1px auto;
             gap: 2rem;
             margin-bottom: 3rem;
             padding: 2rem;
@@ -219,22 +219,16 @@
         }
         .group-name { font-size: 0.88rem; font-weight: 500; }
         .group-detail { font-size: 0.78rem; color: var(--muted); }
-        .skills-bar {
-            display: flex; align-items: center; gap: 1.2rem;
-            margin-bottom: 3rem; padding: 1.2rem 2rem;
-            background: var(--bg-card); border-radius: 14px;
-            box-shadow: 0 1px 10px var(--shadow);
-        }
-        .skills-bar h2 {
-            font-size: 0.7rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.1em;
-            color: var(--accent); white-space: nowrap;
-        }
-        .skills-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skills-col-list { display: flex; flex-direction: column; gap: 0.4rem; }
         .skill-pill {
-            font-size: 0.82rem; font-weight: 500;
-            padding: 0.45rem 1rem; border-radius: 8px;
+            font-size: 0.78rem; font-weight: 500;
+            padding: 0.35rem 0.8rem; border-radius: 8px;
             background: var(--ink); color: var(--bg);
+            text-align: center;
+        }
+        .skill-pill--outline {
+            background: transparent; color: var(--ink);
+            border: 1px solid var(--rule);
         }
         /* Teaching CTA */
         .teaching-cta {
@@ -279,6 +273,7 @@
             .page { padding: 2rem 1.2rem 3rem; }
             .dual-row { grid-template-columns: 1fr; gap: 1.5rem; }
             .dual-divider { height: 1px; width: 100%; }
+            .skills-col-list { flex-direction: row; flex-wrap: wrap; }
             .awards-grid { grid-template-columns: 1fr; }
         }
         @keyframes fadeUp {
@@ -287,7 +282,6 @@
         }
         .hero { animation: fadeUp 0.6s ease both; }
         .dual-row { animation: fadeUp 0.6s ease 0.1s both; }
-        .skills-bar { animation: fadeUp 0.6s ease 0.15s both; }
         section:nth-of-type(1) { animation: fadeUp 0.6s ease 0.2s both; }
         section:nth-of-type(2) { animation: fadeUp 0.6s ease 0.25s both; }
         section:nth-of-type(3) { animation: fadeUp 0.6s ease 0.3s both; }
@@ -336,7 +330,7 @@
                 </div>
             </div>
             <div class="dual-divider"></div>
-            <div>
+            <div class="profiles-col">
                 <h2>Profiles</h2>
                 <div class="profiles-grid">
                     <a href="https://orcid.org/0000-0001-8276-9734" target="_blank" class="profile-link">
@@ -365,17 +359,17 @@
                     </a>
                 </div>
             </div>
-        </div>
-
-        <div class="skills-bar">
-            <h2>Technical Skills</h2>
-            <div class="skills-row">
-                <span class="skill-pill">Python</span>
-                <span class="skill-pill">R</span>
-                <span class="skill-pill">LaTeX</span>
-                <span class="skill-pill">Power BI</span>
-                <span class="skill-pill">SPSS</span>
-                <span class="skill-pill">Jamovi</span>
+            <div class="dual-divider"></div>
+            <div class="skills-col">
+                <h2>Skills</h2>
+                <div class="skills-col-list">
+                    <span class="skill-pill">Python</span>
+                    <span class="skill-pill">R</span>
+                    <span class="skill-pill">LaTeX</span>
+                    <span class="skill-pill skill-pill--outline">Machine Learning</span>
+                    <span class="skill-pill skill-pill--outline">Multivariate Statistics</span>
+                    <span class="skill-pill skill-pill--outline">Psychometrics</span>
+                </div>
             </div>
         </div>
 
