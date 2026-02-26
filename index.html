@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mateo Belalcázar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1a1a;
+            --paper: #faf9f6;
+            --muted: #6b6b6b;
+            --accent: #2c4a2e;
+            --rule: #d4d0c8;
+            --hover: #3d6b40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'EB Garamond', Georgia, serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 2.8rem;
+        }
+
+        h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        p {
+            font-size: 1.08rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Publications */
+        .pub {
+            margin-bottom: 1.6rem;
+        }
+
+        .pub-title {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .pub-title a {
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--rule);
+            transition: border-color 0.2s;
+        }
+
+        .pub-title a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .pub-meta {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+            line-height: 1.6;
+        }
+
+        .pub-type {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            background: rgba(44, 74, 46, 0.07);
+            padding: 0.15rem 0.45rem;
+            border-radius: 3px;
+            margin-left: 0.3rem;
+            vertical-align: middle;
+        }
+
+        /* Education */
+        .edu-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .edu-degree {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .edu-detail {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        /* Profiles */
+        .profiles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+        }
+
+        .profiles a {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .profiles a:hover {
+            color: var(--hover);
+        }
+
+        .profiles a::before {
+            content: '→ ';
+            font-size: 0.8rem;
+        }
+
+        /* Contact */
+        .contact-line {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+
+        .contact-line a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .contact-line a:hover {
+            color: var(--hover);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--rule);
+        }
+
+        footer p {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .page {
+                padding: 2.5rem 1.5rem 4rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .profiles {
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <h1>Mateo Belalcázar</h1>
+            <p class="subtitle">Doctoral Researcher · Psychology · Universidad del Valle</p>
+        </header>
+
+        <section>
+            <h2>About</h2>
+            <p>
+                I am a doctoral student in Psychology at Universidad del Valle (CIDEAS), Colombia, 
+                with a background in Statistics and Psychology. My work spans cognitive development, 
+                neuropsychology, educational psychology, and psychological measurement.
+            </p>
+            <p>
+                My doctoral research explores the representation of psychological constructs, 
+                integrating philosophy of science and computational methods. My technical 
+                contributions draw on programming in Python and R, multivariate statistics, 
+                and machine learning.
+            </p>
+            <p>
+                I am also a lecturer at Universidad del Valle and a research consultant at 
+                Pontificia Universidad Javeriana Cali, where I work on curriculum alignment 
+                and assessment design.
+            </p>
+        </section>
+
+        <section>
+            <h2>Research Interests</h2>
+            <p>
+                Cognitive development · Neuropsychology · Educational psychology · 
+                Psychological measurement · Embodied cognition
+            </p>
+        </section>
+
+        <section>
+            <h2>Publications</h2>
+
+            <div class="pub">
+                <div class="pub-title">
+                    <a href="https://doi.org/10.21615/cesp.7772">Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional</a>
+                    <span class="pub-type">Article</span>
+                </div>
+                <div class="pub-meta">
+                    González Cano, L.J., Uribe Guscas, I.J., <strong>Belalcázar Correa, M.</strong>, &amp; Valencia Serrano, M. (2026). <em>Revista CES Psicología.</em>
+                </div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-title">
+                    Caracterización de perfiles de desempleados en un instrumento para evaluar la atribución del desempleo, la salud física, la salud mental y el apoyo social
+                    <span class="pub-type">Book Chapter</span>
+                </div>
+                <div class="pub-meta">
+                    Pulido-Moreno, N., <strong>Belalcázar, M.</strong>, Blanch-Ribas, J.M., &amp; Díaz-Bambula, F. (2025). In <em>Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas.</em>
+                </div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-title">
+                    <a href="https://doi.org/10.1080/13854046.2024.2343159">Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment</a>
+                    <span class="pub-type">Article</span>
+                </div>
+                <div class="pub-meta">
+                    Martínez-Flórez, J.F., <strong>Belalcázar, M.</strong>, Alvarez, A., Erazo, O., Sevilla, S., &amp; Parra, M.A. (2024). <em>The Clinical Neuropsychologist.</em>
+                </div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-title">
+                    <a href="https://doi.org/10.18041/1794-7200/clj.2019.v16n1.5787">Una mirada psicosocial al discurso "Make America Great Again": Influencia y exclusión social en algunos discursos de campaña presidencial de EE.UU 2017-2021</a>
+                    <span class="pub-type">Article</span>
+                </div>
+                <div class="pub-meta">
+                    <strong>Belalcázar Correa, M.</strong> &amp; Becerra Aguilar, A. (2019). <em>Criterio Libre Jurídico.</em>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Selected Presentations</h2>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    Decisión de jubilación en un contexto Ibero-Latinoamericano. <em>5º Seminario Internacional de Desarrollo de Carrera y Orientación.</em> Braga, Portugal, 2024.
+                </div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    Evidencia de validez del Inventario de Decisión de Jubilación (IDA) en trabajadores colombianos mayores. <em>XI CBPOT Congreso Brasileño de Psicología Organizacional y del Trabajo.</em> Río de Janeiro, Brasil, 2024.
+                </div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    Comparación del rendimiento estadístico de escalas construidas para representar la expresión de variables latentes utilizando análisis multivariado. <em>Congreso Colombiano de Psicología.</em> Pereira, Colombia, 2023.
+                </div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    Rol de la experiencia corporal y háptica en la navegación por estimación y referencia en individuos con discapacidad visual. <em>Congreso Colombiano de Psicología.</em> Barranquilla, Colombia, 2019.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Awards</h2>
+
+            <div class="pub">
+                <div class="pub-meta">Teaching Excellence Award — Pontificia Universidad Javeriana, 2024</div>
+            </div>
+            <div class="pub">
+                <div class="pub-meta">Honors Thesis — Universidad del Valle, 2018</div>
+            </div>
+            <div class="pub">
+                <div class="pub-meta">Research Seedbed Grant (Master's Thesis) — Universidad del Valle, 2022</div>
+            </div>
+            <div class="pub">
+                <div class="pub-meta">Research Seedbed Grant (Undergraduate Thesis) — Universidad del Valle, 2018</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Research Groups</h2>
+
+            <div class="pub">
+                <div class="pub-meta">Grupo de Psicología Organizacional y del Trabajo — Universidad del Valle · Minciencias A1 · 2024–present</div>
+            </div>
+            <div class="pub">
+                <div class="pub-meta">Grupo de Cognición Científica y Matemática — Universidad del Valle · Minciencias A · 2018–present</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Technical Skills</h2>
+            <p>
+                Python · R · LaTeX · Power BI · SPSS · Jamovi
+            </p>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="edu-item">
+                <div class="edu-degree">PhD in Psychology <em>(in progress)</em></div>
+                <div class="edu-detail">Universidad del Valle — CIDEAS · 2021–present</div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-degree">M.Sc. in Statistics</div>
+                <div class="edu-detail">Universidad del Valle · 2020–2022</div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-degree">B.Sc. in Psychology</div>
+                <div class="edu-detail">Universidad del Valle · 2014–2019</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Profiles</h2>
+            <div class="profiles">
+                <a href="https://orcid.org/0000-0001-8276-9734" target="_blank">ORCID</a>
+                <a href="YOUR_GOOGLE_SCHOLAR_URL" target="_blank">Google Scholar</a>
+                <a href="YOUR_RESEARCHGATE_URL" target="_blank">ResearchGate</a>
+                <a href="YOUR_OSF_URL" target="_blank">OSF</a>
+                <a href="YOUR_SEMANTIC_SCHOLAR_URL" target="_blank">Semantic Scholar</a>
+                <a href="https://github.com/Mateob6" target="_blank">GitHub</a>
+            </div>
+        </section>
+
+        <section>
+            <h2>Contact</h2>
+            <p class="contact-line">
+                mateo.belalcazar@correounivalle.edu.co
+            </p>
+        </section>
+
+        <footer>
+            <p>Cali, Colombia · Updated February 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
