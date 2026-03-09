@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static multi-page academic profile website for Mateo Belalcazar (doctoral researcher in Psychology, Universidad del Valle). Deployed via GitHub Pages at **mateob6.github.io**. No build tools, minimal JavaScript (language toggle only), no external dependencies beyond Google Fonts.
+Static single-page academic profile website for Mateo Belalcazar (doctoral researcher in Psychology, Universidad del Valle). Deployed via GitHub Pages at **mateob6.github.io**. Minimalist design inspired by gautam-rao.com. No build tools, minimal JavaScript (language toggle only), no external dependencies (system fonts only).
 
 ## Development
 
@@ -26,50 +26,53 @@ Pushes to `main` branch on `https://github.com/Mateob6/Mateob6.github.io.git`. G
 
 ## File Structure
 
-- `index.html` — Main profile page (hero, about, skills, education, profiles, affiliation, research interests, publications highlights, and CTA links to subpages)
-- `teaching.html` — Teaching experience across 3 universities (PUJ, UV, USB)
-- `publications.html` — Full list of publications (articles & book chapters)
-- `presentations.html` — Selected conference presentations
-- `awards.html` — Awards & grants
-- `groups.html` — Research groups (Minciencias ranked)
+- `index.html` — Single-page profile with all content (about, interests, publications, presentations, teaching, awards, groups, education, skills)
 - `lang.js` — Shared language toggle script (EN/ES switcher with flag icons)
 - `google5845fe3ac49f41f4.html` — Google Search Console verification file
-- `photo.jpg` — Profile photo used in hero section
+- `photo.jpg` — Profile photo displayed in left column
+- `teaching.html`, `publications.html`, `presentations.html`, `awards.html`, `groups.html` — Legacy subpages (no longer linked from index)
 
 ## Architecture
 
-- All pages use inline `<style>` blocks (no external CSS files).
-- **Fonts**: Outfit (UI/sans-serif) and Source Serif 4 (body text in About section) loaded from Google Fonts.
-- **CSS custom properties** on `:root`: `--bg`, `--bg-card`, `--ink`, `--muted`, `--accent`, `--accent-light`, `--accent-glow`, `--warm`, `--warm-light`, `--rule`, `--shadow`, `--shadow-hover`.
-- **Layout**: `.page` container with `max-width: 820px`, responsive breakpoint at `700px`.
-- **Animations**: `fadeUp` keyframe applied with staggered delays on sections.
+- Single-page layout with inline `<style>` block (no external CSS files).
+- **Fonts**: System font stack (`-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif`). No Google Fonts.
+- **CSS custom properties** on `:root`: `--bg`, `--ink`, `--muted`, `--accent`, `--accent-hover`, `--link`, `--link-hover`, `--rule`, `--green`, `--section-bg`.
+- **Color palette**: Coffee-based — cream background (`#faf8f5`), dark coffee text (`#2c2218`), coffee accents (`#6b4c30`), blue links (`#2a6496`), green for Minciencias ranks (`#4a7c59`).
+- **Layout**: Centered two-column flex layout (`.layout`, `max-width: 1050px`). Left column (`.left`, 280px, sticky) + right column (`.right`, fluid). Responsive breakpoint at `780px` collapses to single column.
+- **No animations**: Clean, static minimalist design.
 - **SEO**: `index.html` includes meta description, author, keywords, and canonical URL (`https://mateob6.github.io`). Google Search Console verified via `google5845fe3ac49f41f4.html`.
 
-## Index Page Order
+## Page Layout
 
-Hero → About → Skills bar → Education | Profiles (dual-row) → Institutional Affiliation → Research Interests → Publications (1st & 3rd highlighted + CTA) → Presentations CTA → Teaching CTA → Awards CTA → Research Groups CTA → Footer.
+### Left column (sticky)
+Name → Subtitle → Navigation anchors → Photo → Email → Profile links (Scholar, ORCID, ResearchGate, GitHub, OSF, Semantic Scholar).
+
+### Right column (scrolls)
+About → Research Interests → Publications (Articles + Book Chapters) → Selected Presentations → Teaching (3 universities) → Awards & Grants → Research Groups → Education → Skills → Footer.
 
 ## Patterns
 
-- **Subpages** (teaching, publications, presentations, awards, groups) follow the same template: back link, page title, page subtitle, content cards, footer with back link.
-- **CTA cards** on index use `.teaching-cta` class to link to subpages (card with icon, title, subtitle, arrow).
-- **Horizontal bars** (`.skills-bar`, `.affiliation-bar`) are flex containers with label `<h2>` + inline items.
-- **Dual-row**: CSS grid `1fr 1px 1fr` with `.dual-divider` between columns; collapses to single column on mobile.
-- **Publication cards**: `.pub-card` / `.pub-card-header` / `.pub-title` / `.pub-type` / `.pub-meta`. Chapter variant uses `.pub-type--chapter`.
-- **Skill pills**: `.skill-pill` (dark bg) and `.skill-pill--outline` (border only) for broad competencies.
-- **Badges** in hero: `.badge--green` (accent) and `.badge--warm` (warm tone), both with hover states.
+- **Two-column layout**: `.layout` is a centered flex container. `.left` is sticky (`top: 2.5rem`), `.right` is fluid. On mobile, stacks vertically.
+- **Section headings** (`h2`): Bold text with `border-bottom: 2px solid var(--accent)` for visual contrast.
+- **Sub-headings** (`h3`): Coffee-colored (`var(--accent)`), used for Articles/Book Chapters within Publications.
+- **Navigation**: Anchor links in `.left nav`, styled in blue (`var(--link)`), one per line.
+- **Publication entries**: `.pub` with `.title` (linked in blue when DOI available) + `.meta` (muted authors/journal).
+- **Presentation entries**: `.pres` with title text + `.location` (muted venue/year).
+- **Teaching blocks**: `.uni` with `.uni-name`, `.uni-period`, `.level-label` (uppercase), `.course-list` (unstyled `<ul>`).
+- **Awards/Groups/Education**: Simple `.award`, `.group`, `.edu-item` blocks with title + detail pattern.
+- **Horizontal rules** (`<hr>`): Thin coffee-colored lines (`var(--rule)`) separating sections.
 - Content is bilingual (EN/ES); publication/presentation titles stay in their original language (Spanish).
 - Name is spelled **Belalcazar** (no tilde) across the site.
 
 ## Bilingual Support (EN/ES)
 
-- Toggle button (fixed top-right, pill-shaped with flag emoji 🇬🇧/🇪🇸) switches between English and Spanish.
+- Toggle button (fixed top-right, small rectangle) switches between English and Spanish.
 - Translatable text uses dual `<span class="en">` / `<span class="es">` inline elements. Block content uses `<p class="en">` / `<p class="es">`.
-- CSS rules `html[lang="es"] .en { display: none }` / `html[lang="en"] .es { display: none }` control visibility (in each page's inline `<style>`).
+- CSS rules `html[lang="es"] .en { display: none }` / `html[lang="en"] .es { display: none }` control visibility.
 - Language preference saved in `localStorage` under key `lang` (default: `es`).
-- Inline `<script>` in each page's `<head>` sets `html[lang]` before first paint (no flash of wrong language).
+- Inline `<script>` in `<head>` sets `html[lang]` before first paint (no flash of wrong language).
 - `lang.js` (loaded with `defer`) injects the toggle button and handles title switching via `data-title-en` / `data-title-es` attributes on `<html>`.
-- **Not translated** (stays in original language): publication titles, presentation titles, course names, research group names, university names, professional titles ("Profesor hora cátedra"), technical skills (Python, R), profile names (ORCID, GitHub), badges (CIDEAS, AI, A1, A), author names, journal names.
+- **Not translated** (stays in original language): publication titles, presentation titles, course names, research group names, university names, technical skills (Python, R), profile names (ORCID, GitHub), author names, journal names.
 
 ## Planned: Course Materials Page (`cursos.html`)
 
@@ -78,12 +81,12 @@ Hero → About → Skills bar → Education | Profiles (dual-row) → Institutio
 **Goal**: Let students access course presentations directly from the personal site.
 
 **Design decisions**:
-- Single dedicated page `cursos.html` (Option A — all courses in one page, organized by sections).
-- Follows the standard subpage template: back link, page title, subtitle, content cards, footer.
+- Single dedicated page `cursos.html` (all courses in one page, organized by sections).
+- Should follow the minimalist two-column style of the current index.
 - Presentations hosted externally (Gamma links for online viewing, Google Drive/OneDrive links for PPTX download). No large files in the repo.
-- Each presentation rendered as a card with: topic name + "Ver en Gamma" button + "Descargar PPTX" button.
+- Each presentation rendered with: topic name + "Ver en Gamma" link + "Descargar PPTX" link.
 - Public access, no restrictions.
-- Add a CTA card in `index.html` linking to `cursos.html` (same `.teaching-cta` pattern).
+- Add a nav link in the left column of `index.html` pointing to `cursos.html`.
 
 **Pending info before implementation**:
 1. Number of courses and their names.
