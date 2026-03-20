@@ -5,188 +5,274 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publications — Mateo Belalcazar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "soft-blue": "#f0f7ff",
+              "deep-blue": "#004c7c",
+              "surface-container-low": "#fff1e7",
+              "secondary-container": "#fed2ad",
+              "on-surface": "#231a10",
+              "on-surface-variant": "#41474f",
+              "on-secondary-container": "#79583b",
+              "surface-variant": "#f2dfcf",
+              "background": "#fff8f4",
+              "surface-container": "#feebda",
+              "tertiary": "#534738",
+              "primary": "#004c7c",
+              "secondary": "#78583b",
+              "surface-container-high": "#f8e5d5",
+              "outline-variant": "#c1c7d0",
+              "surface": "#fff8f4",
+              "outline": "#727780",
+            },
+            fontFamily: {
+              "headline": ["Noto Serif", "Georgia", "serif"],
+              "body": ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+              "label": ["Inter", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
     <style>
-        :root {
-            --bg: #f8f6f1;
-            --bg-card: #ffffff;
-            --ink: #1c1c1c;
-            --muted: #7a7a7a;
-            --accent: #2d5a3d;
-            --accent-light: #e8f0eb;
-            --accent-glow: #3a7a50;
-            --warm: #c4956a;
-            --warm-light: #f5ece3;
-            --rule: #e5e0d8;
-            --shadow: rgba(28, 28, 28, 0.06);
-            --shadow-hover: rgba(28, 28, 28, 0.12);
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block; line-height: 1; text-transform: none;
+            letter-spacing: normal; word-wrap: normal; white-space: nowrap; direction: ltr;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg);
-            color: var(--ink);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: -120px; right: -120px;
-            width: 400px; height: 400px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(45, 90, 61, 0.06) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .page {
-            max-width: 820px;
-            margin: 0 auto;
-            padding: 3rem 2rem 4rem;
-            position: relative;
-            z-index: 1;
-        }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--accent);
-            text-decoration: none;
-            margin-bottom: 2rem;
-            transition: all 0.2s;
-        }
-        .back-link:hover { color: var(--accent-glow); }
-        .back-link svg { width: 16px; height: 16px; }
-        .page-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            margin-bottom: 0.3rem;
-        }
-        .page-subtitle {
-            font-size: 0.95rem;
-            color: var(--muted);
-            margin-bottom: 2.5rem;
-        }
-        .pub-card {
-            padding: 1.3rem 1.5rem;
-            background: var(--bg-card);
-            border-radius: 14px;
-            margin-bottom: 0.8rem;
-            box-shadow: 0 1px 6px var(--shadow);
-            transition: all 0.25s ease;
-            border-left: 3px solid transparent;
-        }
-        .pub-card:hover { box-shadow: 0 3px 15px var(--shadow-hover); border-left-color: var(--accent); }
-        .pub-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-        .pub-title { font-size: 0.98rem; font-weight: 500; line-height: 1.5; }
-        .pub-title a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
-        .pub-title a:hover { color: var(--accent); }
-        .pub-type {
-            flex-shrink: 0; font-size: 0.65rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.06em;
-            padding: 0.2rem 0.55rem; border-radius: 6px;
-            background: var(--accent-light); color: var(--accent); margin-top: 0.15rem;
-        }
-        .pub-type--chapter { background: var(--warm-light); color: #8a6340; }
-        .pub-meta { font-size: 0.82rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.5; }
-        footer {
-            text-align: center; margin-top: 3rem; padding-top: 1.5rem;
-            border-top: 1px solid var(--rule); font-size: 0.78rem; color: var(--muted);
-        }
-        @media (max-width: 700px) {
-            .page { padding: 2rem 1.2rem 3rem; }
-            .page-title { font-size: 1.5rem; }
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .back-link { animation: fadeUp 0.5s ease both; }
-        .page-title { animation: fadeUp 0.5s ease 0.05s both; }
-        .page-subtitle { animation: fadeUp 0.5s ease 0.1s both; }
-        .pub-card:nth-of-type(1) { animation: fadeUp 0.5s ease 0.15s both; }
-        .pub-card:nth-of-type(2) { animation: fadeUp 0.5s ease 0.2s both; }
-        .pub-card:nth-of-type(3) { animation: fadeUp 0.5s ease 0.25s both; }
-        .pub-card:nth-of-type(4) { animation: fadeUp 0.5s ease 0.3s both; }
-        .pub-card:nth-of-type(5) { animation: fadeUp 0.5s ease 0.35s both; }
-        html[lang="es"] .en { display: none; }
-        html[lang="en"] .es { display: none; }
-        #lang-toggle {
-            position: fixed; top: 1.2rem; right: 1.2rem; z-index: 1000;
-            height: 42px; padding: 0 0.9rem; border-radius: 50px;
-            border: 1.5px solid var(--rule);
-            background: var(--bg-card); color: var(--accent);
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.85rem; font-weight: 600;
-            letter-spacing: 0.04em; cursor: pointer;
-            box-shadow: 0 2px 10px rgba(28,28,28,0.08);
-            transition: all 0.2s;
-            display: flex; align-items: center; gap: 0.3rem;
-        }
-        #lang-toggle:hover { background: var(--accent); color: white; border-color: var(--accent); }
+        html[lang="es"] .en { display: none !important; }
+        html[lang="en"] .es { display: none !important; }
+        html { scroll-behavior: smooth; }
+        body { min-height: 100dvh; }
+        .silk-texture { background: linear-gradient(135deg, #004c7c 0%, #2a6496 100%); }
+        @media (min-width: 769px) { .bottom-nav { display: none; } }
+        @media (max-width: 768px) { main { padding-bottom: 6rem !important; } }
     </style>
     <script>document.documentElement.lang=localStorage.getItem('lang')||'es'</script>
 </head>
-<body>
-    <div class="page">
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
 
-        <a href="index.html" class="back-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-            <span class="en">Back to profile</span><span class="es">Volver al perfil</span>
+    <!-- TopAppBar -->
+    <header class="fixed top-0 w-full z-50 bg-[#fff8f4]/80 backdrop-blur-md border-b border-outline-variant/15 shadow-sm">
+        <div class="flex items-center justify-between px-6 py-3 max-w-5xl mx-auto">
+            <h1 class="font-headline text-xl italic text-deep-blue leading-none">
+                <a href="index.html" class="no-underline text-deep-blue">Mateo Belalcazar</a>
+            </h1>
+            <div class="flex items-center gap-4">
+                <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-tertiary">
+                    <a href="index.html" class="hover:text-deep-blue transition-colors no-underline">
+                        <span class="en">Home</span><span class="es">Inicio</span>
+                    </a>
+                    <a href="publications.html" class="text-deep-blue font-semibold border-b-2 border-deep-blue pb-0.5 no-underline">
+                        <span class="en">Publications</span><span class="es">Publicaciones</span>
+                    </a>
+                    <a href="presentations.html" class="hover:text-deep-blue transition-colors no-underline">
+                        <span class="en">Presentations</span><span class="es">Presentaciones</span>
+                    </a>
+                    <a href="teaching.html" class="hover:text-deep-blue transition-colors no-underline">
+                        <span class="en">Teaching</span><span class="es">Docencia</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-16 px-4 md:px-8 max-w-4xl mx-auto">
+
+        <!-- Hero Header -->
+        <div class="border-l-4 border-primary pl-8 py-4 mb-16">
+            <p class="uppercase tracking-[0.2em] text-xs text-deep-blue font-bold mb-2">
+                <span class="en">Scholarly Archives</span><span class="es">Archivos Acad&eacute;micos</span>
+            </p>
+            <h2 class="font-headline text-5xl md:text-7xl text-primary font-bold tracking-tight leading-[1.1]">
+                <span class="en">Selected<br>Publications</span><span class="es">Publicaciones<br>Seleccionadas</span>
+            </h2>
+        </div>
+
+        <!-- Publication 1 — Highlighted -->
+        <article class="bg-soft-blue rounded-2xl p-6 md:p-8 border-l-4 border-deep-blue shadow-sm mb-6">
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                <div class="md:w-16 flex-shrink-0">
+                    <span class="font-headline font-bold text-4xl text-deep-blue/30">2026</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="mb-3">
+                        <span class="inline-block bg-deep-blue text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                            <span class="en">Article</span><span class="es">Art&iacute;culo</span>
+                        </span>
+                    </div>
+                    <h3 class="font-headline font-bold text-lg md:text-xl text-deep-blue leading-snug mb-3">
+                        Perfiles de motivaci&oacute;n y compromiso en matem&aacute;tica, desempe&ntilde;o acad&eacute;mico y perfiles de apoyo a la autonom&iacute;a e instruccional
+                    </h3>
+                    <p class="text-sm text-tertiary leading-relaxed mb-4">
+                        Gonz&aacute;lez Cano, L.J., Uribe Guscas, I.J., <strong class="text-on-surface">Belalcazar Correa, M.</strong>, &amp; Valencia Serrano, M.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-outline">
+                        <span class="italic">Revista CES Psicolog&iacute;a</span>
+                        <span class="text-outline-variant">&middot;</span>
+                        <a href="https://doi.org/10.21615/cesp.7772" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-deep-blue hover:underline font-medium">
+                            DOI <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Publication 2 — Plain -->
+        <article class="rounded-2xl p-6 md:p-8 mb-6">
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                <div class="md:w-16 flex-shrink-0">
+                    <span class="font-headline font-bold text-4xl text-deep-blue/30">—</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="mb-3">
+                        <span class="inline-block bg-soft-blue text-deep-blue text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                            <span class="en">Article</span><span class="es">Art&iacute;culo</span>
+                        </span>
+                        <span class="inline-block bg-secondary-container text-on-secondary-container text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ml-2">
+                            <span class="en">In Press</span><span class="es">En Prensa</span>
+                        </span>
+                    </div>
+                    <h3 class="font-headline font-bold text-lg md:text-xl text-deep-blue leading-snug mb-3">
+                        Rewriting the crime divide: How executive functions and social cognition processes challenge violence classifications in the Colombian prison population
+                    </h3>
+                    <p class="text-sm text-tertiary leading-relaxed mb-4">
+                        Cuervo, M.T., Chaguendo, M.A., Cadavid, N., Dorado, C.A., Herrera, E., <strong class="text-on-surface">Belalcazar, M.</strong>, &amp; Jodar, M.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-outline">
+                        <span class="italic">Frontiers in Psychology</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Publication 3 — Highlighted -->
+        <article class="bg-soft-blue rounded-2xl p-6 md:p-8 border-l-4 border-deep-blue shadow-sm mb-6">
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                <div class="md:w-16 flex-shrink-0">
+                    <span class="font-headline font-bold text-4xl text-deep-blue/30">2025</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="mb-3">
+                        <span class="inline-block bg-deep-blue text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                            <span class="en">Chapter</span><span class="es">Cap&iacute;tulo</span>
+                        </span>
+                    </div>
+                    <h3 class="font-headline font-bold text-lg md:text-xl text-deep-blue leading-snug mb-3">
+                        Caracterizaci&oacute;n de perfiles de desempleados en un instrumento para evaluar la atribuci&oacute;n del desempleo, la salud f&iacute;sica, la salud mental y el apoyo social
+                    </h3>
+                    <p class="text-sm text-tertiary leading-relaxed mb-4">
+                        Pulido-Moreno, N., <strong class="text-on-surface">Belalcazar, M.</strong>, Blanch-Ribas, J.M., &amp; D&iacute;az-Bambula, F.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-outline">
+                        <span class="italic">Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Publication 4 — Plain -->
+        <article class="rounded-2xl p-6 md:p-8 mb-6">
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                <div class="md:w-16 flex-shrink-0">
+                    <span class="font-headline font-bold text-4xl text-deep-blue/30">2024</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="mb-3">
+                        <span class="inline-block bg-soft-blue text-deep-blue text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                            <span class="en">Article</span><span class="es">Art&iacute;culo</span>
+                        </span>
+                    </div>
+                    <h3 class="font-headline font-bold text-lg md:text-xl text-deep-blue leading-snug mb-3">
+                        Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment
+                    </h3>
+                    <p class="text-sm text-tertiary leading-relaxed mb-4">
+                        Mart&iacute;nez-Fl&oacute;rez, J.F., <strong class="text-on-surface">Belalcazar, M.</strong>, Alvarez, A., Erazo, O., Sevilla, S., &amp; Parra, M.A.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-outline">
+                        <span class="italic">The Clinical Neuropsychologist</span>
+                        <span class="text-outline-variant">&middot;</span>
+                        <a href="https://doi.org/10.1080/13854046.2024.2343159" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-deep-blue hover:underline font-medium">
+                            DOI <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Publication 5 — Highlighted -->
+        <article class="bg-soft-blue rounded-2xl p-6 md:p-8 border-l-4 border-deep-blue shadow-sm mb-6">
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                <div class="md:w-16 flex-shrink-0">
+                    <span class="font-headline font-bold text-4xl text-deep-blue/30">2019</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="mb-3">
+                        <span class="inline-block bg-deep-blue text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                            <span class="en">Article</span><span class="es">Art&iacute;culo</span>
+                        </span>
+                    </div>
+                    <h3 class="font-headline font-bold text-lg md:text-xl text-deep-blue leading-snug mb-3">
+                        Una mirada psicosocial al discurso &ldquo;Make America Great Again&rdquo;: Influencia y exclusi&oacute;n social en algunos discursos de campa&ntilde;a presidencial de EE.UU 2017-2021
+                    </h3>
+                    <p class="text-sm text-tertiary leading-relaxed mb-4">
+                        <strong class="text-on-surface">Belalcazar Correa, M.</strong> &amp; Becerra Aguilar, A.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-outline">
+                        <span class="italic">Criterio Libre Jur&iacute;dico</span>
+                        <span class="text-outline-variant">&middot;</span>
+                        <a href="https://doi.org/10.18041/1794-7200/clj.2019.v16n1.5787" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-deep-blue hover:underline font-medium">
+                            DOI <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-outline-variant/20 py-8 text-center">
+        <a href="index.html" class="text-sm text-deep-blue hover:underline font-medium inline-flex items-center gap-1">
+            <span class="material-symbols-outlined text-base">arrow_back</span>
+            <span class="en">Back to home</span><span class="es">Volver al inicio</span>
         </a>
+    </footer>
 
-        <h1 class="page-title"><span class="en">Publications</span><span class="es">Publicaciones</span></h1>
-        <p class="page-subtitle"><span class="en">Peer-reviewed articles and book chapters in psychology, neuropsychology, and measurement.</span><span class="es">Artículos revisados por pares y capítulos de libro en psicología, neuropsicología y medición.</span></p>
-
-        <div class="pub-card">
-            <div class="pub-card-header">
-                <div class="pub-title"><a href="https://doi.org/10.21615/cesp.7772">Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional</a></div>
-                <span class="pub-type"><span class="en">Article</span><span class="es">Artículo</span></span>
-            </div>
-            <div class="pub-meta">González Cano, L.J., Uribe Guscas, I.J., <strong>Belalcazar Correa, M.</strong>, &amp; Valencia Serrano, M. (2026). <em>Revista CES Psicología.</em></div>
-        </div>
-
-        <div class="pub-card">
-            <div class="pub-card-header">
-                <div class="pub-title">Rewriting the crime divide: How executive functions and social cognition processes challenge violence classifications in the Colombian prison population</div>
-                <span class="pub-type"><span class="en">Article</span><span class="es">Artículo</span></span>
-            </div>
-            <div class="pub-meta">Cuervo, M.T., Chaguendo, M.A., Cadavid, N., Dorado, C.A., Herrera, E., <strong>Belalcazar, M.</strong>, &amp; Jodar, M. (in press). <em>Frontiers in Psychology.</em></div>
-        </div>
-
-        <div class="pub-card">
-            <div class="pub-card-header">
-                <div class="pub-title">Caracterización de perfiles de desempleados en un instrumento para evaluar la atribución del desempleo, la salud física, la salud mental y el apoyo social</div>
-                <span class="pub-type pub-type--chapter"><span class="en">Chapter</span><span class="es">Capítulo</span></span>
-            </div>
-            <div class="pub-meta">Pulido-Moreno, N., <strong>Belalcazar, M.</strong>, Blanch-Ribas, J.M., &amp; Díaz-Bambula, F. (2025). In <em>Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas.</em></div>
-        </div>
-
-        <div class="pub-card">
-            <div class="pub-card-header">
-                <div class="pub-title"><a href="https://doi.org/10.1080/13854046.2024.2343159">Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment</a></div>
-                <span class="pub-type"><span class="en">Article</span><span class="es">Artículo</span></span>
-            </div>
-            <div class="pub-meta">Martínez-Flórez, J.F., <strong>Belalcazar, M.</strong>, Alvarez, A., Erazo, O., Sevilla, S., &amp; Parra, M.A. (2024). <em>The Clinical Neuropsychologist.</em></div>
-        </div>
-
-        <div class="pub-card">
-            <div class="pub-card-header">
-                <div class="pub-title"><a href="https://doi.org/10.18041/1794-7200/clj.2019.v16n1.5787">Una mirada psicosocial al discurso "Make America Great Again": Influencia y exclusión social en algunos discursos de campaña presidencial de EE.UU 2017-2021</a></div>
-                <span class="pub-type"><span class="en">Article</span><span class="es">Artículo</span></span>
-            </div>
-            <div class="pub-meta"><strong>Belalcazar Correa, M.</strong> &amp; Becerra Aguilar, A. (2019). <em>Criterio Libre Jurídico.</em></div>
-        </div>
-
-        <footer>
-            <a href="index.html" class="back-link" style="margin-bottom:0;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-                <span class="en">Back to profile</span><span class="es">Volver al perfil</span>
+    <!-- BottomNavBar (mobile only) -->
+    <nav class="bottom-nav fixed bottom-0 inset-x-0 z-50 bg-surface border-t border-outline-variant/20 md:hidden">
+        <div class="flex items-center justify-around py-2">
+            <a href="index.html" class="flex flex-col items-center gap-0.5 text-tertiary no-underline px-3 py-1">
+                <span class="material-symbols-outlined text-[22px]">home</span>
+                <span class="text-[10px] font-medium"><span class="en">Home</span><span class="es">Inicio</span></span>
             </a>
-        </footer>
-    </div>
+            <a href="publications.html" class="flex flex-col items-center gap-0.5 text-deep-blue no-underline px-3 py-1 relative">
+                <span class="absolute -top-1 left-1/2 -translate-x-1/2 w-12 h-[3px] bg-deep-blue rounded-full"></span>
+                <span class="material-symbols-outlined text-[22px]">menu_book</span>
+                <span class="text-[10px] font-semibold"><span class="en">Pubs</span><span class="es">Pubs</span></span>
+            </a>
+            <a href="presentations.html" class="flex flex-col items-center gap-0.5 text-tertiary no-underline px-3 py-1">
+                <span class="material-symbols-outlined text-[22px]">podcasts</span>
+                <span class="text-[10px] font-medium"><span class="en">Talks</span><span class="es">Charlas</span></span>
+            </a>
+            <a href="teaching.html" class="flex flex-col items-center gap-0.5 text-tertiary no-underline px-3 py-1">
+                <span class="material-symbols-outlined text-[22px]">school</span>
+                <span class="text-[10px] font-medium"><span class="en">Teach</span><span class="es">Docencia</span></span>
+            </a>
+            <a href="index.html#awards" class="flex flex-col items-center gap-0.5 text-tertiary no-underline px-3 py-1">
+                <span class="material-symbols-outlined text-[22px]">military_tech</span>
+                <span class="text-[10px] font-medium"><span class="en">Awards</span><span class="es">Premios</span></span>
+            </a>
+        </div>
+    </nav>
+
     <script src="lang.js" defer></script>
 </body>
 </html>
