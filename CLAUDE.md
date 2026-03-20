@@ -57,7 +57,7 @@ Pushes to `main` branch on `https://github.com/Mateob6/Mateob6.github.io.git`. G
 Name (italic, primary blue) → Desktop nav links → Language toggle (injected by lang.js) → Profile photo thumbnail.
 
 ### Content (scrolls)
-Hero (centered photo, name, "Curation & Computation" tagline, profile links) → 01 About → 02 Research Interests → 03 Publications (Articles + Book Chapters) → 04 Selected Presentations → 05 Teaching (3 universities) → 06 Awards & Grants → 07 Research Groups → 08 Education → 09 Skills → Footer.
+Hero (centered photo, name, decorative blue line, profile links) → 01 About → 02 Research Interests → 03 Publications (Articles + Book Chapters) → 04 Selected Presentations → 05 Teaching (3 universities) → 06 Awards & Grants → 07 Research Groups → 08 Education → 09 Skills → Footer.
 
 ### BottomNavBar (mobile only)
 5 anchor links: About, Pubs, Teach (highlighted with `bg-secondary-container/30`), Awards, Edu.
