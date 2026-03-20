@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static single-page academic profile website for Mateo Belalcazar (doctoral researcher in Psychology, Universidad del Valle). Deployed via GitHub Pages at **mateob6.github.io**. Minimalist design inspired by gautam-rao.com. No build tools, minimal JavaScript (language toggle only), no external dependencies (system fonts only).
+Static single-page academic profile website for Mateo Belalcazar (doctoral researcher in Psychology, Universidad del Valle). Deployed via GitHub Pages at **mateob6.github.io**. Design concept: **"The Digital Curator"** — refined editorial aesthetic combining scholarly depth with modern digital sensibility. Uses Tailwind CSS (CDN), Google Fonts, and Material Symbols.
 
 ## Development
 
@@ -14,7 +14,7 @@ Open `index.html` directly in a browser or use any local server:
 python3 -m http.server 8000
 ```
 
-No build step, no package manager, no tests.
+No build step, no package manager, no tests. Tailwind CSS loads via CDN (`cdn.tailwindcss.com`).
 
 ## Deployment
 
@@ -27,48 +27,73 @@ Pushes to `main` branch on `https://github.com/Mateob6/Mateob6.github.io.git`. G
 ## File Structure
 
 - `index.html` — Single-page profile with all content (about, interests, publications, presentations, teaching, awards, groups, education, skills)
-- `lang.js` — Shared language toggle script (EN/ES switcher with flag icons)
+- `lang.js` — Language toggle script (EN/ES switcher with flag icons), injected into the TopAppBar header
 - `google5845fe3ac49f41f4.html` — Google Search Console verification file
-- `photo.jpg` — Profile photo displayed in left column
+- `photo.jpg` — Profile photo (displayed in hero section and TopAppBar)
 - `teaching.html`, `publications.html`, `presentations.html`, `awards.html`, `groups.html` — Legacy subpages (no longer linked from index)
 
 ## Architecture
 
-- Single-page layout with inline `<style>` block (no external CSS files).
-- **Fonts**: System font stack (`-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif`). No Google Fonts.
-- **CSS custom properties** on `:root`: `--bg`, `--ink`, `--muted`, `--accent`, `--accent-hover`, `--link`, `--link-hover`, `--rule`, `--green`, `--section-bg`.
-- **Color palette**: Coffee-based — cream background (`#faf8f5`), dark coffee text (`#2c2218`), coffee accents (`#6b4c30`), blue links (`#2a6496`), green for Minciencias ranks (`#4a7c59`).
-- **Layout**: Centered two-column flex layout (`.layout`, `max-width: 1050px`). Left column (`.left`, 280px, sticky) + right column (`.right`, fluid). Responsive breakpoint at `780px` collapses to single column.
-- **No animations**: Clean, static minimalist design.
-- **SEO**: `index.html` includes meta description, author, keywords, and canonical URL (`https://mateob6.github.io`). Google Search Console verified via `google5845fe3ac49f41f4.html`.
+- Single-page layout styled with **Tailwind CSS** via CDN play script. Custom colors defined in `tailwind.config`.
+- **Fonts**: Google Fonts — `Noto Serif` (headings, serif), `Inter` (body/labels, sans-serif). Loaded via `<link>`.
+- **Icons**: Material Symbols Outlined (weight 300) via Google Fonts CDN.
+- **Color palette** (Tailwind custom colors):
+  - `soft-blue` (#f0f7ff) — highlight background for alternating cards
+  - `deep-blue` / `primary` (#004c7c) — headings, accents, border-left markers
+  - `background` / `surface` (#fff8f4) — warm page surface
+  - `on-surface` (#231a10) — primary text
+  - `tertiary` (#534738) — secondary text, nav links
+  - `outline` (#727780) — muted metadata
+  - `green-rank` (#4a7c59) — Minciencias group rankings
+- **Layout**: Single centered column (`max-w-3xl`, ~48rem). TopAppBar (fixed, glass blur). BottomNavBar (mobile only, hidden on `min-width: 769px`).
+- **SEO**: meta description, author, keywords, canonical URL (`https://mateob6.github.io`). Google Search Console verified.
+
+## Visual Contrast System
+
+The site uses an **alternating card highlight** pattern for visual separation — NOT horizontal rules or section background bands.
+
+### How it works:
+- **Highlighted items**: `bg-soft-blue p-6 border-l-4 border-deep-blue shadow-sm` — the blue field wraps the element, creating territory.
+- **Plain items**: padding only, no background — sit directly on the warm surface (#fff8f4).
+- Items alternate between highlighted and plain within each section, creating rhythm.
+- In highlighted cards: titles use `text-deep-blue`. In plain cards: titles use `text-on-surface`.
+- Tags/badges: `bg-soft-blue text-deep-blue border border-deep-blue/10`.
+
+### Design principles:
+- **"Paper-on-Paper"**: Avoid harsh shadows. Use tonal shifts (warm surface vs soft-blue field) to create depth.
+- Blue does not divide — it **envelopes** certain elements as a territorial marker.
+- No `<hr>` elements. No explicit border lines between sections. Contrast comes from presence/absence of the blue field.
+- Section numbers (`01`–`09`) in `text-deep-blue/25` provide subtle structural anchoring.
 
 ## Page Layout
 
-### Left column (sticky)
-Name → Subtitle → Navigation anchors → Photo → Email → Profile links (Scholar, ORCID, ResearchGate, GitHub, OSF, Semantic Scholar).
+### TopAppBar (fixed)
+Name (italic, deep-blue) → Desktop nav links → Language toggle (injected by lang.js) → Profile photo thumbnail.
 
-### Right column (scrolls)
-About → Research Interests → Publications (Articles + Book Chapters) → Selected Presentations → Teaching (3 universities) → Awards & Grants → Research Groups → Education → Skills → Footer.
+### Content (scrolls)
+Hero (centered photo, name, tagline, profile links) → 01 About → 02 Research Interests → 03 Publications (Articles + Book Chapters) → 04 Selected Presentations → 05 Teaching (3 universities) → 06 Awards & Grants → 07 Research Groups → 08 Education → 09 Skills → Footer.
+
+### BottomNavBar (mobile only)
+5 anchor links: About, Pubs, Teach (highlighted), Awards, Edu.
 
 ## Patterns
 
-- **Two-column layout**: `.layout` is a centered flex container. `.left` is sticky (`top: 2.5rem`), `.right` is fluid. On mobile, stacks vertically.
-- **Section headings** (`h2`): Bold text with `border-bottom: 2px solid var(--accent)` for visual contrast.
-- **Sub-headings** (`h3`): Coffee-colored (`var(--accent)`), used for Articles/Book Chapters within Publications.
-- **Navigation**: Anchor links in `.left nav`, styled in blue (`var(--link)`), one per line.
-- **Publication entries**: `.pub` with `.title` (linked in blue when DOI available) + `.meta` (muted authors/journal).
-- **Presentation entries**: `.pres` with title text + `.location` (muted venue/year).
-- **Teaching blocks**: `.uni` with `.uni-name`, `.uni-period`, `.level-label` (uppercase), `.course-list` (unstyled `<ul>`).
-- **Awards/Groups/Education**: Simple `.award`, `.group`, `.edu-item` blocks with title + detail pattern.
-- **Horizontal rules** (`<hr>`): Thin coffee-colored lines (`var(--rule)`) separating sections.
+- **Section headings**: `font-headline text-2xl md:text-3xl font-bold` with a numbered prefix (`01`–`09`) in faded deep-blue.
+- **Publication entries**: Alternating highlighted/plain cards. Highlighted cards include type badge (Article/Chapter), title, authors, journal, and DOI link with arrow icon. Plain cards use `bg-soft-blue` badge inline.
+- **Presentation entries**: Alternating highlighted/plain. Title + venue/year metadata.
+- **Teaching blocks**: Alternating highlighted/plain per university. University name as `font-headline font-bold`, with Pregrado/Posgrado sublabels in uppercase tracking.
+- **Awards**: Alternating highlighted/plain with Material Symbol icons.
+- **Groups**: Highlighted/plain with Minciencias rank badges (`bg-green-rank/10 text-green-rank`).
+- **Education**: Alternating highlighted/plain with degree + institution.
+- **Skills**: Tags in `bg-soft-blue text-deep-blue` with subtle borders.
 - Content is bilingual (EN/ES); publication/presentation titles stay in their original language (Spanish).
 - Name is spelled **Belalcazar** (no tilde) across the site.
 
 ## Bilingual Support (EN/ES)
 
-- Toggle button (fixed top-right, small rectangle) switches between English and Spanish.
+- Toggle button injected by `lang.js` into the TopAppBar header (before the nav links).
 - Translatable text uses dual `<span class="en">` / `<span class="es">` inline elements. Block content uses `<p class="en">` / `<p class="es">`.
-- CSS rules `html[lang="es"] .en { display: none }` / `html[lang="en"] .es { display: none }` control visibility.
+- CSS rules `html[lang="es"] .en { display: none !important }` / `html[lang="en"] .es { display: none !important }` control visibility.
 - Language preference saved in `localStorage` under key `lang` (default: `es`).
 - Inline `<script>` in `<head>` sets `html[lang]` before first paint (no flash of wrong language).
 - `lang.js` (loaded with `defer`) injects the toggle button and handles title switching via `data-title-en` / `data-title-es` attributes on `<html>`.
@@ -82,11 +107,11 @@ About → Research Interests → Publications (Articles + Book Chapters) → Sel
 
 **Design decisions**:
 - Single dedicated page `cursos.html` (all courses in one page, organized by sections).
-- Should follow the minimalist two-column style of the current index.
+- Should follow "The Digital Curator" design system with the same alternating card highlight pattern.
 - Presentations hosted externally (Gamma links for online viewing, Google Drive/OneDrive links for PPTX download). No large files in the repo.
 - Each presentation rendered with: topic name + "Ver en Gamma" link + "Descargar PPTX" link.
 - Public access, no restrictions.
-- Add a nav link in the left column of `index.html` pointing to `cursos.html`.
+- Add a nav link in the TopAppBar and BottomNavBar pointing to `cursos.html`.
 
 **Pending info before implementation**:
 1. Number of courses and their names.
