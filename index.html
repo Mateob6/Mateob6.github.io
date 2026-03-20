@@ -8,576 +8,560 @@
     <meta name="author" content="Mateo Belalcázar">
     <meta name="keywords" content="Mateo Belalcázar, psychology, statistics, Universidad del Valle, CIDEAS, cognitive development, neuropsychology, psychological measurement">
     <link rel="canonical" href="https://mateob6.github.io">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#fff1e7",
+              "on-primary-container": "#c4dfff",
+              "secondary-container": "#fed2ad",
+              "on-surface": "#231a10",
+              "on-surface-variant": "#41474f",
+              "on-secondary-container": "#79583b",
+              "surface-variant": "#f2dfcf",
+              "background": "#fff8f4",
+              "tertiary-container": "#6b5f4e",
+              "surface-container": "#feebda",
+              "tertiary": "#534738",
+              "primary": "#004c7c",
+              "surface-container-highest": "#f2dfcf",
+              "secondary": "#78583b",
+              "surface-container-high": "#f8e5d5",
+              "outline-variant": "#c1c7d0",
+              "surface": "#fff8f4",
+              "outline": "#727780",
+              "inverse-surface": "#392e24",
+              "inverse-on-surface": "#ffeee0",
+              "green-rank": "#4a7c59",
+            },
+            fontFamily: {
+              "headline": ["Noto Serif", "Georgia", "serif"],
+              "body": ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
     <style>
-        :root {
-            --bg: #faf8f5;
-            --ink: #2c2218;
-            --muted: #8b7d6b;
-            --accent: #6b4c30;
-            --accent-hover: #4a3420;
-            --link: #2a6496;
-            --link-hover: #1a4a6e;
-            --rule: #d4c9b8;
-            --green: #4a7c59;
-            --section-bg: #f0ebe4;
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--ink);
-            line-height: 1.7;
-            font-size: 15px;
-            -webkit-font-smoothing: antialiased;
-        }
-        a { color: var(--link); }
-        a:hover { color: var(--link-hover); }
-
-        /* Centered two-column layout */
-        .layout {
-            max-width: 1050px;
-            margin: 0 auto;
-            display: flex;
-            gap: 4rem;
-            padding: 3.5rem 2.5rem 4rem;
-            align-items: flex-start;
-        }
-
-        /* Left column */
-        .left {
-            width: 280px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 2.5rem;
-        }
-        .left h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.4rem;
-            color: var(--ink);
-        }
-        .left .subtitle {
-            font-size: 0.88rem;
-            color: var(--muted);
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Nav links */
-        .left nav {
-            border-top: 1px solid var(--rule);
-            padding-top: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .left nav a {
-            display: block;
-            padding: 0.25rem 0;
-            font-size: 0.92rem;
-            font-weight: 500;
-            color: var(--link);
-            text-decoration: none;
-        }
-        .left nav a:hover {
-            color: var(--link-hover);
-            text-decoration: underline;
-        }
-
-        /* Photo */
-        .left-photo {
-            width: 100%;
-            max-width: 260px;
-            height: auto;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-        }
-
-        /* Contact & profiles under photo */
-        .left .contact {
-            font-size: 0.84rem;
-            color: var(--muted);
-            margin-top: 1.2rem;
-        }
-        .left .contact a {
-            color: var(--link);
-            text-decoration: none;
-        }
-        .left .contact a:hover { text-decoration: underline; }
-        .left .profiles {
-            margin-top: 0.6rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.15rem;
-            font-size: 0.84rem;
-        }
-        .left .profiles a {
-            color: var(--link);
-            text-decoration: none;
-        }
-        .left .profiles a:hover { text-decoration: underline; }
-
-        /* Right column */
-        .right {
-            flex: 1;
-            min-width: 0;
-        }
-
-        /* Section headings */
-        h2 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--ink);
-            margin-bottom: 1rem;
-            padding-bottom: 0.4rem;
-            border-bottom: 2px solid var(--accent);
-        }
-        h3 {
-            font-size: 0.92rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-            margin-top: 1.2rem;
-        }
-        h3:first-child { margin-top: 0; }
-
-        /* Sections */
-        section {
-            margin-bottom: 2.5rem;
-        }
-
-        /* About */
-        .about p {
-            font-size: 0.95rem;
-            line-height: 1.75;
-            margin-bottom: 0.6rem;
-        }
-
-        /* Interests */
-        .interests {
-            font-size: 0.92rem;
-            color: var(--ink);
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid var(--rule);
-            margin: 2rem 0;
-        }
-
-        /* Publication entries */
-        .pub {
-            margin-bottom: 1rem;
-        }
-        .pub .title {
-            font-weight: 500;
-        }
-        .pub .title a {
-            color: var(--link);
-            text-decoration: none;
-        }
-        .pub .title a:hover {
-            text-decoration: underline;
-        }
-        .pub .meta {
-            font-size: 0.88rem;
-            color: var(--muted);
-        }
-
-        /* Presentation entries */
-        .pres {
-            margin-bottom: 0.8rem;
-            font-size: 0.92rem;
-        }
-        .pres .location {
-            font-size: 0.84rem;
-            color: var(--muted);
-        }
-
-        /* Teaching */
-        .uni {
-            margin-bottom: 1.2rem;
-        }
-        .uni-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .uni-period {
-            font-size: 0.84rem;
-            color: var(--muted);
-        }
-        .course-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 0.3rem;
-        }
-        .course-list li {
-            font-size: 0.88rem;
-            padding: 0.15rem 0;
-            color: var(--ink);
-        }
-        .course-list .period {
-            color: var(--muted);
-            font-size: 0.8rem;
-        }
-        .level-label {
-            font-size: 0.72rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--muted);
-            margin-top: 0.5rem;
-            margin-bottom: 0.2rem;
-        }
-
-        /* Awards */
-        .award {
-            margin-bottom: 0.6rem;
-        }
-        .award .award-title {
-            font-weight: 500;
-            font-size: 0.92rem;
-        }
-        .award .award-source {
-            font-size: 0.84rem;
-            color: var(--muted);
-        }
-
-        /* Groups */
-        .group {
-            margin-bottom: 0.6rem;
-        }
-        .group .group-name {
-            font-weight: 500;
-            font-size: 0.92rem;
-        }
-        .group .group-detail {
-            font-size: 0.84rem;
-            color: var(--muted);
-        }
-
-        /* Education */
-        .edu-item {
-            margin-bottom: 0.6rem;
-        }
-        .edu-item .degree {
-            font-weight: 500;
-            font-size: 0.92rem;
-        }
-        .edu-item .detail {
-            font-size: 0.84rem;
-            color: var(--muted);
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--rule);
-            font-size: 0.8rem;
-            color: var(--muted);
-        }
-
         /* Language toggle */
-        html[lang="es"] .en { display: none; }
-        html[lang="en"] .es { display: none; }
-        #lang-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
-            padding: 0.35rem 0.7rem;
-            border-radius: 4px;
-            border: 1px solid var(--rule);
-            background: var(--bg);
-            color: var(--accent);
-            font-family: inherit;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+        html[lang="es"] .en { display: none !important; }
+        html[lang="en"] .es { display: none !important; }
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+        body { min-height: 100dvh; }
+        /* Hide bottom nav on desktop */
+        @media (min-width: 769px) {
+            .bottom-nav { display: none; }
         }
-        #lang-toggle:hover {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        /* Mobile */
-        @media (max-width: 780px) {
-            .layout {
-                flex-direction: column;
-                gap: 2rem;
-                padding: 2rem 1.5rem 3rem;
-            }
-            .left {
-                width: 100%;
-                position: relative;
-                top: 0;
-            }
-            .left-photo {
-                max-width: 180px;
-            }
-            .left nav {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.2rem 1rem;
-            }
+        /* On mobile, add bottom padding for bottom nav */
+        @media (max-width: 768px) {
+            main { padding-bottom: 6rem !important; }
         }
     </style>
     <script>document.documentElement.lang=localStorage.getItem('lang')||'es'</script>
 </head>
-<body>
-    <div class="layout">
+<body class="bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
 
-        <!-- Left column -->
-        <div class="left">
-            <h1>Mateo Belalcazar</h1>
-            <div class="subtitle"><span class="en">Doctoral Researcher in Psychology</span><span class="es">Investigador Doctoral en Psicología</span><br>Universidad del Valle</div>
-
-            <nav>
-                <a href="#about"><span class="en">About</span><span class="es">Acerca de</span></a>
-                <a href="#interests"><span class="en">Research Interests</span><span class="es">Intereses de Investigación</span></a>
-                <a href="#publications"><span class="en">Publications</span><span class="es">Publicaciones</span></a>
-                <a href="#presentations"><span class="en">Presentations</span><span class="es">Presentaciones</span></a>
-                <a href="#teaching"><span class="en">Teaching</span><span class="es">Docencia</span></a>
-                <a href="#awards"><span class="en">Awards</span><span class="es">Premios</span></a>
-                <a href="#groups"><span class="en">Research Groups</span><span class="es">Grupos de Investigación</span></a>
-                <a href="#education"><span class="en">Education</span><span class="es">Educación</span></a>
-                <a href="#skills"><span class="en">Skills</span><span class="es">Habilidades</span></a>
-            </nav>
-
-            <img src="photo.jpg" alt="Mateo Belalcazar" class="left-photo">
-
-            <div class="contact">
-                <a href="mailto:mateo.belalcazar6@gmail.com">mateo.belalcazar6@gmail.com</a>
+    <!-- TopAppBar -->
+    <header class="fixed top-0 w-full z-50 bg-[#fff8f4]/80 backdrop-blur-md border-b border-outline-variant/15 shadow-sm">
+        <div class="flex items-center justify-between px-6 py-3 max-w-5xl mx-auto">
+            <div class="flex items-center gap-3">
+                <h1 class="font-headline text-xl italic text-primary leading-none">
+                    <a href="#hero" class="no-underline text-primary">Mateo Belalcazar</a>
+                </h1>
             </div>
-
-            <div class="profiles">
-                <a href="https://scholar.google.com/citations?hl=es&authuser=1&user=RoI0VQ8AAAAJ" target="_blank">Google Scholar</a>
-                <a href="https://orcid.org/0000-0001-8276-9734" target="_blank">ORCID</a>
-                <a href="https://www.researchgate.net/profile/Mateo-Belalcazar" target="_blank">ResearchGate</a>
-                <a href="https://github.com/Mateob6" target="_blank">GitHub</a>
-                <a href="https://osf.io/phswz/" target="_blank">OSF</a>
-                <a href="https://www.semanticscholar.org/author/Mateo-Belalc%C3%A1zar/2296970047" target="_blank">Semantic Scholar</a>
+            <div class="flex items-center gap-4">
+                <!-- Language toggle injected here by lang.js -->
+                <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-tertiary">
+                    <a href="#about" class="hover:text-primary transition-colors no-underline"><span class="en">About</span><span class="es">Acerca de</span></a>
+                    <a href="#publications" class="hover:text-primary transition-colors no-underline"><span class="en">Publications</span><span class="es">Publicaciones</span></a>
+                    <a href="#teaching" class="hover:text-primary transition-colors no-underline"><span class="en">Teaching</span><span class="es">Docencia</span></a>
+                    <a href="#awards" class="hover:text-primary transition-colors no-underline"><span class="en">Awards</span><span class="es">Premios</span></a>
+                    <a href="#education" class="hover:text-primary transition-colors no-underline"><span class="en">Education</span><span class="es">Educación</span></a>
+                </nav>
+                <div class="h-9 w-9 rounded-full bg-surface-variant overflow-hidden border border-outline-variant/30">
+                    <img src="photo.jpg" alt="Mateo Belalcazar" class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
+    </header>
 
-        <!-- Right column -->
-        <div class="right">
+    <main class="pt-24 pb-16 px-6 max-w-3xl mx-auto space-y-20">
 
-            <!-- About -->
-            <section id="about" class="about">
-                <h2><span class="en">About</span><span class="es">Acerca de</span></h2>
-                <p class="en">I am a doctoral student in Psychology at Universidad del Valle (CIDEAS), Colombia, with a background in Statistics and Psychology. My work spans cognitive development, neuropsychology, educational psychology, and psychological measurement.</p>
-                <p class="es">Soy estudiante de doctorado en Psicología en la Universidad del Valle (CIDEAS), Colombia, con formación en Estadística y Psicología. Mi trabajo abarca el desarrollo cognitivo, la neuropsicología, la psicología educativa y la medición psicológica.</p>
-                <p class="en">My doctoral research explores the representation of psychological constructs, integrating philosophy of science and computational methods. I am also a lecturer at Pontificia Universidad Javeriana, Universidad del Valle, and a consultant.</p>
-                <p class="es">Mi investigación doctoral explora la representación de constructos psicológicos, integrando filosofía de la ciencia y métodos computacionales. También soy docente en la Pontifica Universidad Javeriana, Universidad del Valle y consultor.</p>
-            </section>
+        <!-- Hero Section -->
+        <section id="hero" class="mt-8 md:mt-12 text-center">
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto mb-6 border-2 border-outline-variant/20 shadow-sm">
+                <img src="photo.jpg" alt="Mateo Belalcazar" class="w-full h-full object-cover">
+            </div>
+            <p class="font-body text-primary uppercase tracking-[0.2em] text-[10px] mb-3">
+                <span class="en">Doctoral Researcher in Psychology</span>
+                <span class="es">Investigador Doctoral en Psicología</span>
+            </p>
+            <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tight text-on-surface leading-tight mb-4">Mateo Belalcazar</h2>
+            <div class="w-12 h-0.5 bg-primary mx-auto mb-6 opacity-20"></div>
+            <p class="font-headline text-lg md:text-xl italic text-tertiary leading-relaxed max-w-xl mx-auto mb-8">
+                Curation & Computation
+            </p>
+            <!-- Profile Links -->
+            <div class="flex flex-wrap justify-center gap-4 text-sm">
+                <a href="mailto:mateo.belalcazar6@gmail.com" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
+                    <span class="material-symbols-outlined text-base">mail</span>Email
+                </a>
+                <a href="https://scholar.google.com/citations?hl=es&authuser=1&user=RoI0VQ8AAAAJ" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
+                    <span class="material-symbols-outlined text-base">school</span>Scholar
+                </a>
+                <a href="https://orcid.org/0000-0001-8276-9734" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
+                    <span class="material-symbols-outlined text-base">fingerprint</span>ORCID
+                </a>
+                <a href="https://www.researchgate.net/profile/Mateo-Belalcazar" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
+                    <span class="material-symbols-outlined text-base">science</span>ResearchGate
+                </a>
+                <a href="https://github.com/Mateob6" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
+                    <span class="material-symbols-outlined text-base">code</span>GitHub
+                </a>
+                <a href="https://osf.io/phswz/" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
+                    <span class="material-symbols-outlined text-base">folder_open</span>OSF
+                </a>
+                <a href="https://www.semanticscholar.org/author/Mateo-Belalc%C3%A1zar/2296970047" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
+                    <span class="material-symbols-outlined text-base">hub</span>Semantic Scholar
+                </a>
+            </div>
+        </section>
 
-            <hr>
-
-            <!-- Research Interests -->
-            <section id="interests">
-                <h2><span class="en">Research Interests</span><span class="es">Intereses de Investigación</span></h2>
-                <p class="interests">
-                    <span class="en">Cognitive Development · Neuropsychology · Educational Psychology · Psychological Measurement · Embodied Cognition</span>
-                    <span class="es">Desarrollo Cognitivo · Neuropsicología · Psicología Educativa · Medición Psicológica · Cognición Corporeizada</span>
+        <!-- 01. About -->
+        <section id="about" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">01</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">About</span><span class="es">Acerca de</span>
+                </h3>
+            </div>
+            <div class="bg-surface-container-low p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/20 rounded-bl-full -mr-12 -mt-12"></div>
+                <p class="en text-on-surface-variant leading-relaxed mb-4">
+                    I am a doctoral student in Psychology at Universidad del Valle (CIDEAS), Colombia, with a background in Statistics and Psychology. My work spans cognitive development, neuropsychology, educational psychology, and psychological measurement.
                 </p>
-            </section>
+                <p class="es text-on-surface-variant leading-relaxed mb-4">
+                    Soy estudiante de doctorado en Psicología en la Universidad del Valle (CIDEAS), Colombia, con formación en Estadística y Psicología. Mi trabajo abarca el desarrollo cognitivo, la neuropsicología, la psicología educativa y la medición psicológica.
+                </p>
+                <p class="en text-on-surface-variant leading-relaxed">
+                    My doctoral research explores the representation of psychological constructs, integrating philosophy of science and computational methods. I am also a lecturer at Pontificia Universidad Javeriana, Universidad del Valle, and a consultant.
+                </p>
+                <p class="es text-on-surface-variant leading-relaxed">
+                    Mi investigación doctoral explora la representación de constructos psicológicos, integrando filosofía de la ciencia y métodos computacionales. También soy docente en la Pontifica Universidad Javeriana, Universidad del Valle y consultor.
+                </p>
+            </div>
+        </section>
 
-            <hr>
+        <!-- 02. Research Interests -->
+        <section id="interests" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">02</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">Research Interests</span><span class="es">Intereses de Investigación</span>
+                </h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">psychology</span>
+                    <p class="font-medium text-sm text-on-surface"><span class="en">Cognitive Development</span><span class="es">Desarrollo Cognitivo</span></p>
+                </div>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">neurology</span>
+                    <p class="font-medium text-sm text-on-surface"><span class="en">Neuropsychology</span><span class="es">Neuropsicología</span></p>
+                </div>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">menu_book</span>
+                    <p class="font-medium text-sm text-on-surface"><span class="en">Educational Psychology</span><span class="es">Psicología Educativa</span></p>
+                </div>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">straighten</span>
+                    <p class="font-medium text-sm text-on-surface"><span class="en">Psychological Measurement</span><span class="es">Medición Psicológica</span></p>
+                </div>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">accessibility_new</span>
+                    <p class="font-medium text-sm text-on-surface"><span class="en">Embodied Cognition</span><span class="es">Cognición Corporeizada</span></p>
+                </div>
+            </div>
+        </section>
 
-            <!-- Publications -->
-            <section id="publications">
-                <h2><span class="en">Publications</span><span class="es">Publicaciones</span></h2>
+        <!-- 03. Publications -->
+        <section id="publications" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">03</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">Publications</span><span class="es">Publicaciones</span>
+                </h3>
+            </div>
 
-                <h3><span class="en">Articles</span><span class="es">Artículos</span></h3>
-
-                <div class="pub">
-                    <div class="title"><a href="https://doi.org/10.21615/cesp.7772">Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional</a></div>
-                    <div class="meta">González Cano, L.J., Uribe Guscas, I.J., <strong>Belalcazar Correa, M.</strong>, & Valencia Serrano, M. (2026). <em>Revista CES Psicología.</em></div>
+            <!-- Articles -->
+            <div class="mb-8">
+                <div class="flex items-center gap-2 mb-5">
+                    <div class="h-0.5 w-6 bg-primary"></div>
+                    <p class="font-body text-xs uppercase tracking-[0.15em] text-primary font-semibold">
+                        <span class="en">Articles</span><span class="es">Artículos</span>
+                    </p>
                 </div>
 
-                <div class="pub">
-                    <div class="title">Rewriting the crime divide: How executive functions and social cognition processes challenge violence classifications in the Colombian prison population</div>
-                    <div class="meta">Cuervo, M.T., Chaguendo, M.A., Cadavid, N., Dorado, C.A., Herrera, E., <strong>Belalcazar, M.</strong>, & Jodar, M. (in press). <em>Frontiers in Psychology.</em></div>
+                <div class="space-y-4">
+                    <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <span class="inline-block px-2 py-0.5 bg-secondary-container/40 text-on-secondary-container text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Article</span><span class="es">Artículo</span></span>
+                            <div class="space-y-1.5">
+                                <a href="https://doi.org/10.21615/cesp.7772" target="_blank" class="font-headline text-sm font-bold text-on-surface hover:text-primary transition-colors no-underline leading-snug block">
+                                    Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional
+                                </a>
+                                <p class="text-xs text-on-surface-variant">González Cano, L.J., Uribe Guscas, I.J., <strong>Belalcazar Correa, M.</strong>, & Valencia Serrano, M.</p>
+                                <p class="text-xs text-outline italic">2026 · Revista CES Psicología</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <span class="inline-block px-2 py-0.5 bg-secondary-container/40 text-on-secondary-container text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Article</span><span class="es">Artículo</span></span>
+                            <div class="space-y-1.5">
+                                <p class="font-headline text-sm font-bold text-on-surface leading-snug">
+                                    Rewriting the crime divide: How executive functions and social cognition processes challenge violence classifications in the Colombian prison population
+                                </p>
+                                <p class="text-xs text-on-surface-variant">Cuervo, M.T., Chaguendo, M.A., Cadavid, N., Dorado, C.A., Herrera, E., <strong>Belalcazar, M.</strong>, & Jodar, M.</p>
+                                <p class="text-xs text-outline italic">In press · Frontiers in Psychology</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <span class="inline-block px-2 py-0.5 bg-secondary-container/40 text-on-secondary-container text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Article</span><span class="es">Artículo</span></span>
+                            <div class="space-y-1.5">
+                                <a href="https://doi.org/10.1080/13854046.2024.2343159" target="_blank" class="font-headline text-sm font-bold text-on-surface hover:text-primary transition-colors no-underline leading-snug block">
+                                    Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment
+                                </a>
+                                <p class="text-xs text-on-surface-variant">Martínez-Flórez, J.F., <strong>Belalcazar, M.</strong>, Alvarez, A., Erazo, O., Sevilla, S., & Parra, M.A.</p>
+                                <p class="text-xs text-outline italic">2024 · The Clinical Neuropsychologist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <span class="inline-block px-2 py-0.5 bg-secondary-container/40 text-on-secondary-container text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Article</span><span class="es">Artículo</span></span>
+                            <div class="space-y-1.5">
+                                <a href="https://doi.org/10.18041/1794-7200/clj.2019.v16n1.5787" target="_blank" class="font-headline text-sm font-bold text-on-surface hover:text-primary transition-colors no-underline leading-snug block">
+                                    Una mirada psicosocial al discurso "Make America Great Again": Influencia y exclusión social en algunos discursos de campaña presidencial de EE.UU 2017-2021
+                                </a>
+                                <p class="text-xs text-on-surface-variant"><strong>Belalcazar Correa, M.</strong> & Becerra Aguilar, A.</p>
+                                <p class="text-xs text-outline italic">2019 · Criterio Libre Jurídico</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book Chapters -->
+            <div>
+                <div class="flex items-center gap-2 mb-5">
+                    <div class="h-0.5 w-6 bg-primary"></div>
+                    <p class="font-body text-xs uppercase tracking-[0.15em] text-primary font-semibold">
+                        <span class="en">Book Chapters</span><span class="es">Capítulos de Libro</span>
+                    </p>
                 </div>
 
-                <div class="pub">
-                    <div class="title"><a href="https://doi.org/10.1080/13854046.2024.2343159">Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment</a></div>
-                    <div class="meta">Martínez-Flórez, J.F., <strong>Belalcazar, M.</strong>, Alvarez, A., Erazo, O., Sevilla, S., & Parra, M.A. (2024). <em>The Clinical Neuropsychologist.</em></div>
+                <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                    <div class="flex items-start gap-3">
+                        <span class="inline-block px-2 py-0.5 bg-surface-container/60 text-tertiary text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Chapter</span><span class="es">Capítulo</span></span>
+                        <div class="space-y-1.5">
+                            <p class="font-headline text-sm font-bold text-on-surface leading-snug">
+                                Caracterización de perfiles de desempleados en un instrumento para evaluar la atribución del desempleo, la salud física, la salud mental y el apoyo social
+                            </p>
+                            <p class="text-xs text-on-surface-variant">Pulido-Moreno, N., <strong>Belalcazar, M.</strong>, Blanch-Ribas, J.M., & Díaz-Bambula, F.</p>
+                            <p class="text-xs text-outline italic">2025 · Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04. Presentations -->
+        <section id="presentations" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">04</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">Selected Presentations</span><span class="es">Presentaciones Seleccionadas</span>
+                </h3>
+            </div>
+
+            <div class="space-y-4">
+                <div class="border-l-2 border-primary/20 pl-5 py-2 hover:border-primary/60 transition-colors">
+                    <p class="text-sm text-on-surface font-medium leading-snug mb-1">Decisión de jubilación en un contexto Ibero-Latinoamericano.</p>
+                    <p class="text-xs text-outline">5º Seminario Internacional de Desarrollo de Carrera y Orientación · Braga, Portugal · 2024</p>
                 </div>
 
-                <div class="pub">
-                    <div class="title"><a href="https://doi.org/10.18041/1794-7200/clj.2019.v16n1.5787">Una mirada psicosocial al discurso "Make America Great Again": Influencia y exclusión social en algunos discursos de campaña presidencial de EE.UU 2017-2021</a></div>
-                    <div class="meta"><strong>Belalcazar Correa, M.</strong> & Becerra Aguilar, A. (2019). <em>Criterio Libre Jurídico.</em></div>
+                <div class="border-l-2 border-primary/20 pl-5 py-2 hover:border-primary/60 transition-colors">
+                    <p class="text-sm text-on-surface font-medium leading-snug mb-1">Evidencia de validez del Inventario de Decisión de Jubilación (IDA) en trabajadores colombianos mayores.</p>
+                    <p class="text-xs text-outline">XI CBPOT · Río de Janeiro, Brasil · 2024</p>
                 </div>
 
-                <h3><span class="en">Book Chapters</span><span class="es">Capítulos de Libro</span></h3>
-
-                <div class="pub">
-                    <div class="title">Caracterización de perfiles de desempleados en un instrumento para evaluar la atribución del desempleo, la salud física, la salud mental y el apoyo social</div>
-                    <div class="meta">Pulido-Moreno, N., <strong>Belalcazar, M.</strong>, Blanch-Ribas, J.M., & Díaz-Bambula, F. (2025). In <em>Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas.</em></div>
-                </div>
-            </section>
-
-            <hr>
-
-            <!-- Presentations -->
-            <section id="presentations">
-                <h2><span class="en">Selected Presentations</span><span class="es">Presentaciones Seleccionadas</span></h2>
-
-                <div class="pres">
-                    <div>Decisión de jubilación en un contexto Ibero-Latinoamericano.</div>
-                    <div class="location">5º Seminario Internacional de Desarrollo de Carrera y Orientación · Braga, Portugal · 2024</div>
+                <div class="border-l-2 border-primary/20 pl-5 py-2 hover:border-primary/60 transition-colors">
+                    <p class="text-sm text-on-surface font-medium leading-snug mb-1">Comparación del rendimiento estadístico de escalas construidas para representar la expresión de variables latentes utilizando análisis multivariado.</p>
+                    <p class="text-xs text-outline">Congreso Colombiano de Psicología · Pereira, Colombia · 2023</p>
                 </div>
 
-                <div class="pres">
-                    <div>Evidencia de validez del Inventario de Decisión de Jubilación (IDA) en trabajadores colombianos mayores.</div>
-                    <div class="location">XI CBPOT · Río de Janeiro, Brasil · 2024</div>
+                <div class="border-l-2 border-primary/20 pl-5 py-2 hover:border-primary/60 transition-colors">
+                    <p class="text-sm text-on-surface font-medium leading-snug mb-1">Rol de la experiencia corporal y háptica en la navegación por estimación y referencia en individuos con discapacidad visual.</p>
+                    <p class="text-xs text-outline">Congreso Colombiano de Psicología · Barranquilla, Colombia · 2019</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05. Teaching -->
+        <section id="teaching" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">05</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">Teaching</span><span class="es">Docencia</span>
+                </h3>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Javeriana -->
+                <div class="bg-white p-5 md:p-6 border border-outline-variant/10">
+                    <div class="flex items-start justify-between mb-3">
+                        <div>
+                            <p class="font-headline text-base font-bold text-on-surface">Pontificia Universidad Javeriana</p>
+                            <p class="text-xs text-outline">Cali, Colombia</p>
+                        </div>
+                        <span class="material-symbols-outlined text-primary/40 text-xl">account_balance</span>
+                    </div>
+                    <div class="mb-3">
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
+                        <ul class="space-y-1 text-sm text-on-surface-variant">
+                            <li>Análisis integrado de datos</li>
+                            <li>Estadística para ciencias sociales</li>
+                            <li>Psicología del aprendizaje</li>
+                            <li>Metodología cuantitativa</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Graduate</span><span class="es">Posgrado</span></p>
+                        <ul class="space-y-1 text-sm text-on-surface-variant">
+                            <li>Metodología de la investigación en gestión de proyectos</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="pres">
-                    <div>Comparación del rendimiento estadístico de escalas construidas para representar la expresión de variables latentes utilizando análisis multivariado.</div>
-                    <div class="location">Congreso Colombiano de Psicología · Pereira, Colombia · 2023</div>
+                <!-- Univalle -->
+                <div class="bg-white p-5 md:p-6 border border-outline-variant/10">
+                    <div class="flex items-start justify-between mb-3">
+                        <div>
+                            <p class="font-headline text-base font-bold text-on-surface">Universidad del Valle</p>
+                            <p class="text-xs text-outline">Cali, Colombia</p>
+                        </div>
+                        <span class="material-symbols-outlined text-primary/40 text-xl">account_balance</span>
+                    </div>
+                    <div class="mb-3">
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
+                        <ul class="space-y-1 text-sm text-on-surface-variant">
+                            <li>Desarrollo del pensamiento matemático</li>
+                            <li>Metodología cuantitativa</li>
+                            <li>Psicología del aprendizaje</li>
+                            <li>Pensamiento lógico matemático</li>
+                            <li>Tópicos en psicología cognitiva</li>
+                            <li>Estadística</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Graduate</span><span class="es">Posgrado</span></p>
+                        <ul class="space-y-1 text-sm text-on-surface-variant">
+                            <li>Análisis multivariado aplicado en psicología</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="pres">
-                    <div>Rol de la experiencia corporal y háptica en la navegación por estimación y referencia en individuos con discapacidad visual.</div>
-                    <div class="location">Congreso Colombiano de Psicología · Barranquilla, Colombia · 2019</div>
+                <!-- San Buenaventura -->
+                <div class="bg-white p-5 md:p-6 border border-outline-variant/10">
+                    <div class="flex items-start justify-between mb-3">
+                        <div>
+                            <p class="font-headline text-base font-bold text-on-surface">Universidad San Buenaventura</p>
+                            <p class="text-xs text-outline">Cali, Colombia · 2024</p>
+                        </div>
+                        <span class="material-symbols-outlined text-primary/40 text-xl">account_balance</span>
+                    </div>
+                    <div>
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
+                        <ul class="space-y-1 text-sm text-on-surface-variant">
+                            <li>Metodología de investigación mixta <span class="text-xs text-outline">(2024)</span></li>
+                            <li>Estadística para ciencias sociales <span class="text-xs text-outline">(2024)</span></li>
+                        </ul>
+                    </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <hr>
+        <!-- 06. Awards & Grants -->
+        <section id="awards" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">06</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">Awards & Grants</span><span class="es">Premios y Becas</span>
+                </h3>
+            </div>
 
-            <!-- Teaching -->
-            <section id="teaching">
-                <h2><span class="en">Teaching</span><span class="es">Docencia</span></h2>
-
-                <div class="uni">
-                    <div class="uni-name">Pontificia Universidad Javeriana</div>
-                    <div class="uni-period">Cali, Colombia · 2022–<span class="en">present</span><span class="es">presente</span></div>
-                    <div class="level-label"><span class="en">Undergraduate</span><span class="es">Pregrado</span></div>
-                    <ul class="course-list">
-                        <li>Análisis integrado de datos <span class="period">(2025–<span class="en">present</span><span class="es">presente</span>)</span></li>
-                        <li>Estadística para ciencias sociales <span class="period">(2024–<span class="en">present</span><span class="es">presente</span>)</span></li>
-                        <li>Psicología del aprendizaje <span class="period">(2023–<span class="en">present</span><span class="es">presente</span>)</span></li>
-                        <li>Metodología cuantitativa <span class="period">(2022–2024)</span></li>
-                    </ul>
-                    <div class="level-label"><span class="en">Graduate</span><span class="es">Posgrado</span></div>
-                    <ul class="course-list">
-                        <li>Metodología de la investigación en gestión de proyectos <span class="period">(2024–<span class="en">present</span><span class="es">presente</span>)</span></li>
-                    </ul>
-                </div>
-
-                <div class="uni">
-                    <div class="uni-name">Universidad del Valle</div>
-                    <div class="uni-period">Cali, Colombia · 2021–<span class="en">present</span><span class="es">presente</span></div>
-                    <div class="level-label"><span class="en">Undergraduate</span><span class="es">Pregrado</span></div>
-                    <ul class="course-list">
-                        <li>Desarrollo del pensamiento matemático <span class="period">(2025–<span class="en">present</span><span class="es">presente</span>)</span></li>
-                        <li>Metodología cuantitativa <span class="period">(2025)</span></li>
-                        <li>Psicología del aprendizaje <span class="period">(2024–2025)</span></li>
-                        <li>Pensamiento lógico matemático <span class="period">(2024–<span class="en">present</span><span class="es">presente</span>)</span></li>
-                        <li>Tópicos en psicología cognitiva <span class="period">(2022–<span class="en">present</span><span class="es">presente</span>)</span></li>
-                        <li>Estadística <span class="period">(2021–<span class="en">present</span><span class="es">presente</span>)</span></li>
-                    </ul>
-                    <div class="level-label"><span class="en">Graduate</span><span class="es">Posgrado</span></div>
-                    <ul class="course-list">
-                        <li>Análisis multivariado aplicado en psicología <span class="period">(2023)</span></li>
-                    </ul>
+            <div class="space-y-3">
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary text-xl mt-0.5">emoji_events</span>
+                    <div>
+                        <p class="text-sm font-medium text-on-surface"><span class="en">Teaching Excellence Award</span><span class="es">Premio de Excelencia Docente</span></p>
+                        <p class="text-xs text-outline">Pontificia Universidad Javeriana · 2024</p>
+                    </div>
                 </div>
 
-                <div class="uni">
-                    <div class="uni-name">Universidad San Buenaventura</div>
-                    <div class="uni-period">Cali, Colombia · 2024</div>
-                    <div class="level-label"><span class="en">Undergraduate</span><span class="es">Pregrado</span></div>
-                    <ul class="course-list">
-                        <li>Metodología de investigación mixta <span class="period">(2024)</span></li>
-                        <li>Estadística para ciencias sociales <span class="period">(2024)</span></li>
-                    </ul>
-                </div>
-            </section>
-
-            <hr>
-
-            <!-- Awards -->
-            <section id="awards">
-                <h2><span class="en">Awards & Grants</span><span class="es">Premios y Becas</span></h2>
-
-                <div class="award">
-                    <div class="award-title"><span class="en">Teaching Excellence Award</span><span class="es">Premio de Excelencia Docente</span></div>
-                    <div class="award-source">Pontificia Universidad Javeriana · 2024</div>
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary text-xl mt-0.5">payments</span>
+                    <div>
+                        <p class="text-sm font-medium text-on-surface"><span class="en">Research Grant — Master's</span><span class="es">Beca de Investigación — Maestría</span></p>
+                        <p class="text-xs text-outline">Universidad del Valle · 2022</p>
+                    </div>
                 </div>
 
-                <div class="award">
-                    <div class="award-title"><span class="en">Research Grant — Master's</span><span class="es">Beca de Investigación — Maestría</span></div>
-                    <div class="award-source">Universidad del Valle · 2022</div>
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary text-xl mt-0.5">military_tech</span>
+                    <div>
+                        <p class="text-sm font-medium text-on-surface"><span class="en">Honors Thesis</span><span class="es">Tesis con Honores</span></p>
+                        <p class="text-xs text-outline">Universidad del Valle · 2018</p>
+                    </div>
                 </div>
 
-                <div class="award">
-                    <div class="award-title"><span class="en">Honors Thesis</span><span class="es">Tesis con Honores</span></div>
-                    <div class="award-source">Universidad del Valle · 2018</div>
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary text-xl mt-0.5">payments</span>
+                    <div>
+                        <p class="text-sm font-medium text-on-surface"><span class="en">Research Grant — Undergraduate</span><span class="es">Beca de Investigación — Pregrado</span></p>
+                        <p class="text-xs text-outline">Universidad del Valle · 2018</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07. Research Groups -->
+        <section id="groups" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">07</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">Research Groups</span><span class="es">Grupos de Investigación</span>
+                </h3>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white p-5 border border-outline-variant/10 flex items-start justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-on-surface">Grupo de Psicología Organizacional y del Trabajo</p>
+                        <p class="text-xs text-outline">Universidad del Valle · Minciencias · 2024–<span class="en">present</span><span class="es">presente</span></p>
+                    </div>
+                    <span class="inline-block px-2 py-0.5 bg-green-rank/10 text-green-rank text-[10px] uppercase tracking-widest font-bold shrink-0">A1</span>
                 </div>
 
-                <div class="award">
-                    <div class="award-title"><span class="en">Research Grant — Undergraduate</span><span class="es">Beca de Investigación — Pregrado</span></div>
-                    <div class="award-source">Universidad del Valle · 2018</div>
+                <div class="bg-white p-5 border border-outline-variant/10 flex items-start justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-on-surface">Grupo de Cognición Científica y Matemática</p>
+                        <p class="text-xs text-outline">Universidad del Valle · Minciencias · 2018–<span class="en">present</span><span class="es">presente</span></p>
+                    </div>
+                    <span class="inline-block px-2 py-0.5 bg-green-rank/10 text-green-rank text-[10px] uppercase tracking-widest font-bold shrink-0">A</span>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <hr>
+        <!-- 08. Education -->
+        <section id="education" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">08</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">Education</span><span class="es">Educación</span>
+                </h3>
+            </div>
 
-            <!-- Research Groups -->
-            <section id="groups">
-                <h2><span class="en">Research Groups</span><span class="es">Grupos de Investigación</span></h2>
-
-                <div class="group">
-                    <div class="group-name">Grupo de Psicología Organizacional y del Trabajo <span style="color: var(--green); font-weight: 600; font-size: 0.8rem;">A1</span></div>
-                    <div class="group-detail">Universidad del Valle · Minciencias · 2024–<span class="en">present</span><span class="es">presente</span></div>
-                </div>
-
-                <div class="group">
-                    <div class="group-name">Grupo de Cognición Científica y Matemática <span style="color: var(--green); font-weight: 600; font-size: 0.8rem;">A</span></div>
-                    <div class="group-detail">Universidad del Valle · Minciencias · 2018–<span class="en">present</span><span class="es">presente</span></div>
-                </div>
-            </section>
-
-            <hr>
-
-            <!-- Education -->
-            <section id="education">
-                <h2><span class="en">Education</span><span class="es">Educación</span></h2>
-
-                <div class="edu-item">
-                    <div class="degree"><span class="en">PhD in Psychology</span><span class="es">Doctorado en Psicología</span></div>
-                    <div class="detail">Universidad del Valle — CIDEAS · 2025–<span class="en">present</span><span class="es">presente</span></div>
+            <div class="space-y-4">
+                <div class="border-l-2 border-primary/30 pl-5 py-2">
+                    <p class="font-headline text-sm font-bold text-on-surface"><span class="en">PhD in Psychology</span><span class="es">Doctorado en Psicología</span></p>
+                    <p class="text-xs text-outline">Universidad del Valle — CIDEAS · 2025–<span class="en">present</span><span class="es">presente</span></p>
                 </div>
 
-                <div class="edu-item">
-                    <div class="degree"><span class="en">M.Sc. in Statistics</span><span class="es">M.Sc. en Estadística</span></div>
-                    <div class="detail">Universidad del Valle · 2020–2022</div>
+                <div class="border-l-2 border-primary/30 pl-5 py-2">
+                    <p class="font-headline text-sm font-bold text-on-surface"><span class="en">M.Sc. in Statistics</span><span class="es">M.Sc. en Estadística</span></p>
+                    <p class="text-xs text-outline">Universidad del Valle · 2020–2022</p>
                 </div>
 
-                <div class="edu-item">
-                    <div class="degree"><span class="en">B.Sc. in Psychology</span><span class="es">B.Sc. en Psicología</span></div>
-                    <div class="detail">Universidad del Valle · 2014–2019</div>
+                <div class="border-l-2 border-primary/30 pl-5 py-2">
+                    <p class="font-headline text-sm font-bold text-on-surface"><span class="en">B.Sc. in Psychology</span><span class="es">B.Sc. en Psicología</span></p>
+                    <p class="text-xs text-outline">Universidad del Valle · 2014–2019</p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <hr>
+        <!-- 09. Skills -->
+        <section id="skills" class="space-y-6">
+            <div class="flex items-baseline gap-4 mb-8">
+                <span class="font-headline text-4xl text-outline-variant/30">09</span>
+                <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
+                    <span class="en">Skills</span><span class="es">Habilidades</span>
+                </h3>
+            </div>
 
-            <!-- Skills -->
-            <section id="skills">
-                <h2><span class="en">Skills</span><span class="es">Habilidades</span></h2>
-                <p class="interests">Python · R · <span class="en">Machine Learning</span><span class="es">Aprendizaje Automático</span> · <span class="en">Multivariate Statistics</span><span class="es">Estadística Multivariada</span></p>
-            </section>
+            <div class="flex flex-wrap gap-3">
+                <span class="px-4 py-2 bg-surface-container-low border border-outline-variant/10 text-sm text-on-surface font-medium">Python</span>
+                <span class="px-4 py-2 bg-surface-container-low border border-outline-variant/10 text-sm text-on-surface font-medium">R</span>
+                <span class="px-4 py-2 bg-surface-container-low border border-outline-variant/10 text-sm text-on-surface font-medium"><span class="en">Machine Learning</span><span class="es">Aprendizaje Automático</span></span>
+                <span class="px-4 py-2 bg-surface-container-low border border-outline-variant/10 text-sm text-on-surface font-medium"><span class="en">Multivariate Statistics</span><span class="es">Estadística Multivariada</span></span>
+            </div>
+        </section>
 
-            <footer>Cali, Colombia · <span class="en">Updated March 2026</span><span class="es">Actualizado en marzo de 2026</span></footer>
-        </div>
+        <!-- Footer -->
+        <footer class="border-t border-outline-variant/20 pt-6 mt-12 text-center">
+            <p class="text-xs text-outline">Cali, Colombia · <span class="en">Updated March 2026</span><span class="es">Actualizado en marzo de 2026</span></p>
+        </footer>
 
-    </div>
+    </main>
+
+    <!-- BottomNavBar (mobile) -->
+    <nav class="bottom-nav fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 bg-[#fff8f4] border-t border-outline-variant/15 shadow-[0_-4px_20px_rgba(35,26,16,0.06)] z-50 rounded-t-xl">
+        <a href="#about" class="flex flex-col items-center justify-center text-tertiary opacity-60 hover:opacity-100 transition-opacity no-underline">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">About</span><span class="es">Info</span></span>
+        </a>
+        <a href="#publications" class="flex flex-col items-center justify-center text-tertiary opacity-60 hover:opacity-100 transition-opacity no-underline">
+            <span class="material-symbols-outlined">auto_stories</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Pubs</span><span class="es">Pubs</span></span>
+        </a>
+        <a href="#teaching" class="flex flex-col items-center justify-center text-primary bg-secondary-container/30 rounded-full px-4 py-1 no-underline">
+            <span class="material-symbols-outlined">school</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Teach</span><span class="es">Clase</span></span>
+        </a>
+        <a href="#awards" class="flex flex-col items-center justify-center text-tertiary opacity-60 hover:opacity-100 transition-opacity no-underline">
+            <span class="material-symbols-outlined">emoji_events</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Awards</span><span class="es">Premios</span></span>
+        </a>
+        <a href="#education" class="flex flex-col items-center justify-center text-tertiary opacity-60 hover:opacity-100 transition-opacity no-underline">
+            <span class="material-symbols-outlined">history_edu</span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Edu</span><span class="es">Edu</span></span>
+        </a>
+    </nav>
+
     <script src="lang.js" defer></script>
 </body>
 </html>
