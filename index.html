@@ -8,37 +8,42 @@
     <meta name="author" content="Mateo Belalcázar">
     <meta name="keywords" content="Mateo Belalcázar, psychology, statistics, Universidad del Valle, CIDEAS, cognitive development, neuropsychology, psychological measurement">
     <link rel="canonical" href="https://mateob6.github.io">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              "soft-blue": "#f0f7ff",
-              "deep-blue": "#004c7c",
               "surface-container-low": "#fff1e7",
+              "on-primary-container": "#c4dfff",
               "secondary-container": "#fed2ad",
               "on-surface": "#231a10",
               "on-surface-variant": "#41474f",
               "on-secondary-container": "#79583b",
               "surface-variant": "#f2dfcf",
               "background": "#fff8f4",
+              "tertiary-container": "#6b5f4e",
               "surface-container": "#feebda",
               "tertiary": "#534738",
               "primary": "#004c7c",
+              "surface-container-highest": "#f2dfcf",
               "secondary": "#78583b",
               "surface-container-high": "#f8e5d5",
               "outline-variant": "#c1c7d0",
               "surface": "#fff8f4",
               "outline": "#727780",
+              "inverse-surface": "#392e24",
+              "inverse-on-surface": "#ffeee0",
               "green-rank": "#4a7c59",
             },
             fontFamily: {
               "headline": ["Noto Serif", "Georgia", "serif"],
               "body": ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
-              "label": ["Inter", "sans-serif"],
             },
           },
         },
@@ -47,33 +52,49 @@
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
-            display: inline-block; line-height: 1; text-transform: none;
-            letter-spacing: normal; word-wrap: normal; white-space: nowrap; direction: ltr;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
         }
+        /* Language toggle */
         html[lang="es"] .en { display: none !important; }
         html[lang="en"] .es { display: none !important; }
+        /* Smooth scroll */
         html { scroll-behavior: smooth; }
         body { min-height: 100dvh; }
-        @media (min-width: 769px) { .bottom-nav { display: none; } }
-        @media (max-width: 768px) { main { padding-bottom: 6rem !important; } }
+        /* Hide bottom nav on desktop */
+        @media (min-width: 769px) {
+            .bottom-nav { display: none; }
+        }
+        /* On mobile, add bottom padding for bottom nav */
+        @media (max-width: 768px) {
+            main { padding-bottom: 6rem !important; }
+        }
     </style>
     <script>document.documentElement.lang=localStorage.getItem('lang')||'es'</script>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
+<body class="bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
 
     <!-- TopAppBar -->
     <header class="fixed top-0 w-full z-50 bg-[#fff8f4]/80 backdrop-blur-md border-b border-outline-variant/15 shadow-sm">
         <div class="flex items-center justify-between px-6 py-3 max-w-5xl mx-auto">
-            <h1 class="font-headline text-xl italic text-deep-blue leading-none">
-                <a href="#hero" class="no-underline text-deep-blue">Mateo Belalcazar</a>
-            </h1>
+            <div class="flex items-center gap-3">
+                <h1 class="font-headline text-xl italic text-primary leading-none">
+                    <a href="#hero" class="no-underline text-primary">Mateo Belalcazar</a>
+                </h1>
+            </div>
             <div class="flex items-center gap-4">
+                <!-- Language toggle injected here by lang.js -->
                 <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-tertiary">
-                    <a href="#about" class="hover:text-deep-blue transition-colors no-underline"><span class="en">About</span><span class="es">Acerca de</span></a>
-                    <a href="#publications" class="hover:text-deep-blue transition-colors no-underline"><span class="en">Publications</span><span class="es">Publicaciones</span></a>
-                    <a href="#teaching" class="hover:text-deep-blue transition-colors no-underline"><span class="en">Teaching</span><span class="es">Docencia</span></a>
-                    <a href="#awards" class="hover:text-deep-blue transition-colors no-underline"><span class="en">Awards</span><span class="es">Premios</span></a>
-                    <a href="#education" class="hover:text-deep-blue transition-colors no-underline"><span class="en">Education</span><span class="es">Educación</span></a>
+                    <a href="#about" class="hover:text-primary transition-colors no-underline"><span class="en">About</span><span class="es">Acerca de</span></a>
+                    <a href="#publications" class="hover:text-primary transition-colors no-underline"><span class="en">Publications</span><span class="es">Publicaciones</span></a>
+                    <a href="#teaching" class="hover:text-primary transition-colors no-underline"><span class="en">Teaching</span><span class="es">Docencia</span></a>
+                    <a href="#awards" class="hover:text-primary transition-colors no-underline"><span class="en">Awards</span><span class="es">Premios</span></a>
+                    <a href="#education" class="hover:text-primary transition-colors no-underline"><span class="en">Education</span><span class="es">Educación</span></a>
                 </nav>
                 <div class="h-9 w-9 rounded-full bg-surface-variant overflow-hidden border border-outline-variant/30">
                     <img src="photo.jpg" alt="Mateo Belalcazar" class="w-full h-full object-cover">
@@ -89,35 +110,36 @@
             <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto mb-6 border-2 border-outline-variant/20 shadow-sm">
                 <img src="photo.jpg" alt="Mateo Belalcazar" class="w-full h-full object-cover">
             </div>
-            <p class="font-label text-deep-blue uppercase tracking-[0.2em] text-[10px] font-bold mb-3">
+            <p class="font-body text-primary uppercase tracking-[0.2em] text-[10px] mb-3">
                 <span class="en">Doctoral Researcher in Psychology</span>
                 <span class="es">Investigador Doctoral en Psicología</span>
             </p>
             <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tight text-on-surface leading-tight mb-4">Mateo Belalcazar</h2>
-            <div class="w-12 h-0.5 bg-deep-blue mx-auto mb-6 opacity-20"></div>
+            <div class="w-12 h-0.5 bg-primary mx-auto mb-6 opacity-20"></div>
             <p class="font-headline text-lg md:text-xl italic text-tertiary leading-relaxed max-w-xl mx-auto mb-8">
                 Curation & Computation
             </p>
+            <!-- Profile Links -->
             <div class="flex flex-wrap justify-center gap-4 text-sm">
-                <a href="mailto:mateo.belalcazar6@gmail.com" class="flex items-center gap-1.5 text-tertiary hover:text-deep-blue transition-colors no-underline">
+                <a href="mailto:mateo.belalcazar6@gmail.com" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
                     <span class="material-symbols-outlined text-base">mail</span>Email
                 </a>
-                <a href="https://scholar.google.com/citations?hl=es&authuser=1&user=RoI0VQ8AAAAJ" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-deep-blue transition-colors no-underline">
+                <a href="https://scholar.google.com/citations?hl=es&authuser=1&user=RoI0VQ8AAAAJ" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
                     <span class="material-symbols-outlined text-base">school</span>Scholar
                 </a>
-                <a href="https://orcid.org/0000-0001-8276-9734" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-deep-blue transition-colors no-underline">
+                <a href="https://orcid.org/0000-0001-8276-9734" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
                     <span class="material-symbols-outlined text-base">fingerprint</span>ORCID
                 </a>
-                <a href="https://www.researchgate.net/profile/Mateo-Belalcazar" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-deep-blue transition-colors no-underline">
+                <a href="https://www.researchgate.net/profile/Mateo-Belalcazar" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
                     <span class="material-symbols-outlined text-base">science</span>ResearchGate
                 </a>
-                <a href="https://github.com/Mateob6" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-deep-blue transition-colors no-underline">
+                <a href="https://github.com/Mateob6" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
                     <span class="material-symbols-outlined text-base">code</span>GitHub
                 </a>
-                <a href="https://osf.io/phswz/" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-deep-blue transition-colors no-underline">
+                <a href="https://osf.io/phswz/" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
                     <span class="material-symbols-outlined text-base">folder_open</span>OSF
                 </a>
-                <a href="https://www.semanticscholar.org/author/Mateo-Belalc%C3%A1zar/2296970047" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-deep-blue transition-colors no-underline">
+                <a href="https://www.semanticscholar.org/author/Mateo-Belalc%C3%A1zar/2296970047" target="_blank" class="flex items-center gap-1.5 text-tertiary hover:text-primary transition-colors no-underline">
                     <span class="material-symbols-outlined text-base">hub</span>Semantic Scholar
                 </a>
             </div>
@@ -126,13 +148,13 @@
         <!-- 01. About -->
         <section id="about" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">01</span>
+                <span class="font-headline text-4xl text-outline-variant/30">01</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">About</span><span class="es">Acerca de</span>
                 </h3>
             </div>
-            <div class="bg-soft-blue p-6 md:p-8 border-l-4 border-deep-blue shadow-sm relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-deep-blue/5 rounded-bl-full -mr-12 -mt-12"></div>
+            <div class="bg-surface-container-low p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/20 rounded-bl-full -mr-12 -mt-12"></div>
                 <p class="en text-on-surface-variant leading-relaxed mb-4">
                     I am a doctoral student in Psychology at Universidad del Valle (CIDEAS), Colombia, with a background in Statistics and Psychology. My work spans cognitive development, neuropsychology, educational psychology, and psychological measurement.
                 </p>
@@ -151,30 +173,30 @@
         <!-- 02. Research Interests -->
         <section id="interests" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">02</span>
+                <span class="font-headline text-4xl text-outline-variant/30">02</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">Research Interests</span><span class="es">Intereses de Investigación</span>
                 </h3>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div class="bg-soft-blue p-5 border border-deep-blue/10">
-                    <span class="material-symbols-outlined text-deep-blue mb-2 text-2xl">psychology</span>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">psychology</span>
                     <p class="font-medium text-sm text-on-surface"><span class="en">Cognitive Development</span><span class="es">Desarrollo Cognitivo</span></p>
                 </div>
-                <div class="p-5">
-                    <span class="material-symbols-outlined text-deep-blue mb-2 text-2xl">neurology</span>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">neurology</span>
                     <p class="font-medium text-sm text-on-surface"><span class="en">Neuropsychology</span><span class="es">Neuropsicología</span></p>
                 </div>
-                <div class="bg-soft-blue p-5 border border-deep-blue/10">
-                    <span class="material-symbols-outlined text-deep-blue mb-2 text-2xl">menu_book</span>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">menu_book</span>
                     <p class="font-medium text-sm text-on-surface"><span class="en">Educational Psychology</span><span class="es">Psicología Educativa</span></p>
                 </div>
-                <div class="p-5">
-                    <span class="material-symbols-outlined text-deep-blue mb-2 text-2xl">straighten</span>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">straighten</span>
                     <p class="font-medium text-sm text-on-surface"><span class="en">Psychological Measurement</span><span class="es">Medición Psicológica</span></p>
                 </div>
-                <div class="bg-soft-blue p-5 border border-deep-blue/10">
-                    <span class="material-symbols-outlined text-deep-blue mb-2 text-2xl">accessibility_new</span>
+                <div class="bg-surface-container-low p-5 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">accessibility_new</span>
                     <p class="font-medium text-sm text-on-surface"><span class="en">Embodied Cognition</span><span class="es">Cognición Corporeizada</span></p>
                 </div>
             </div>
@@ -183,73 +205,71 @@
         <!-- 03. Publications -->
         <section id="publications" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">03</span>
+                <span class="font-headline text-4xl text-outline-variant/30">03</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">Publications</span><span class="es">Publicaciones</span>
                 </h3>
             </div>
 
+            <!-- Articles -->
             <div class="mb-8">
-                <p class="font-label text-xs uppercase tracking-[0.15em] text-deep-blue font-bold mb-6">
-                    <span class="en">Articles</span><span class="es">Artículos</span>
-                </p>
+                <div class="flex items-center gap-2 mb-5">
+                    <div class="h-0.5 w-6 bg-primary"></div>
+                    <p class="font-body text-xs uppercase tracking-[0.15em] text-primary font-semibold">
+                        <span class="en">Articles</span><span class="es">Artículos</span>
+                    </p>
+                </div>
 
-                <div class="space-y-6">
-                    <!-- Highlighted -->
-                    <div class="bg-soft-blue p-6 border-l-4 border-deep-blue shadow-sm">
-                        <span class="inline-block bg-white text-deep-blue font-label text-[10px] font-bold uppercase tracking-[0.2em] mb-3 px-2 py-1 border border-deep-blue/10"><span class="en">Article</span><span class="es">Artículo</span></span>
-                        <a href="https://doi.org/10.21615/cesp.7772" target="_blank" class="font-headline text-base font-bold text-deep-blue hover:text-on-surface transition-colors no-underline leading-snug block mb-2">
-                            Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional
-                        </a>
-                        <p class="text-sm text-tertiary font-medium mb-3">González Cano, L.J., Uribe Guscas, I.J., <strong>Belalcazar Correa, M.</strong>, & Valencia Serrano, M.</p>
-                        <div class="flex items-center justify-between border-t border-deep-blue/10 pt-3">
-                            <p class="font-label text-xs text-tertiary uppercase tracking-widest font-semibold italic">2026 · Revista CES Psicología</p>
-                            <a href="https://doi.org/10.21615/cesp.7772" class="text-deep-blue font-label text-xs font-bold uppercase tracking-widest flex items-center gap-1 no-underline">
-                                <span class="en">View DOI</span><span class="es">Ver DOI</span> <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                            </a>
+                <div class="space-y-4">
+                    <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <span class="inline-block px-2 py-0.5 bg-secondary-container/40 text-on-secondary-container text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Article</span><span class="es">Artículo</span></span>
+                            <div class="space-y-1.5">
+                                <a href="https://doi.org/10.21615/cesp.7772" target="_blank" class="font-headline text-sm font-bold text-on-surface hover:text-primary transition-colors no-underline leading-snug block">
+                                    Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional
+                                </a>
+                                <p class="text-xs text-on-surface-variant">González Cano, L.J., Uribe Guscas, I.J., <strong>Belalcazar Correa, M.</strong>, & Valencia Serrano, M.</p>
+                                <p class="text-xs text-outline italic">2026 · Revista CES Psicología</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Plain -->
-                    <div class="p-6">
-                        <span class="inline-block bg-soft-blue text-deep-blue font-label text-[10px] font-bold uppercase tracking-[0.2em] mb-3 px-2 py-1"><span class="en">Article</span><span class="es">Artículo</span></span>
-                        <p class="font-headline text-base font-bold text-deep-blue leading-snug mb-2">
-                            Rewriting the crime divide: How executive functions and social cognition processes challenge violence classifications in the Colombian prison population
-                        </p>
-                        <p class="text-sm text-tertiary font-medium mb-3">Cuervo, M.T., Chaguendo, M.A., Cadavid, N., Dorado, C.A., Herrera, E., <strong>Belalcazar, M.</strong>, & Jodar, M.</p>
-                        <div class="flex items-center justify-between border-t border-outline-variant/15 pt-3">
-                            <p class="font-label text-xs text-tertiary uppercase tracking-widest font-semibold italic">In press · Frontiers in Psychology</p>
-                            <span class="text-outline text-xs font-bold uppercase tracking-widest"><span class="en">In Press</span><span class="es">En Prensa</span></span>
+                    <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <span class="inline-block px-2 py-0.5 bg-secondary-container/40 text-on-secondary-container text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Article</span><span class="es">Artículo</span></span>
+                            <div class="space-y-1.5">
+                                <p class="font-headline text-sm font-bold text-on-surface leading-snug">
+                                    Rewriting the crime divide: How executive functions and social cognition processes challenge violence classifications in the Colombian prison population
+                                </p>
+                                <p class="text-xs text-on-surface-variant">Cuervo, M.T., Chaguendo, M.A., Cadavid, N., Dorado, C.A., Herrera, E., <strong>Belalcazar, M.</strong>, & Jodar, M.</p>
+                                <p class="text-xs text-outline italic">In press · Frontiers in Psychology</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Highlighted -->
-                    <div class="bg-soft-blue p-6 border-l-4 border-deep-blue shadow-sm">
-                        <span class="inline-block bg-white text-deep-blue font-label text-[10px] font-bold uppercase tracking-[0.2em] mb-3 px-2 py-1 border border-deep-blue/10"><span class="en">Article</span><span class="es">Artículo</span></span>
-                        <a href="https://doi.org/10.1080/13854046.2024.2343159" target="_blank" class="font-headline text-base font-bold text-deep-blue hover:text-on-surface transition-colors no-underline leading-snug block mb-2">
-                            Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment
-                        </a>
-                        <p class="text-sm text-tertiary font-medium mb-3">Martínez-Flórez, J.F., <strong>Belalcazar, M.</strong>, Alvarez, A., Erazo, O., Sevilla, S., & Parra, M.A.</p>
-                        <div class="flex items-center justify-between border-t border-deep-blue/10 pt-3">
-                            <p class="font-label text-xs text-tertiary uppercase tracking-widest font-semibold italic">2024 · The Clinical Neuropsychologist</p>
-                            <a href="https://doi.org/10.1080/13854046.2024.2343159" class="text-deep-blue font-label text-xs font-bold uppercase tracking-widest flex items-center gap-1 no-underline">
-                                <span class="en">Full Text</span><span class="es">Texto</span> <span class="material-symbols-outlined text-sm">open_in_new</span>
-                            </a>
+                    <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <span class="inline-block px-2 py-0.5 bg-secondary-container/40 text-on-secondary-container text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Article</span><span class="es">Artículo</span></span>
+                            <div class="space-y-1.5">
+                                <a href="https://doi.org/10.1080/13854046.2024.2343159" target="_blank" class="font-headline text-sm font-bold text-on-surface hover:text-primary transition-colors no-underline leading-snug block">
+                                    Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment
+                                </a>
+                                <p class="text-xs text-on-surface-variant">Martínez-Flórez, J.F., <strong>Belalcazar, M.</strong>, Alvarez, A., Erazo, O., Sevilla, S., & Parra, M.A.</p>
+                                <p class="text-xs text-outline italic">2024 · The Clinical Neuropsychologist</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Plain -->
-                    <div class="p-6">
-                        <span class="inline-block bg-soft-blue text-deep-blue font-label text-[10px] font-bold uppercase tracking-[0.2em] mb-3 px-2 py-1"><span class="en">Article</span><span class="es">Artículo</span></span>
-                        <a href="https://doi.org/10.18041/1794-7200/clj.2019.v16n1.5787" target="_blank" class="font-headline text-base font-bold text-deep-blue hover:text-on-surface transition-colors no-underline leading-snug block mb-2">
-                            Una mirada psicosocial al discurso "Make America Great Again": Influencia y exclusión social en algunos discursos de campaña presidencial de EE.UU 2017-2021
-                        </a>
-                        <p class="text-sm text-tertiary font-medium mb-3"><strong>Belalcazar Correa, M.</strong> & Becerra Aguilar, A.</p>
-                        <div class="flex items-center justify-between border-t border-outline-variant/15 pt-3">
-                            <p class="font-label text-xs text-tertiary uppercase tracking-widest font-semibold italic">2019 · Criterio Libre Jurídico</p>
-                            <a href="https://doi.org/10.18041/1794-7200/clj.2019.v16n1.5787" class="text-deep-blue font-label text-xs font-bold uppercase tracking-widest flex items-center gap-1 no-underline">
-                                <span class="en">Archive</span><span class="es">Archivo</span> <span class="material-symbols-outlined text-sm">description</span>
-                            </a>
+                    <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                        <div class="flex items-start gap-3">
+                            <span class="inline-block px-2 py-0.5 bg-secondary-container/40 text-on-secondary-container text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Article</span><span class="es">Artículo</span></span>
+                            <div class="space-y-1.5">
+                                <a href="https://doi.org/10.18041/1794-7200/clj.2019.v16n1.5787" target="_blank" class="font-headline text-sm font-bold text-on-surface hover:text-primary transition-colors no-underline leading-snug block">
+                                    Una mirada psicosocial al discurso "Make America Great Again": Influencia y exclusión social en algunos discursos de campaña presidencial de EE.UU 2017-2021
+                                </a>
+                                <p class="text-xs text-on-surface-variant"><strong>Belalcazar Correa, M.</strong> & Becerra Aguilar, A.</p>
+                                <p class="text-xs text-outline italic">2019 · Criterio Libre Jurídico</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -257,18 +277,23 @@
 
             <!-- Book Chapters -->
             <div>
-                <p class="font-label text-xs uppercase tracking-[0.15em] text-deep-blue font-bold mb-6">
-                    <span class="en">Book Chapters</span><span class="es">Capítulos de Libro</span>
-                </p>
-
-                <div class="bg-soft-blue p-6 border-l-4 border-deep-blue shadow-sm">
-                    <span class="inline-block bg-white text-deep-blue font-label text-[10px] font-bold uppercase tracking-[0.2em] mb-3 px-2 py-1 border border-deep-blue/10"><span class="en">Chapter</span><span class="es">Capítulo</span></span>
-                    <p class="font-headline text-base font-bold text-deep-blue leading-snug mb-2">
-                        Caracterización de perfiles de desempleados en un instrumento para evaluar la atribución del desempleo, la salud física, la salud mental y el apoyo social
+                <div class="flex items-center gap-2 mb-5">
+                    <div class="h-0.5 w-6 bg-primary"></div>
+                    <p class="font-body text-xs uppercase tracking-[0.15em] text-primary font-semibold">
+                        <span class="en">Book Chapters</span><span class="es">Capítulos de Libro</span>
                     </p>
-                    <p class="text-sm text-tertiary font-medium mb-3">Pulido-Moreno, N., <strong>Belalcazar, M.</strong>, Blanch-Ribas, J.M., & Díaz-Bambula, F.</p>
-                    <div class="border-t border-deep-blue/10 pt-3">
-                        <p class="font-label text-xs text-tertiary uppercase tracking-widest font-semibold italic">2025 · Trabajos y organizaciones en el siglo XXI</p>
+                </div>
+
+                <div class="bg-white p-5 border border-outline-variant/10 hover:border-outline-variant/30 transition-colors">
+                    <div class="flex items-start gap-3">
+                        <span class="inline-block px-2 py-0.5 bg-surface-container/60 text-tertiary text-[10px] uppercase tracking-widest font-semibold mt-0.5 shrink-0"><span class="en">Chapter</span><span class="es">Capítulo</span></span>
+                        <div class="space-y-1.5">
+                            <p class="font-headline text-sm font-bold text-on-surface leading-snug">
+                                Caracterización de perfiles de desempleados en un instrumento para evaluar la atribución del desempleo, la salud física, la salud mental y el apoyo social
+                            </p>
+                            <p class="text-xs text-on-surface-variant">Pulido-Moreno, N., <strong>Belalcazar, M.</strong>, Blanch-Ribas, J.M., & Díaz-Bambula, F.</p>
+                            <p class="text-xs text-outline italic">2025 · Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -277,29 +302,29 @@
         <!-- 04. Presentations -->
         <section id="presentations" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">04</span>
+                <span class="font-headline text-4xl text-outline-variant/30">04</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">Selected Presentations</span><span class="es">Presentaciones Seleccionadas</span>
                 </h3>
             </div>
 
-            <div class="space-y-2">
-                <div class="bg-soft-blue p-5 border-l-4 border-deep-blue shadow-sm">
+            <div class="space-y-4">
+                <div class="border-l-2 border-primary/20 pl-5 py-2 hover:border-primary/60 transition-colors">
                     <p class="text-sm text-on-surface font-medium leading-snug mb-1">Decisión de jubilación en un contexto Ibero-Latinoamericano.</p>
                     <p class="text-xs text-outline">5º Seminario Internacional de Desarrollo de Carrera y Orientación · Braga, Portugal · 2024</p>
                 </div>
 
-                <div class="p-5">
+                <div class="border-l-2 border-primary/20 pl-5 py-2 hover:border-primary/60 transition-colors">
                     <p class="text-sm text-on-surface font-medium leading-snug mb-1">Evidencia de validez del Inventario de Decisión de Jubilación (IDA) en trabajadores colombianos mayores.</p>
                     <p class="text-xs text-outline">XI CBPOT · Río de Janeiro, Brasil · 2024</p>
                 </div>
 
-                <div class="bg-soft-blue p-5 border-l-4 border-deep-blue shadow-sm">
+                <div class="border-l-2 border-primary/20 pl-5 py-2 hover:border-primary/60 transition-colors">
                     <p class="text-sm text-on-surface font-medium leading-snug mb-1">Comparación del rendimiento estadístico de escalas construidas para representar la expresión de variables latentes utilizando análisis multivariado.</p>
                     <p class="text-xs text-outline">Congreso Colombiano de Psicología · Pereira, Colombia · 2023</p>
                 </div>
 
-                <div class="p-5">
+                <div class="border-l-2 border-primary/20 pl-5 py-2 hover:border-primary/60 transition-colors">
                     <p class="text-sm text-on-surface font-medium leading-snug mb-1">Rol de la experiencia corporal y háptica en la navegación por estimación y referencia en individuos con discapacidad visual.</p>
                     <p class="text-xs text-outline">Congreso Colombiano de Psicología · Barranquilla, Colombia · 2019</p>
                 </div>
@@ -309,23 +334,24 @@
         <!-- 05. Teaching -->
         <section id="teaching" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">05</span>
+                <span class="font-headline text-4xl text-outline-variant/30">05</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">Teaching</span><span class="es">Docencia</span>
                 </h3>
             </div>
 
             <div class="space-y-6">
-                <div class="bg-soft-blue p-5 md:p-6 border-l-4 border-deep-blue shadow-sm">
+                <!-- Javeriana -->
+                <div class="bg-white p-5 md:p-6 border border-outline-variant/10">
                     <div class="flex items-start justify-between mb-3">
                         <div>
-                            <p class="font-headline text-base font-bold text-deep-blue">Pontificia Universidad Javeriana</p>
+                            <p class="font-headline text-base font-bold text-on-surface">Pontificia Universidad Javeriana</p>
                             <p class="text-xs text-outline">Cali, Colombia</p>
                         </div>
-                        <span class="material-symbols-outlined text-deep-blue/30 text-xl">account_balance</span>
+                        <span class="material-symbols-outlined text-primary/40 text-xl">account_balance</span>
                     </div>
                     <div class="mb-3">
-                        <p class="font-label text-[10px] uppercase tracking-[0.15em] text-deep-blue font-bold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
                         <ul class="space-y-1 text-sm text-on-surface-variant">
                             <li>Análisis integrado de datos</li>
                             <li>Estadística para ciencias sociales</li>
@@ -334,23 +360,24 @@
                         </ul>
                     </div>
                     <div>
-                        <p class="font-label text-[10px] uppercase tracking-[0.15em] text-deep-blue font-bold mb-2"><span class="en">Graduate</span><span class="es">Posgrado</span></p>
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Graduate</span><span class="es">Posgrado</span></p>
                         <ul class="space-y-1 text-sm text-on-surface-variant">
                             <li>Metodología de la investigación en gestión de proyectos</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="p-5 md:p-6">
+                <!-- Univalle -->
+                <div class="bg-white p-5 md:p-6 border border-outline-variant/10">
                     <div class="flex items-start justify-between mb-3">
                         <div>
                             <p class="font-headline text-base font-bold text-on-surface">Universidad del Valle</p>
                             <p class="text-xs text-outline">Cali, Colombia</p>
                         </div>
-                        <span class="material-symbols-outlined text-deep-blue/20 text-xl">account_balance</span>
+                        <span class="material-symbols-outlined text-primary/40 text-xl">account_balance</span>
                     </div>
                     <div class="mb-3">
-                        <p class="font-label text-[10px] uppercase tracking-[0.15em] text-deep-blue font-bold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
                         <ul class="space-y-1 text-sm text-on-surface-variant">
                             <li>Desarrollo del pensamiento matemático</li>
                             <li>Metodología cuantitativa</li>
@@ -361,23 +388,24 @@
                         </ul>
                     </div>
                     <div>
-                        <p class="font-label text-[10px] uppercase tracking-[0.15em] text-deep-blue font-bold mb-2"><span class="en">Graduate</span><span class="es">Posgrado</span></p>
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Graduate</span><span class="es">Posgrado</span></p>
                         <ul class="space-y-1 text-sm text-on-surface-variant">
                             <li>Análisis multivariado aplicado en psicología</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="bg-soft-blue p-5 md:p-6 border-l-4 border-deep-blue shadow-sm">
+                <!-- San Buenaventura -->
+                <div class="bg-white p-5 md:p-6 border border-outline-variant/10">
                     <div class="flex items-start justify-between mb-3">
                         <div>
-                            <p class="font-headline text-base font-bold text-deep-blue">Universidad San Buenaventura</p>
+                            <p class="font-headline text-base font-bold text-on-surface">Universidad San Buenaventura</p>
                             <p class="text-xs text-outline">Cali, Colombia · 2024</p>
                         </div>
-                        <span class="material-symbols-outlined text-deep-blue/30 text-xl">account_balance</span>
+                        <span class="material-symbols-outlined text-primary/40 text-xl">account_balance</span>
                     </div>
                     <div>
-                        <p class="font-label text-[10px] uppercase tracking-[0.15em] text-deep-blue font-bold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
+                        <p class="font-body text-[10px] uppercase tracking-[0.15em] text-primary font-semibold mb-2"><span class="en">Undergraduate</span><span class="es">Pregrado</span></p>
                         <ul class="space-y-1 text-sm text-on-surface-variant">
                             <li>Metodología de investigación mixta <span class="text-xs text-outline">(2024)</span></li>
                             <li>Estadística para ciencias sociales <span class="text-xs text-outline">(2024)</span></li>
@@ -390,39 +418,39 @@
         <!-- 06. Awards & Grants -->
         <section id="awards" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">06</span>
+                <span class="font-headline text-4xl text-outline-variant/30">06</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">Awards & Grants</span><span class="es">Premios y Becas</span>
                 </h3>
             </div>
 
-            <div class="space-y-2">
-                <div class="bg-soft-blue p-4 border-l-4 border-deep-blue shadow-sm flex items-start gap-4">
-                    <span class="material-symbols-outlined text-deep-blue text-xl mt-0.5">emoji_events</span>
+            <div class="space-y-3">
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary text-xl mt-0.5">emoji_events</span>
                     <div>
                         <p class="text-sm font-medium text-on-surface"><span class="en">Teaching Excellence Award</span><span class="es">Premio de Excelencia Docente</span></p>
                         <p class="text-xs text-outline">Pontificia Universidad Javeriana · 2024</p>
                     </div>
                 </div>
 
-                <div class="p-4 flex items-start gap-4">
-                    <span class="material-symbols-outlined text-deep-blue/40 text-xl mt-0.5">payments</span>
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary text-xl mt-0.5">payments</span>
                     <div>
                         <p class="text-sm font-medium text-on-surface"><span class="en">Research Grant — Master's</span><span class="es">Beca de Investigación — Maestría</span></p>
                         <p class="text-xs text-outline">Universidad del Valle · 2022</p>
                     </div>
                 </div>
 
-                <div class="bg-soft-blue p-4 border-l-4 border-deep-blue shadow-sm flex items-start gap-4">
-                    <span class="material-symbols-outlined text-deep-blue text-xl mt-0.5">military_tech</span>
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary text-xl mt-0.5">military_tech</span>
                     <div>
                         <p class="text-sm font-medium text-on-surface"><span class="en">Honors Thesis</span><span class="es">Tesis con Honores</span></p>
                         <p class="text-xs text-outline">Universidad del Valle · 2018</p>
                     </div>
                 </div>
 
-                <div class="p-4 flex items-start gap-4">
-                    <span class="material-symbols-outlined text-deep-blue/40 text-xl mt-0.5">payments</span>
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 border border-outline-variant/5">
+                    <span class="material-symbols-outlined text-primary text-xl mt-0.5">payments</span>
                     <div>
                         <p class="text-sm font-medium text-on-surface"><span class="en">Research Grant — Undergraduate</span><span class="es">Beca de Investigación — Pregrado</span></p>
                         <p class="text-xs text-outline">Universidad del Valle · 2018</p>
@@ -434,14 +462,14 @@
         <!-- 07. Research Groups -->
         <section id="groups" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">07</span>
+                <span class="font-headline text-4xl text-outline-variant/30">07</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">Research Groups</span><span class="es">Grupos de Investigación</span>
                 </h3>
             </div>
 
-            <div class="space-y-2">
-                <div class="bg-soft-blue p-5 border-l-4 border-deep-blue shadow-sm flex items-start justify-between">
+            <div class="space-y-4">
+                <div class="bg-white p-5 border border-outline-variant/10 flex items-start justify-between">
                     <div>
                         <p class="text-sm font-medium text-on-surface">Grupo de Psicología Organizacional y del Trabajo</p>
                         <p class="text-xs text-outline">Universidad del Valle · Minciencias · 2024–<span class="en">present</span><span class="es">presente</span></p>
@@ -449,7 +477,7 @@
                     <span class="inline-block px-2 py-0.5 bg-green-rank/10 text-green-rank text-[10px] uppercase tracking-widest font-bold shrink-0">A1</span>
                 </div>
 
-                <div class="p-5 flex items-start justify-between">
+                <div class="bg-white p-5 border border-outline-variant/10 flex items-start justify-between">
                     <div>
                         <p class="text-sm font-medium text-on-surface">Grupo de Cognición Científica y Matemática</p>
                         <p class="text-xs text-outline">Universidad del Valle · Minciencias · 2018–<span class="en">present</span><span class="es">presente</span></p>
@@ -462,25 +490,25 @@
         <!-- 08. Education -->
         <section id="education" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">08</span>
+                <span class="font-headline text-4xl text-outline-variant/30">08</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">Education</span><span class="es">Educación</span>
                 </h3>
             </div>
 
-            <div class="space-y-2">
-                <div class="bg-soft-blue p-5 border-l-4 border-deep-blue shadow-sm">
-                    <p class="font-headline text-sm font-bold text-deep-blue"><span class="en">PhD in Psychology</span><span class="es">Doctorado en Psicología</span></p>
+            <div class="space-y-4">
+                <div class="border-l-2 border-primary/30 pl-5 py-2">
+                    <p class="font-headline text-sm font-bold text-on-surface"><span class="en">PhD in Psychology</span><span class="es">Doctorado en Psicología</span></p>
                     <p class="text-xs text-outline">Universidad del Valle — CIDEAS · 2025–<span class="en">present</span><span class="es">presente</span></p>
                 </div>
 
-                <div class="p-5">
+                <div class="border-l-2 border-primary/30 pl-5 py-2">
                     <p class="font-headline text-sm font-bold text-on-surface"><span class="en">M.Sc. in Statistics</span><span class="es">M.Sc. en Estadística</span></p>
                     <p class="text-xs text-outline">Universidad del Valle · 2020–2022</p>
                 </div>
 
-                <div class="bg-soft-blue p-5 border-l-4 border-deep-blue shadow-sm">
-                    <p class="font-headline text-sm font-bold text-deep-blue"><span class="en">B.Sc. in Psychology</span><span class="es">B.Sc. en Psicología</span></p>
+                <div class="border-l-2 border-primary/30 pl-5 py-2">
+                    <p class="font-headline text-sm font-bold text-on-surface"><span class="en">B.Sc. in Psychology</span><span class="es">B.Sc. en Psicología</span></p>
                     <p class="text-xs text-outline">Universidad del Valle · 2014–2019</p>
                 </div>
             </div>
@@ -489,22 +517,22 @@
         <!-- 09. Skills -->
         <section id="skills" class="space-y-6">
             <div class="flex items-baseline gap-4 mb-8">
-                <span class="font-headline text-4xl text-deep-blue/25">09</span>
+                <span class="font-headline text-4xl text-outline-variant/30">09</span>
                 <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface">
                     <span class="en">Skills</span><span class="es">Habilidades</span>
                 </h3>
             </div>
 
             <div class="flex flex-wrap gap-3">
-                <span class="bg-soft-blue text-deep-blue px-4 py-2 text-sm font-bold border border-deep-blue/10">Python</span>
-                <span class="bg-soft-blue text-deep-blue px-4 py-2 text-sm font-bold border border-deep-blue/10">R</span>
-                <span class="bg-soft-blue text-deep-blue px-4 py-2 text-sm font-bold border border-deep-blue/10"><span class="en">Machine Learning</span><span class="es">Aprendizaje Automático</span></span>
-                <span class="bg-soft-blue text-deep-blue px-4 py-2 text-sm font-bold border border-deep-blue/10"><span class="en">Multivariate Statistics</span><span class="es">Estadística Multivariada</span></span>
+                <span class="px-4 py-2 bg-surface-container-low border border-outline-variant/10 text-sm text-on-surface font-medium">Python</span>
+                <span class="px-4 py-2 bg-surface-container-low border border-outline-variant/10 text-sm text-on-surface font-medium">R</span>
+                <span class="px-4 py-2 bg-surface-container-low border border-outline-variant/10 text-sm text-on-surface font-medium"><span class="en">Machine Learning</span><span class="es">Aprendizaje Automático</span></span>
+                <span class="px-4 py-2 bg-surface-container-low border border-outline-variant/10 text-sm text-on-surface font-medium"><span class="en">Multivariate Statistics</span><span class="es">Estadística Multivariada</span></span>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="pt-6 mt-12 text-center">
+        <footer class="border-t border-outline-variant/20 pt-6 mt-12 text-center">
             <p class="text-xs text-outline">Cali, Colombia · <span class="en">Updated March 2026</span><span class="es">Actualizado en marzo de 2026</span></p>
         </footer>
 
@@ -514,23 +542,23 @@
     <nav class="bottom-nav fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 bg-[#fff8f4] border-t border-outline-variant/15 shadow-[0_-4px_20px_rgba(35,26,16,0.06)] z-50 rounded-t-xl">
         <a href="#about" class="flex flex-col items-center justify-center text-tertiary opacity-60 hover:opacity-100 transition-opacity no-underline">
             <span class="material-symbols-outlined">person</span>
-            <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">About</span><span class="es">Info</span></span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">About</span><span class="es">Info</span></span>
         </a>
         <a href="#publications" class="flex flex-col items-center justify-center text-tertiary opacity-60 hover:opacity-100 transition-opacity no-underline">
             <span class="material-symbols-outlined">auto_stories</span>
-            <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Pubs</span><span class="es">Pubs</span></span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Pubs</span><span class="es">Pubs</span></span>
         </a>
-        <a href="#teaching" class="flex flex-col items-center justify-center text-deep-blue bg-soft-blue rounded-full px-4 py-1 no-underline">
+        <a href="#teaching" class="flex flex-col items-center justify-center text-primary bg-secondary-container/30 rounded-full px-4 py-1 no-underline">
             <span class="material-symbols-outlined">school</span>
-            <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Teach</span><span class="es">Clase</span></span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Teach</span><span class="es">Clase</span></span>
         </a>
         <a href="#awards" class="flex flex-col items-center justify-center text-tertiary opacity-60 hover:opacity-100 transition-opacity no-underline">
             <span class="material-symbols-outlined">emoji_events</span>
-            <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Awards</span><span class="es">Premios</span></span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Awards</span><span class="es">Premios</span></span>
         </a>
         <a href="#education" class="flex flex-col items-center justify-center text-tertiary opacity-60 hover:opacity-100 transition-opacity no-underline">
             <span class="material-symbols-outlined">history_edu</span>
-            <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Edu</span><span class="es">Edu</span></span>
+            <span class="font-body text-[10px] uppercase tracking-widest font-semibold mt-1"><span class="en">Edu</span><span class="es">Edu</span></span>
         </a>
     </nav>
 
