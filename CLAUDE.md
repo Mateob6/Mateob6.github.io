@@ -30,7 +30,7 @@ Pushes to `main` branch on `https://github.com/Mateob6/Mateob6.github.io.git`. G
 - `lang.js` — Language toggle script (EN/ES switcher with flag icons), injected into the TopAppBar header
 - `google5845fe3ac49f41f4.html` — Google Search Console verification file
 - `photo.jpg` — Profile photo (displayed in hero section and TopAppBar)
-- `teaching.html`, `publications.html`, `presentations.html`, `awards.html`, `groups.html` — Legacy subpages (no longer linked from index)
+- `publications.html`, `presentations.html`, `teaching.html`, `awards.html`, `groups.html` — Standalone subpages using the same Digital Curator design system (TopAppBar, BottomNavBar, alternating card pattern, bilingual support)
 
 ## Architecture
 
@@ -38,56 +38,56 @@ Pushes to `main` branch on `https://github.com/Mateob6/Mateob6.github.io.git`. G
 - **Fonts**: Google Fonts — `Noto Serif` (headings, serif), `Inter` (body/labels, sans-serif). Loaded via `<link>`.
 - **Icons**: Material Symbols Outlined (weight 300) via Google Fonts CDN.
 - **Color palette** (Tailwind custom colors):
-  - `soft-blue` (#f0f7ff) — highlight background for alternating cards
-  - `deep-blue` / `primary` (#004c7c) — headings, accents, border-left markers
+  - `surface-container-low` (#fff1e7) — warm card backgrounds
+  - `primary` (#004c7c) — Deep Blue, headings and accents
   - `background` / `surface` (#fff8f4) — warm page surface
   - `on-surface` (#231a10) — primary text
-  - `tertiary` (#534738) — secondary text, nav links
-  - `outline` (#727780) — muted metadata
+  - `on-surface-variant` (#41474f) — secondary text
+  - `tertiary` (#534738) — nav links, muted elements
+  - `outline` (#727780) — metadata
+  - `outline-variant` (#c1c7d0) — subtle borders
+  - `secondary-container` (#fed2ad) — warm accent badges
   - `green-rank` (#4a7c59) — Minciencias group rankings
 - **Layout**: Single centered column (`max-w-3xl`, ~48rem). TopAppBar (fixed, glass blur). BottomNavBar (mobile only, hidden on `min-width: 769px`).
 - **SEO**: meta description, author, keywords, canonical URL (`https://mateob6.github.io`). Google Search Console verified.
 
-## Visual Contrast System
-
-The site uses an **alternating card highlight** pattern for visual separation — NOT horizontal rules or section background bands.
-
-### How it works:
-- **Highlighted items**: `bg-soft-blue p-6 border-l-4 border-deep-blue shadow-sm` — the blue field wraps the element, creating territory.
-- **Plain items**: padding only, no background — sit directly on the warm surface (#fff8f4).
-- Items alternate between highlighted and plain within each section, creating rhythm.
-- In highlighted cards: titles use `text-deep-blue`. In plain cards: titles use `text-on-surface`.
-- Tags/badges: `bg-soft-blue text-deep-blue border border-deep-blue/10`.
-
-### Design principles:
-- **"Paper-on-Paper"**: Avoid harsh shadows. Use tonal shifts (warm surface vs soft-blue field) to create depth.
-- Blue does not divide — it **envelopes** certain elements as a territorial marker.
-- No `<hr>` elements. No explicit border lines between sections. Contrast comes from presence/absence of the blue field.
-- Section numbers (`01`–`09`) in `text-deep-blue/25` provide subtle structural anchoring.
-
 ## Page Layout
 
 ### TopAppBar (fixed)
-Name (italic, deep-blue) → Desktop nav links → Language toggle (injected by lang.js) → Profile photo thumbnail.
+Name (italic, primary blue) → Desktop nav links → Language toggle (injected by lang.js) → Profile photo thumbnail.
 
 ### Content (scrolls)
-Hero (centered photo, name, tagline, profile links) → 01 About → 02 Research Interests → 03 Publications (Articles + Book Chapters) → 04 Selected Presentations → 05 Teaching (3 universities) → 06 Awards & Grants → 07 Research Groups → 08 Education → 09 Skills → Footer.
+Hero (centered photo, name, "Curation & Computation" tagline, profile links) → 01 About → 02 Research Interests → 03 Publications (Articles + Book Chapters) → 04 Selected Presentations → 05 Teaching (3 universities) → 06 Awards & Grants → 07 Research Groups → 08 Education → 09 Skills → Footer.
 
 ### BottomNavBar (mobile only)
-5 anchor links: About, Pubs, Teach (highlighted), Awards, Edu.
+5 anchor links: About, Pubs, Teach (highlighted with `bg-secondary-container/30`), Awards, Edu.
 
 ## Patterns
 
-- **Section headings**: `font-headline text-2xl md:text-3xl font-bold` with a numbered prefix (`01`–`09`) in faded deep-blue.
-- **Publication entries**: Alternating highlighted/plain cards. Highlighted cards include type badge (Article/Chapter), title, authors, journal, and DOI link with arrow icon. Plain cards use `bg-soft-blue` badge inline.
-- **Presentation entries**: Alternating highlighted/plain. Title + venue/year metadata.
-- **Teaching blocks**: Alternating highlighted/plain per university. University name as `font-headline font-bold`, with Pregrado/Posgrado sublabels in uppercase tracking.
-- **Awards**: Alternating highlighted/plain with Material Symbol icons.
-- **Groups**: Highlighted/plain with Minciencias rank badges (`bg-green-rank/10 text-green-rank`).
-- **Education**: Alternating highlighted/plain with degree + institution.
-- **Skills**: Tags in `bg-soft-blue text-deep-blue` with subtle borders.
+- **Section headings**: `font-headline text-2xl md:text-3xl font-bold` with numbered prefix (`01`–`09`) in `text-outline-variant/30`.
+- **About block**: `bg-surface-container-low p-6 md:p-8` with decorative `bg-secondary-container/20` circle.
+- **Interest cards**: Grid of `bg-surface-container-low p-5 border border-outline-variant/5` with Material Symbol icons in `text-primary`.
+- **Publication entries**: White cards (`bg-white p-5 border border-outline-variant/10`). Type badge (`bg-secondary-container/40` for articles, `bg-surface-container/60` for chapters). Title in `font-headline text-sm font-bold`. DOI links where available.
+- **Presentation entries**: `border-l-2 border-primary/20 pl-5` with hover darkening.
+- **Teaching blocks**: White cards per university with `account_balance` icon. Level labels (UNDERGRADUATE/PREGRADO) in `text-[10px] uppercase tracking-[0.15em] text-primary font-semibold`.
+- **Awards**: `bg-surface-container-low p-4 border border-outline-variant/5` with Material Symbol icons.
+- **Groups**: White cards with Minciencias rank badges (`bg-green-rank/10 text-green-rank`).
+- **Education**: `border-l-2 border-primary/30 pl-5` entries.
+- **Skills**: Tags in `bg-surface-container-low border border-outline-variant/10`.
 - Content is bilingual (EN/ES); publication/presentation titles stay in their original language (Spanish).
 - Name is spelled **Belalcazar** (no tilde) across the site.
+
+## Subpages
+
+The standalone subpages (`publications.html`, `teaching.html`, `presentations.html`, `awards.html`, `groups.html`) use the Digital Curator design system with:
+- Same Tailwind config, fonts, and Material Symbols as `index.html`
+- TopAppBar with nav links (current page highlighted with `font-semibold border-b-2 border-deep-blue`)
+- BottomNavBar for mobile
+- Hero header with `border-l-4 border-primary pl-8` accent and uppercase category label
+- Alternating highlighted/plain card pattern:
+  - **Highlighted**: `bg-soft-blue` (#f0f7ff) + `border-l-4 border-deep-blue shadow-sm`
+  - **Plain**: padding only, no background, sits on warm surface
+- Bilingual EN/ES support via same `lang.js`
 
 ## Bilingual Support (EN/ES)
 
@@ -107,7 +107,7 @@ Hero (centered photo, name, tagline, profile links) → 01 About → 02 Research
 
 **Design decisions**:
 - Single dedicated page `cursos.html` (all courses in one page, organized by sections).
-- Should follow "The Digital Curator" design system with the same alternating card highlight pattern.
+- Should follow "The Digital Curator" design system consistent with the subpages.
 - Presentations hosted externally (Gamma links for online viewing, Google Drive/OneDrive links for PPTX download). No large files in the repo.
 - Each presentation rendered with: topic name + "Ver en Gamma" link + "Descargar PPTX" link.
 - Public access, no restrictions.
