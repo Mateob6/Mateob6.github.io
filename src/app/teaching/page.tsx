@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { T } from "@/components/content/t";
-import { CourseBlock } from "@/components/content/course-block";
+import { CourseEntry } from "@/components/content/course-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
-import { universities } from "@/data/teaching";
+import { courses, universityOrder, universityLocations } from "@/data/teaching";
 
 export const metadata: Metadata = { title: "Teaching" };
 
@@ -20,18 +20,38 @@ export default function TeachingPage() {
         </header>
       </ScrollReveal>
 
-      <div className="space-y-6">
-        {universities.map((u, i) => (
-          <ScrollReveal key={u.name} delay={i * 120}>
-            <CourseBlock
-              name={u.name}
-              location={u.location}
-              undergraduate={u.undergraduate}
-              graduate={u.graduate}
-            />
-          </ScrollReveal>
-        ))}
-      </div>
+      {universityOrder.map((uni) => {
+        const uniCourses = courses
+          .filter((c) => c.university === uni)
+          .sort((a, b) => {
+            const aActive = a.semesters.includes("2026-02") ? 1 : 0;
+            const bActive = b.semesters.includes("2026-02") ? 1 : 0;
+            if (bActive !== aActive) return bActive - aActive;
+            return b.semesters.length - a.semesters.length;
+          });
+
+        if (uniCourses.length === 0) return null;
+
+        return (
+          <section key={uni} className="space-y-4">
+            <ScrollReveal>
+              <div>
+                <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
+                  {uni}
+                </h2>
+                <p className="text-[11px] text-muted mt-0.5">{universityLocations[uni]}</p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal>
+              <div className="pl-4 border-l-2 border-accent/20">
+                {uniCourses.map((course) => (
+                  <CourseEntry key={`${course.name}-${course.level}-${course.university}`} course={course} />
+                ))}
+              </div>
+            </ScrollReveal>
+          </section>
+        );
+      })}
     </div>
   );
 }

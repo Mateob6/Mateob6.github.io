@@ -1,41 +1,107 @@
-import type { University } from "@/lib/types";
+import type { Course } from "@/lib/types";
 
-export const universities: University[] = [
+const PUJ = "Pontificia Universidad Javeriana";
+const PUJ_SHORT = "PUJ Cali";
+const UV = "Universidad del Valle";
+const UV_SHORT = "Univalle";
+const USB = "Universidad de San Buenaventura";
+const USB_SHORT = "USB Cali";
+
+export const courses: Course[] = [
+  // === PUJ Cali ===
   {
-    name: "Pontificia Universidad Javeriana",
-    location: "Cali, Colombia",
-    undergraduate: [
-      "Análisis integrado de datos",
-      "Estadística para ciencias sociales",
-      "Psicología del aprendizaje",
-      "Metodología cuantitativa",
-    ],
-    graduate: [
-      "Metodología de la investigación en gestión de proyectos",
-    ],
+    name: "Estadística para Ciencias Sociales",
+    university: PUJ, universityShort: PUJ_SHORT,
+    level: "undergraduate",
+    semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"],
   },
   {
-    name: "Universidad del Valle",
-    location: "Cali, Colombia",
-    undergraduate: [
-      "Desarrollo del pensamiento matemático",
-      "Metodología cuantitativa",
-      "Psicología del aprendizaje",
-      "Pensamiento lógico matemático",
-      "Tópicos en psicología cognitiva",
-      "Estadística",
-    ],
-    graduate: [
-      "Análisis multivariado aplicado en psicología",
-    ],
+    name: "Psicología del Aprendizaje",
+    university: PUJ, universityShort: PUJ_SHORT,
+    level: "undergraduate",
+    semesters: ["2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"],
   },
   {
-    name: "Universidad San Buenaventura",
-    location: "Cali, Colombia · 2024",
-    undergraduate: [
-      "Metodología de investigación mixta (2024)",
-      "Estadística para ciencias sociales (2024)",
-    ],
-    graduate: [],
+    name: "Análisis Integrado de Datos",
+    university: PUJ, universityShort: PUJ_SHORT,
+    level: "undergraduate",
+    semesters: ["2025-02", "2026-01", "2026-02"],
+  },
+  {
+    name: "Tópicos en Psicología Cognitiva",
+    university: PUJ, universityShort: PUJ_SHORT,
+    level: "undergraduate",
+    semesters: ["2023-02", "2024-01", "2024-02", "2025-01"],
+  },
+  {
+    name: "Estadística Multivariada Aplicada",
+    university: PUJ, universityShort: PUJ_SHORT,
+    level: "graduate",
+    semesters: ["2023-02"],
+  },
+
+  // === Universidad del Valle ===
+  {
+    name: "Psicología del Aprendizaje",
+    university: UV, universityShort: UV_SHORT,
+    level: "undergraduate",
+    semesters: ["2024-02", "2025-02", "2026-02"],
+  },
+  {
+    name: "Estadística",
+    university: UV, universityShort: UV_SHORT,
+    level: "undergraduate",
+    semesters: ["2024-02", "2025-02", "2026-02"],
+  },
+  {
+    name: "Metodología Cuantitativa",
+    university: UV, universityShort: UV_SHORT,
+    level: "undergraduate",
+    semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-02"],
+  },
+  {
+    name: "Pensamiento Lógico-Matemático",
+    university: UV, universityShort: UV_SHORT,
+    level: "undergraduate",
+    semesters: ["2024-01", "2025-01", "2026-01"],
+  },
+  {
+    name: "Desarrollo del Pensamiento Matemático",
+    university: UV, universityShort: UV_SHORT,
+    level: "undergraduate",
+    semesters: ["2025-01", "2026-01"],
+  },
+  {
+    name: "Psicología Educativa 3",
+    university: UV, universityShort: UV_SHORT,
+    level: "undergraduate",
+    semesters: ["2025-02"],
+  },
+  {
+    name: "Metodología Cuantitativa",
+    university: UV, universityShort: UV_SHORT,
+    level: "graduate",
+    semesters: ["2024-02", "2025-02"],
+  },
+
+  // === USB Cali ===
+  {
+    name: "Lógica Investigativa",
+    university: USB, universityShort: USB_SHORT,
+    level: "undergraduate",
+    semesters: ["2024-01"],
+  },
+  {
+    name: "Estadística para Ciencias Sociales",
+    university: USB, universityShort: USB_SHORT,
+    level: "undergraduate",
+    semesters: ["2024-01"],
   },
 ];
+
+export const universityOrder = [PUJ, UV, USB];
+export const universityLocations: Record<string, string> = {
+  [PUJ]: "Cali, Colombia · 2022 – present",
+  [UV]: "Cali, Colombia · 2020 – present",
+  [USB]: "Cali, Colombia · 2024",
+};
