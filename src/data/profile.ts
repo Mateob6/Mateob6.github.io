@@ -23,15 +23,15 @@ export const profileLinks: ProfileLink[] = [
 
 export const researchLines: ResearchLine[] = [
   {
-    titleEn: "Applied Quantitative Methodology",
-    titleEs: "Metodología Cuantitativa Aplicada",
-    descriptionEn: "I bring psychometric modeling, multivariate analysis, and rigorous quantitative standards to empirical research across neuropsychology, educational and developmental psychology, and organizational psychology — collaborating on instrument validation, scale adaptation, and the quantitative infrastructure of applied research where measurement decisions shape clinical, educational, and policy conclusions.",
-    descriptionEs: "Aporto modelamiento psicométrico, análisis multivariado y estándares cuantitativos rigurosos a la investigación empírica en neuropsicología, psicología educativa y del desarrollo, y psicología organizacional — colaborando en validación de instrumentos, adaptación de escalas y la infraestructura cuantitativa de la investigación aplicada, donde las decisiones de medición determinan conclusiones clínicas, educativas y de política.",
-  },
-  {
     titleEn: "Computational Approaches in Psychology",
     titleEs: "Aproximaciones Computacionales en Psicología",
-    descriptionEn: "Using computational methods and artificial intelligence, I investigate the semantic structure of psychological constructs and the gap between what we theorize and what standard instruments capture, recovering structure from theoretical texts and formalizing multimodal behavior (gesture, speech, interaction with artifacts) that conventional measurement does not reach. Grounded in cognitive development and education, this work addresses settings where this gap is most visible: geometric reasoning in deaf children, multimodal interaction in STEM classrooms, and spatial navigation in individuals with visual impairments.",
-    descriptionEs: "Mediante métodos computacionales e inteligencia artificial, investigo la estructura semántica de los constructos psicológicos y la brecha entre lo que teorizamos y lo que nuestros instrumentos capturan, recuperando estructura de textos teóricos y formalizando comportamiento multimodal (gesto, habla, interacción con artefactos) que la medición convencional no alcanza. Arraigada en el desarrollo cognitivo y la educación, esta línea aborda contextos donde esta brecha es más visible: el razonamiento geométrico en niños sordos, la interacción multimodal en aulas STEM, y la navegación espacial en personas con discapacidad visual.",
+    descriptionEn: "Using computational methods and artificial intelligence, I study how psychological constructs are built, represented, and measured. I develop methods to represent and measure multimodal psychological phenomena — gesture, speech, and interaction with artifacts, among others — that conventional measurement does not reach. Centered in cognitive development and education, this line addresses contexts where the distance between the construct and its measurement is most visible, for example, geometric reasoning in deaf children, multimodal interaction in STEM classrooms, or motivation in educational settings.",
+    descriptionEs: "Mediante métodos computacionales e inteligencia artificial, estudio cómo se construyen, representan y miden los constructos psicológicos. Desarrollo métodos para representar y medir fenómenos psicológicos multimodales — gesto, habla e interacción con artefactos, entre otros — que la medición convencional no alcanza. Centrada en el desarrollo cognitivo y la educación, esta línea aborda contextos donde la distancia entre el constructo y su medición es más visible, por ejemplo, el razonamiento geométrico en niños sordos, la interacción multimodal en aulas STEM o la motivación en contextos educativos.",
+  },
+  {
+    titleEn: "Applied Quantitative Methodology",
+    titleEs: "Metodología Cuantitativa Aplicada",
+    descriptionEn: "I work in quantitative methodology, statistical modeling, and psychometrics applied to empirical research across different fields of psychology. I collaborate on study design, development of statistical analyses, instrument validation, and scale adaptation, with particular attention to how methodological and theoretical decisions affect the conclusions we draw.",
+    descriptionEs: "Trabajo en metodología cuantitativa, modelamiento estadístico y psicometría, aplicados a la investigación empírica en diferentes campos de la psicología. Colaboro en diseño de estudios, desarrollo de análisis estadísticos, validación de instrumentos y adaptación de escalas, con especial atención a cómo las decisiones metodológicas y teóricas afectan las conclusiones que obtenemos.",
   },
 ];

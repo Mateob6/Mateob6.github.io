@@ -57,7 +57,7 @@ export default function HomePage() {
       {/* ===== RESEARCH LINES ===== */}
       <ScrollReveal>
         <section id="research">
-          <SectionHeader en="Research" es="Investigación" />
+          <SectionHeader en="Research Lines" es="Líneas de Investigación" />
           <div className="space-y-5">
             {researchLines.map((line, i) => (
               <ScrollReveal key={line.titleEn} delay={i * 150}>
