@@ -2,12 +2,12 @@ import type { ProfileLink, ResearchLine } from "@/lib/types";
 
 export const bio = {
   en: [
-    "My research examines how psychological processes — from geometric reasoning to social cognition — manifest across different modalities and populations, and how computational methods can formalize what traditional instruments miss. I work at the intersection of cognitive science, psychometrics, and AI: as a statistician, through psychometric modeling, simulation, and multivariate analysis; and as a computational researcher, developing tools that use contextual embeddings to read meaning in text and multimodal behavioral data.",
-    "I hold degrees in Psychology and Statistics from Universidad del Valle, where I am a doctoral candidate at CIDEAS. I teach across three universities and consult in psychometrics.",
+    "I study how psychological constructs are built and measured, combining quantitative methodology with computational methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture, particularly in developmental cognitive and educational psychology.",
+    "I hold degrees in Psychology and Statistics from Universidad del Valle, where I am a doctoral candidate at CIDEAS. I teach across three universities.",
   ],
   es: [
-    "Mi investigación examina cómo los procesos psicológicos — desde el razonamiento geométrico hasta la cognición social — se manifiestan a través de diferentes modalidades y poblaciones, y cómo los métodos computacionales pueden formalizar lo que los instrumentos tradicionales no capturan. Trabajo en la intersección entre ciencia cognitiva, psicometría e IA: como estadístico, mediante modelamiento psicométrico, simulación y análisis multivariado; y como investigador computacional, desarrollando herramientas que usan embeddings contextuales para leer significado en texto y datos conductuales multimodales.",
-    "Tengo formación en Psicología y Estadística de la Universidad del Valle, donde soy candidato doctoral en CIDEAS. Soy docente en tres universidades y consultor en psicometría.",
+    "Estudio cómo se construyen y miden los constructos psicológicos, combinando metodología cuantitativa con métodos computacionales. Gran parte de mi trabajo aborda la distancia entre lo que teorizamos sobre un fenómeno psicológico y lo que nuestros instrumentos realmente capturan, particularmente en psicología del desarrollo cognitivo y educativa.",
+    "Tengo formación en Psicología y Estadística de la Universidad del Valle, donde soy candidato doctoral en CIDEAS. Soy docente en tres universidades.",
   ],
 } as const;
 
