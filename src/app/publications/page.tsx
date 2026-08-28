@@ -23,19 +23,17 @@ export default function PublicationsPage() {
         </header>
       </ScrollReveal>
 
-      <section className="space-y-6">
+      <section className="space-y-4">
         <ScrollReveal>
-          <div className="flex items-center gap-2">
-            <div className="h-0.5 w-6 bg-accent" />
-            <p className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
-              <T en="Articles" es="Artículos" />
-            </p>
-          </div>
+          <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
+            <T en="Articles" es="Artículos" />
+          </h2>
         </ScrollReveal>
-        <div className="space-y-4">
-          {articles.map((pub, i) => (
-            <ScrollReveal key={pub.title} delay={i * 100}>
+        <ScrollReveal>
+          <div className="pl-4 border-l-2 border-accent/20">
+            {articles.map((pub) => (
               <PublicationCard
+                key={pub.title}
                 type={pub.type}
                 title={pub.title}
                 authors={pub.authors}
@@ -43,24 +41,22 @@ export default function PublicationsPage() {
                 year={pub.year}
                 doi={pub.doi}
               />
-            </ScrollReveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </section>
 
-      <section className="space-y-6">
+      <section className="space-y-4">
         <ScrollReveal>
-          <div className="flex items-center gap-2">
-            <div className="h-0.5 w-6 bg-accent" />
-            <p className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
-              <T en="Book Chapters" es="Capítulos de Libro" />
-            </p>
-          </div>
+          <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
+            <T en="Book Chapters" es="Capítulos de Libro" />
+          </h2>
         </ScrollReveal>
-        <div className="space-y-4">
-          {chapters.map((pub) => (
-            <ScrollReveal key={pub.title}>
+        <ScrollReveal>
+          <div className="pl-4 border-l-2 border-accent/20">
+            {chapters.map((pub) => (
               <PublicationCard
+                key={pub.title}
                 type={pub.type}
                 title={pub.title}
                 authors={pub.authors}
@@ -68,9 +64,9 @@ export default function PublicationsPage() {
                 year={pub.year}
                 doi={pub.doi}
               />
-            </ScrollReveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   );
