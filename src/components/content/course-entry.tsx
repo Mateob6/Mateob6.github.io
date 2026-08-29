@@ -24,7 +24,7 @@ function InstanceLine({ instance, lang }: { instance: CourseInstance; lang: "en"
       <span className={`ml-1.5 inline-block px-1.5 py-px text-[10px] font-medium rounded-sm ${
         instance.level === "graduate"
           ? "bg-accent/10 text-accent"
-          : "bg-foreground/5 text-muted/70"
+          : "bg-amber-500/10 text-amber-700 dark:text-amber-400"
       }`}>{levelLabel}</span>
     </span>
   );
@@ -42,7 +42,7 @@ export function CourseEntry({ name, descriptionEn, descriptionEs, instances }: {
         <p className="text-[13px] font-medium text-foreground leading-snug">{name}</p>
       </div>
       <div className="md:w-2/3">
-        <p className="text-[12px] text-muted/70 italic leading-relaxed">
+        <p className="text-[12px] text-muted italic leading-relaxed">
           <span className="en">{descriptionEn}</span>
           <span className="es">{descriptionEs}</span>
         </p>

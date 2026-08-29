@@ -23,7 +23,7 @@ export default function TeachingPage() {
       {teachingDomains.map((domain) => (
         <section key={domain.nameEn} className="space-y-4">
           <ScrollReveal>
-            <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
+            <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold pb-3 border-b border-accent/15">
               <T en={domain.nameEn} es={domain.nameEs} />
             </h2>
           </ScrollReveal>
