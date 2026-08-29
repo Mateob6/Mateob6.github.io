@@ -22,12 +22,6 @@ export default function HomePage() {
           <img src="/photo.jpg" alt="Mateo Belalcazar" width={144} height={144} className="w-full h-full object-cover" />
           <div className="absolute inset-0 rounded-full ring-2 ring-accent/10 ring-offset-4 ring-offset-background" />
         </div>
-        <p className="hero-subtitle uppercase tracking-[0.25em] text-[10px] text-accent font-medium mb-2">
-          <T
-            en="Researcher in Psychology, Statistics & Computational Methods"
-            es="Investigador en Psicología, Estadística y Métodos Computacionales"
-          />
-        </p>
         <h1 className="hero-name font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4">
           Mateo Belalcazar
         </h1>
