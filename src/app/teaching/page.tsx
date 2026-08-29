@@ -20,15 +20,6 @@ export default function TeachingPage() {
         </header>
       </ScrollReveal>
 
-      <ScrollReveal>
-        <p className="text-[14px] text-muted leading-relaxed">
-          <T
-            en="I teach statistics, research methodology, and cognitive development across three universities in Cali, Colombia."
-            es="Soy docente de estadística, metodología de la investigación y desarrollo cognitivo en tres universidades de Cali, Colombia."
-          />
-        </p>
-      </ScrollReveal>
-
       {teachingDomains.map((domain) => (
         <section key={domain.nameEn} className="space-y-4">
           <ScrollReveal>

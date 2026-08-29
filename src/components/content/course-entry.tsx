@@ -13,17 +13,14 @@ function formatPeriod(semesters: string[], lang: "en" | "es"): string {
 }
 
 function InstanceLine({ instance, lang }: { instance: CourseInstance; lang: "en" | "es" }) {
-  const count = instance.semesters.length;
-  const semLabel = lang === "en"
-    ? (count === 1 ? "semester" : "semesters")
-    : (count === 1 ? "semestre" : "semestres");
   const levelLabel = lang === "en"
     ? (instance.level === "graduate" ? "Graduate" : "")
     : (instance.level === "graduate" ? "Posgrado" : "");
 
   return (
     <span className={lang}>
-      {instance.university} · {count} {semLabel} · {formatPeriod(instance.semesters, lang)}
+      <span className="font-medium text-foreground/80">{instance.university}</span>
+      <span className="text-muted/70"> · {formatPeriod(instance.semesters, lang)}</span>
       {levelLabel && <span className="text-accent/70"> · {levelLabel}</span>}
     </span>
   );
@@ -36,19 +33,26 @@ export function CourseEntry({ name, descriptionEn, descriptionEs, instances }: {
   instances: CourseInstance[];
 }) {
   return (
-    <div className="py-3.5 border-b border-border/40 last:border-b-0">
-      <p className="text-[13px] font-medium text-foreground leading-snug">{name}</p>
-      <p className="text-[12px] text-muted/70 mt-0.5 italic leading-relaxed">
-        <span className="en">{descriptionEn}</span>
-        <span className="es">{descriptionEs}</span>
-      </p>
-      <div className="mt-1 space-y-0.5">
-        {instances.map((inst, i) => (
-          <p key={i} className="text-[12px] text-muted">
-            <InstanceLine instance={inst} lang="en" />
-            <InstanceLine instance={inst} lang="es" />
-          </p>
-        ))}
+    <div className="py-5 border-b border-border/40 last:border-b-0 flex flex-col md:flex-row md:gap-8">
+      <div className="md:w-1/3 shrink-0 mb-1 md:mb-0">
+        <p className="text-[13px] font-medium text-foreground leading-snug">{name}</p>
+      </div>
+      <div className="md:w-2/3">
+        <p className="text-[12px] text-muted/70 italic leading-relaxed">
+          <span className="en">{descriptionEn}</span>
+          <span className="es">{descriptionEs}</span>
+        </p>
+        <div className="mt-1.5 space-y-1">
+          {instances.map((inst, i) => (
+            <div key={i} className="flex items-baseline gap-2 text-[12px] text-muted leading-relaxed">
+              <span className="w-1.5 h-1.5 rounded-full bg-muted/40 shrink-0 translate-y-[-1px]" />
+              <p>
+                <InstanceLine instance={inst} lang="en" />
+                <InstanceLine instance={inst} lang="es" />
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

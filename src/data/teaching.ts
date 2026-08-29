@@ -27,8 +27,8 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Inferential statistics, multivariate analysis, and research design for psychology students.",
         descriptionEs: "Estadística inferencial, análisis multivariado y diseño de investigación para estudiantes de psicología.",
         instances: [
-          { university: "PUJ Cali", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
-          { university: "USB Cali", level: "undergraduate", semesters: ["2024-01"] },
+          { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
+          { university: "Universidad de San Buenaventura, Cali", level: "undergraduate", semesters: ["2024-01"] },
         ],
       },
       {
@@ -36,7 +36,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Foundations of descriptive and inferential statistics applied to behavioral science research.",
         descriptionEs: "Fundamentos de estadística descriptiva e inferencial aplicados a la investigación en ciencias del comportamiento.",
         instances: [
-          { university: "Univalle", level: "undergraduate", semesters: ["2024-02", "2025-02", "2026-02"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-02", "2025-02", "2026-02"] },
         ],
       },
       {
@@ -44,7 +44,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Advanced multivariate techniques for graduate research in psychology.",
         descriptionEs: "Técnicas multivariadas avanzadas para la investigación en psicología a nivel de posgrado.",
         instances: [
-          { university: "PUJ Cali", level: "graduate", semesters: ["2023-02"] },
+          { university: "Pontificia Universidad Javeriana, Cali", level: "graduate", semesters: ["2023-02"] },
         ],
       },
       {
@@ -52,7 +52,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Integration of quantitative and qualitative analysis methods in applied research projects.",
         descriptionEs: "Integración de métodos de análisis cuantitativo y cualitativo en proyectos de investigación aplicada.",
         instances: [
-          { university: "PUJ Cali", level: "undergraduate", semesters: ["2025-02", "2026-01", "2026-02"] },
+          { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2025-02", "2026-01", "2026-02"] },
         ],
       },
     ],
@@ -66,8 +66,8 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Quantitative research design, sampling, measurement, and data analysis strategies.",
         descriptionEs: "Diseño de investigación cuantitativa, muestreo, medición y estrategias de análisis de datos.",
         instances: [
-          { university: "Univalle", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-02"] },
-          { university: "Univalle", level: "graduate", semesters: ["2024-02", "2025-02"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-02"] },
+          { university: "Universidad del Valle", level: "graduate", semesters: ["2024-02", "2025-02"] },
         ],
       },
       {
@@ -75,7 +75,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Foundations of research logic, hypothesis formulation, and study design.",
         descriptionEs: "Fundamentos de lógica investigativa, formulación de hipótesis y diseño de estudios.",
         instances: [
-          { university: "USB Cali", level: "undergraduate", semesters: ["2024-01"] },
+          { university: "Universidad de San Buenaventura, Cali", level: "undergraduate", semesters: ["2024-01"] },
         ],
       },
     ],
@@ -89,8 +89,8 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Learning theories, behavioral and cognitive perspectives, and their application in educational settings.",
         descriptionEs: "Teorías del aprendizaje, perspectivas conductual y cognitiva, y su aplicación en contextos educativos.",
         instances: [
-          { university: "PUJ Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
-          { university: "Univalle", level: "undergraduate", semesters: ["2024-02", "2025-02", "2026-02"] },
+          { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-02", "2025-02", "2026-02"] },
         ],
       },
       {
@@ -98,7 +98,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Selected topics in cognitive psychology: attention, memory, reasoning, and language.",
         descriptionEs: "Temas selectos en psicología cognitiva: atención, memoria, razonamiento y lenguaje.",
         instances: [
-          { university: "PUJ Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01"] },
+          { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01"] },
         ],
       },
       {
@@ -106,7 +106,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Logical and mathematical thinking from a developmental perspective.",
         descriptionEs: "Pensamiento lógico y matemático desde una perspectiva del desarrollo.",
         instances: [
-          { university: "Univalle", level: "undergraduate", semesters: ["2024-01", "2025-01", "2026-01"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-01", "2025-01", "2026-01"] },
         ],
       },
       {
@@ -114,7 +114,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Cognitive development of mathematical reasoning in children and adolescents.",
         descriptionEs: "Desarrollo cognitivo del razonamiento matemático en niños y adolescentes.",
         instances: [
-          { university: "Univalle", level: "undergraduate", semesters: ["2025-01", "2026-01"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2025-01", "2026-01"] },
         ],
       },
       {
@@ -122,7 +122,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Advanced topics in educational psychology: motivation, self-regulation, and assessment.",
         descriptionEs: "Temas avanzados en psicología educativa: motivación, autorregulación y evaluación.",
         instances: [
-          { university: "Univalle", level: "undergraduate", semesters: ["2025-02"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2025-02"] },
         ],
       },
     ],
