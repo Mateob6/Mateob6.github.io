@@ -41,13 +41,13 @@ src/
 ├── app/
 │   ├── globals.css              ← theme tokens + bilingual CSS + dark mode + animations
 │   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, Analytics, FOUC prevention)
-│   ├── page.tsx                 ← HOME: hero + about + research lines + education
+│   ├── page.tsx                 ← HOME: hero + about + education (3-col grid) + research lines
 │   ├── icon.svg                 ← favicon (MB monogram)
 │   ├── sitemap.ts               ← 7 URLs
 │   ├── robots.ts
 │   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter)
-│   ├── teaching/page.tsx        ← domain-grouped course portfolio (3 domains, 11 courses)
-│   ├── skills/page.tsx          ← technical skills (4 grouped cards)
+│   ├── teaching/page.tsx        ← editorial two-column course portfolio (3 domains, 11 courses)
+│   ├── skills/page.tsx          ← editorial text-list skills (Statistical Analysis + Tools & Methods)
 │   ├── presentations/page.tsx   ← 4 presentations
 │   ├── awards/page.tsx          ← 4 awards & grants
 │   └── groups/page.tsx          ← 2 research groups
@@ -105,15 +105,19 @@ Two blocking scripts in `<head>` via `dangerouslySetInnerHTML`:
 
 ## Home Page Layout
 
-Hero (photo, name "Researcher in Psychology, Statistics & Computational Methods", profile links) → About (bio) → Research Lines (2 lines without topic pills) → Education (3 entries)
+Hero (photo, name "Researcher in Psychology, Statistics & Computational Methods", profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked)
 
 ### About Narrative
 
 Bio centers on constructs and measurement: "I study how psychological constructs are built and measured, combining quantitative methodology with computational methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture." Sober tone, no jargon. Does not lead with "doctoral student."
 
+### Education
+
+3-column horizontal grid (chronological: BSc → MSc → PhD). Each entry has top accent border, serif degree name, institution, and period. No intro paragraph.
+
 ### Research Lines
 
-Section titled "Líneas de Investigación" / "Research Lines". Two lines, each with title + multi-sentence description (no topic pills):
+Section titled "Líneas de Investigación" / "Research Lines". Two lines stacked vertically, each with title + multi-sentence description (no topic pills):
 
 1. **Computational Approaches in Psychology** (accent: blue) — Constructs studied via computational methods and AI. Multimodal phenomena (gesture, speech, artifacts). Centered in cognitive development and education. Examples: deaf children, STEM classrooms, motivation.
 2. **Applied Quantitative Methodology** (accent: green) — Psychometrics, statistical modeling, methodology applied across psychology fields. Collaborative framing ("I collaborate on..."). Attention to how methodological decisions affect conclusions.
@@ -132,16 +136,20 @@ APA-style reference list format. No cards — flat typographic entries with `bor
 
 ### Teaching (`/teaching`)
 
-Domain-grouped course portfolio. Intro paragraph + 3 thematic domains:
+Domain-grouped course portfolio. No intro paragraph. 3 thematic domains with `border-b` section headers:
 1. **Statistics & Quantitative Methods** (4 courses)
 2. **Research Methodology** (2 courses)
 3. **Cognitive Development & Learning** (5 courses)
 
-Each course appears ONCE with 1-line description in italics and all university instances listed underneath (university · semesters · period · level). Data types defined in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance).
+Editorial two-column layout: course name (1/3 left) + description & university instances (2/3 right). Full university names (Pontificia Universidad Javeriana, Cali / Universidad del Valle / Universidad de San Buenaventura, Cali). Each instance has accent dot bullet, year range (no semester count), and level badge (Pregrado in amber, Posgrado in accent blue). USB entries are historical (2024, no "present"). Data types defined in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance).
 
 ### Skills (`/skills`)
 
-Technical skills in grouped cards (Statistical Analysis with 4 subgroups, Computational, Languages & Frameworks, Platforms). Moved from home page to dedicated route.
+Editorial typography layout (no cards or chips). Two sections:
+1. **Statistical Analysis** — 2×2 grid of subgroups (Inference & Modeling, Psychometrics & Measurement, Simulation & Design, Exploration) with serif subheadings and dot-bulleted text lists
+2. **Tools & Methods** — 3-column grid (Computational, Languages & Frameworks, Platforms) with dot-bulleted text lists
+
+Both sections have `border-b border-accent/15` on headers for consistency.
 
 ## Content Inventory
 
@@ -150,12 +158,12 @@ Technical skills in grouped cards (Statistical Analysis with 4 subgroups, Comput
 | Publications (articles) | 4 (all with DOI) |
 | Publications (chapters) | 1 |
 | Teaching domains | 3 (Statistics, Methodology, Cognitive Dev.) |
-| Teaching courses | 11 unique, 14 instances across 3 universities |
+| Teaching courses | 11 unique, 14 instances across 3 universities (2 current: PUJ, Univalle; 1 past: USB) |
 | Presentations | 4 |
 | Awards & Grants | 4 |
 | Research Groups | 2 (Minciencias A1 + A) |
 | Education | 3 (PhD, MSc, BSc) |
-| Skills groups | 4 (Statistical Analysis, Computational, Languages, Platforms) |
+| Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
 | Profile links | 7 (Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
 
 ## Professional Documentation (offline)
@@ -171,3 +179,13 @@ Employment documents in `~/Desktop/Proyectos/Certificados laborales/`. Teaching 
 - Professional Experience section (research projects, Cancillería consulting)
 - Additional presentations (9 total vs. 4 shown)
 - Downloadable CV link
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
