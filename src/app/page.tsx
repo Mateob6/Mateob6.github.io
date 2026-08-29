@@ -39,17 +39,33 @@ export default function HomePage() {
 
       <div className="section-divider" />
 
-      {/* ===== ABOUT ===== */}
+      {/* ===== ABOUT + EDUCATION (side by side) ===== */}
       <ScrollReveal>
-        <section id="about">
-          <SectionHeader en="About" es="Acerca de" />
-          <div className="space-y-4">
-            <p className="en text-muted leading-relaxed text-[15px]">{bio.en[0]}</p>
-            <p className="es text-muted leading-relaxed text-[15px]">{bio.es[0]}</p>
-            <p className="en text-muted leading-relaxed text-[15px]">{bio.en[1]}</p>
-            <p className="es text-muted leading-relaxed text-[15px]">{bio.es[1]}</p>
-          </div>
-        </section>
+        <div className="flex flex-col md:flex-row md:gap-12">
+          <section id="about" className="md:w-3/5">
+            <SectionHeader en="About" es="Acerca de" />
+            <div className="space-y-4">
+              <p className="en text-muted leading-relaxed text-[14px]">{bio.en[0]}</p>
+              <p className="es text-muted leading-relaxed text-[14px]">{bio.es[0]}</p>
+              <p className="en text-muted leading-relaxed text-[14px]">{bio.en[1]}</p>
+              <p className="es text-muted leading-relaxed text-[14px]">{bio.es[1]}</p>
+            </div>
+          </section>
+          <section id="education" className="md:w-2/5 mt-12 md:mt-0">
+            <SectionHeader en="Education" es="Educación" />
+            <div>
+              {education.map((entry) => (
+                <EducationEntry
+                  key={entry.degreeEn}
+                  degreeEn={entry.degreeEn}
+                  degreeEs={entry.degreeEs}
+                  institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
+                  period={entry.period}
+                />
+              ))}
+            </div>
+          </section>
+        </div>
       </ScrollReveal>
 
       <div className="section-divider" />
@@ -62,27 +78,6 @@ export default function HomePage() {
             {researchLines.map((line, i) => (
               <ScrollReveal key={line.titleEn} delay={i * 150}>
                 <ResearchLineCard line={line} index={i} />
-              </ScrollReveal>
-            ))}
-          </div>
-        </section>
-      </ScrollReveal>
-
-      <div className="section-divider" />
-
-      {/* ===== EDUCATION ===== */}
-      <ScrollReveal>
-        <section id="education">
-          <SectionHeader en="Education" es="Educación" />
-          <div className="space-y-1">
-            {education.map((entry, i) => (
-              <ScrollReveal key={entry.degreeEn} delay={i * 100}>
-                <EducationEntry
-                  degreeEn={entry.degreeEn}
-                  degreeEs={entry.degreeEs}
-                  institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
-                  period={entry.period}
-                />
               </ScrollReveal>
             ))}
           </div>
