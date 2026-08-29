@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Academic profile website for Mateo Belalcazar (doctoral researcher in Psychology, Universidad del Valle). Deployed via **GitHub Pages** at **mateob6.github.io**. Migrated from static HTML to **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4** with static export (`output: "export"`).
+Academic profile website for Mateo Belalcazar (doctoral student in Psychology, Universidad del Valle). Deployed via **GitHub Pages** at **mateob6.github.io** (primary, public) and **Vercel** at **paginapersonal-swart.vercel.app** (secondary, analytics). Migrated from static HTML to **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4** with static export (`output: "export"`).
 
 Private `sistema/` layer (gitignored) contains deep context about Mateo's full digital ecosystem. Read only when explicitly asked.
 
@@ -12,7 +12,8 @@ Private `sistema/` layer (gitignored) contains deep context about Mateo's full d
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/postcss` (no tailwind.config — uses `@theme inline` in CSS)
 - **Fonts**: Lora (serif, headings/name) + Inter (sans, body) via `next/font/google`
 - **Icons**: Inline SVGs (no external icon library)
-- **Deploy**: GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`)
+- **Analytics**: `@vercel/analytics` (component in layout.tsx, collects on Vercel deployment)
+- **Deploy**: GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`) + Vercel (linked project `pagina_personal`)
 - **Export**: Static HTML in `/out` directory
 
 ## Development
@@ -26,12 +27,12 @@ npx serve out    # preview static build locally
 ## Deployment
 
 ```bash
-git push origin main
+git push origin main          # GitHub Actions → GitHub Pages (automatic)
+vercel deploy --prod          # Vercel (manual, for analytics)
 ```
 
-GitHub Actions builds and deploys automatically to Pages. Requires Pages source = "GitHub Actions" in repo settings.
-
 Repo: `https://github.com/Mateob6/Mateob6.github.io.git`
+Vercel project: `pagina_personal` (team `mateu7`)
 
 ## File Structure
 
@@ -39,23 +40,24 @@ Repo: `https://github.com/Mateob6/Mateob6.github.io.git`
 src/
 ├── app/
 │   ├── globals.css              ← theme tokens + bilingual CSS + dark mode + animations
-│   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, FOUC prevention)
-│   ├── page.tsx                 ← HOME: hero + about + research lines + education + skills
+│   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, Analytics, FOUC prevention)
+│   ├── page.tsx                 ← HOME: hero + about + research lines + education
 │   ├── icon.svg                 ← favicon (MB monogram)
-│   ├── sitemap.ts               ← 6 URLs
+│   ├── sitemap.ts               ← 7 URLs
 │   ├── robots.ts
-│   ├── publications/page.tsx    ← articles + book chapters
-│   ├── teaching/page.tsx        ← 3 universities, 14 courses
+│   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter)
+│   ├── teaching/page.tsx        ← domain-grouped course portfolio (3 domains, 11 courses)
+│   ├── skills/page.tsx          ← technical skills (4 grouped cards)
 │   ├── presentations/page.tsx   ← 4 presentations
 │   ├── awards/page.tsx          ← 4 awards & grants
 │   └── groups/page.tsx          ← 2 research groups
 ├── components/
-│   ├── ui/                      ← cn, Card, Badge, Button (from reconstruir-psi patterns)
+│   ├── ui/                      ← cn, Card, Badge, Button
 │   ├── layout/                  ← Header, Footer, MobileNav, ThemeToggle, LanguageToggle
 │   └── content/                 ← T (bilingual), SectionHeader, ScrollReveal, PublicationCard,
-│                                   CourseBlock, PresentationEntry, AwardCard, GroupCard,
+│                                   CourseEntry, PresentationEntry, AwardCard, GroupCard,
 │                                   EducationEntry, ProfileLinks
-├── data/                        ← typed content (profile, publications, teaching, etc.)
+├── data/                        ← typed content (profile, publications, teaching, skills, etc.)
 └── lib/
     └── types.ts                 ← shared types
 public/
@@ -103,17 +105,18 @@ Two blocking scripts in `<head>` via `dangerouslySetInnerHTML`:
 
 ## Home Page Layout
 
-Hero (photo, name "Researcher in Psychology, Statistics & Computational Methods", profile links) → About (bio) → Research (2 line cards stacked: Statistical Methodology & Psychometrics | Computational Approaches in Psychology, each with description + topic pills) → Education (3 entries) → Skills (4 grouped cards: Statistical Analysis with subgroups, Computational, Languages & Frameworks, Platforms)
+Hero (photo, name "Researcher in Psychology, Statistics & Computational Methods", profile links) → About (bio) → Research Lines (2 lines without topic pills) → Education (3 entries)
 
 ### About Narrative
 
-Bio leads with the research QUESTION ("how psychological processes manifest across different modalities and populations, and how computational methods can formalize what traditional instruments miss"), then frames the dual identity: statistician (psychometric modeling, simulation, multivariate) + computational researcher (contextual embeddings, multimodal behavioral data). Does not lead with "doctoral student." Do not revert to a generic description.
+Bio centers on constructs and measurement: "I study how psychological constructs are built and measured, combining quantitative methodology with computational methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture." Sober tone, no jargon. Does not lead with "doctoral student."
 
 ### Research Lines
 
-Two lines, each with title + one-line description + topic pills:
-1. **Statistical Methodology & Psychometrics** (accent: blue) — Monte Carlo, scoring, scales, instruments, multivariate, consulting
-2. **Computational Approaches in Psychology** (accent: green) — embeddings, AI content analysis, multimodal cognition, cognitive development, embodied cognition, research software
+Section titled "Líneas de Investigación" / "Research Lines". Two lines, each with title + multi-sentence description (no topic pills):
+
+1. **Computational Approaches in Psychology** (accent: blue) — Constructs studied via computational methods and AI. Multimodal phenomena (gesture, speech, artifacts). Centered in cognitive development and education. Examples: deaf children, STEM classrooms, motivation.
+2. **Applied Quantitative Methodology** (accent: green) — Psychometrics, statistical modeling, methodology applied across psychology fields. Collaborative framing ("I collaborate on..."). Attention to how methodological decisions affect conclusions.
 
 ### Name Spelling
 
@@ -121,7 +124,24 @@ Two lines, each with title + one-line description + topic pills:
 
 ## Subpages
 
-Each subpage has a hero header with gradient left border (`subpage-hero` class), scroll-reveal animations, and `card-lift` hover effects. Content comes from typed data files in `src/data/`.
+Each subpage has a hero header with gradient left border (`subpage-hero` class) and scroll-reveal animations. Content comes from typed data files in `src/data/`.
+
+### Publications (`/publications`)
+
+APA-style reference list format. No cards — flat typographic entries with `border-b` separators inside `pl-4 border-l-2 border-accent/20` rail. Author name bolded via `**Name**` syntax. Titles in italics linked to DOI. Grouped by type (Articles, Book Chapters).
+
+### Teaching (`/teaching`)
+
+Domain-grouped course portfolio. Intro paragraph + 3 thematic domains:
+1. **Statistics & Quantitative Methods** (4 courses)
+2. **Research Methodology** (2 courses)
+3. **Cognitive Development & Learning** (5 courses)
+
+Each course appears ONCE with 1-line description in italics and all university instances listed underneath (university · semesters · period · level). Data types defined in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance).
+
+### Skills (`/skills`)
+
+Technical skills in grouped cards (Statistical Analysis with 4 subgroups, Computational, Languages & Frameworks, Platforms). Moved from home page to dedicated route.
 
 ## Content Inventory
 
@@ -129,13 +149,13 @@ Each subpage has a hero header with gradient left border (`subpage-hero` class),
 |----------|-------|
 | Publications (articles) | 4 (all with DOI) |
 | Publications (chapters) | 1 |
+| Teaching domains | 3 (Statistics, Methodology, Cognitive Dev.) |
+| Teaching courses | 11 unique, 14 instances across 3 universities |
 | Presentations | 4 |
-| Teaching (PUJ) | 5 courses (4 undergrad + 1 grad) |
-| Teaching (Univalle) | 7 courses (6 undergrad + 1 grad) |
-| Teaching (USB) | 2 courses (2024 only) |
 | Awards & Grants | 4 |
 | Research Groups | 2 (Minciencias A1 + A) |
 | Education | 3 (PhD, MSc, BSc) |
+| Skills groups | 4 (Statistical Analysis, Computational, Languages, Platforms) |
 | Profile links | 7 (Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
 
 ## Professional Documentation (offline)
