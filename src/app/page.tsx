@@ -56,18 +56,15 @@ export default function HomePage() {
       <ScrollReveal>
         <section id="education">
           <SectionHeader en="Education" es="Educación" />
-          <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-0">
-            {[...education].reverse().map((entry, i, arr) => (
-              <div key={entry.degreeEn} className="flex items-start md:items-start">
-                <div className="flex-1">
-                  <EducationEntry
-                    degreeEn={entry.degreeEn}
-                    degreeEs={entry.degreeEs}
-                    institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
-                    period={entry.period}
-                  />
-                </div>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[...education].reverse().map((entry) => (
+              <EducationEntry
+                key={entry.degreeEn}
+                degreeEn={entry.degreeEn}
+                degreeEs={entry.degreeEs}
+                institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
+                period={entry.period}
+              />
             ))}
           </div>
         </section>
