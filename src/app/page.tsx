@@ -42,7 +42,7 @@ export default function HomePage() {
       {/* ===== ABOUT + EDUCATION (side by side) ===== */}
       <ScrollReveal>
         <div className="flex flex-col md:flex-row md:gap-12">
-          <section id="about" className="md:w-3/5">
+          <section id="about" className="md:w-4/5">
             <SectionHeader en="About" es="Acerca de" />
             <div className="space-y-4">
               <p className="en text-muted leading-relaxed text-[14px]">{bio.en[0]}</p>
@@ -51,7 +51,7 @@ export default function HomePage() {
               <p className="es text-muted leading-relaxed text-[14px]">{bio.es[1]}</p>
             </div>
           </section>
-          <section id="education" className="md:w-2/5 mt-12 md:mt-0">
+          <section id="education" className="md:w-1/5 mt-12 md:mt-0">
             <SectionHeader en="Education" es="Educación" />
             <div>
               {education.map((entry) => (
