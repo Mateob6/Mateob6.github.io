@@ -67,13 +67,6 @@ export default function HomePage() {
                     period={entry.period}
                   />
                 </div>
-                {i < arr.length - 1 && (
-                  <div className="hidden md:flex items-center px-4 pt-4 text-accent/40">
-                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" className="text-accent/40">
-                      <path d="M0 6h20m0 0l-4-4m4 4l-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                )}
               </div>
             ))}
           </div>
