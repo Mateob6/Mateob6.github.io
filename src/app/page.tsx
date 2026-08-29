@@ -52,19 +52,29 @@ export default function HomePage() {
         </section>
       </ScrollReveal>
 
-      {/* ===== EDUCATION (horizontal row) ===== */}
+      {/* ===== EDUCATION (horizontal, chronological BSc → MSc → PhD) ===== */}
       <ScrollReveal>
         <section id="education">
           <SectionHeader en="Education" es="Educación" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {education.map((entry) => (
-              <EducationEntry
-                key={entry.degreeEn}
-                degreeEn={entry.degreeEn}
-                degreeEs={entry.degreeEs}
-                institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
-                period={entry.period}
-              />
+          <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-0">
+            {[...education].reverse().map((entry, i, arr) => (
+              <div key={entry.degreeEn} className="flex items-start md:items-start">
+                <div className="flex-1">
+                  <EducationEntry
+                    degreeEn={entry.degreeEn}
+                    degreeEs={entry.degreeEs}
+                    institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
+                    period={entry.period}
+                  />
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="hidden md:flex items-center px-4 pt-4 text-accent/40">
+                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" className="text-accent/40">
+                      <path d="M0 6h20m0 0l-4-4m4 4l-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </section>
@@ -72,11 +82,11 @@ export default function HomePage() {
 
       <div className="section-divider" />
 
-      {/* ===== RESEARCH LINES (2-col grid) ===== */}
+      {/* ===== RESEARCH LINES ===== */}
       <ScrollReveal>
         <section id="research">
           <SectionHeader en="Research Lines" es="Líneas de Investigación" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="space-y-5">
             {researchLines.map((line, i) => (
               <ScrollReveal key={line.titleEn} delay={i * 150}>
                 <ResearchLineCard line={line} index={i} />
