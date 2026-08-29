@@ -3,11 +3,11 @@ import type { ProfileLink, ResearchLine } from "@/lib/types";
 export const bio = {
   en: [
     "I study how psychological constructs are built and measured, combining quantitative methodology with computational methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture, particularly in developmental cognitive and educational psychology.",
-    "I hold degrees in Psychology and Statistics from Universidad del Valle, where I am a doctoral student in Psychology at CIDEAS. I teach across three universities.",
+    "I hold degrees in Psychology and Statistics from Universidad del Valle, where I am a doctoral student in Psychology at CIDEAS. I teach across two universities.",
   ],
   es: [
     "Estudio cómo se construyen y miden los constructos psicológicos, combinando metodología cuantitativa con métodos computacionales. Gran parte de mi trabajo aborda la distancia entre lo que teorizamos sobre un fenómeno psicológico y lo que nuestros instrumentos realmente capturan, particularmente en psicología del desarrollo cognitivo y educativa.",
-    "Tengo formación en Psicología y Estadística de la Universidad del Valle, donde soy estudiante doctoral en Psicología en CIDEAS. Soy docente en tres universidades.",
+    "Tengo formación en Psicología y Estadística de la Universidad del Valle, donde soy estudiante doctoral en Psicología en CIDEAS. Soy docente en dos universidades.",
   ],
 } as const;
 
