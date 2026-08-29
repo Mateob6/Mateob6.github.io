@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { T } from "@/components/content/t";
 import { CourseEntry } from "@/components/content/course-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
-import { courses, universityOrder, universityLocations } from "@/data/teaching";
+import { teachingDomains } from "@/data/teaching";
 
 export const metadata: Metadata = { title: "Teaching" };
 
@@ -20,38 +20,37 @@ export default function TeachingPage() {
         </header>
       </ScrollReveal>
 
-      {universityOrder.map((uni) => {
-        const uniCourses = courses
-          .filter((c) => c.university === uni)
-          .sort((a, b) => {
-            const aActive = a.semesters.includes("2026-02") ? 1 : 0;
-            const bActive = b.semesters.includes("2026-02") ? 1 : 0;
-            if (bActive !== aActive) return bActive - aActive;
-            return b.semesters.length - a.semesters.length;
-          });
+      <ScrollReveal>
+        <p className="text-[14px] text-muted leading-relaxed">
+          <T
+            en="I teach statistics, research methodology, and cognitive development across three universities in Cali, Colombia."
+            es="Soy docente de estadística, metodología de la investigación y desarrollo cognitivo en tres universidades de Cali, Colombia."
+          />
+        </p>
+      </ScrollReveal>
 
-        if (uniCourses.length === 0) return null;
-
-        return (
-          <section key={uni} className="space-y-4">
-            <ScrollReveal>
-              <div>
-                <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
-                  {uni}
-                </h2>
-                <p className="text-[11px] text-muted mt-0.5">{universityLocations[uni]}</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal>
-              <div className="pl-4 border-l-2 border-accent/20">
-                {uniCourses.map((course) => (
-                  <CourseEntry key={`${course.name}-${course.level}-${course.university}`} course={course} />
-                ))}
-              </div>
-            </ScrollReveal>
-          </section>
-        );
-      })}
+      {teachingDomains.map((domain) => (
+        <section key={domain.nameEn} className="space-y-4">
+          <ScrollReveal>
+            <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
+              <T en={domain.nameEn} es={domain.nameEs} />
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal>
+            <div className="pl-4 border-l-2 border-accent/20">
+              {domain.courses.map((course) => (
+                <CourseEntry
+                  key={course.name + course.instances[0].university}
+                  name={course.name}
+                  descriptionEn={course.descriptionEn}
+                  descriptionEs={course.descriptionEs}
+                  instances={course.instances}
+                />
+              ))}
+            </div>
+          </ScrollReveal>
+        </section>
+      ))}
     </div>
   );
 }

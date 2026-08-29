@@ -1,107 +1,130 @@
-import type { Course } from "@/lib/types";
+export type CourseInstance = {
+  university: string;
+  level: "undergraduate" | "graduate";
+  semesters: string[];
+};
 
-const PUJ = "Pontificia Universidad Javeriana";
-const PUJ_SHORT = "PUJ Cali";
-const UV = "Universidad del Valle";
-const UV_SHORT = "Univalle";
-const USB = "Universidad de San Buenaventura";
-const USB_SHORT = "USB Cali";
+export type CourseGroup = {
+  name: string;
+  descriptionEn: string;
+  descriptionEs: string;
+  instances: CourseInstance[];
+};
 
-export const courses: Course[] = [
-  // === PUJ Cali ===
-  {
-    name: "Estadística para Ciencias Sociales",
-    university: PUJ, universityShort: PUJ_SHORT,
-    level: "undergraduate",
-    semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"],
-  },
-  {
-    name: "Psicología del Aprendizaje",
-    university: PUJ, universityShort: PUJ_SHORT,
-    level: "undergraduate",
-    semesters: ["2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"],
-  },
-  {
-    name: "Análisis Integrado de Datos",
-    university: PUJ, universityShort: PUJ_SHORT,
-    level: "undergraduate",
-    semesters: ["2025-02", "2026-01", "2026-02"],
-  },
-  {
-    name: "Tópicos en Psicología Cognitiva",
-    university: PUJ, universityShort: PUJ_SHORT,
-    level: "undergraduate",
-    semesters: ["2023-02", "2024-01", "2024-02", "2025-01"],
-  },
-  {
-    name: "Estadística Multivariada Aplicada",
-    university: PUJ, universityShort: PUJ_SHORT,
-    level: "graduate",
-    semesters: ["2023-02"],
-  },
+export type TeachingDomain = {
+  nameEn: string;
+  nameEs: string;
+  courses: CourseGroup[];
+};
 
-  // === Universidad del Valle ===
+export const teachingDomains: TeachingDomain[] = [
   {
-    name: "Psicología del Aprendizaje",
-    university: UV, universityShort: UV_SHORT,
-    level: "undergraduate",
-    semesters: ["2024-02", "2025-02", "2026-02"],
+    nameEn: "Statistics & Quantitative Methods",
+    nameEs: "Estadística y Métodos Cuantitativos",
+    courses: [
+      {
+        name: "Estadística para Ciencias Sociales",
+        descriptionEn: "Inferential statistics, multivariate analysis, and research design for psychology students.",
+        descriptionEs: "Estadística inferencial, análisis multivariado y diseño de investigación para estudiantes de psicología.",
+        instances: [
+          { university: "PUJ Cali", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
+          { university: "USB Cali", level: "undergraduate", semesters: ["2024-01"] },
+        ],
+      },
+      {
+        name: "Estadística",
+        descriptionEn: "Foundations of descriptive and inferential statistics applied to behavioral science research.",
+        descriptionEs: "Fundamentos de estadística descriptiva e inferencial aplicados a la investigación en ciencias del comportamiento.",
+        instances: [
+          { university: "Univalle", level: "undergraduate", semesters: ["2024-02", "2025-02", "2026-02"] },
+        ],
+      },
+      {
+        name: "Estadística Multivariada Aplicada",
+        descriptionEn: "Advanced multivariate techniques for graduate research in psychology.",
+        descriptionEs: "Técnicas multivariadas avanzadas para la investigación en psicología a nivel de posgrado.",
+        instances: [
+          { university: "PUJ Cali", level: "graduate", semesters: ["2023-02"] },
+        ],
+      },
+      {
+        name: "Análisis Integrado de Datos",
+        descriptionEn: "Integration of quantitative and qualitative analysis methods in applied research projects.",
+        descriptionEs: "Integración de métodos de análisis cuantitativo y cualitativo en proyectos de investigación aplicada.",
+        instances: [
+          { university: "PUJ Cali", level: "undergraduate", semesters: ["2025-02", "2026-01", "2026-02"] },
+        ],
+      },
+    ],
   },
   {
-    name: "Estadística",
-    university: UV, universityShort: UV_SHORT,
-    level: "undergraduate",
-    semesters: ["2024-02", "2025-02", "2026-02"],
+    nameEn: "Research Methodology",
+    nameEs: "Metodología de la Investigación",
+    courses: [
+      {
+        name: "Metodología Cuantitativa",
+        descriptionEn: "Quantitative research design, sampling, measurement, and data analysis strategies.",
+        descriptionEs: "Diseño de investigación cuantitativa, muestreo, medición y estrategias de análisis de datos.",
+        instances: [
+          { university: "Univalle", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-02"] },
+          { university: "Univalle", level: "graduate", semesters: ["2024-02", "2025-02"] },
+        ],
+      },
+      {
+        name: "Lógica Investigativa",
+        descriptionEn: "Foundations of research logic, hypothesis formulation, and study design.",
+        descriptionEs: "Fundamentos de lógica investigativa, formulación de hipótesis y diseño de estudios.",
+        instances: [
+          { university: "USB Cali", level: "undergraduate", semesters: ["2024-01"] },
+        ],
+      },
+    ],
   },
   {
-    name: "Metodología Cuantitativa",
-    university: UV, universityShort: UV_SHORT,
-    level: "undergraduate",
-    semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-02"],
-  },
-  {
-    name: "Pensamiento Lógico-Matemático",
-    university: UV, universityShort: UV_SHORT,
-    level: "undergraduate",
-    semesters: ["2024-01", "2025-01", "2026-01"],
-  },
-  {
-    name: "Desarrollo del Pensamiento Matemático",
-    university: UV, universityShort: UV_SHORT,
-    level: "undergraduate",
-    semesters: ["2025-01", "2026-01"],
-  },
-  {
-    name: "Psicología Educativa 3",
-    university: UV, universityShort: UV_SHORT,
-    level: "undergraduate",
-    semesters: ["2025-02"],
-  },
-  {
-    name: "Metodología Cuantitativa",
-    university: UV, universityShort: UV_SHORT,
-    level: "graduate",
-    semesters: ["2024-02", "2025-02"],
-  },
-
-  // === USB Cali ===
-  {
-    name: "Lógica Investigativa",
-    university: USB, universityShort: USB_SHORT,
-    level: "undergraduate",
-    semesters: ["2024-01"],
-  },
-  {
-    name: "Estadística para Ciencias Sociales",
-    university: USB, universityShort: USB_SHORT,
-    level: "undergraduate",
-    semesters: ["2024-01"],
+    nameEn: "Cognitive Development & Learning",
+    nameEs: "Desarrollo Cognitivo y Aprendizaje",
+    courses: [
+      {
+        name: "Psicología del Aprendizaje",
+        descriptionEn: "Learning theories, behavioral and cognitive perspectives, and their application in educational settings.",
+        descriptionEs: "Teorías del aprendizaje, perspectivas conductual y cognitiva, y su aplicación en contextos educativos.",
+        instances: [
+          { university: "PUJ Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
+          { university: "Univalle", level: "undergraduate", semesters: ["2024-02", "2025-02", "2026-02"] },
+        ],
+      },
+      {
+        name: "Tópicos en Psicología Cognitiva",
+        descriptionEn: "Selected topics in cognitive psychology: attention, memory, reasoning, and language.",
+        descriptionEs: "Temas selectos en psicología cognitiva: atención, memoria, razonamiento y lenguaje.",
+        instances: [
+          { university: "PUJ Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01"] },
+        ],
+      },
+      {
+        name: "Pensamiento Lógico-Matemático",
+        descriptionEn: "Logical and mathematical thinking from a developmental perspective.",
+        descriptionEs: "Pensamiento lógico y matemático desde una perspectiva del desarrollo.",
+        instances: [
+          { university: "Univalle", level: "undergraduate", semesters: ["2024-01", "2025-01", "2026-01"] },
+        ],
+      },
+      {
+        name: "Desarrollo del Pensamiento Matemático",
+        descriptionEn: "Cognitive development of mathematical reasoning in children and adolescents.",
+        descriptionEs: "Desarrollo cognitivo del razonamiento matemático en niños y adolescentes.",
+        instances: [
+          { university: "Univalle", level: "undergraduate", semesters: ["2025-01", "2026-01"] },
+        ],
+      },
+      {
+        name: "Psicología Educativa 3",
+        descriptionEn: "Advanced topics in educational psychology: motivation, self-regulation, and assessment.",
+        descriptionEs: "Temas avanzados en psicología educativa: motivación, autorregulación y evaluación.",
+        instances: [
+          { university: "Univalle", level: "undergraduate", semesters: ["2025-02"] },
+        ],
+      },
+    ],
   },
 ];
-
-export const universityOrder = [PUJ, UV, USB];
-export const universityLocations: Record<string, string> = {
-  [PUJ]: "Cali, Colombia · 2022 – present",
-  [UV]: "Cali, Colombia · 2020 – present",
-  [USB]: "Cali, Colombia · 2024",
-};

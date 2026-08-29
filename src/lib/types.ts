@@ -57,14 +57,6 @@ export type ResearchLine = {
   descriptionEs: string;
 };
 
-export type Course = {
-  name: string;
-  university: string;
-  universityShort: string;
-  level: "undergraduate" | "graduate";
-  semesters: string[];
-};
-
 export type SkillGroup = {
   categoryEn: string;
   categoryEs: string;
