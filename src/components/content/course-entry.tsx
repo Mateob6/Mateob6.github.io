@@ -21,7 +21,7 @@ function InstanceLine({ instance, lang }: { instance: CourseInstance; lang: "en"
     <span className={lang}>
       <span className="font-medium text-foreground/80">{instance.university}</span>
       <span className="text-muted/70"> · {formatPeriod(instance.semesters, lang)}</span>
-      {levelLabel && <span className="text-accent/70"> · {levelLabel}</span>}
+      {levelLabel && <span className="ml-1.5 inline-block px-1.5 py-px text-[10px] font-medium bg-accent/10 text-accent rounded-sm">{levelLabel}</span>}
     </span>
   );
 }
@@ -45,7 +45,7 @@ export function CourseEntry({ name, descriptionEn, descriptionEs, instances }: {
         <div className="mt-1.5 space-y-1">
           {instances.map((inst, i) => (
             <div key={i} className="flex items-baseline gap-2 text-[12px] text-muted leading-relaxed">
-              <span className="w-1.5 h-1.5 rounded-full bg-muted/40 shrink-0 translate-y-[-1px]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-accent/50 shrink-0 translate-y-[-1px]" />
               <p>
                 <InstanceLine instance={inst} lang="en" />
                 <InstanceLine instance={inst} lang="es" />
