@@ -14,14 +14,18 @@ function formatPeriod(semesters: string[], lang: "en" | "es"): string {
 
 function InstanceLine({ instance, lang }: { instance: CourseInstance; lang: "en" | "es" }) {
   const levelLabel = lang === "en"
-    ? (instance.level === "graduate" ? "Graduate" : "")
-    : (instance.level === "graduate" ? "Posgrado" : "");
+    ? (instance.level === "graduate" ? "Graduate" : "Undergraduate")
+    : (instance.level === "graduate" ? "Posgrado" : "Pregrado");
 
   return (
     <span className={lang}>
       <span className="font-medium text-foreground/80">{instance.university}</span>
       <span className="text-muted/70"> · {formatPeriod(instance.semesters, lang)}</span>
-      {levelLabel && <span className="ml-1.5 inline-block px-1.5 py-px text-[10px] font-medium bg-accent/10 text-accent rounded-sm">{levelLabel}</span>}
+      <span className={`ml-1.5 inline-block px-1.5 py-px text-[10px] font-medium rounded-sm ${
+        instance.level === "graduate"
+          ? "bg-accent/10 text-accent"
+          : "bg-foreground/5 text-muted/70"
+      }`}>{levelLabel}</span>
     </span>
   );
 }
@@ -33,7 +37,7 @@ export function CourseEntry({ name, descriptionEn, descriptionEs, instances }: {
   instances: CourseInstance[];
 }) {
   return (
-    <div className="py-5 border-b border-border/40 last:border-b-0 flex flex-col md:flex-row md:gap-8">
+    <div className="py-6 border-b border-border/40 last:border-b-0 flex flex-col md:flex-row md:gap-8">
       <div className="md:w-1/3 shrink-0 mb-1 md:mb-0">
         <p className="text-[13px] font-medium text-foreground leading-snug">{name}</p>
       </div>
