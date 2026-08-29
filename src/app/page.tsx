@@ -39,42 +39,44 @@ export default function HomePage() {
 
       <div className="section-divider" />
 
-      {/* ===== ABOUT + EDUCATION (side by side) ===== */}
+      {/* ===== ABOUT ===== */}
       <ScrollReveal>
-        <div className="flex flex-col md:flex-row md:gap-12">
-          <section id="about" className="md:w-4/5">
-            <SectionHeader en="About" es="Acerca de" />
-            <div className="space-y-4">
-              <p className="en text-muted leading-relaxed text-[14px]">{bio.en[0]}</p>
-              <p className="es text-muted leading-relaxed text-[14px]">{bio.es[0]}</p>
-              <p className="en text-muted leading-relaxed text-[14px]">{bio.en[1]}</p>
-              <p className="es text-muted leading-relaxed text-[14px]">{bio.es[1]}</p>
-            </div>
-          </section>
-          <section id="education" className="md:w-1/5 mt-12 md:mt-0">
-            <SectionHeader en="Education" es="Educación" />
-            <div>
-              {education.map((entry) => (
-                <EducationEntry
-                  key={entry.degreeEn}
-                  degreeEn={entry.degreeEn}
-                  degreeEs={entry.degreeEs}
-                  institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
-                  period={entry.period}
-                />
-              ))}
-            </div>
-          </section>
-        </div>
+        <section id="about">
+          <SectionHeader en="About" es="Acerca de" />
+          <div className="space-y-4">
+            <p className="en text-muted leading-relaxed text-[15px]">{bio.en[0]}</p>
+            <p className="es text-muted leading-relaxed text-[15px]">{bio.es[0]}</p>
+            <p className="en text-muted leading-relaxed text-[15px]">{bio.en[1]}</p>
+            <p className="es text-muted leading-relaxed text-[15px]">{bio.es[1]}</p>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* ===== EDUCATION (horizontal row) ===== */}
+      <ScrollReveal>
+        <section id="education">
+          <SectionHeader en="Education" es="Educación" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {education.map((entry) => (
+              <EducationEntry
+                key={entry.degreeEn}
+                degreeEn={entry.degreeEn}
+                degreeEs={entry.degreeEs}
+                institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
+                period={entry.period}
+              />
+            ))}
+          </div>
+        </section>
       </ScrollReveal>
 
       <div className="section-divider" />
 
-      {/* ===== RESEARCH LINES ===== */}
+      {/* ===== RESEARCH LINES (2-col grid) ===== */}
       <ScrollReveal>
         <section id="research">
           <SectionHeader en="Research Lines" es="Líneas de Investigación" />
-          <div className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {researchLines.map((line, i) => (
               <ScrollReveal key={line.titleEn} delay={i * 150}>
                 <ResearchLineCard line={line} index={i} />
