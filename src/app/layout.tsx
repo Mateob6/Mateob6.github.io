@@ -83,6 +83,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <MobileNav />
         <Analytics />
+        <script
+          data-goatcounter="https://mateob6.goatcounter.com/count"
+          async
+          src="//gc.zgo.at/count.js"
+        />
       </body>
     </html>
   );
