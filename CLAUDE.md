@@ -12,7 +12,7 @@ Private `sistema/` layer (gitignored) contains deep context about Mateo's full d
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/postcss` (no tailwind.config — uses `@theme inline` in CSS)
 - **Fonts**: Lora (serif, headings/name) + Inter (sans, body) via `next/font/google`
 - **Icons**: Inline SVGs (no external icon library)
-- **Analytics**: `@vercel/analytics` (component in layout.tsx, collects on Vercel deployment)
+- **Analytics**: GoatCounter (`mateob6.goatcounter.com`, script in layout.tsx, tracks GitHub Pages) + `@vercel/analytics` (Vercel deployment only)
 - **Deploy**: GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`) + Vercel (linked project `pagina_personal`)
 - **Export**: Static HTML in `/out` directory
 
@@ -45,7 +45,7 @@ src/
 │   ├── icon.svg                 ← favicon (MB monogram)
 │   ├── sitemap.ts               ← 7 URLs
 │   ├── robots.ts
-│   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter)
+│   ├── publications/page.tsx    ← APA-style reference list (5 articles + 1 chapter)
 │   ├── teaching/page.tsx        ← editorial two-column course portfolio (3 domains, 11 courses)
 │   ├── skills/page.tsx          ← editorial text-list skills (Statistical Analysis + Tools & Methods)
 │   ├── presentations/page.tsx   ← 4 presentations
@@ -155,7 +155,7 @@ Both sections have `border-b border-accent/15` on headers for consistency.
 
 | Category | Count |
 |----------|-------|
-| Publications (articles) | 4 (all with DOI) |
+| Publications (articles) | 5 (4 with DOI; Current Psychology in press, DOI pending) |
 | Publications (chapters) | 1 |
 | Teaching domains | 3 (Statistics, Methodology, Cognitive Dev.) |
 | Teaching courses | 11 unique, 14 instances across 3 universities (2 current: PUJ, Univalle; 1 past: USB) |

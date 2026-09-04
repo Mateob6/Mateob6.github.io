@@ -2,6 +2,13 @@ import type { Publication } from "@/lib/types";
 
 export const publications: Publication[] = [
   {
+    title: "Retirement Decision Inventory in Colombia and Spain: Cultural adaptation and validation study",
+    authors: "Londoño-Moreno, A.M., **Belalcazar, M.**, Díaz-Bambula, F., Rubio, L., Dumitrache, C.G., Gabardo-Martins, L.M., & França, L.H.F.P.",
+    journal: "Current Psychology (in press)",
+    year: 2026,
+    type: "article",
+  },
+  {
     title: "Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional",
     authors: "González Cano, L.J., Uribe Guscas, I.J., **Belalcazar Correa, M.**, & Valencia Serrano, M.",
     journal: "Revista CES Psicología",
