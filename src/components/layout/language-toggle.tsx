@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui";
 
 export function LanguageToggle() {
-  const [lang, setLang] = useState("es");
+  const [lang, setLang] = useState("en");
 
   useEffect(() => {
-    setLang(document.documentElement.lang || "es");
+    setLang(document.documentElement.lang || "en");
   }, []);
 
   function toggle() {

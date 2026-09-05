@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Mateo Belalcázar" }],
   openGraph: {
     type: "website",
-    locale: "es_CO",
+    locale: "en_US",
     siteName: "Mateo Belalcazar",
     title: "Mateo Belalcazar",
     description:
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="es"
+      lang="en"
       suppressHydrationWarning
       data-title-en="Mateo Belalcazar"
       data-title-es="Mateo Belalcazar"

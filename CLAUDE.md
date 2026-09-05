@@ -83,7 +83,7 @@ Dark mode CSS: dual selector pattern — `@media (prefers-color-scheme: dark) { 
 - CSS-based: `html[lang="es"] .en { display: none }` / `html[lang="en"] .es { display: none }`
 - `<T en="..." es="..." />` component for inline bilingual text
 - Language persisted in `localStorage`, applied via blocking `<script>` in `<head>` (no FOUC)
-- Default: Spanish
+- Default: English
 - **Not translated**: publication titles, course names, university names, technical skills, author names, journal names
 
 ### Animations
@@ -173,8 +173,26 @@ Employment documents in `~/Desktop/Proyectos/Certificados laborales/`. Teaching 
 - **Univalle**: Nov 2020–present (Cali + Palmira)
 - **USB**: 2024
 
+## Academic Profiles (external, synced 2026-09-04)
+
+All three profiles were audited and configured on 2026-09-04. Citation tracking is automatic; nothing needs manual action beyond the pending DOI below.
+
+| Platform | ID / URL | State |
+|----------|----------|-------|
+| Google Scholar | `RoI0VQ8AAAAJ` — scholar.google.com/citations?user=RoI0VQ8AAAAJ | 5 entries, 4 citations, h=1. Auto-updates ON, citation alerts ON. Other names registered (Belalcázar Correa, Belalcázar). Areas: psychometrics, quantitative methodology, computational psychology, cognitive development, mathematics education. Metadata of CES, chapter and MAGA entries corrected by hand |
+| ORCID | `0000-0001-8276-9734` | 5 works (4 with DOI + chapter), sources Crossref/Scopus/manual. 5 name variants under "Also known as". Public API: `pub.orcid.org/v3.0/<id>/works` |
+| Semantic Scholar | author `2296970047` | Claimed & verified. 4 papers (no chapter), 2 citations. Public API, no key needed: `api.semanticscholar.org/graph/v1/author/2296970047?fields=papers.title,papers.externalIds,citationCount` |
+| ResearchGate | researchgate.net/profile/Mateo-Belalcazar | Not audited (blocks automated access) |
+
+**Google Scholar edit-form gotcha**: the Authors field expects `Surname, Given; Surname, Given` (semicolon-separated). Comma-only input is parsed as a single author.
+
+**Signing convention**: always sign as **Mateo Belalcazar** (no tilde, no second surname) going forward. Past papers used "Belalcazar Correa, M." and "Belalcázar, M."; the name variants above cover them.
+
+**Current Psychology paper (in press)**: accepted 2026-09-03 (CUPS-D-26-05368R2), Springer production pending. When the DOI arrives (`10.1007/s12144-...`): add `doi` to the entry in `src/data/publications.ts`, remove "(in press)" from `journal`, rebuild, push. Google Scholar and ORCID will pick it up automatically. Project folder: `~/Desktop/articulos/Jubilación y validación IDA Colombia-España/`.
+
 ## Pending
 
+- **Add DOI to Current Psychology paper** when Springer assigns it (see Academic Profiles)
 - Course materials page (`/courses`) for student access to presentations
 - Professional Experience section (research projects, Cancillería consulting)
 - Additional presentations (9 total vs. 4 shown)
