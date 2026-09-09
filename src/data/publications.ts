@@ -4,8 +4,9 @@ export const publications: Publication[] = [
   {
     title: "Retirement Decision Inventory in Colombia and Spain: Cultural adaptation and validation study",
     authors: "Londoño-Moreno, A.M., **Belalcazar, M.**, Díaz-Bambula, F., Rubio, L., Dumitrache, C.G., Gabardo-Martins, L.M., & França, L.H.F.P.",
-    journal: "Current Psychology (in press)",
+    journal: "Current Psychology, 45, 1467",
     year: 2026,
+    doi: "10.1007/s12144-026-10024-9",
     type: "article",
   },
   {

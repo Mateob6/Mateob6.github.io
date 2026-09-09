@@ -155,7 +155,7 @@ Both sections have `border-b border-accent/15` on headers for consistency.
 
 | Category | Count |
 |----------|-------|
-| Publications (articles) | 5 (4 with DOI; Current Psychology in press, DOI pending) |
+| Publications (articles) | 5 (all with DOI) |
 | Publications (chapters) | 1 |
 | Teaching domains | 3 (Statistics, Methodology, Cognitive Dev.) |
 | Teaching courses | 11 unique, 14 instances across 3 universities (2 current: PUJ, Univalle; 1 past: USB) |
@@ -188,11 +188,10 @@ All three profiles were audited and configured on 2026-09-04. Citation tracking 
 
 **Signing convention**: always sign as **Mateo Belalcazar** (no tilde, no second surname) going forward. Past papers used "Belalcazar Correa, M." and "Belalcázar, M."; the name variants above cover them.
 
-**Current Psychology paper (in press)**: accepted 2026-09-03 (CUPS-D-26-05368R2), Springer production pending. When the DOI arrives (`10.1007/s12144-...`): add `doi` to the entry in `src/data/publications.ts`, remove "(in press)" from `journal`, rebuild, push. Google Scholar and ORCID will pick it up automatically. Project folder: `~/Desktop/articulos/Jubilación y validación IDA Colombia-España/`.
+**Current Psychology paper**: published 2026-09-09. DOI `10.1007/s12144-026-10024-9`, vol. 45, article 1467. Entry in `src/data/publications.ts` updated. Project folder: `~/Desktop/articulos/Jubilación y validación IDA Colombia-España/`.
 
 ## Pending
 
-- **Add DOI to Current Psychology paper** when Springer assigns it (see Academic Profiles)
 - Course materials page (`/courses`) for student access to presentations
 - Professional Experience section (research projects, Cancillería consulting)
 - Additional presentations (9 total vs. 4 shown)
