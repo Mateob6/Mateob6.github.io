@@ -34,14 +34,6 @@ export const publications: Publication[] = [
     type: "article",
   },
   {
-    title: "Una mirada psicosocial al discurso \"Make America Great Again\": Influencia y exclusión social en algunos discursos de campaña presidencial de EE.UU 2017-2021",
-    authors: "**Belalcazar Correa, M.** & Becerra Aguilar, A.",
-    journal: "Criterio Libre Jurídico",
-    year: 2019,
-    doi: "10.18041/1794-7200/clj.2019.v16n1.5787",
-    type: "article",
-  },
-  {
     title: "Caracterización de perfiles de desempleados en un instrumento para evaluar la atribución del desempleo, la salud física, la salud mental y el apoyo social",
     authors: "Pulido-Moreno, N., **Belalcazar, M.**, Blanch-Ribas, J.M., & Díaz-Bambula, F.",
     journal: "Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas",
