@@ -115,10 +115,22 @@ export default function HomePage() {
   );
 }
 
+function renderAuthors(authors: string) {
+  const parts = authors.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={i} className="text-foreground">{part.slice(2, -2)}</strong>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 function SelectedPublication({ pub }: { pub: Publication }) {
   return (
     <div className="py-3 border-b border-border/40 last:border-b-0">
-      <p className="text-[15px] leading-relaxed">
+      <p className="text-[13px] text-muted leading-relaxed">
+        {renderAuthors(pub.authors)}{" "}
+        <span>({pub.year}).</span>{" "}
         {pub.doi ? (
           <a
             href={`https://doi.org/${pub.doi}`}
@@ -131,15 +143,19 @@ function SelectedPublication({ pub }: { pub: Publication }) {
         ) : (
           <span className="italic text-foreground">{pub.title}</span>
         )}
-      </p>
-      <p className="text-[13px] text-muted mt-1 flex items-center gap-2 flex-wrap">
-        <span>{pub.journal}</span>
-        <span className="text-border">·</span>
-        <span>{pub.year}</span>
-        {pub.quartile === "Q1" && (
-          <span className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded bg-accent/10 text-accent border border-accent/20">
-            Q1
-          </span>
+        . <span>{pub.journal}</span>
+        {pub.doi && (
+          <>
+            .{" "}
+            <a
+              href={`https://doi.org/${pub.doi}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent/70 hover:text-accent transition-colors break-all"
+            >
+              https://doi.org/{pub.doi}
+            </a>
+          </>
         )}
       </p>
     </div>
