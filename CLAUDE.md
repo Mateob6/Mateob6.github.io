@@ -41,7 +41,7 @@ src/
 ├── app/
 │   ├── globals.css              ← theme tokens + bilingual CSS + dark mode + animations
 │   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, Analytics, FOUC prevention)
-│   ├── page.tsx                 ← HOME: hero + about + education (3-col grid) + research lines
+│   ├── page.tsx                 ← HOME: hero + about + education (3-col grid) + research lines + selected publications
 │   ├── icon.svg                 ← favicon (MB monogram)
 │   ├── sitemap.ts               ← 7 URLs
 │   ├── robots.ts
@@ -105,7 +105,7 @@ Two blocking scripts in `<head>` via `dangerouslySetInnerHTML`:
 
 ## Home Page Layout
 
-Hero (photo, name "Researcher in Psychology, Statistics & Computational Methods", profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked)
+Hero (photo, name "Researcher in Psychology, Statistics & Computational Methods", profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Selected Publications (4 articles in APA reference format, link to /publications)
 
 ### About Narrative
 
@@ -121,6 +121,10 @@ Section titled "Líneas de Investigación" / "Research Lines". Two lines stacked
 
 1. **Computational Approaches in Psychology** (accent: blue) — Constructs studied via computational methods and AI. Multimodal phenomena (gesture, speech, artifacts). Centered in cognitive development and education. Examples: deaf children, STEM classrooms, motivation.
 2. **Applied Quantitative Methodology** (accent: green) — Psychometrics, statistical modeling, methodology applied across psychology fields. Collaborative framing ("I collaborate on..."). Attention to how methodological decisions affect conclusions.
+
+### Selected Publications
+
+Section titled "Selected Publications" / "Publicaciones Destacadas". Shows the 4 articles (excludes chapter) in APA reference format — same style as `/publications` page: authors (Mateo bolded via `**Name**`), year, italic title linked to DOI, journal, DOI URL. Inside `pl-4 border-l-2 border-accent/20` rail. Each entry wrapped in `ScrollReveal` with staggered delay. Ends with "View all publications →" link to `/publications`. Uses local `renderAuthors()` and `SelectedPublication` components defined in `page.tsx`.
 
 ### Name Spelling
 
@@ -204,10 +208,11 @@ All three profiles were audited and configured on 2026-09-04. Citation tracking 
 
 - Course materials page (`/courses`) for student access to presentations
 - Professional Experience section (research projects, consulting). Anonymize Cancillería as above
-- **Data errors found 2026-09-11 (verified against published PDFs and CrossRef), not yet fixed in `src/data/`:**
-  - `publications.ts` CES entry: "Uribe Guscas" → **"Uribe Guacas"** (published PDF; CrossRef metadata has the typo)
-  - `publications.ts` chapter: only **2 authors** (Pulido-Moreno, N., & Belalcazar, M.); Blanch-Ribas & Díaz-Bambula are the **editors**; publisher Editorial Bonaventuriana, pp. 161–183
-  - `awards.ts` "Honors Thesis" 2018 → document (`Certificados laborales/documentos_base/meritorio_pregrado.pdf`) says **"Meritorio"**, dated **2019**
+- **Data errors found 2026-09-11 — FIXED 2026-10-06:**
+  - ~~`publications.ts` CES entry: "Uribe Guscas"~~ → fixed to "Uribe Guacas"
+  - ~~`publications.ts` chapter: wrong authors~~ → fixed to 2 authors (Pulido-Moreno & Belalcazar); editors in journal field with publisher and pages
+  - ~~`awards.ts` "Honors Thesis" 2018~~ → fixed to "Meritorious Thesis" / "Tesis Meritoria", 2019
+  - `publications.ts` now includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
   - Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
 - Global `~/.claude/CLAUDE.md` still describes this site as `publications.html, teaching.html, awards.html` (pre-Next.js)
 - Additional presentations (9 total vs. 4 shown)
