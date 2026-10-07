@@ -16,10 +16,10 @@ export const awards: Award[] = [
     icon: "grant",
   },
   {
-    titleEn: "Honors Thesis",
-    titleEs: "Tesis con Honores",
+    titleEn: "Meritorious Thesis",
+    titleEs: "Tesis Meritoria",
     institution: "Universidad del Valle",
-    year: 2018,
+    year: 2019,
     icon: "medal",
   },
   {

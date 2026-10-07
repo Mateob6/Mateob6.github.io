@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { T } from "@/components/content/t";
 import { SectionHeader } from "@/components/content/section-header";
 import { ProfileLinks } from "@/components/content/profile-links";
@@ -5,7 +6,8 @@ import { EducationEntry } from "@/components/content/education-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { bio, researchLines } from "@/data/profile";
 import { education } from "@/data/education";
-import type { ResearchLine } from "@/lib/types";
+import { publications } from "@/data/publications";
+import type { ResearchLine, Publication } from "@/lib/types";
 
 export default function HomePage() {
   return (
@@ -80,6 +82,66 @@ export default function HomePage() {
         </section>
       </ScrollReveal>
 
+      <div className="section-divider" />
+
+      {/* ===== SELECTED PUBLICATIONS ===== */}
+      <ScrollReveal>
+        <section id="publications">
+          <SectionHeader en="Selected Publications" es="Publicaciones Destacadas" />
+          <div className="pl-4 border-l-2 border-accent/20">
+            {publications
+              .filter((p) => p.type === "article")
+              .map((pub, i) => (
+                <ScrollReveal key={pub.doi} delay={i * 100}>
+                  <SelectedPublication pub={pub} />
+                </ScrollReveal>
+              ))}
+          </div>
+          <div className="mt-6">
+            <Link
+              href="/publications"
+              className="text-sm text-accent hover:text-accent/80 transition-colors link-hover"
+            >
+              <T
+                en="View all publications →"
+                es="Ver todas las publicaciones →"
+              />
+            </Link>
+          </div>
+        </section>
+      </ScrollReveal>
+
+    </div>
+  );
+}
+
+function SelectedPublication({ pub }: { pub: Publication }) {
+  return (
+    <div className="py-3 border-b border-border/40 last:border-b-0">
+      <p className="text-[15px] leading-relaxed">
+        {pub.doi ? (
+          <a
+            href={`https://doi.org/${pub.doi}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="italic text-foreground hover:text-accent transition-colors"
+          >
+            {pub.title}
+          </a>
+        ) : (
+          <span className="italic text-foreground">{pub.title}</span>
+        )}
+      </p>
+      <p className="text-[13px] text-muted mt-1 flex items-center gap-2 flex-wrap">
+        <span>{pub.journal}</span>
+        <span className="text-border">·</span>
+        <span>{pub.year}</span>
+        {pub.quartile === "Q1" && (
+          <span className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded bg-accent/10 text-accent border border-accent/20">
+            Q1
+          </span>
+        )}
+      </p>
     </div>
   );
 }

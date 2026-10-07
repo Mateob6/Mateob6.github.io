@@ -5,6 +5,7 @@ export type Publication = {
   year: number;
   doi?: string;
   type: "article" | "chapter";
+  quartile?: string;
 };
 
 export type Presentation = {

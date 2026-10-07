@@ -155,7 +155,7 @@ Both sections have `border-b border-accent/15` on headers for consistency.
 
 | Category | Count |
 |----------|-------|
-| Publications (articles) | 5 (all with DOI) |
+| Publications (articles) | 4 (all with DOI) |
 | Publications (chapters) | 1 |
 | Teaching domains | 3 (Statistics, Methodology, Cognitive Dev.) |
 | Teaching courses | 11 unique, 14 instances across 3 universities (2 current: PUJ, Univalle; 1 past: USB) |
@@ -173,29 +173,45 @@ Employment documents in `~/Desktop/Proyectos/Certificados laborales/`. Teaching 
 - **Univalle**: Nov 2020–present (Cali + Palmira)
 - **USB**: 2024
 
+**CVs** (reorganized 2026-09-11) live in `~/Desktop/Proyectos/Certificados laborales/cv/`:
+- `fuentes/academico.tex` — academic master CV (Spanish, 6 pp.)
+- `fuentes/industria.tex` — corporate CV (Spanish, 3 pp.) oriented to computational methods + AI, analytics and measurement; sent to Tecnoquímicas 2026-09-11 (frozen copy in `enviados/`)
+- `fuentes/anthropic_campus_en.tex` — English resume (2 pp.) for Anthropic's Claude Campus Ambassador program, PhD track (deadline 2026-09-12 11:59 PM PT). Research with Claude, teaching and community, fellowship, all 5 publications (no MAGA) + 4 under review + 1 in preparation. Sending copy and verified figures in `~/Desktop/Convocatorias, eventos y más/claude-campus-ambassador-2026/`
+- `historico/2026-09_cv_industria_v1.*` contains internal Cancillería figures — **never publish or link it**
+- Send registry and workflow: see that folder's `CLAUDE.md` → "Hojas de vida"
+
+**Cancillería confidentiality**: contract CI-006-2026 has a continuing confidentiality clause. If the site ever lists this work, describe it as a public merit-based contest for a Colombian state entity, without the entity name, item counts, applicant counts, cities, scoring model (2PL) or appeals.
+
 ## Academic Profiles (external, synced 2026-09-04)
 
-All three profiles were audited and configured on 2026-09-04. Citation tracking is automatic; nothing needs manual action beyond the pending DOI below.
+All three profiles were audited and configured on 2026-09-04. Citation tracking is automatic.
 
 | Platform | ID / URL | State |
 |----------|----------|-------|
-| Google Scholar | `RoI0VQ8AAAAJ` — scholar.google.com/citations?user=RoI0VQ8AAAAJ | 5 entries, 4 citations, h=1. Auto-updates ON, citation alerts ON. Other names registered (Belalcázar Correa, Belalcázar). Areas: psychometrics, quantitative methodology, computational psychology, cognitive development, mathematics education. Metadata of CES, chapter and MAGA entries corrected by hand |
-| ORCID | `0000-0001-8276-9734` | 5 works (4 with DOI + chapter), sources Crossref/Scopus/manual. 5 name variants under "Also known as". Public API: `pub.orcid.org/v3.0/<id>/works` |
-| Semantic Scholar | author `2296970047` | Claimed & verified. 4 papers (no chapter), 2 citations. Public API, no key needed: `api.semanticscholar.org/graph/v1/author/2296970047?fields=papers.title,papers.externalIds,citationCount` |
-| ResearchGate | researchgate.net/profile/Mateo-Belalcazar | Not audited (blocks automated access) |
+| Google Scholar | `RoI0VQ8AAAAJ` — scholar.google.com/citations?user=RoI0VQ8AAAAJ | 6 entries (Current Psychology added manually 2026-09-09), 4 citations, h=1. Auto-updates ON, citation alerts ON. Other names registered (Belalcázar Correa, Belalcázar). Areas: psychometrics, quantitative methodology, computational psychology, cognitive development, mathematics education. Metadata of CES, chapter and MAGA entries corrected by hand |
+| ORCID | `0000-0001-8276-9734` | 5 works (4 with DOI + chapter), sources Crossref/Scopus/manual. Current Psychology pending auto-index via Crossref. 5 name variants under "Also known as". Public API: `pub.orcid.org/v3.0/<id>/works` |
+| Semantic Scholar | author `2296970047` | Claimed & verified. 4 papers (no chapter), 2 citations. Current Psychology pending auto-index. Public API, no key needed: `api.semanticscholar.org/graph/v1/author/2296970047?fields=papers.title,papers.externalIds,citationCount` |
+| ResearchGate | researchgate.net/profile/Mateo-Belalcazar | Current Psychology added manually 2026-09-09 |
+| CvLAC (Minciencias) | `cod_rh=0001867285` — scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001867285 | **Not audited.** ScienTI returned 503 "Server-unavailable" (public view and login) on 2026-09-11; no Wayback snapshot. Current Psychology not yet added. Skill `/cvlac`; its data bridge `herramientas/chrome/perfil.py` is broken (reads deleted `publications.html`/`awards.html` and old `~/Desktop/consultoria/` path) |
 
 **Google Scholar edit-form gotcha**: the Authors field expects `Surname, Given; Surname, Given` (semicolon-separated). Comma-only input is parsed as a single author.
 
 **Signing convention**: always sign as **Mateo Belalcazar** (no tilde, no second surname) going forward. Past papers used "Belalcazar Correa, M." and "Belalcázar, M."; the name variants above cover them.
 
-**Current Psychology paper**: published 2026-09-09. DOI `10.1007/s12144-026-10024-9`, vol. 45, article 1467. Entry in `src/data/publications.ts` updated. Project folder: `~/Desktop/articulos/Jubilación y validación IDA Colombia-España/`.
+**Current Psychology paper**: published 2026-09-09. DOI `10.1007/s12144-026-10024-9`, vol. 45(17), article 1467. Entry in `src/data/publications.ts` updated. Project folder: `~/Desktop/articulos/Jubilación y validación IDA Colombia-España/`.
 
 ## Pending
 
 - Course materials page (`/courses`) for student access to presentations
-- Professional Experience section (research projects, Cancillería consulting)
+- Professional Experience section (research projects, consulting). Anonymize Cancillería as above
+- **Data errors found 2026-09-11 (verified against published PDFs and CrossRef), not yet fixed in `src/data/`:**
+  - `publications.ts` CES entry: "Uribe Guscas" → **"Uribe Guacas"** (published PDF; CrossRef metadata has the typo)
+  - `publications.ts` chapter: only **2 authors** (Pulido-Moreno, N., & Belalcazar, M.); Blanch-Ribas & Díaz-Bambula are the **editors**; publisher Editorial Bonaventuriana, pp. 161–183
+  - `awards.ts` "Honors Thesis" 2018 → document (`Certificados laborales/documentos_base/meritorio_pregrado.pdf`) says **"Meritorio"**, dated **2019**
+  - Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
+- Global `~/.claude/CLAUDE.md` still describes this site as `publications.html, teaching.html, awards.html` (pre-Next.js)
 - Additional presentations (9 total vs. 4 shown)
-- Downloadable CV link
+- Downloadable CV link (decide between `fuentes/academico` and `fuentes/industria`; never `historico/2026-09_cv_industria_v1`)
 
 <!-- BEGIN:nextjs-agent-rules -->
 
