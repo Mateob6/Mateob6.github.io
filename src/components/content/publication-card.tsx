@@ -36,7 +36,7 @@ export function PublicationCard({ title, authors, venue, year, doi }: Publicatio
           <span className="italic text-foreground">{title}</span>
         )}
         .{" "}
-        <span>{venue}</span>
+        <span className="text-foreground">{venue}</span>
         {doi && (
           <>
             .{" "}

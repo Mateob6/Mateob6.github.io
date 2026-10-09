@@ -224,7 +224,7 @@ function SelectedPublication({ pub }: { pub: Publication }) {
         ) : (
           <span className="italic text-foreground">{pub.title}</span>
         )}
-        . <span>{pub.journal}</span>
+        . <span className="text-foreground">{pub.journal}</span>
         {pub.doi && (
           <>
             .{" "}
