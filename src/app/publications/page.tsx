@@ -115,7 +115,7 @@ export default function PublicationsPage() {
       <section className="space-y-4">
         <ScrollReveal>
           <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
-            <T en="Selected Presentations" es="Presentaciones Seleccionadas" />
+            <T en="Presentations" es="Presentaciones" />
           </h2>
         </ScrollReveal>
         <div className="space-y-2">
