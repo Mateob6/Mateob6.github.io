@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import type { TeachingDomain } from "@/data/teaching";
 
 const DOMAIN_META = [
-  { id: "statistics", en: ["Statistics &", "Quantitative Methods"], es: ["Estadística y", "Métodos Cuantitativos"] },
-  { id: "methodology", en: ["Research", "Methodology"], es: ["Metodología de", "la Investigación"] },
-  { id: "cognitive", en: ["Cognitive Development", "& Learning"], es: ["Desarrollo Cognitivo", "y Aprendizaje"] },
+  { en: ["Statistics &", "Quantitative Methods"], es: ["Estadística y", "Métodos Cuantitativos"] },
+  { en: ["Research", "Methodology"], es: ["Metodología de", "la Investigación"] },
+  { en: ["Cognitive Development", "& Learning"], es: ["Desarrollo Cognitivo", "y Aprendizaje"] },
 ];
 
 const SHORT_UNI: Record<string, string> = {
@@ -107,7 +107,7 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
             const count = domains[i].courses.length;
             return (
               <g
-                key={meta.id}
+                key={i}
                 className="diagram-domain-node"
                 style={{ animationDelay: `${600 + i * 150}ms`, cursor: "pointer" }}
                 onClick={() => setSelected(i)}

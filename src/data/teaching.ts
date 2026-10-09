@@ -23,20 +23,13 @@ export const teachingDomains: TeachingDomain[] = [
     nameEs: "Estadística y Métodos Cuantitativos",
     courses: [
       {
-        name: "Estadística para Ciencias Sociales",
-        descriptionEn: "Inferential statistics, multivariate analysis, and research design for psychology students.",
-        descriptionEs: "Estadística inferencial, análisis multivariado y diseño de investigación para estudiantes de psicología.",
+        name: "Estadística",
+        descriptionEn: "Descriptive and inferential statistics applied to behavioral science research.",
+        descriptionEs: "Estadística descriptiva e inferencial aplicada a la investigación en ciencias del comportamiento.",
         instances: [
           { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
-          { university: "Universidad de San Buenaventura, Cali", level: "undergraduate", semesters: ["2024-01"] },
-        ],
-      },
-      {
-        name: "Estadística",
-        descriptionEn: "Foundations of descriptive and inferential statistics applied to behavioral science research.",
-        descriptionEs: "Fundamentos de estadística descriptiva e inferencial aplicados a la investigación en ciencias del comportamiento.",
-        instances: [
           { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-02", "2025-02", "2026-02"] },
+          { university: "Universidad de San Buenaventura, Cali", level: "undergraduate", semesters: ["2024-01"] },
         ],
       },
       {
@@ -78,6 +71,14 @@ export const teachingDomains: TeachingDomain[] = [
           { university: "Universidad de San Buenaventura, Cali", level: "undergraduate", semesters: ["2024-01"] },
         ],
       },
+      {
+        name: "Pensamiento Lógico-Matemático",
+        descriptionEn: "Logical and mathematical thinking from a developmental perspective.",
+        descriptionEs: "Pensamiento lógico y matemático desde una perspectiva del desarrollo.",
+        instances: [
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-01", "2025-01", "2026-01"] },
+        ],
+      },
     ],
   },
   {
@@ -99,14 +100,6 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEs: "Temas selectos en psicología cognitiva: atención, memoria, razonamiento y lenguaje.",
         instances: [
           { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01"] },
-        ],
-      },
-      {
-        name: "Pensamiento Lógico-Matemático",
-        descriptionEn: "Logical and mathematical thinking from a developmental perspective.",
-        descriptionEs: "Pensamiento lógico y matemático desde una perspectiva del desarrollo.",
-        instances: [
-          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-01", "2025-01", "2026-01"] },
         ],
       },
       {
