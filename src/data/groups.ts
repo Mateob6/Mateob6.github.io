@@ -2,6 +2,12 @@ import type { Group } from "@/lib/types";
 
 export const groups: Group[] = [
   {
+    name: "Instituto CIDEAS",
+    institution: "Facultad de Psicología · Universidad del Valle",
+    period: "2025–present",
+    rank: "Instituto",
+  },
+  {
     name: "Grupo de Psicología Organizacional y del Trabajo",
     institution: "Universidad del Valle · Minciencias",
     period: "2024–present",
