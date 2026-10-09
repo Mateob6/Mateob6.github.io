@@ -306,6 +306,17 @@ html { scroll-behavior: smooth; }
   transition-timing-function: ease;
 }
 
+/* ========== Fade-in utility ========== */
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* ========== Teaching diagram animations ========== */
 
 @keyframes diagram-draw-line {
