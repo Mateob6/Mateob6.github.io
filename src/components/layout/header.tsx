@@ -36,7 +36,8 @@ export function Header() {
     >
       <div className="flex items-center gap-6">
         <Link href="/" className="font-serif text-lg italic text-accent transition-opacity hover:opacity-70">
-          Mateo Belalcazar
+          <span className="en">Home</span>
+          <span className="es">Inicio</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
