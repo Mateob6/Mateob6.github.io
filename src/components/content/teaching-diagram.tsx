@@ -46,14 +46,14 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
     return () => observer.disconnect();
   }, []);
 
-  const cx = 400;
-  const rootY = 20;
-  const rootH = 36;
-  const branchY = 110;
-  const nodeY = 130;
-  const nodeW = 210;
-  const nodeH = 85;
-  const gap = 35;
+  const cx = 600;
+  const rootY = 30;
+  const rootH = 48;
+  const branchY = 160;
+  const nodeY = 190;
+  const nodeW = 300;
+  const nodeH = 120;
+  const gap = 50;
   const totalW = nodeW * 3 + gap * 2;
   const startX = cx - totalW / 2;
   const positions = [startX, startX + nodeW + gap, startX + (nodeW + gap) * 2];
@@ -66,7 +66,7 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
       <div className="flex justify-center">
         <svg
           ref={svgRef}
-          viewBox="0 0 800 240"
+          viewBox="0 0 1200 340"
           className="teaching-diagram w-full"
           role="img"
         >
@@ -94,8 +94,8 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
 
           {/* Root node */}
           <g className="diagram-root-node">
-            <rect x={cx - 65} y={rootY} width={130} height={rootH} rx={18} fill="var(--accent)" />
-            <text x={cx} y={rootY + 23} textAnchor="middle" fill="var(--accent-foreground)" fontSize={13} fontWeight={700} letterSpacing="0.08em">
+            <rect x={cx - 85} y={rootY} width={170} height={rootH} rx={24} fill="var(--accent)" />
+            <text x={cx} y={rootY + 31} textAnchor="middle" fill="var(--accent-foreground)" fontSize={17} fontWeight={700} letterSpacing="0.08em">
               COURSES
             </text>
           </g>
@@ -117,7 +117,7 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
                   y={nodeY}
                   width={nodeW}
                   height={nodeH}
-                  rx={12}
+                  rx={16}
                   fill={isActive ? "var(--accent-subtle)" : "var(--surface)"}
                   stroke={isActive ? "var(--accent)" : "var(--border)"}
                   strokeWidth={isActive ? 2 : 1.5}
@@ -127,10 +127,10 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
                   <text
                     key={`en-${li}`}
                     x={x + nodeW / 2}
-                    y={nodeY + 28 + li * 16}
+                    y={nodeY + 38 + li * 22}
                     textAnchor="middle"
                     fill={isActive ? "var(--accent)" : "var(--foreground)"}
-                    fontSize={12.5}
+                    fontSize={16}
                     fontWeight={isActive ? 700 : 500}
                     className="en transition-all duration-300"
                   >
@@ -141,10 +141,10 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
                   <text
                     key={`es-${li}`}
                     x={x + nodeW / 2}
-                    y={nodeY + 28 + li * 16}
+                    y={nodeY + 38 + li * 22}
                     textAnchor="middle"
                     fill={isActive ? "var(--accent)" : "var(--foreground)"}
-                    fontSize={12.5}
+                    fontSize={16}
                     fontWeight={isActive ? 700 : 500}
                     className="es transition-all duration-300"
                   >
@@ -153,10 +153,10 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
                 ))}
                 <text
                   x={x + nodeW / 2}
-                  y={nodeY + nodeH - 12}
+                  y={nodeY + nodeH - 16}
                   textAnchor="middle"
                   fill="var(--muted)"
-                  fontSize={11}
+                  fontSize={14}
                 >
                   {count} {count === 1 ? "course" : "courses"}
                 </text>
