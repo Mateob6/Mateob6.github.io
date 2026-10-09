@@ -19,6 +19,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mateob6.github.io"),
+  alternates: { canonical: "/" },
   title: {
     default: "Mateo Belalcazar",
     template: "%s — Mateo Belalcazar",
@@ -64,6 +65,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${lora.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Mateo Belalcazar",
+              url: "https://mateob6.github.io",
+              description:
+                "Academic profile of Mateo Belalcazar, doctoral researcher in Psychology at Universidad del Valle.",
+            }),
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t}})();`,

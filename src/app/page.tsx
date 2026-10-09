@@ -9,9 +9,43 @@ import { education } from "@/data/education";
 import { publications } from "@/data/publications";
 import type { ResearchLine, Publication } from "@/lib/types";
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Mateo Belalcazar",
+  url: "https://mateob6.github.io",
+  image: "https://mateob6.github.io/photo.jpg",
+  jobTitle: "Doctoral Researcher in Psychology",
+  worksFor: {
+    "@type": "Organization",
+    name: "Universidad del Valle",
+    department: "CIDEAS",
+  },
+  alumniOf: [{ "@type": "CollegeOrUniversity", name: "Universidad del Valle" }],
+  knowsAbout: [
+    "Cognitive Development",
+    "Neuropsychology",
+    "Psychometrics",
+    "Quantitative Methodology",
+    "Computational Psychology",
+  ],
+  sameAs: [
+    "https://scholar.google.com/citations?user=RoI0VQ8AAAAJ",
+    "https://orcid.org/0000-0001-8276-9734",
+    "https://www.researchgate.net/profile/Mateo-Belalcazar",
+    "https://github.com/Mateob6",
+    "https://osf.io/phswz/",
+    "https://www.semanticscholar.org/author/2296970047",
+  ],
+};
+
 export default function HomePage() {
   return (
     <div className="space-y-20 py-12 relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       {/* Decorative */}
       <div className="deco-dot" style={{ top: "6%", right: "6%" }} />
       <div className="deco-dot" style={{ top: "40%", left: "2%", animationDelay: "2s" }} />
@@ -21,7 +55,7 @@ export default function HomePage() {
       {/* ===== HERO ===== */}
       <section className="text-center mt-6 md:mt-10">
         <div className="hero-photo w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden mx-auto mb-5 border-2 border-border shadow-lg relative">
-          <img src="/photo.jpg" alt="Mateo Belalcazar" width={144} height={144} className="w-full h-full object-cover" />
+          <img src="/photo.jpg" alt="Mateo Belalcazar — researcher in psychology, statistics, and computational methods" width={144} height={144} className="w-full h-full object-cover" />
           <div className="absolute inset-0 rounded-full ring-2 ring-accent/10 ring-offset-4 ring-offset-background" />
         </div>
         <h1 className="hero-name font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4">
@@ -107,6 +141,33 @@ export default function HomePage() {
                 es="Ver todas las publicaciones →"
               />
             </Link>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <div className="section-divider" />
+
+      {/* ===== EXPLORE ===== */}
+      <ScrollReveal>
+        <section id="explore">
+          <SectionHeader en="Explore" es="Explorar" />
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              { href: "/publications", en: "Publications", es: "Publicaciones" },
+              { href: "/teaching", en: "Teaching", es: "Docencia" },
+              { href: "/skills", en: "Skills", es: "Habilidades" },
+              { href: "/presentations", en: "Presentations", es: "Presentaciones" },
+              { href: "/awards", en: "Awards & Grants", es: "Premios y Becas" },
+              { href: "/groups", en: "Research Groups", es: "Grupos de Investigación" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded-xl border border-border p-4 text-center text-sm text-muted hover:text-accent hover:border-accent/30 transition-colors"
+              >
+                <T en={link.en} es={link.es} />
+              </Link>
+            ))}
           </div>
         </section>
       </ScrollReveal>

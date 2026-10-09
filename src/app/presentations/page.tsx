@@ -4,7 +4,19 @@ import { PresentationEntry } from "@/components/content/presentation-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { presentations } from "@/data/presentations";
 
-export const metadata: Metadata = { title: "Presentations" };
+export const metadata: Metadata = {
+  title: "Presentations",
+  description:
+    "Conference presentations by Mateo Belalcazar at international congresses in psychology, psychometrics, and cognitive development.",
+  alternates: { canonical: "/presentations" },
+  openGraph: {
+    title: "Presentations — Mateo Belalcazar",
+    description:
+      "Conference presentations by Mateo Belalcazar at international congresses in psychology, psychometrics, and cognitive development.",
+    url: "https://mateob6.github.io/presentations",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+};
 
 export default function PresentationsPage() {
   return (

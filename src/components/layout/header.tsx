@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/publications", en: "Publications", es: "Publicaciones" },
   { href: "/teaching", en: "Teaching", es: "Docencia" },
   { href: "/skills", en: "Skills", es: "Habilidades" },
+  { href: "/presentations", en: "Presentations", es: "Presentaciones" },
   { href: "/awards", en: "Awards", es: "Premios" },
   { href: "/groups", en: "Groups", es: "Grupos" },
 ];
@@ -69,7 +70,7 @@ export function Header() {
         <LanguageToggle />
         <ThemeToggle />
         <div className="hidden h-8 w-8 overflow-hidden rounded-full border border-border shadow-sm transition-shadow hover:shadow-md sm:block">
-          <img src="/photo.jpg" alt="Mateo Belalcazar" className="h-full w-full object-cover" />
+          <img src="/photo.jpg" alt="Mateo Belalcazar" width={32} height={32} className="h-full w-full object-cover" />
         </div>
       </div>
     </header>

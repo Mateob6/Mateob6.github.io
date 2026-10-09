@@ -4,7 +4,19 @@ import { GroupCard } from "@/components/content/group-card";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { groups } from "@/data/groups";
 
-export const metadata: Metadata = { title: "Research Groups" };
+export const metadata: Metadata = {
+  title: "Research Groups",
+  description:
+    "Member of two Minciencias-ranked research groups: Organizational Psychology (A1) and Scientific Cognition and Learning (A) at Universidad del Valle.",
+  alternates: { canonical: "/groups" },
+  openGraph: {
+    title: "Research Groups — Mateo Belalcazar",
+    description:
+      "Member of two Minciencias-ranked research groups: Organizational Psychology (A1) and Scientific Cognition and Learning (A) at Universidad del Valle.",
+    url: "https://mateob6.github.io/groups",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+};
 
 export default function GroupsPage() {
   return (

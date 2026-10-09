@@ -4,7 +4,19 @@ import { AwardCard } from "@/components/content/award-card";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { awards } from "@/data/awards";
 
-export const metadata: Metadata = { title: "Awards & Grants" };
+export const metadata: Metadata = {
+  title: "Awards & Grants",
+  description:
+    "Academic awards and research grants: Teaching Excellence Award (Javeriana), research grants (Universidad del Valle), and meritorious thesis recognition.",
+  alternates: { canonical: "/awards" },
+  openGraph: {
+    title: "Awards & Grants — Mateo Belalcazar",
+    description:
+      "Academic awards and research grants: Teaching Excellence Award (Javeriana), research grants (Universidad del Valle), and meritorious thesis recognition.",
+    url: "https://mateob6.github.io/awards",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+};
 
 const iconMap: Record<string, "trophy" | "money" | "medal"> = {
   trophy: "trophy",

@@ -196,13 +196,50 @@ All three profiles were audited and configured on 2026-09-04. Citation tracking 
 | ORCID | `0000-0001-8276-9734` | 5 works (4 with DOI + chapter), sources Crossref/Scopus/manual. Current Psychology pending auto-index via Crossref. 5 name variants under "Also known as". Public API: `pub.orcid.org/v3.0/<id>/works` |
 | Semantic Scholar | author `2296970047` | Claimed & verified. 4 papers (no chapter), 2 citations. Current Psychology pending auto-index. Public API, no key needed: `api.semanticscholar.org/graph/v1/author/2296970047?fields=papers.title,papers.externalIds,citationCount` |
 | ResearchGate | researchgate.net/profile/Mateo-Belalcazar | Current Psychology added manually 2026-09-09 |
-| CvLAC (Minciencias) | `cod_rh=0001867285` — scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001867285 | **Not audited.** ScienTI returned 503 "Server-unavailable" (public view and login) on 2026-09-11; no Wayback snapshot. Current Psychology not yet added. Skill `/cvlac`; its data bridge `herramientas/chrome/perfil.py` is broken (reads deleted `publications.html`/`awards.html` and old `~/Desktop/consultoria/` path) |
+| CvLAC (Minciencias) | `cod_rh=0001867285` — scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001867285 | **Not audited.** ScienTI returned 503 "Server-unavailable" (public view and login) on 2026-09-11; no Wayback snapshot. Current Psychology not yet added. Skill `/cvlac`; data bridge `herramientas/chrome/perfil.py` reads from `src/data/*.ts` and `~/Desktop/Convocatorias, eventos y más/consultoria/` |
 
 **Google Scholar edit-form gotcha**: the Authors field expects `Surname, Given; Surname, Given` (semicolon-separated). Comma-only input is parsed as a single author.
 
 **Signing convention**: always sign as **Mateo Belalcazar** (no tilde, no second surname) going forward. Past papers used "Belalcazar Correa, M." and "Belalcázar, M."; the name variants above cover them.
 
 **Current Psychology paper**: published 2026-09-09. DOI `10.1007/s12144-026-10024-9`, vol. 45(17), article 1467. Entry in `src/data/publications.ts` updated. Project folder: `~/Desktop/articulos/Jubilación y validación IDA Colombia-España/`.
+
+## Analytics (GoatCounter — mateob6.goatcounter.com)
+
+Last export: 2026-10-09. Tracking since ~2026-09-01.
+
+**Summary (sep 1 – oct 8, 2026):** 74 hits in 38 days, 28 days with data. Average ~12 hits/week, ~2.6/day.
+
+| Metric | Breakdown |
+|--------|-----------|
+| **Pages** | `/` 93%, `/publications` 4%, `/groups` 1%, `/skills` 1% |
+| **Sources** | Direct 47%, Instagram 32%, Google 12%, Bing 5%, Facebook 1% |
+| **Countries** | Colombia 86%, USA 14% |
+
+**Weekly trend:**
+- Sem 1 (sep 01–06): 24 hits (peak — likely launch/sharing)
+- Sem 2–3 (sep 07–20): ~10/week (baseline)
+- Sem 4 (sep 21–27): 1 hit (valley)
+- Sem 5 (sep 28–oct 04): 19 hits (rebound)
+- Sem 6 (oct 05–08): 10 hits (incomplete)
+
+**Observations:**
+1. Almost all traffic hits home page — subpages get almost no direct visits
+2. Instagram bio is the second traffic source (32%)
+3. Google indexed the site (9 organic visits in 5 weeks)
+4. Audience is 86% Colombian
+5. No sustained growth trend yet — needs SEO improvements and more indexable content
+
+## SEO (pending)
+
+- [ ] Audit meta tags (title, description) across all pages
+- [ ] Check Open Graph tags for social sharing previews
+- [ ] Verify Google Search Console indexing status
+- [ ] Add structured data (JSON-LD) for Person/Scholar profile
+- [ ] Evaluate adding a blog or research notes section for indexable content
+- [ ] Check page speed (Core Web Vitals)
+- [ ] Review internal linking between subpages
+- [ ] Consider adding alt text to images if missing
 
 ## Pending
 
@@ -214,7 +251,6 @@ All three profiles were audited and configured on 2026-09-04. Citation tracking 
   - ~~`awards.ts` "Honors Thesis" 2018~~ → fixed to "Meritorious Thesis" / "Tesis Meritoria", 2019
   - `publications.ts` now includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
   - Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
-- Global `~/.claude/CLAUDE.md` still describes this site as `publications.html, teaching.html, awards.html` (pre-Next.js)
 - Additional presentations (9 total vs. 4 shown)
 - Downloadable CV link (decide between `fuentes/academico` and `fuentes/industria`; never `historico/2026-09_cv_industria_v1`)
 

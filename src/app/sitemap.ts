@@ -4,13 +4,14 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://mateob6.github.io";
+  const now = new Date();
   return [
-    { url: base, lastModified: new Date("2026-08-28") },
-    { url: `${base}/publications`, lastModified: new Date("2026-08-28") },
-    { url: `${base}/teaching`, lastModified: new Date("2026-08-28") },
-    { url: `${base}/presentations`, lastModified: new Date("2026-08-28") },
-    { url: `${base}/skills`, lastModified: new Date("2026-08-28") },
-    { url: `${base}/awards`, lastModified: new Date("2026-08-28") },
-    { url: `${base}/groups`, lastModified: new Date("2026-08-28") },
+    { url: base, lastModified: now },
+    { url: `${base}/publications`, lastModified: now },
+    { url: `${base}/teaching`, lastModified: now },
+    { url: `${base}/presentations`, lastModified: now },
+    { url: `${base}/skills`, lastModified: now },
+    { url: `${base}/awards`, lastModified: now },
+    { url: `${base}/groups`, lastModified: now },
   ];
 }

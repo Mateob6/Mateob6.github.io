@@ -3,7 +3,19 @@ import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { skillGroups } from "@/data/skills";
 
-export const metadata: Metadata = { title: "Skills" };
+export const metadata: Metadata = {
+  title: "Skills",
+  description:
+    "Technical profile: statistical analysis (psychometrics, SEM, IRT, Bayesian), computational tools (R, Python, Julia), and research methods.",
+  alternates: { canonical: "/skills" },
+  openGraph: {
+    title: "Skills — Mateo Belalcazar",
+    description:
+      "Technical profile: statistical analysis (psychometrics, SEM, IRT, Bayesian), computational tools (R, Python, Julia), and research methods.",
+    url: "https://mateob6.github.io/skills",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+};
 
 function SkillItem({ children }: { children: React.ReactNode }) {
   return (

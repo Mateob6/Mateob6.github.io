@@ -4,7 +4,19 @@ import { CourseEntry } from "@/components/content/course-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { teachingDomains } from "@/data/teaching";
 
-export const metadata: Metadata = { title: "Teaching" };
+export const metadata: Metadata = {
+  title: "Teaching",
+  description:
+    "University courses taught by Mateo Belalcazar in statistics, quantitative methods, research methodology, and cognitive development at three Colombian universities.",
+  alternates: { canonical: "/teaching" },
+  openGraph: {
+    title: "Teaching — Mateo Belalcazar",
+    description:
+      "University courses taught by Mateo Belalcazar in statistics, quantitative methods, research methodology, and cognitive development at three Colombian universities.",
+    url: "https://mateob6.github.io/teaching",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+};
 
 export default function TeachingPage() {
   return (
