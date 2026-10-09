@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import { T } from "@/components/content/t";
 import { PublicationCard } from "@/components/content/publication-card";
+import { PresentationEntry } from "@/components/content/presentation-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { publications } from "@/data/publications";
+import { presentations } from "@/data/presentations";
 
 export const metadata: Metadata = {
-  title: "Publications",
+  title: "Publications & Presentations",
   description:
-    "Peer-reviewed articles and book chapters by Mateo Belalcazar on cognitive development, neuropsychology, psychometrics, and quantitative methodology.",
+    "Peer-reviewed articles, book chapters, and conference presentations by Mateo Belalcazar on cognitive development, neuropsychology, psychometrics, and quantitative methodology.",
   alternates: { canonical: "/publications" },
   openGraph: {
-    title: "Publications — Mateo Belalcazar",
+    title: "Publications & Presentations — Mateo Belalcazar",
     description:
-      "Peer-reviewed articles and book chapters by Mateo Belalcazar on cognitive development, neuropsychology, psychometrics, and quantitative methodology.",
+      "Peer-reviewed articles, book chapters, and conference presentations by Mateo Belalcazar on cognitive development, neuropsychology, psychometrics, and quantitative methodology.",
     url: "https://mateob6.github.io/publications",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
@@ -59,7 +61,7 @@ export default function PublicationsPage() {
             <T en="Publications" es="Publicaciones" />
           </p>
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
-            <T en="Publications" es="Publicaciones" />
+            <T en="Publications & Presentations" es="Publicaciones y Presentaciones" />
           </h1>
         </header>
       </ScrollReveal>
@@ -108,6 +110,26 @@ export default function PublicationsPage() {
             ))}
           </div>
         </ScrollReveal>
+      </section>
+
+      <section className="space-y-4">
+        <ScrollReveal>
+          <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
+            <T en="Selected Presentations" es="Presentaciones Seleccionadas" />
+          </h2>
+        </ScrollReveal>
+        <div className="space-y-2">
+          {presentations.map((p, i) => (
+            <ScrollReveal key={p.title} delay={i * 100}>
+              <PresentationEntry
+                title={p.title}
+                venue={p.venue}
+                location={p.location}
+                year={p.year}
+              />
+            </ScrollReveal>
+          ))}
+        </div>
       </section>
     </div>
   );

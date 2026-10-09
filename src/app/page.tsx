@@ -7,6 +7,8 @@ import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { bio, researchLines } from "@/data/profile";
 import { education } from "@/data/education";
 import { publications } from "@/data/publications";
+import { groups } from "@/data/groups";
+import { GroupCard } from "@/components/content/group-card";
 import type { ResearchLine, Publication } from "@/lib/types";
 
 const personJsonLd = {
@@ -116,6 +118,26 @@ export default function HomePage() {
         </section>
       </ScrollReveal>
 
+      {/* ===== RESEARCH GROUPS ===== */}
+      <ScrollReveal>
+        <section id="groups">
+          <SectionHeader en="Research Groups" es="Grupos de Investigación" />
+          <div className="space-y-3">
+            {groups.map((group, i) => (
+              <ScrollReveal key={group.name} delay={i * 120}>
+                <GroupCard
+                  name={group.name}
+                  institution={group.institution}
+                  periodEn={group.period}
+                  periodEs={group.period.replace("present", "presente")}
+                  rank={group.rank}
+                />
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
+
       <div className="section-divider" />
 
       {/* ===== SELECTED PUBLICATIONS ===== */}
@@ -151,14 +173,12 @@ export default function HomePage() {
       <ScrollReveal>
         <section id="explore">
           <SectionHeader en="Explore" es="Explorar" />
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {[
-              { href: "/publications", en: "Publications", es: "Publicaciones" },
+              { href: "/publications", en: "Publications & Presentations", es: "Publicaciones y Presentaciones" },
               { href: "/teaching", en: "Teaching", es: "Docencia" },
               { href: "/skills", en: "Skills", es: "Habilidades" },
-              { href: "/presentations", en: "Presentations", es: "Presentaciones" },
               { href: "/awards", en: "Awards & Grants", es: "Premios y Becas" },
-              { href: "/groups", en: "Research Groups", es: "Grupos de Investigación" },
             ].map((link) => (
               <Link
                 key={link.href}

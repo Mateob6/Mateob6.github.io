@@ -4,9 +4,7 @@ const NAV_LINKS = [
   { href: "/publications", en: "Publications", es: "Publicaciones" },
   { href: "/teaching", en: "Teaching", es: "Docencia" },
   { href: "/skills", en: "Skills", es: "Habilidades" },
-  { href: "/presentations", en: "Presentations", es: "Presentaciones" },
   { href: "/awards", en: "Awards", es: "Premios" },
-  { href: "/groups", en: "Groups", es: "Grupos" },
 ];
 
 const PROFILE_LINKS = [
