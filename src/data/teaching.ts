@@ -27,8 +27,8 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Descriptive and inferential statistics applied to behavioral science research.",
         descriptionEs: "Estadística descriptiva e inferencial aplicada a la investigación en ciencias del comportamiento.",
         instances: [
-          { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
-          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-02", "2025-02", "2026-02"] },
+          { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2020-01", "2021-02", "2024-02", "2025-02", "2026-02"] },
           { university: "Universidad de San Buenaventura, Cali", level: "undergraduate", semesters: ["2024-01"] },
         ],
       },
@@ -38,6 +38,14 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEs: "Técnicas multivariadas avanzadas para la investigación en psicología a nivel de posgrado.",
         instances: [
           { university: "Pontificia Universidad Javeriana, Cali", level: "graduate", semesters: ["2023-02"] },
+        ],
+      },
+      {
+        name: "Métodos Multivariados para la Psicología",
+        descriptionEn: "Multivariate statistical methods for psychological research at the graduate level.",
+        descriptionEs: "Métodos estadísticos multivariados para la investigación psicológica a nivel de posgrado.",
+        instances: [
+          { university: "Universidad del Valle", level: "graduate", semesters: ["2023-01"] },
         ],
       },
       {
@@ -59,8 +67,17 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Quantitative research design, sampling, measurement, and data analysis strategies.",
         descriptionEs: "Diseño de investigación cuantitativa, muestreo, medición y estrategias de análisis de datos.",
         instances: [
+          { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2022-02", "2023-01", "2023-02", "2024-01"] },
           { university: "Universidad del Valle", level: "undergraduate", semesters: ["2023-01", "2023-02", "2024-01", "2024-02", "2025-02"] },
           { university: "Universidad del Valle", level: "graduate", semesters: ["2024-02", "2025-02"] },
+        ],
+      },
+      {
+        name: "Metodología de la Investigación",
+        descriptionEn: "Research methodology for graduate programs in project management.",
+        descriptionEs: "Metodología de la investigación para programas de posgrado en gerencia de proyectos.",
+        instances: [
+          { university: "Pontificia Universidad Javeriana, Cali", level: "graduate", semesters: ["2024-01", "2024-02", "2025-01", "2025-02", "2026-01", "2026-02"] },
         ],
       },
       {
@@ -76,7 +93,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Logical and mathematical thinking from a developmental perspective.",
         descriptionEs: "Pensamiento lógico y matemático desde una perspectiva del desarrollo.",
         instances: [
-          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-01", "2025-01", "2026-01"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2024-01", "2025-01", "2025-02", "2026-01", "2026-02"] },
         ],
       },
     ],
@@ -100,6 +117,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEs: "Temas selectos en psicología cognitiva: atención, memoria, razonamiento y lenguaje.",
         instances: [
           { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2020-01", "2025-02"] },
         ],
       },
       {
@@ -116,6 +134,14 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEs: "Temas avanzados en psicología educativa: motivación, autorregulación y evaluación.",
         instances: [
           { university: "Universidad del Valle", level: "undergraduate", semesters: ["2025-02"] },
+        ],
+      },
+      {
+        name: "Práctica Profesional Supervisada",
+        descriptionEn: "Supervised professional practice in applied psychology settings.",
+        descriptionEs: "Práctica profesional supervisada en contextos de psicología aplicada.",
+        instances: [
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2021-01", "2022-02"] },
         ],
       },
     ],
