@@ -41,22 +41,20 @@ src/
 ├── app/
 │   ├── globals.css              ← theme tokens + bilingual CSS + dark mode + animations
 │   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, Analytics, FOUC prevention)
-│   ├── page.tsx                 ← HOME: hero + about + education (3-col grid) + research lines + selected publications
+│   ├── page.tsx                 ← HOME: hero + about + education + research lines + research groups + selected publications + explore grid
 │   ├── icon.svg                 ← favicon (MB monogram)
-│   ├── sitemap.ts               ← 7 URLs
+│   ├── sitemap.ts               ← 5 URLs (dynamic lastModified)
 │   ├── robots.ts
-│   ├── publications/page.tsx    ← APA-style reference list (5 articles + 1 chapter)
-│   ├── teaching/page.tsx        ← editorial two-column course portfolio (3 domains, 11 courses)
+│   ├── publications/page.tsx    ← APA-style reference list (5 articles + 1 chapter + 4 presentations) + ScholarlyArticle JSON-LD
+│   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 13 courses)
 │   ├── skills/page.tsx          ← editorial text-list skills (Statistical Analysis + Tools & Methods)
-│   ├── presentations/page.tsx   ← 4 presentations
-│   ├── awards/page.tsx          ← 4 awards & grants
-│   └── groups/page.tsx          ← 2 research groups
+│   └── awards/page.tsx          ← 4 awards & grants
 ├── components/
 │   ├── ui/                      ← cn, Card, Badge, Button
 │   ├── layout/                  ← Header, Footer, MobileNav, ThemeToggle, LanguageToggle
 │   └── content/                 ← T (bilingual), SectionHeader, ScrollReveal, PublicationCard,
-│                                   CourseEntry, PresentationEntry, AwardCard, GroupCard,
-│                                   EducationEntry, ProfileLinks
+│                                   TeachingExplorer (diagram+table), PresentationEntry,
+│                                   AwardCard, GroupCard, CourseEntry, EducationEntry, ProfileLinks
 ├── data/                        ← typed content (profile, publications, teaching, skills, etc.)
 └── lib/
     └── types.ts                 ← shared types
@@ -105,7 +103,9 @@ Two blocking scripts in `<head>` via `dangerouslySetInnerHTML`:
 
 ## Home Page Layout
 
-Hero (photo, name "Researcher in Psychology, Statistics & Computational Methods", profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Selected Publications (4 articles in APA reference format, link to /publications)
+Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (2 GroupCards with Minciencias rank badges) → Selected Publications (4 articles in APA reference format, link to /publications) → Explore (2×2 grid linking to 4 subpages)
+
+Person JSON-LD schema in home page with `sameAs` linking to 6 academic profiles. WebSite JSON-LD in root layout.
 
 ### About Narrative
 
@@ -134,18 +134,24 @@ Section titled "Selected Publications" / "Publicaciones Destacadas". Shows the 4
 
 Each subpage has a hero header with gradient left border (`subpage-hero` class) and scroll-reveal animations. Content comes from typed data files in `src/data/`.
 
-### Publications (`/publications`)
+### Publications & Presentations (`/publications`)
 
-APA-style reference list format. No cards — flat typographic entries with `border-b` separators inside `pl-4 border-l-2 border-accent/20` rail. Author name bolded via `**Name**` syntax. Titles in italics linked to DOI. Grouped by type (Articles, Book Chapters).
+APA-style reference list format. No cards — flat typographic entries with `border-b` separators inside `pl-4 border-l-2 border-accent/20` rail. Author name bolded via `**Name**` syntax. Titles in italics linked to DOI. Three sections: Articles, Book Chapters, Selected Presentations. ScholarlyArticle JSON-LD for articles with DOI (`@graph` array).
 
 ### Teaching (`/teaching`)
 
-Domain-grouped course portfolio. No intro paragraph. 3 thematic domains with `border-b` section headers:
+Interactive SVG tree diagram + reactive table. `TeachingExplorer` client component with `selectedDomain` state.
+
+**Diagram:** Central "COURSES" node branching to 3 domains. Animated on scroll (line drawing + node fade-in). Active domain has accent fill/border; inactive has muted styling. Click swaps the table below with fade-in transition. Pre-selects first domain on load. Breaks out of `max-w-3xl` container to `max-w-6xl` for prominence.
+
+**Table:** Single reactive table showing courses of the selected domain. Columns: Course, Level (badge: amber Pregrado, blue Posgrado), University (short names), Period. Courses with multiple instances get multiple rows.
+
+3 domains, 13 courses, ~20 instances across 3 universities (source of truth: `cv/fuentes/academico.tex`):
 1. **Statistics & Quantitative Methods** (4 courses)
-2. **Research Methodology** (2 courses)
+2. **Research Methodology** (4 courses)
 3. **Cognitive Development & Learning** (5 courses)
 
-Editorial two-column layout: course name (1/3 left) + description & university instances (2/3 right). Full university names (Pontificia Universidad Javeriana, Cali / Universidad del Valle / Universidad de San Buenaventura, Cali). Each instance has accent dot bullet, year range (no semester count), and level badge (Pregrado in amber, Posgrado in accent blue). USB entries are historical (2024, no "present"). Data types defined in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance).
+Data types in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance). Diagram counts computed dynamically from data.
 
 ### Skills (`/skills`)
 
@@ -159,16 +165,17 @@ Both sections have `border-b border-accent/15` on headers for consistency.
 
 | Category | Count |
 |----------|-------|
-| Publications (articles) | 4 (all with DOI) |
-| Publications (chapters) | 1 |
-| Teaching domains | 3 (Statistics, Methodology, Cognitive Dev.) |
-| Teaching courses | 11 unique, 14 instances across 3 universities (2 current: PUJ, Univalle; 1 past: USB) |
-| Presentations | 4 |
+| Publications (articles) | 4 (all with DOI) + 1 chapter |
+| Presentations | 4 (merged into /publications) |
+| Teaching domains | 3 (Statistics 4, Methodology 4, Cognitive Dev. 5) |
+| Teaching courses | 13 unique, ~20 instances across 3 universities (source: CV) |
 | Awards & Grants | 4 |
-| Research Groups | 2 (Minciencias A1 + A) |
+| Research Groups | 2 (Minciencias A1 + A) — section on home page |
 | Education | 3 (PhD, MSc, BSc) |
 | Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
 | Profile links | 7 (Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
+| Pages | 5 (Home, Publications, Teaching, Skills, Awards) |
+| Nav items | 4 (Publications, Teaching, Skills, Awards) |
 
 ## Professional Documentation (offline)
 
@@ -230,29 +237,29 @@ Last export: 2026-10-09. Tracking since ~2026-09-01.
 4. Audience is 86% Colombian
 5. No sustained growth trend yet — needs SEO improvements and more indexable content
 
-## SEO (pending)
+## SEO (implemented 2026-10-09)
 
-- [ ] Audit meta tags (title, description) across all pages
-- [ ] Check Open Graph tags for social sharing previews
-- [ ] Verify Google Search Console indexing status
-- [ ] Add structured data (JSON-LD) for Person/Scholar profile
-- [ ] Evaluate adding a blog or research notes section for indexable content
-- [ ] Check page speed (Core Web Vitals)
-- [ ] Review internal linking between subpages
-- [ ] Consider adding alt text to images if missing
+- [x] Per-page meta descriptions and OG metadata for all subpages
+- [x] Canonical URLs on all pages
+- [x] JSON-LD: WebSite (layout), Person (home, 6 sameAs profiles), ScholarlyArticle (publications, 4 articles)
+- [x] Internal linking: Explore section on home (2×2 grid), footer nav + profile links
+- [x] Sitemap dates dynamic (`new Date()` at build time)
+- [x] Alt text on all images, header avatar width/height for CLS
+- [x] Google Search Console verification in place
+- [ ] Verify GSC indexing status post-deploy (manual)
+- [ ] Run PageSpeed Insights post-deploy
+- [ ] Evaluate blog/notes section for indexable content (deferred)
+- [ ] Hreflang (deferred — requires i18n routing restructure)
 
 ## Pending
 
-- Course materials page (`/courses`) for student access to presentations
+- Materials hub (`/materials`) for student course content, congress slides, research notes — discussed, not started
 - Professional Experience section (research projects, consulting). Anonymize Cancillería as above
-- **Data errors found 2026-09-11 — FIXED 2026-10-06:**
-  - ~~`publications.ts` CES entry: "Uribe Guscas"~~ → fixed to "Uribe Guacas"
-  - ~~`publications.ts` chapter: wrong authors~~ → fixed to 2 authors (Pulido-Moreno & Belalcazar); editors in journal field with publisher and pages
-  - ~~`awards.ts` "Honors Thesis" 2018~~ → fixed to "Meritorious Thesis" / "Tesis Meritoria", 2019
-  - `publications.ts` now includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
-  - Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
-- Additional presentations (9 total vs. 4 shown)
+- Additional presentations (9 total vs. 4 shown in publications page)
 - Downloadable CV link (decide between `fuentes/academico` and `fuentes/industria`; never `historico/2026-09_cv_industria_v1`)
+- `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
+- Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
+- Teaching data source of truth: `cv/fuentes/academico.tex`. Sync when CV updates.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
