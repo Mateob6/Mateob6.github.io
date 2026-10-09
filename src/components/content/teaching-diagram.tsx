@@ -47,10 +47,10 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
   }, []);
 
   const cx = 600;
-  const rootY = 30;
+  const rootY = 10;
   const rootH = 48;
-  const branchY = 160;
-  const nodeY = 190;
+  const branchY = 120;
+  const nodeY = 140;
   const nodeW = 300;
   const nodeH = 120;
   const gap = 50;
@@ -63,10 +63,10 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
   return (
     <div className="space-y-8">
       {/* === DIAGRAM === */}
-      <div className="flex justify-center">
+      <div className="relative left-1/2 -translate-x-1/2 w-[100vw] max-w-6xl px-4">
         <svg
           ref={svgRef}
-          viewBox="0 0 1200 340"
+          viewBox="0 0 1200 275"
           className="teaching-diagram w-full"
           role="img"
         >
