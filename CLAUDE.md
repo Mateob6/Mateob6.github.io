@@ -213,29 +213,29 @@ All three profiles were audited and configured on 2026-09-04. Citation tracking 
 
 ## Analytics (GoatCounter — mateob6.goatcounter.com)
 
-Last export: 2026-10-09. Tracking since ~2026-09-01.
+Last export: 2026-10-10. Tracking since ~2026-09-01.
 
-**Summary (sep 1 – oct 8, 2026):** 74 hits in 38 days, 28 days with data. Average ~12 hits/week, ~2.6/day.
+**Summary (sep 1 – oct 9, 2026):** 84 hits in 29 days with data. Average 2.9 hits/day, ~20/week.
 
 | Metric | Breakdown |
 |--------|-----------|
-| **Pages** | `/` 93%, `/publications` 4%, `/groups` 1%, `/skills` 1% |
-| **Sources** | Direct 47%, Instagram 32%, Google 12%, Bing 5%, Facebook 1% |
-| **Countries** | Colombia 86%, USA 14% |
+| **Pages** | `/` 87%, `/publications` 6%, `/skills` 2.4%, `/teaching` 2.4%, `/awards` 1.2%, `/groups` 1.2% |
+| **Sources** | Direct 51%, Instagram 30%, Google 11%, Bing 5%, Facebook 1% |
+| **Countries** | Colombia 88%, USA 11% |
 
 **Weekly trend:**
-- Sem 1 (sep 01–06): 24 hits (peak — likely launch/sharing)
+- Sem 1 (aug 31–sep 06): 24 hits (launch peak)
 - Sem 2–3 (sep 07–20): ~10/week (baseline)
 - Sem 4 (sep 21–27): 1 hit (valley)
 - Sem 5 (sep 28–oct 04): 19 hits (rebound)
-- Sem 6 (oct 05–08): 10 hits (incomplete)
+- Sem 6 (oct 05–09): 20 hits (stable)
 
 **Observations:**
-1. Almost all traffic hits home page — subpages get almost no direct visits
-2. Instagram bio is the second traffic source (32%)
-3. Google indexed the site (9 organic visits in 5 weeks)
-4. Audience is 86% Colombian
-5. No sustained growth trend yet — needs SEO improvements and more indexable content
+1. Home page gets 87% of traffic — subpages rarely visited directly. SEO overhaul (2026-10-09) should improve this as Google re-indexes with unique per-page descriptions
+2. Instagram bio is second traffic source (30%)
+3. Google indexed the site within 5 weeks (11% organic traffic)
+4. Audience is 88% Colombian — matches target
+5. Stable at ~20 hits/week with no sustained growth yet. Normal for a 1st-year doctoral student's academic profile (5 weeks old). Growth expected with new publications and indexable content
 
 ## SEO (implemented 2026-10-09)
 
