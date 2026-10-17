@@ -12,7 +12,7 @@ Private `sistema/` layer (gitignored) contains deep context about Mateo's full d
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/postcss` (no tailwind.config — uses `@theme inline` in CSS)
 - **Fonts**: Lora (serif, headings/name) + Inter (sans, body) via `next/font/google`
 - **Icons**: Inline SVGs (no external icon library)
-- **Analytics**: GoatCounter (`mateob6.goatcounter.com`, script in layout.tsx, tracks GitHub Pages) + `@vercel/analytics` (Vercel deployment only)
+- **Analytics**: GoatCounter (`mateob6.goatcounter.com`, script in layout.tsx, tracks GitHub Pages) + `@vercel/analytics` (Vercel deployment only). `count.js` only counts full page loads, so `GoatCounterTracker` (`components/layout/goatcounter-tracker.tsx`) calls `goatcounter.count()` on client-side route changes (since 2026-10-17)
 - **Deploy**: GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`) + Vercel (linked project `pagina_personal`)
 - **Export**: Static HTML in `/out` directory
 
@@ -238,6 +238,7 @@ Last export: 2026-10-10. Tracking since ~2026-09-01.
 - Sem 6 (oct 05–09): 20 hits (stable)
 
 **Observations:**
+0. **Measurement break 2026-10-17**: before this date, client-side `<Link>` navigations were NOT counted (only landing pages). Subpage counts rise from this date on; don't compare subpage shares across it
 1. Home page gets 87% of traffic — subpages rarely visited directly. SEO overhaul (2026-10-09) should improve this as Google re-indexes with unique per-page descriptions
 2. Instagram bio is second traffic source (30%)
 3. Google indexed the site within 5 weeks (11% organic traffic)

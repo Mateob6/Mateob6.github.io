@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { GoatCounterTracker } from "@/components/layout/goatcounter-tracker";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON_ID, baseOpenGraph } from "@/lib/seo";
 import "./globals.css";
 
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <MobileNav />
         <Analytics />
+        <GoatCounterTracker />
         <script
           data-goatcounter="https://mateob6.goatcounter.com/count"
           async
