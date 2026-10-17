@@ -10,26 +10,34 @@ import { publications } from "@/data/publications";
 import { groups } from "@/data/groups";
 import { GroupCard } from "@/components/content/group-card";
 import type { ResearchLine, Publication } from "@/lib/types";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON_ID } from "@/lib/seo";
 
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Mateo Belalcazar",
-  url: "https://mateob6.github.io",
-  image: "https://mateob6.github.io/photo.jpg",
+  "@id": PERSON_ID,
+  name: SITE_NAME,
+  // Name forms used in published work, so search engines link them to this profile
+  alternateName: ["Mateo Belalcázar", "Mateo Belalcázar Correa", "Mateo Belalcazar Correa"],
+  url: SITE_URL,
+  image: `${SITE_URL}/photo.jpg`,
+  description: SITE_DESCRIPTION,
   jobTitle: "Doctoral Researcher in Psychology",
-  worksFor: {
-    "@type": "Organization",
-    name: "Universidad del Valle",
-    department: "CIDEAS",
-  },
+  identifier: { "@type": "PropertyValue", propertyID: "ORCID", value: "0000-0001-8276-9734" },
+  worksFor: [
+    { "@type": "CollegeOrUniversity", name: "Universidad del Valle", url: "https://www.univalle.edu.co" },
+    { "@type": "CollegeOrUniversity", name: "Pontificia Universidad Javeriana Cali", url: "https://www.javerianacali.edu.co" },
+  ],
   alumniOf: [{ "@type": "CollegeOrUniversity", name: "Universidad del Valle" }],
+  memberOf: groups.map((g) => ({ "@type": "Organization", name: g.name })),
   knowsAbout: [
-    "Cognitive Development",
-    "Neuropsychology",
     "Psychometrics",
+    "Psychological Measurement",
     "Quantitative Methodology",
+    "Statistical Modeling",
     "Computational Psychology",
+    "Cognitive Development",
+    "Educational Psychology",
   ],
   sameAs: [
     "https://scholar.google.com/citations?user=RoI0VQ8AAAAJ",
@@ -173,12 +181,11 @@ export default function HomePage() {
       <ScrollReveal>
         <section id="explore">
           <SectionHeader en="Explore" es="Explorar" />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { href: "/publications", en: "Publications & Presentations", es: "Publicaciones y Presentaciones" },
               { href: "/teaching", en: "Teaching", es: "Docencia" },
-              { href: "/skills", en: "Skills", es: "Habilidades" },
-              { href: "/awards", en: "Awards & Grants", es: "Premios y Becas" },
+              { href: "/more", en: "Awards & Skills", es: "Premios y Habilidades" },
             ].map((link) => (
               <Link
                 key={link.href}

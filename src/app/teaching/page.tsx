@@ -1,22 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { TeachingExplorer } from "@/components/content/teaching-diagram";
 import { teachingDomains } from "@/data/teaching";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Teaching",
   description:
     "University courses taught by Mateo Belalcazar in statistics, quantitative methods, research methodology, and cognitive development at three Colombian universities.",
-  alternates: { canonical: "/teaching" },
-  openGraph: {
-    title: "Teaching — Mateo Belalcazar",
-    description:
-      "University courses taught by Mateo Belalcazar in statistics, quantitative methods, research methodology, and cognitive development at three Colombian universities.",
-    url: "https://mateob6.github.io/teaching",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-  },
-};
+  path: "/teaching",
+});
 
 export default function TeachingPage() {
   return (

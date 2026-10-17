@@ -10,8 +10,7 @@ import { LanguageToggle } from "./language-toggle";
 const NAV_LINKS = [
   { href: "/publications", en: "Publications", es: "Publicaciones" },
   { href: "/teaching", en: "Teaching", es: "Docencia" },
-  { href: "/skills", en: "Skills", es: "Habilidades" },
-  { href: "/awards", en: "Awards", es: "Premios" },
+  { href: "/more", en: "More", es: "Más" },
 ];
 
 export function Header() {

@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON_ID, baseOpenGraph } from "@/lib/seo";
 import "./globals.css";
 
 const lora = Lora({
@@ -18,41 +19,34 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mateob6.github.io"),
+  metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
   title: {
-    default: "Mateo Belalcazar",
+    default: "Mateo Belalcazar — Psychometrics & Computational Psychology",
     template: "%s — Mateo Belalcazar",
   },
-  description:
-    "Doctoral researcher in Psychology at Universidad del Valle, Colombia. Research in cognitive development, neuropsychology, psychological measurement, and computational methods.",
+  description: SITE_DESCRIPTION,
   keywords: [
     "Mateo Belalcazar",
-    "psychology",
+    "Mateo Belalcázar",
+    "psychometrics",
+    "quantitative methodology",
+    "computational psychology",
+    "psychological measurement",
     "statistics",
+    "cognitive development",
     "Universidad del Valle",
     "CIDEAS",
-    "cognitive development",
-    "neuropsychology",
-    "psychological measurement",
   ],
-  authors: [{ name: "Mateo Belalcázar" }],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "Mateo Belalcazar",
-    title: "Mateo Belalcazar",
-    description:
-      "Doctoral researcher in Psychology at Universidad del Valle, Colombia. Research in cognitive development, neuropsychology, psychological measurement, and computational methods.",
-    url: "https://mateob6.github.io",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    ...baseOpenGraph,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Mateo Belalcazar",
-    description:
-      "Doctoral researcher in Psychology at Universidad del Valle. Cognitive development, neuropsychology, measurement, computational methods.",
-  },
+  // No title/description here: Next fills them from each page's own metadata
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -71,10 +65,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Mateo Belalcazar",
-              url: "https://mateob6.github.io",
-              description:
-                "Academic profile of Mateo Belalcazar, doctoral researcher in Psychology at Universidad del Valle.",
+              "@id": `${SITE_URL}/#website`,
+              name: SITE_NAME,
+              url: SITE_URL,
+              description: SITE_DESCRIPTION,
+              inLanguage: ["en", "es"],
+              author: { "@id": PERSON_ID },
             }),
           }}
         />

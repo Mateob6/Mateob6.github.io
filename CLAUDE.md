@@ -43,12 +43,13 @@ src/
 │   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, Analytics, FOUC prevention)
 │   ├── page.tsx                 ← HOME: hero + about + education + research lines + research groups + selected publications + explore grid
 │   ├── icon.svg                 ← favicon (MB monogram)
-│   ├── sitemap.ts               ← 5 URLs (dynamic lastModified)
+│   ├── sitemap.ts               ← 4 URLs (dynamic lastModified)
 │   ├── robots.ts
-│   ├── publications/page.tsx    ← APA-style reference list (5 articles + 1 chapter + 4 presentations) + ScholarlyArticle JSON-LD
+│   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter + 9 presentations) + ScholarlyArticle JSON-LD
 │   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 13 courses)
-│   ├── skills/page.tsx          ← editorial text-list skills (Statistical Analysis + Tools & Methods)
-│   └── awards/page.tsx          ← 4 awards & grants
+│   ├── more/page.tsx            ← "More": #awards (4 awards & grants) + #skills (Statistical Analysis + Tools & Methods)
+│   ├── skills/page.tsx          ← redirect stub → /more#skills (meta refresh, noindex)
+│   └── awards/page.tsx          ← redirect stub → /more#awards (meta refresh, noindex)
 ├── components/
 │   ├── ui/                      ← cn, Card, Badge, Button
 │   ├── layout/                  ← Header, Footer, MobileNav, ThemeToggle, LanguageToggle
@@ -90,7 +91,7 @@ Dark mode CSS: dual selector pattern — `@media (prefers-color-scheme: dark) { 
 - **Scroll reveal**: IntersectionObserver-based, elements fade/slide in on scroll (respects `prefers-reduced-motion`)
 - **Card hover**: `card-lift` class (translateY -3px + accent border + shadow)
 - **Profile links**: animated underline on hover (`link-hover` class)
-- **Header**: scroll-aware (transparent → glass-blur + shadow on scroll)
+- **Header**: scroll-aware (transparent → glass-blur + shadow on scroll). Logo text is bilingual "Home"/"Inicio" (not the full name)
 - **Decorative**: floating dots + pulsing rings (subtle, opacity 15%)
 
 ### FOUC Prevention
@@ -103,7 +104,7 @@ Two blocking scripts in `<head>` via `dangerouslySetInnerHTML`:
 
 ## Home Page Layout
 
-Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (2 GroupCards with Minciencias rank badges) → Selected Publications (4 articles in APA reference format, link to /publications) → Explore (2×2 grid linking to 4 subpages)
+Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (3 GroupCards with rank badges: Instituto CIDEAS, A1, A) → Selected Publications (4 articles in APA reference format, link to /publications) → Explore (3-column grid, stacked on mobile, linking to the 3 subpages)
 
 Person JSON-LD schema in home page with `sameAs` linking to 6 academic profiles. WebSite JSON-LD in root layout.
 
@@ -136,7 +137,7 @@ Each subpage has a hero header with gradient left border (`subpage-hero` class) 
 
 ### Publications & Presentations (`/publications`)
 
-APA-style reference list format. No cards — flat typographic entries with `border-b` separators inside `pl-4 border-l-2 border-accent/20` rail. Author name bolded via `**Name**` syntax. Titles in italics linked to DOI. Three sections: Articles, Book Chapters, Selected Presentations. ScholarlyArticle JSON-LD for articles with DOI (`@graph` array).
+APA-style reference list format. No cards — flat typographic entries with `border-b` separators inside `pl-4 border-l-2 border-accent/20` rail. Author name bolded via `**Name**` syntax. Titles in italics linked to DOI. Three sections: Articles, Book Chapters, Presentations (all 9 from the CV). Journal name rendered with `text-foreground` contrast. ScholarlyArticle JSON-LD for articles with DOI (`@graph` array).
 
 ### Teaching (`/teaching`)
 
@@ -153,29 +154,35 @@ Interactive SVG tree diagram + reactive table. `TeachingExplorer` client compone
 
 Data types in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance). Diagram counts computed dynamically from data.
 
-### Skills (`/skills`)
+### More (`/more`)
 
-Editorial typography layout (no cards or chips). Two sections:
+Merged Skills + Awards page (2026-10-17). Nav label "More" / "Más"; H1 "Awards & Skills" / "Premios y Habilidades". Awards first (they're short and high-signal), then skills. Anchors `#awards` and `#skills` with `scroll-mt-20` so the sticky header doesn't cover them. Meant to also hold future pending content (professional experience, materials, CV).
+
+**Awards** (`#awards`): 4 `AwardCard`s under an h2 styled like the skills headers.
+
+**Skills** (`#skills`): editorial typography layout (no cards or chips). Two sections:
 1. **Statistical Analysis** — 2×2 grid of subgroups (Inference & Modeling, Psychometrics & Measurement, Simulation & Design, Exploration) with serif subheadings and dot-bulleted text lists
 2. **Tools & Methods** — 3-column grid (Computational, Languages & Frameworks, Platforms) with dot-bulleted text lists
 
-Both sections have `border-b border-accent/15` on headers for consistency.
+All three h2s have `border-b border-accent/15` for consistency.
+
+**Old URLs**: `/skills` and `/awards` are stubs with `<meta httpEquiv="refresh">` (React 19 hoists it to `<head>`) + visible link, `noindex`, canonical `/more`. `redirect()` from `next/navigation` does NOT emit a meta refresh under `output: "export"` (it only works with client JS), so don't use it for this.
 
 ## Content Inventory
 
 | Category | Count |
 |----------|-------|
 | Publications (articles) | 4 (all with DOI) + 1 chapter |
-| Presentations | 4 (merged into /publications) |
+| Presentations | 9 (all from CV, merged into /publications) |
 | Teaching domains | 3 (Statistics 4, Methodology 4, Cognitive Dev. 5) |
 | Teaching courses | 13 unique, ~20 instances across 3 universities (source: CV) |
 | Awards & Grants | 4 |
-| Research Groups | 2 (Minciencias A1 + A) — section on home page |
+| Research Groups | 3 (Instituto CIDEAS + Minciencias A1 + A) — section on home page |
 | Education | 3 (PhD, MSc, BSc) |
 | Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
 | Profile links | 7 (Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
-| Pages | 5 (Home, Publications, Teaching, Skills, Awards) |
-| Nav items | 4 (Publications, Teaching, Skills, Awards) |
+| Pages | 4 (Home, Publications, Teaching, More) + 2 redirect stubs |
+| Nav items | 3 (Publications, Teaching, More) |
 
 ## Professional Documentation (offline)
 
@@ -240,9 +247,12 @@ Last export: 2026-10-10. Tracking since ~2026-09-01.
 ## SEO (implemented 2026-10-09)
 
 - [x] Per-page meta descriptions and OG metadata for all subpages
+- [x] Shared helper `src/lib/seo.ts` (2026-10-17): `pageMetadata({ title, description, path })` + `baseOpenGraph`. A page-level `openGraph` replaces the root one entirely, so subpages must spread `baseOpenGraph` (type, siteName, locale + `es_CO` alternate, image). Root `twitter` sets only the card, so Next fills twitter title/description from each page
+- [x] Home title "Mateo Belalcazar — Psychometrics & Computational Psychology"; site description aligned with the bio (measurement, psychometrics, computational methods)
+- [x] OG image regenerated 2026-10-17 (old one had a blank white square): photo in a circle, name, "Psychology · Psychometrics · Computational Methods". Made with Pillow + Georgia from `public/photo.jpg`
 - [x] Canonical URLs on all pages
-- [x] JSON-LD: WebSite (layout), Person (home, 6 sameAs profiles), ScholarlyArticle (publications, 4 articles)
-- [x] Internal linking: Explore section on home (2×2 grid), footer nav + profile links
+- [x] JSON-LD: WebSite (layout), Person (home, 6 sameAs profiles), ScholarlyArticle (publications, 4 articles). Linked by `@id` (`/#person`, `/#website`): Person has `alternateName` (published name variants with tilde/second surname), ORCID `identifier`, `worksFor` Univalle + Javeriana Cali, `memberOf` from `groups.ts`; Mateo's author entry in each ScholarlyArticle points to `/#person`
+- [x] Internal linking: Explore section on home (3-column grid), footer nav + profile links
 - [x] Sitemap dates dynamic (`new Date()` at build time)
 - [x] Alt text on all images, header avatar width/height for CLS
 - [x] Google Search Console verification in place
@@ -255,7 +265,6 @@ Last export: 2026-10-10. Tracking since ~2026-09-01.
 
 - Materials hub (`/materials`) for student course content, congress slides, research notes — discussed, not started
 - Professional Experience section (research projects, consulting). Anonymize Cancillería as above
-- Additional presentations (9 total vs. 4 shown in publications page)
 - Downloadable CV link (decide between `fuentes/academico` and `fuentes/industria`; never `historico/2026-09_cv_industria_v1`)
 - `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
 - Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."

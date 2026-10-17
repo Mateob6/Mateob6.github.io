@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata, PERSON_ID } from "@/lib/seo";
 import { T } from "@/components/content/t";
 import { PublicationCard } from "@/components/content/publication-card";
 import { PresentationEntry } from "@/components/content/presentation-entry";
@@ -6,21 +7,14 @@ import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { publications } from "@/data/publications";
 import { presentations } from "@/data/presentations";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Publications & Presentations",
   description:
     "Peer-reviewed articles, book chapters, and conference presentations by Mateo Belalcazar on cognitive development, neuropsychology, psychometrics, and quantitative methodology.",
-  alternates: { canonical: "/publications" },
-  openGraph: {
-    title: "Publications & Presentations — Mateo Belalcazar",
-    description:
-      "Peer-reviewed articles, book chapters, and conference presentations by Mateo Belalcazar on cognitive development, neuropsychology, psychometrics, and quantitative methodology.",
-    url: "https://mateob6.github.io/publications",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-  },
-};
+  path: "/publications",
+});
 
-function parseAuthorsForSchema(authors: string): { "@type": string; name: string }[] {
+function parseAuthorsForSchema(authors: string) {
   const clean = authors.replace(/\*\*/g, "");
   // Split on ", &" or " & " first, then on "., " (APA separator between "Initials., Next")
   return clean
@@ -28,7 +22,11 @@ function parseAuthorsForSchema(authors: string): { "@type": string; name: string
     .split(/\.\,\s*/)
     .map((s) => s.trim().replace(/\.$/, ""))
     .filter(Boolean)
-    .map((name) => ({ "@type": "Person" as const, name }));
+    .map((name) =>
+      name.startsWith("Belalcazar")
+        ? { "@type": "Person" as const, "@id": PERSON_ID, name }
+        : { "@type": "Person" as const, name }
+    );
 }
 
 export default function PublicationsPage() {
