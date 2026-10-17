@@ -237,13 +237,21 @@ Last export: 2026-10-10. Tracking since ~2026-09-01.
 - Sem 5 (sep 28–oct 04): 19 hits (rebound)
 - Sem 6 (oct 05–09): 20 hits (stable)
 
+**How to read the data before 2026-10-17 (measurement break):**
+Until this date `count.js` only counted full page loads; clicks between pages via `next/link` were NOT counted. A "hit" in this period therefore means a full load: entering from outside (Instagram bio, Google, typed/shared link), a reload, a link opened in a new tab, or landing directly on a subpage.
+- **Reliable**: visit counts and weekly trend (every visit starts with a full load, so 84 hits ≈ 84 visits), sources, countries
+- **Underestimated**: navigation depth. Subpage shares only reflect direct landings (e.g. `/publications` 6% ≈ people arriving from Google/links), not people browsing from the home
+- Lost internal-navigation data cannot be recovered. From 2026-10-17 on, `GoatCounterTracker` counts route changes, so subpage hits rise; don't compare subpage shares across this date
+
 **Observations:**
-0. **Measurement break 2026-10-17**: before this date, client-side `<Link>` navigations were NOT counted (only landing pages). Subpage counts rise from this date on; don't compare subpage shares across it
-1. Home page gets 87% of traffic — subpages rarely visited directly. SEO overhaul (2026-10-09) should improve this as Google re-indexes with unique per-page descriptions
+1. Home page gets 87% of landings — expected, since the Instagram bio and most links point to `/`. Not evidence that subpages are ignored (see measurement break above). SEO overhaul (2026-10-09, 2026-10-17) should bring more direct landings on subpages as Google re-indexes
 2. Instagram bio is second traffic source (30%)
 3. Google indexed the site within 5 weeks (11% organic traffic)
 4. Audience is 88% Colombian — matches target
-5. Stable at ~20 hits/week with no sustained growth yet. Normal for a 1st-year doctoral student's academic profile (5 weeks old). Growth expected with new publications and indexable content
+5. Stable at ~20 visits/week with no sustained growth yet. Normal for a 1st-year doctoral student's academic profile (5 weeks old). Growth expected with new publications and indexable content
+6. `/skills` and `/awards` were merged into `/more` on 2026-10-17; historical hits stay under the old paths (not summed into `/more`)
+
+**Next export to-do:** first export with navigation tracking — check what share of home visitors continue to a subpage, and which one
 
 ## SEO (implemented 2026-10-09)
 
