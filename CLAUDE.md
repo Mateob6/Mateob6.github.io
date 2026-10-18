@@ -272,7 +272,14 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 
 ## Pending
 
-- Materials hub (`/materials`) for student course content, congress slides, research notes — discussed, not started
+- **Materials section** (posters, congress talks, class presentations) — discussed 2026-10-17, not started. Decisions so far:
+  - **Hosting**: Zenodo (resource types Poster / Presentation / Lesson, versioning, ORCID auto-update, related identifiers). Site only links to the DOI; no PDFs in the repo. OSF stays for research data. Mateo needs a Zenodo account (login with ORCID) and, for uploads from Claude, an API token in `~/.zshrc` (like `$OSF_TOKEN`)
+  - **DOI scope**: one DOI per poster/talk (linked to its paper via "isSupplementTo"); class material gets **one DOI per course** with a new version each semester, not one per class
+  - **Format/license**: PDF, CC BY 4.0 (CC BY-NC if commercial reuse is a concern)
+  - **Filter before uploading** (a DOI is permanent): results already published (8 papers under review → wait; double-blind risk), co-authors agree and are all credited, no identifiable participant data or images (minors in deaf/blind studies — Ley 1581/2012), figures own or free to use, content still defensible today. Never: Cancillería, consultorías, Univalle Contigo, Tenorio. No exams/solutions/rubrics in use
+  - **Class material**: check Univalle and Javeriana intellectual-property rules before publishing
+  - **Not counted** as publications in Google Scholar; in CvLAC register as apropiación social / divulgación
+  - **Open decisions**: own page `/materials` (better for SEO if it grows) vs. a section inside `/more`; add a "Slides" link on each matching presentation in `/publications` instead of duplicating entries; inventory of what is ready to publish
 - Professional Experience section (research projects, consulting). Anonymize Cancillería as above
 - Downloadable CV link (decide between `fuentes/academico` and `fuentes/industria`; never `historico/2026-09_cv_industria_v1`)
 - `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
