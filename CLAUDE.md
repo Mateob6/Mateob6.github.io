@@ -45,7 +45,7 @@ src/
 │   ├── icon.svg                 ← favicon (MB monogram)
 │   ├── sitemap.ts               ← 4 URLs (dynamic lastModified)
 │   ├── robots.ts
-│   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter + 9 presentations) + ScholarlyArticle JSON-LD
+│   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter + 10 presentations) + ScholarlyArticle JSON-LD
 │   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 13 courses)
 │   ├── more/page.tsx            ← "More": #awards (4 awards & grants) + #skills (Statistical Analysis + Tools & Methods)
 │   ├── skills/page.tsx          ← redirect stub → /more#skills (meta refresh, noindex)
@@ -137,7 +137,7 @@ Each subpage has a hero header with gradient left border (`subpage-hero` class) 
 
 ### Publications & Presentations (`/publications`)
 
-APA-style reference list format. No cards — flat typographic entries with `border-b` separators inside `pl-4 border-l-2 border-accent/20` rail. Author name bolded via `**Name**` syntax. Titles in italics linked to DOI. Three sections: Articles, Book Chapters, Presentations (all 9 from the CV). Journal name rendered with `text-foreground` contrast. ScholarlyArticle JSON-LD for articles with DOI (`@graph` array).
+APA-style reference list format. No cards — flat typographic entries with `border-b` separators inside `pl-4 border-l-2 border-accent/20` rail. Author name bolded via `**Name**` syntax. Titles in italics linked to DOI. Three sections: Articles, Book Chapters, Presentations (all 10 from the CV). Journal name rendered with `text-foreground` contrast. ScholarlyArticle JSON-LD for articles with DOI (`@graph` array).
 
 ### Teaching (`/teaching`)
 
@@ -173,7 +173,7 @@ All three h2s have `border-b border-accent/15` for consistency.
 | Category | Count |
 |----------|-------|
 | Publications (articles) | 4 (all with DOI) + 1 chapter |
-| Presentations | 9 (all from CV, merged into /publications) |
+| Presentations | 10 (all from CV, merged into /publications) |
 | Teaching domains | 3 (Statistics 4, Methodology 4, Cognitive Dev. 5) |
 | Teaching courses | 13 unique, ~20 instances across 3 universities (source: CV) |
 | Awards & Grants | 4 |

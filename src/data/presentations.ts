@@ -2,6 +2,12 @@ import type { Presentation } from "@/lib/types";
 
 export const presentations: Presentation[] = [
   {
+    title: "Cuando las manos dicen más que las palabras: IA y embeddings para la innovación educativa multimodal en niños sordos.",
+    venue: "I Simposio Nacional sobre Inteligencia Artificial para la Investigación en Psicología y Ciencias Sociales",
+    location: "Cali, Colombia",
+    year: 2026,
+  },
+  {
     title: "Decisión de jubilación en un contexto Ibero-Latinoamericano.",
     venue: "5º Seminario Internacional de Desarrollo de Carrera y Orientación",
     location: "Braga, Portugal",
