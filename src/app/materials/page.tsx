@@ -89,8 +89,11 @@ export default async function MaterialsPage() {
       {/* The courses panel: full width, with the curved top edge */}
       <section className="relative left-1/2 w-[100vw] -translate-x-1/2" aria-labelledby="cursos">
         <PanelCurve />
+        {/* the honeycomb under the blue curve, and its pointer light (globals.css «Panal») */}
+        <div aria-hidden="true" className="panal-panel" />
+        <div aria-hidden="true" className="panal-panel-luz" data-panal-luz="" />
         <div className="bg-surface pb-20">
-          <div className="mx-auto max-w-5xl space-y-14 px-6 pt-4">
+          <div className="relative z-[1] mx-auto max-w-5xl space-y-14 px-6 pt-4">
             <h2 id="cursos" className="sr-only">
               <T en="Courses" es="Cursos" />
             </h2>

@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { GoatCounterTracker } from "@/components/layout/goatcounter-tracker";
+import { PanalFondo, PanalLuz } from "@/components/layout/panal";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON_ID, baseOpenGraph } from "@/lib/seo";
 import "./globals.css";
 
@@ -86,7 +87,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="flex min-h-screen flex-col font-sans">
+      <body className="relative flex min-h-screen flex-col font-sans">
+        <PanalFondo />
+        <PanalLuz />
         <Header />
         <main className="flex-1 w-full max-w-3xl mx-auto px-6 pb-20 sm:pb-8">
           {children}

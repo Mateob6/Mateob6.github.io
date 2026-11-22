@@ -202,31 +202,12 @@ export function CourseCard({ course }: { course: MaterialsCourse }) {
   );
 }
 
-/** Honeycomb pattern for courses that have no classes yet; follows the theme through currentColor */
-function HexPattern() {
-  return (
-    <svg aria-hidden="true" className="absolute inset-0 h-full w-full text-border">
-      <defs>
-        <pattern id="hexagonos" width="28" height="48.5" patternUnits="userSpaceOnUse" patternTransform="scale(0.9)">
-          <path
-            d="M14 0 L28 8.08 L28 24.25 L14 32.33 L0 24.25 L0 8.08 Z M14 32.33 L14 48.5 M0 24.25 L-14 32.33 M28 24.25 L42 32.33"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-          />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#hexagonos)" />
-    </svg>
-  );
-}
-
-/** A course Mateo teaches but without published classes: visible, not clickable */
+/** A course Mateo teaches but without published classes: visible, not clickable.
+ *  Opaque (same color as background/60 over the panel) so the panel honeycomb does not show through. */
 export function ComingSoonCard({ course }: { course: MaterialsCourse }) {
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-dashed border-border bg-background/60" aria-disabled="true">
+    <div className="flex flex-col overflow-hidden rounded-xl border border-dashed border-border bg-[color-mix(in_oklab,var(--background)_60%,var(--surface))]" aria-disabled="true">
       <span className="relative block aspect-video overflow-hidden border-b border-dashed border-border">
-        <HexPattern />
         <span className="absolute inset-0 grid place-items-center">
           <span className="rounded-full border border-border bg-background px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-muted">
             <T en="Coming soon" es="Próximamente" />
