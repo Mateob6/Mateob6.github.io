@@ -278,7 +278,7 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 5. Stable at ~20 visits/week with no sustained growth yet. Normal for a 1st-year doctoral student's academic profile (5 weeks old). Growth expected with new publications and indexable content
 6. `/skills` and `/awards` were merged into `/more` on 2026-10-17; historical hits stay under the old paths (not summed into `/more`)
 
-**Second reading (Oct 10 – Nov 22, 2026; first one with navigation tracking):** 101 visits in 44 days (≈ 2.3/day, ≈ 16/week). GoatCounter's dashboard counts *visits*, the first export counted *hits*, so the drop from 2.9/day is not a clean comparison.
+**Second reading (Oct 10 – Nov 22, 2026; first one with navigation tracking):** 101 visits in 44 days (≈ 2.3/day, ≈ 16/week). The Nov 22 export shows the first period also had 84 of these units (Aug 31 – Oct 9), so the two periods are comparable: flat at ≈ 2 visits/day.
 
 | Metric | Breakdown |
 |--------|-----------|
@@ -290,6 +290,8 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 - Navigation depth: 21 subpage visits against 80 home visits, so at most ~1 in 4 home visitors goes on to a subpage (fewer if some of those 21 landed directly); Publications first, then Teaching
 - The Materials and `/more` visits are almost all on Nov 22, the day those pages changed: probably Mateo's own checks (and possibly Lighthouse runs), so not audience yet
 - Instagram is now the top named source; Google is still small (7 %) because until Nov 22 only the home was indexed and no sitemap had been submitted (see SEO)
+
+**Full export 2026-11-22** (`goatcounter-export-mateob6-20261122T231754Z.zip` in Downloads; new JSONL format with hourly aggregates, not raw hits; analysis script kept only in the session scratchpad). Aug 31 – Nov 22: 185 visits; without Nov 22 (15, Mateo's own checks: internal referrers from /teaching and /diapositivas) 170 in 83 days ≈ 2/day, no growth. Weekly: 24 at launch, 4–16 in Sep, peak 34 + 23 in the weeks of Oct 12 and 19 (Instagram and Facebook, Oct 16–20), then 10, 4 and 3 in late Oct – mid Nov (no social pushes), 10 the week of Nov 16. Sources overall: direct/unknown 43 %, Instagram 35 % (`ig` + `l.instagram.com`), Google + Bing 11 %, Facebook 6 % (all in Oct–Nov). Subpages: from Oct 10 to Nov 21 only 9 of 86 visits (10 %) were not the home. Screens: computers 48 %, phones 45 %, tablets 7 %. Busiest: Monday and Friday; 9–12 h and 15–18 h, also 21–24 h (Colombia time). Countries: Colombia 86 %, USA 12 %. Reading: traffic depends on social posts; without them it falls to 3–4 visits a week
 
 **Next reading:** after Google indexes the subpages (≈ mid-December), compare Google's share and the subpage landings
 
