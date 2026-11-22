@@ -2,20 +2,27 @@ import type { Metadata } from "next";
 import { pageMetadata, PERSON_ID, SITE_URL } from "@/lib/seo";
 import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
-import { Counts, MaterialsCourses } from "@/components/content/materials";
-import { getMaterials, SLIDES_URL } from "@/data/materials";
+import { ComingSoonCard, Counts, CourseCard, PanelCurve, RecentList } from "@/components/content/materials";
+import { getMaterials, getRecent } from "@/data/materials";
+import { teachingDomains } from "@/data/teaching";
 
 export const metadata: Metadata = pageMetadata({
   title: "Materials",
   description:
-    "Class slides by Mateo Belalcazar, organized by course and unit: view them in the browser or download them as PDF. In Spanish, licensed CC BY 4.0.",
+    "Class slides by Mateo Belalcazar for the courses he teaches, organized by course and unit: view them in the browser or download them as PDF. In Spanish, licensed CC BY 4.0.",
   path: "/materials",
 });
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
+const RECENT_MIN = 3; // «Recently published» shows up once there are at least this many classes
 
 export default async function MaterialsPage() {
   const courses = await getMaterials();
+  const totalClasses = courses.reduce((a, c) => a + c.total, 0);
+  const recent = totalClasses >= RECENT_MIN ? await getRecent(3) : [];
+  const domains = teachingDomains
+    .map((d, i) => ({ domain: d, courses: courses.filter((c) => c.course.dominio === i) }))
+    .filter((d) => d.courses.length > 0);
 
   const schema = {
     "@context": "https://schema.org",
@@ -24,29 +31,20 @@ export default async function MaterialsPage() {
     name: "Materials — Mateo Belalcazar",
     url: `${SITE_URL}/materials`,
     author: { "@id": PERSON_ID },
-    hasPart: courses.flatMap((c) =>
-      c.units.flatMap((u) =>
-        u.classes.map((k) => ({
-          "@type": "LearningResource",
-          name: k.titulo,
-          description: k.resumen,
-          url: `${SLIDES_URL}${k.ruta}/`,
-          inLanguage: "es",
-          learningResourceType: "Presentation",
-          educationalLevel: "Undergraduate",
-          isPartOf: { "@type": "Course", name: c.course.nombre },
-          license: LICENSE_URL,
-          author: { "@id": PERSON_ID },
-          dateModified: k.actualizada,
-          image: `${SLIDES_URL}${k.miniatura}`,
-          encoding: { "@type": "MediaObject", contentUrl: `${SLIDES_URL}${k.pdf}`, encodingFormat: "application/pdf" },
-        }))
-      )
-    ),
+    hasPart: courses
+      .filter((c) => c.total > 0)
+      .map((c) => ({
+        "@type": "Course",
+        name: c.course.nombre,
+        description: c.course.descripcion.en,
+        url: `${SITE_URL}/materials/${c.slug}`,
+        inLanguage: "es",
+        provider: { "@id": PERSON_ID },
+      })),
   };
 
   return (
-    <div className="py-12 space-y-12">
+    <div className="pt-12 space-y-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       <ScrollReveal direction="left">
@@ -88,9 +86,39 @@ export default async function MaterialsPage() {
         </div>
       </ScrollReveal>
 
-      <ScrollReveal>
-        <MaterialsCourses courses={courses} />
-      </ScrollReveal>
+      {/* The courses panel: full width, with the curved top edge */}
+      <section className="relative left-1/2 w-[100vw] -translate-x-1/2" aria-labelledby="cursos">
+        <PanelCurve />
+        <div className="bg-surface pb-20">
+          <div className="mx-auto max-w-5xl space-y-14 px-6 pt-4">
+            <h2 id="cursos" className="sr-only">
+              <T en="Courses" es="Cursos" />
+            </h2>
+
+            {recent.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-accent">
+                  <T en="Recently published" es="Recién publicadas" />
+                </h3>
+                <RecentList items={recent} />
+              </div>
+            )}
+
+            {domains.map(({ domain, courses: group }) => (
+              <div key={domain.nameEn} className="space-y-5">
+                <h3 className="border-b border-accent/15 pb-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
+                  <T en={domain.nameEn} es={domain.nameEs} />
+                </h3>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  {group.map((c) =>
+                    c.total > 0 ? <CourseCard key={c.slug} course={c} /> : <ComingSoonCard key={c.slug} course={c} />
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

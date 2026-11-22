@@ -1,10 +1,12 @@
+import Link from "next/link";
+import { ViewTransition } from "react";
 import { T } from "@/components/content/t";
 import { formatUpdated, SLIDES_URL, type ClassDeck, type MaterialsCourse, type Unit } from "@/data/materials";
 
 const abs = (path: string) => (path.startsWith("/") || path.startsWith("http") ? path : `${SLIDES_URL}${path}`);
 
 /** The slide chosen as thumbnail, light or dark following the site theme (classes in globals.css) */
-function Thumb({ deck }: { deck: ClassDeck }) {
+export function Thumb({ deck }: { deck: ClassDeck }) {
   const img = "absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]";
   return (
     <span className="relative block aspect-video overflow-hidden bg-surface">
@@ -57,7 +59,7 @@ export function ClassRow({ deck }: { deck: ClassDeck }) {
         <Thumb deck={deck} />
       </a>
       <div className="flex-1 space-y-2">
-        <h4 className="font-serif text-lg leading-snug text-foreground">{deck.titulo}</h4>
+        <h3 className="font-serif text-lg leading-snug text-foreground">{deck.titulo}</h3>
         <Summary deck={deck} />
         <Meta deck={deck} />
         <div className="pt-1">
@@ -117,47 +119,155 @@ export function UnitTrack({ slug, units, counts }: { slug: string; units: Unit[]
   );
 }
 
-/** Intro line: counts of courses, units and classes */
+const plural = (n: number, en: [string, string], es: [string, string]) => ({
+  en: `${n} ${n === 1 ? en[0] : en[1]}`,
+  es: `${n} ${n === 1 ? es[0] : es[1]}`,
+});
+
+/** Intro line: courses and classes */
 export function Counts({ courses }: { courses: MaterialsCourse[] }) {
-  const units = courses.reduce((a, c) => a + c.units.length, 0);
-  const classes = courses.reduce((a, c) => a + c.units.reduce((b, u) => b + u.classes.length, 0), 0);
-  const p = (n: number, en: [string, string], es: [string, string]) => ({ en: `${n} ${n === 1 ? en[0] : en[1]}`, es: `${n} ${n === 1 ? es[0] : es[1]}` });
-  const c = p(courses.length, ["course", "courses"], ["curso", "cursos"]);
-  const u = p(units, ["unit", "units"], ["unidad", "unidades"]);
-  const k = p(classes, ["class", "classes"], ["clase", "clases"]);
-  return <T en={`${c.en} · ${u.en} · ${k.en}`} es={`${c.es} · ${u.es} · ${k.es}`} />;
+  const c = plural(courses.length, ["course", "courses"], ["curso", "cursos"]);
+  const k = plural(courses.reduce((a, x) => a + x.total, 0), ["class", "classes"], ["clase", "clases"]);
+  return <T en={`${c.en} · ${k.en}`} es={`${c.es} · ${k.es}`} />;
 }
 
-/** The course sections: name, description, unit track, then each unit with its classes */
-export function MaterialsCourses({ courses }: { courses: MaterialsCourse[] }) {
+/** Shared name for the cover that morphs from the course card into the course page header */
+export function CourseCover({ course, className = "" }: { course: MaterialsCourse; className?: string }) {
   return (
-    <div className="space-y-16">
-      {courses.map(({ slug, course, units }) => {
-        const counts = Object.fromEntries(units.map((u) => [u.unit.slug, u.classes.length]));
-        return (
-          <section key={slug} id={slug} className="scroll-mt-20 space-y-10">
+    <ViewTransition name={`curso-${course.slug}`} share="morph" default="none">
+      <span className={`block overflow-hidden ${className}`}>{course.cover && <Thumb deck={course.cover} />}</span>
+    </ViewTransition>
+  );
+}
+
+function CourseStats({ course }: { course: MaterialsCourse }) {
+  const u = plural(course.course.unidades.length, ["unit", "units"], ["unidad", "unidades"]);
+  if (course.total === 0) {
+    return <T en={`${u.en} · classes in preparation`} es={`${u.es} · clases en preparación`} />;
+  }
+  const k = plural(course.total, ["class", "classes"], ["clase", "clases"]);
+  const d = formatUpdated(course.updated!);
+  return <T en={`${u.en} · ${k.en} · ${d.en}`} es={`${u.es} · ${k.es} · ${d.es}`} />;
+}
+
+/** A course with classes: the whole card opens its page */
+export function CourseCard({ course }: { course: MaterialsCourse }) {
+  return (
+    <Link
+      href={`/materials/${course.slug}`}
+      className="group card-lift flex flex-col overflow-hidden rounded-xl border border-border bg-background"
+    >
+      <CourseCover course={course} className="border-b border-border" />
+      <span className="flex flex-1 flex-col gap-2 p-5">
+        <span className="font-serif text-lg font-bold leading-snug text-foreground">{course.course.nombre}</span>
+        <span className="line-clamp-2 text-[13px] leading-relaxed text-muted">
+          <T en={course.course.descripcion.en} es={course.course.descripcion.es} />
+        </span>
+        <span className="mt-auto pt-2 text-[11px] text-muted">
+          <CourseStats course={course} />
+        </span>
+        <span className="text-xs font-medium text-accent">
+          <T en="Open course →" es="Ver curso →" />
+        </span>
+      </span>
+    </Link>
+  );
+}
+
+/** Honeycomb pattern for courses that have no classes yet; follows the theme through currentColor */
+function HexPattern() {
+  return (
+    <svg aria-hidden="true" className="absolute inset-0 h-full w-full text-border">
+      <defs>
+        <pattern id="hexagonos" width="28" height="48.5" patternUnits="userSpaceOnUse" patternTransform="scale(0.9)">
+          <path
+            d="M14 0 L28 8.08 L28 24.25 L14 32.33 L0 24.25 L0 8.08 Z M14 32.33 L14 48.5 M0 24.25 L-14 32.33 M28 24.25 L42 32.33"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hexagonos)" />
+    </svg>
+  );
+}
+
+/** A course Mateo teaches but without published classes: visible, not clickable */
+export function ComingSoonCard({ course }: { course: MaterialsCourse }) {
+  return (
+    <div className="flex flex-col overflow-hidden rounded-xl border border-dashed border-border bg-background/60" aria-disabled="true">
+      <span className="relative block aspect-video overflow-hidden border-b border-dashed border-border">
+        <HexPattern />
+        <span className="absolute inset-0 grid place-items-center">
+          <span className="rounded-full border border-border bg-background px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-muted">
+            <T en="Coming soon" es="Próximamente" />
+          </span>
+        </span>
+      </span>
+      <span className="flex flex-1 flex-col gap-2 p-5">
+        <span className="font-serif text-lg font-bold leading-snug text-foreground/70">{course.course.nombre}</span>
+        <span className="line-clamp-2 text-[13px] leading-relaxed text-muted">
+          <T en={course.course.descripcion.en} es={course.course.descripcion.es} />
+        </span>
+        <span className="mt-auto pt-2 text-[11px] text-muted">
+          <CourseStats course={course} />
+        </span>
+      </span>
+    </div>
+  );
+}
+
+/** The latest classes across courses, compact */
+export function RecentList({ items }: { items: { deck: ClassDeck; course: MaterialsCourse }[] }) {
+  return (
+    <ul className="grid gap-4 sm:grid-cols-3">
+      {items.map(({ deck, course }) => (
+        <li key={deck.ruta}>
+          <a href={`${abs(deck.ruta)}/`} target="_blank" rel="noopener noreferrer" className="group flex gap-3 sm:flex-col">
+            <span className="w-32 shrink-0 overflow-hidden rounded-md border border-border sm:w-full">
+              <Thumb deck={deck} />
+            </span>
+            <span className="min-w-0">
+              <span className="block text-[11px] uppercase tracking-wider text-accent">{course.course.nombre}</span>
+              <span className="block font-serif text-[15px] leading-snug text-foreground group-hover:text-accent">{deck.titulo}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** The top edge of the courses panel: the curve Mateo drew (flat, a broad rise, then a drop at the right) */
+export function PanelCurve() {
+  const top = "M0 64 C 380 64 640 66 860 50 C 1060 34 1190 26 1290 34 C 1360 40 1410 66 1440 96";
+  return (
+    <svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" className="block h-12 w-full sm:h-20">
+      <path d={`${top} L1440 120 L0 120 Z`} className="fill-surface" />
+      <path d={top} fill="none" className="stroke-accent/40" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
+
+/** The units of one course (course page): heading per unit and its classes */
+export function CourseUnits({ course }: { course: MaterialsCourse }) {
+  return (
+    <div className="space-y-12">
+      {course.units
+        .filter((u) => u.classes.length > 0)
+        .map(({ unit, classes }) => (
+          <section key={unit.slug} id={`${course.slug}-${unit.slug}`} className="scroll-mt-20 space-y-4">
+            <h2 className="border-b border-accent/15 pb-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
+              <T en={`Unit ${unit.numero} · ${unit.en}`} es={`Unidad ${unit.numero} · ${unit.es}`} />
+            </h2>
             <div>
-              <h2 className="font-serif text-2xl font-bold text-foreground">{course.nombre}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                <T en={course.descripcion.en} es={course.descripcion.es} />
-              </p>
-              <UnitTrack slug={slug} units={course.unidades} counts={counts} />
+              {classes.map((k) => (
+                <ClassRow key={k.ruta} deck={k} />
+              ))}
             </div>
-            {units.map(({ unit, classes }) => (
-              <div key={unit.slug} id={`${slug}-${unit.slug}`} className="scroll-mt-20 space-y-4">
-                <h3 className="border-b border-accent/15 pb-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
-                  <T en={`Unit ${unit.numero} · ${unit.en}`} es={`Unidad ${unit.numero} · ${unit.es}`} />
-                </h3>
-                <div>
-                  {classes.map((k) => (
-                    <ClassRow key={k.ruta} deck={k} />
-                  ))}
-                </div>
-              </div>
-            ))}
           </section>
-        );
-      })}
+        ))}
     </div>
   );
 }

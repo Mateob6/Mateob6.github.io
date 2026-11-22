@@ -155,22 +155,22 @@ Interactive SVG tree diagram + reactive table. `TeachingExplorer` client compone
 
 Data types in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance). Diagram counts computed dynamically from data.
 
-### Materials (`/materials`) — added 2026-11-22
+### Materials (`/materials` and `/materials/<course>`) — added 2026-11-22
 
-Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas-web/`), organized **course → unit → class**. Only classes made with that engine go here, from 2026-11 on (no old PowerPoint or Gamma decks). Nav label "Materials" / "Materiales" (mobile: "Slides" / "Diapos"); H1 "Class Materials" / "Materiales de clase"; also in footer, sitemap and as a 4th card in the home Explore grid (now 2 × 2).
+Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas-web/`), organized **course → unit → class**. Only classes made with that engine, from 2026-11 on (no old PowerPoint or Gamma decks). Nav label "Materials" / "Materiales" (mobile: "Slides" / "Diapos"); also in footer, sitemap and as a 4th card in the home Explore grid (2 × 2).
 
-- **Data source**: the slides live in a separate repo, `Mateob6/diapositivas`, served at `mateob6.github.io/diapositivas/` (same domain). `src/data/materials.ts` fetches `clases.json` (one entry per class: course, unit, slug, route, title, summary ES/EN, order, PDF, slide count, date) and `cursos.json` (courses with bilingual description and units) **during `next build`**. If the fetch fails the build fails, so Pages keeps the previous version.
-- **Automatic updates**: `clase.py publicar` (in `diapositivas-web/herramientas/`) publishes a class at `curso/unidad/clase/`, waits until the new `clases.json` is served, and runs `gh workflow run deploy.yml -R Mateob6/Mateob6.github.io`. No manual step on this side.
-- **Design (2026-11-22, chosen from two mock-ups: cards vs rows)**: components in `components/content/materials.tsx`.
-  - Intro: one sentence + chips «CC BY 4.0» (link) and «Slides in Spanish / En español» + counts (`Counts`: courses · units · classes).
-  - Per course: serif name, description and `UnitTrack` — all the course's units in order (from `cursos.json`), numbered circles joined by a line; units with classes are accent-filled, show «N classes» and link to their section; units without classes stay at 50 % opacity with «Coming soon / Próximamente».
-  - Per unit: small-caps heading «Unit 3 · Inferential analysis», then one `ClassRow` per class: **thumbnail on the left** (16:9, 240 px; stacked on mobile), title (Spanish, not translated), summary (EN/ES), slide count and update date, buttons «View slides ↗» (filled accent, new tab) and «PDF ↓» (outline, download). No download of the HTML itself (Mateo's decision).
-  - **Thumbnails**: `miniatura.webp` and `miniatura-oscura.webp` (960 × 540) published next to each class by `clase.py publicar`, from the slide number in the class's `publicacion.json` (`miniatura`). Both `<img>` are rendered; `.thumb-light` / `.thumb-dark` in `globals.css` show the one matching the site theme (same dual selector as the rest of dark mode; Tailwind `dark:` follows only the OS setting, so it is not used here). Subtle zoom on hover.
-  - Later (decided): a short looping video of the figure on hover, once there are several classes.
-- **License**: CC BY 4.0, stated on the page and in the slides repo (`LICENSE`).
-- **Teaching link**: `TeachingExplorer` gets `materials` (teaching course name → `/materials#<slug>`, from `cursos.json` field `perfil`) and shows "Materials →" next to that course.
-- **JSON-LD**: `CollectionPage` with each class as `LearningResource` (es, Presentation, license, PDF as `encoding`), author `/#person`.
-- **Old slides index**: `mateob6.github.io/diapositivas/` now redirects here.
+**Structure (decided 2026-11-22: "course front page + focused view", after weighing a sliding tabbed panel and a honeycomb)**
+- **`/materials` (front page)**: hero, one sentence, chips «CC BY 4.0» and «Slides in Spanish», counts («3 courses · 1 class»). Below, a **full-width panel** (`bg-surface`, same breakout as the Teaching diagram) whose top edge is the curve Mateo drew (`PanelCurve`: flat, broad rise, drop at the right; fill + thin `accent/40` stroke). Inside (`max-w-5xl`): «Recently published» (only when there are ≥ 3 classes; `RECENT_MIN` in the page), then the courses grouped by the teaching domains (same names as `/teaching`), as cards in a 1/2/3-column grid.
+  - **`CourseCard`** (course with classes): link to `/materials/<slug>`; 16:9 cover (thumbnail of the course's most recent class), name, description (2 lines), «3 units · 1 class · Nov 2026», «Open course →».
+  - **`ComingSoonCard`** (course Mateo teaches but without classes yet): not a link, dashed border, a honeycomb pattern (`HexPattern`, SVG in `currentColor`) with «Coming soon / Próximamente». Every course in `cursos.json` shows up; today Estadística (with classes), Análisis Integrado de Datos and Psicología del Aprendizaje.
+- **`/materials/<slug>` (focused view)**: one static page per course **with classes** (`generateStaticParams`, `dynamicParams = false`, own metadata). «← All courses», header with domain label, name, description, counts and the cover on the right; `UnitTrack` (all units, faint until they have classes, «Coming soon»); then each unit with its `ClassRow`s (thumbnail on the left, title, summary, slide count and date, «View slides ↗» filled accent and «PDF ↓» outline; no download of the HTML itself, Mateo's decision).
+- **Transition**: React `<ViewTransition name="curso-<slug>" share="morph" default="none">` wraps the cover on the card and on the course page, so the card cover morphs into the course header on client navigation (and back). The React bundled by Next 16 exports `ViewTransition`; types come from `src/types/react-canary.d.ts`. CSS in `globals.css`: `.morph` 420 ms with a slight blur, site header pinned (`viewTransitionName: "site-header"` in `header.tsx`), `pointer-events: none` on the overlay, no animation with `prefers-reduced-motion`. Browsers without the API (Firefox) just navigate. Tested 2026-11-22 with headless Chrome via CDP: client navigation, 1 transition per click, no console errors.
+- **Data**: `src/data/materials.ts` fetches `cursos.json` (courses, bilingual description, units, `perfil` = name in `teaching.ts`, `dominio`) and `clases.json` from `mateob6.github.io/diapositivas/` **during `next build`** (one cache-busting value per build). `getMaterials()` returns all courses (ordered by domain, then file order) with units, classes, total, last update and cover; `getCourse()`, `getRecent()`, `getMaterialsLinks()` (Teaching "Materials →" now points to `/materials/<slug>`). If the fetch fails, the build fails and Pages keeps the previous version.
+- **Automatic updates**: `clase.py publicar` (a class) and `clase.py cursos` (the course registry) push to the slides repo, wait until the files are served and run `gh workflow run deploy.yml -R Mateob6/Mateob6.github.io`.
+- **Thumbnails**: `miniatura.webp` / `miniatura-oscura.webp` (960 × 540) next to each class, from the slide number in its `publicacion.json`; both `<img>` are rendered and `.thumb-light` / `.thumb-dark` in `globals.css` show the one matching the site theme (Tailwind `dark:` follows only the OS, so it is not used).
+- **License**: CC BY 4.0. **JSON-LD**: `CollectionPage` with `Course` items on the front page; `Course` with `LearningResource` parts on each course page.
+- **Old slides index**: `mateob6.github.io/diapositivas/` redirects to `/materials`.
+- **Later** (decided): a short looping video of each class on hover; a page per course already exists, so growth needs no restructuring.
 
 ### More (`/more`)
 
@@ -199,7 +199,7 @@ All three h2s have `border-b border-accent/15` for consistency.
 | Education | 3 (PhD, MSc, BSc) |
 | Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
 | Profile links | 7 (Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
-| Pages | 5 (Home, Publications, Teaching, Materials, More) + 2 redirect stubs |
+| Pages | 5 (Home, Publications, Teaching, Materials, More) + one page per course with slides under /materials + 2 redirect stubs |
 | Nav items | 4 (Publications, Teaching, Materials, More) |
 
 ## Professional Documentation (offline)

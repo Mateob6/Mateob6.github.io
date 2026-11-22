@@ -385,3 +385,32 @@ html { scroll-behavior: smooth; }
   :root:not([data-theme="light"]) .thumb-dark { display: block; }
   :root:not([data-theme="light"]) .thumb-light { display: none; }
 }
+
+/* Materials: the course cover morphs from its card into the course page header (React <ViewTransition share="morph">) */
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+@keyframes via-blur {
+  30% { filter: blur(3px); }
+}
+/* the site header stays put while the content changes */
+::view-transition-group(site-header) { animation: none; z-index: 100; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+/* clicks during a transition reach the page */
+::view-transition { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+/* full-width bands (Teaching diagram, Materials panel) must not create a horizontal scrollbar */
+body { overflow-x: clip; }
+

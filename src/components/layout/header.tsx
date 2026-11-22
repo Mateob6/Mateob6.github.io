@@ -27,6 +27,7 @@ export function Header() {
 
   return (
     <header
+      style={{ viewTransitionName: "site-header" }}
       className={cn(
         "sticky top-0 z-30 flex h-[60px] w-full items-center justify-between px-4 backdrop-blur-md md:px-6 transition-all duration-300",
         scrolled
