@@ -3,6 +3,7 @@ import Link from "next/link";
 const NAV_LINKS = [
   { href: "/publications", en: "Publications", es: "Publicaciones" },
   { href: "/teaching", en: "Teaching", es: "Docencia" },
+  { href: "/materials", en: "Materials", es: "Materiales" },
   { href: "/more", en: "More", es: "Más" },
 ];
 
@@ -43,8 +44,8 @@ export function Footer() {
         </div>
         <p className="text-xs text-muted text-center">
           Cali, Colombia ·{" "}
-          <span className="en">Updated October 2026</span>
-          <span className="es">Actualizado en octubre de 2026</span>
+          <span className="en">Updated November 2026</span>
+          <span className="es">Actualizado en noviembre de 2026</span>
         </p>
       </div>
     </footer>

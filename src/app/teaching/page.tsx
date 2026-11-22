@@ -4,6 +4,7 @@ import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { TeachingExplorer } from "@/components/content/teaching-diagram";
 import { teachingDomains } from "@/data/teaching";
+import { getMaterialsLinks } from "@/data/materials";
 
 export const metadata: Metadata = pageMetadata({
   title: "Teaching",
@@ -12,7 +13,8 @@ export const metadata: Metadata = pageMetadata({
   path: "/teaching",
 });
 
-export default function TeachingPage() {
+export default async function TeachingPage() {
+  const materials = await getMaterialsLinks();
   return (
     <div className="py-12 space-y-10">
       <ScrollReveal direction="left">
@@ -35,7 +37,7 @@ export default function TeachingPage() {
         </p>
       </ScrollReveal>
 
-      <TeachingExplorer domains={teachingDomains} />
+      <TeachingExplorer domains={teachingDomains} materials={materials} />
     </div>
   );
 }

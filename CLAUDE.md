@@ -43,10 +43,11 @@ src/
 │   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, Analytics, FOUC prevention)
 │   ├── page.tsx                 ← HOME: hero + about + education + research lines + research groups + selected publications + explore grid
 │   ├── icon.svg                 ← favicon (MB monogram)
-│   ├── sitemap.ts               ← 4 URLs (dynamic lastModified)
+│   ├── sitemap.ts               ← 5 URLs (dynamic lastModified)
 │   ├── robots.ts
 │   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter + 10 presentations) + ScholarlyArticle JSON-LD
-│   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 13 courses)
+│   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 13 courses); «Materials →» on courses with slides
+│   ├── materials/page.tsx       ← class slides by course → unit → class (data fetched at build from the slides site)
 │   ├── more/page.tsx            ← "More": #awards (4 awards & grants) + #skills (Statistical Analysis + Tools & Methods)
 │   ├── skills/page.tsx          ← redirect stub → /more#skills (meta refresh, noindex)
 │   └── awards/page.tsx          ← redirect stub → /more#awards (meta refresh, noindex)
@@ -154,6 +155,18 @@ Interactive SVG tree diagram + reactive table. `TeachingExplorer` client compone
 
 Data types in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance). Diagram counts computed dynamically from data.
 
+### Materials (`/materials`) — added 2026-11-22
+
+Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas-web/`), organized **course → unit → class**. Only classes made with that engine go here, from 2026-11 on (no old PowerPoint or Gamma decks). Nav label "Materials" / "Materiales" (mobile: "Slides" / "Diapos"); H1 "Class Materials" / "Materiales de clase"; also in footer, sitemap and as a 4th card in the home Explore grid (now 2 × 2).
+
+- **Data source**: the slides live in a separate repo, `Mateob6/diapositivas`, served at `mateob6.github.io/diapositivas/` (same domain). `src/data/materials.ts` fetches `clases.json` (one entry per class: course, unit, slug, route, title, summary ES/EN, order, PDF, slide count, date) and `cursos.json` (courses with bilingual description and units) **during `next build`**. If the fetch fails the build fails, so Pages keeps the previous version.
+- **Automatic updates**: `clase.py publicar` (in `diapositivas-web/herramientas/`) publishes a class at `curso/unidad/clase/`, waits until the new `clases.json` is served, and runs `gh workflow run deploy.yml -R Mateob6/Mateob6.github.io`. No manual step on this side.
+- **Each class**: title (Spanish, not translated), summary (EN/ES), slide count and update date, buttons "View slides ↗" (new tab) and "PDF ↓" (download). No download of the HTML itself (Mateo's decision).
+- **License**: CC BY 4.0, stated on the page and in the slides repo (`LICENSE`).
+- **Teaching link**: `TeachingExplorer` gets `materials` (teaching course name → `/materials#<slug>`, from `cursos.json` field `perfil`) and shows "Materials →" next to that course.
+- **JSON-LD**: `CollectionPage` with each class as `LearningResource` (es, Presentation, license, PDF as `encoding`), author `/#person`.
+- **Old slides index**: `mateob6.github.io/diapositivas/` now redirects here.
+
 ### More (`/more`)
 
 Merged Skills + Awards page (2026-10-17). Nav label "More" / "Más"; H1 "Awards & Skills" / "Premios y Habilidades". Awards first (they're short and high-signal), then skills. Anchors `#awards` and `#skills` with `scroll-mt-20` so the sticky header doesn't cover them. Meant to also hold future pending content (professional experience, materials, CV).
@@ -181,8 +194,8 @@ All three h2s have `border-b border-accent/15` for consistency.
 | Education | 3 (PhD, MSc, BSc) |
 | Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
 | Profile links | 7 (Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
-| Pages | 4 (Home, Publications, Teaching, More) + 2 redirect stubs |
-| Nav items | 3 (Publications, Teaching, More) |
+| Pages | 5 (Home, Publications, Teaching, Materials, More) + 2 redirect stubs |
+| Nav items | 4 (Publications, Teaching, Materials, More) |
 
 ## Professional Documentation (offline)
 
@@ -272,14 +285,11 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 
 ## Pending
 
-- **Materials section** (posters, congress talks, class presentations) — discussed 2026-10-17, not started. Decisions so far:
-  - **Hosting**: Zenodo (resource types Poster / Presentation / Lesson, versioning, ORCID auto-update, related identifiers). Site only links to the DOI; no PDFs in the repo. OSF stays for research data. Mateo needs a Zenodo account (login with ORCID) and, for uploads from Claude, an API token in `~/.zshrc` (like `$OSF_TOKEN`)
-  - **DOI scope**: one DOI per poster/talk (linked to its paper via "isSupplementTo"); class material gets **one DOI per course** with a new version each semester, not one per class
-  - **Format/license**: PDF, CC BY 4.0 (CC BY-NC if commercial reuse is a concern)
-  - **Filter before uploading** (a DOI is permanent): results already published (8 papers under review → wait; double-blind risk), co-authors agree and are all credited, no identifiable participant data or images (minors in deaf/blind studies — Ley 1581/2012), figures own or free to use, content still defensible today. Never: Cancillería, consultorías, Univalle Contigo, Tenorio. No exams/solutions/rubrics in use
-  - **Class material**: check Univalle and Javeriana intellectual-property rules before publishing
-  - **Not counted** as publications in Google Scholar; in CvLAC register as apropiación social / divulgación
-  - **Open decisions**: own page `/materials` (better for SEO if it grows) vs. a section inside `/more`; add a "Slides" link on each matching presentation in `/publications` instead of duplicating entries; inventory of what is ready to publish
+- **Materials, phase 2** (the page exists since 2026-11-22, see «Materials» above). Still open from the 2026-10-17 discussion:
+  - **Zenodo archive**: one DOI per course, a new version each semester (PDF of the classes), resource type Lesson, CC BY 4.0. The page keeps linking the live slides; the DOI would be added per course. Needs a Zenodo account (ORCID login) and an API token in `~/.zshrc`
+  - **Posters and congress talks** could go on the same page (one DOI each, linked to the paper via "isSupplementTo"), with a "Slides" link on the matching entry in `/publications`
+  - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo)
+  - Filter before any DOI (permanent): no unpublished results, co-authors agree, no identifiable participant data, own or free figures. Never Cancillería, consultorías, Univalle Contigo, Tenorio. No exams, solutions or rubrics in use
 - Professional Experience section (research projects, consulting). Anonymize Cancillería as above
 - Downloadable CV link (decide between `fuentes/academico` and `fuentes/industria`; never `historico/2026-09_cv_industria_v1`)
 - `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use

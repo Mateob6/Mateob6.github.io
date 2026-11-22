@@ -26,7 +26,14 @@ function formatPeriod(semesters: string[]): { en: string; es: string } {
   };
 }
 
-export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
+export function TeachingExplorer({
+  domains,
+  materials = {},
+}: {
+  domains: TeachingDomain[];
+  /** course name → /materials anchor, for courses that already have published slides */
+  materials?: Record<string, string>;
+}) {
   const [selected, setSelected] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -198,6 +205,15 @@ export function TeachingExplorer({ domains }: { domains: TeachingDomain[] }) {
                     <tr key={`${course.name}-${ii}`} className="border-b border-border/40">
                       <td className="py-2.5 pr-4 text-foreground font-medium">
                         {ii === 0 ? course.name : ""}
+                        {ii === 0 && materials[course.name] && (
+                          <a
+                            href={materials[course.name]}
+                            className="ml-2 whitespace-nowrap text-[11px] font-normal text-accent hover:underline"
+                          >
+                            <span className="en">Materials →</span>
+                            <span className="es">Materiales →</span>
+                          </a>
+                        )}
                       </td>
                       <td className="py-2.5 pr-4">
                         <span className={`inline-block px-1.5 py-px text-[10px] font-medium rounded-sm ${

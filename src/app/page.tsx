@@ -181,10 +181,11 @@ export default function HomePage() {
       <ScrollReveal>
         <section id="explore">
           <SectionHeader en="Explore" es="Explorar" />
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { href: "/publications", en: "Publications & Presentations", es: "Publicaciones y Presentaciones" },
               { href: "/teaching", en: "Teaching", es: "Docencia" },
+              { href: "/materials", en: "Class Materials", es: "Materiales de clase" },
               { href: "/more", en: "Awards & Skills", es: "Premios y Habilidades" },
             ].map((link) => (
               <Link
