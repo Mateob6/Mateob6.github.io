@@ -46,8 +46,9 @@ src/
 │   ├── sitemap.ts               ← 5 URLs (dynamic lastModified)
 │   ├── robots.ts
 │   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter + 10 presentations) + ScholarlyArticle JSON-LD
-│   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 13 courses); «Materials →» on courses with slides
+│   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 12 courses); «Materials →» on courses with slides
 │   ├── materials/page.tsx       ← class slides by course → unit → class (data fetched at build from the slides site)
+│   ├── materials/[curso]/page.tsx ← one static page per course with classes
 │   ├── more/page.tsx            ← "More": #awards (4 awards & grants) + #skills (Statistical Analysis + Tools & Methods)
 │   ├── skills/page.tsx          ← redirect stub → /more#skills (meta refresh, noindex)
 │   └── awards/page.tsx          ← redirect stub → /more#awards (meta refresh, noindex)
@@ -57,11 +58,13 @@ src/
 │   └── content/                 ← T (bilingual), SectionHeader, ScrollReveal, PublicationCard,
 │                                   TeachingExplorer (diagram+table), PresentationEntry,
 │                                   AwardCard, GroupCard, CourseEntry, EducationEntry, ProfileLinks
-├── data/                        ← typed content (profile, publications, teaching, skills, etc.)
+├── data/                        ← typed content (profile, publications, teaching, skills, materials, etc.)
+├── types/react-canary.d.ts      ← types for React's <ViewTransition>
 └── lib/
     └── types.ts                 ← shared types
 public/
 ├── photo.jpg                    ← profile photo
+├── cv/                          ← downloadable academic CV, EN and ES (see «Downloadable CV»)
 ├── og-image.png                 ← OG image 1200×630
 └── google5845fe3ac49f41f4.html  ← Google Search Console verification
 ```
@@ -105,7 +108,7 @@ Two blocking scripts in `<head>` via `dangerouslySetInnerHTML`:
 
 ## Home Page Layout
 
-Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (3 GroupCards with rank badges: Instituto CIDEAS, A1, A) → Selected Publications (4 articles in APA reference format, link to /publications) → Explore (3-column grid, stacked on mobile, linking to the 3 subpages)
+Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (3 GroupCards with rank badges: Instituto CIDEAS, A1, A) → Selected Publications (4 articles in APA reference format, link to /publications) → Explore (2 × 2 grid, stacked on mobile, linking to the 4 subpages)
 
 Person JSON-LD schema in home page with `sameAs` linking to 6 academic profiles. WebSite JSON-LD in root layout.
 
@@ -148,8 +151,8 @@ Interactive SVG tree diagram + reactive table. `TeachingExplorer` client compone
 
 **Table:** Single reactive table showing courses of the selected domain. Columns: Course, Level (badge: amber Pregrado, blue Posgrado), University (short names), Period. Courses with multiple instances get multiple rows.
 
-3 domains, 13 courses, ~20 instances across 3 universities (source of truth: `cv/fuentes/academico.tex`):
-1. **Statistics & Quantitative Methods** (4 courses)
+3 domains, 12 courses, 17 instances across 3 universities (source of truth: `cv/fuentes/academico.tex`):
+1. **Statistics & Quantitative Methods** (3 courses)
 2. **Research Methodology** (4 courses)
 3. **Cognitive Development & Learning** (5 courses)
 
@@ -192,15 +195,21 @@ All three h2s have `border-b border-accent/15` for consistency.
 |----------|-------|
 | Publications (articles) | 4 (all with DOI) + 1 chapter |
 | Presentations | 10 (all from CV, merged into /publications) |
-| Teaching domains | 3 (Statistics 4, Methodology 4, Cognitive Dev. 5) |
-| Teaching courses | 13 unique, ~20 instances across 3 universities (source: CV) |
+| Teaching domains | 3 (Statistics 3, Methodology 4, Cognitive Dev. 5) |
+| Teaching courses | 12 unique, 17 instances across 3 universities (source: CV) |
 | Awards & Grants | 4 |
 | Research Groups | 3 (Instituto CIDEAS + Minciencias A1 + A) — section on home page |
 | Education | 3 (PhD, MSc, BSc) |
 | Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
-| Profile links | 7 (Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
+| Profile links | 8 (CV, Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
 | Pages | 5 (Home, Publications, Teaching, Materials, More) + one page per course with slides under /materials + 2 redirect stubs |
 | Nav items | 4 (Publications, Teaching, Materials, More) |
+
+## Downloadable CV (since 2026-11-22)
+
+First link in the hero («CV») and in the footer. It follows the site language: `public/cv/mateo-belalcazar-cv-en.pdf` and `public/cv/mateo-belalcazar-cv-es.pdf`, copies of `~/Desktop/Proyectos/Certificados laborales/cv/fuentes/academico_en.pdf` and `academico.pdf`. The paths live in `CV` (`components/content/profile-links.tsx`). When the CV changes: recompile it there, copy both PDFs over these two files and push.
+
+Both academic CVs were cleaned on 2026-11-22 for public use: the Cancillería work reads «concurso público de méritos para una entidad del Estado colombiano» / «public merit-based competitive examination for a Colombian state entity», with no entity, contract numbers, item or applicant counts, cities, scoring model or appeals. Keep it that way before copying a new version here.
 
 ## Professional Documentation (offline)
 
@@ -279,7 +288,7 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 - [x] OG image regenerated 2026-10-17 (old one had a blank white square): photo in a circle, name, "Psychology · Psychometrics · Computational Methods". Made with Pillow + Georgia from `public/photo.jpg`
 - [x] Canonical URLs on all pages
 - [x] JSON-LD: WebSite (layout), Person (home, 6 sameAs profiles), ScholarlyArticle (publications, 4 articles). Linked by `@id` (`/#person`, `/#website`): Person has `alternateName` (published name variants with tilde/second surname), ORCID `identifier`, `worksFor` Univalle + Javeriana Cali, `memberOf` from `groups.ts`; Mateo's author entry in each ScholarlyArticle points to `/#person`
-- [x] Internal linking: Explore section on home (3-column grid), footer nav + profile links
+- [x] Internal linking: Explore section on home (2 × 2 grid), footer nav + profile links
 - [x] Sitemap dates dynamic (`new Date()` at build time)
 - [x] Alt text on all images, header avatar width/height for CLS
 - [x] Google Search Console verification in place
@@ -304,7 +313,6 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
   - Recommendation given: 1 + 2 + 3 site-wide, 4 in Materials, and replace the home's floating dots and pulsing rings with the same lattice for a single visual language; motion later in a mock-up
   - **Open decisions**: scope (whole site or Materials first); keep or replace the home dots/rings; filled cells yes/no; pointer motion now/later/never. Suggested next step: a mock-up with two intensities, light and dark, on the home page and Materials
 - Professional Experience section (research projects, consulting). Anonymize Cancillería as above
-- Downloadable CV link (decide between `fuentes/academico` and `fuentes/industria`; never `historico/2026-09_cv_industria_v1`)
 - `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
 - Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
 - Teaching data source of truth: `cv/fuentes/academico.tex`. Sync when CV updates.

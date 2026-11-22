@@ -33,14 +33,6 @@ export const teachingDomains: TeachingDomain[] = [
         ],
       },
       {
-        name: "Estadística Multivariada Aplicada",
-        descriptionEn: "Advanced multivariate techniques for graduate research in psychology.",
-        descriptionEs: "Técnicas multivariadas avanzadas para la investigación en psicología a nivel de posgrado.",
-        instances: [
-          { university: "Pontificia Universidad Javeriana, Cali", level: "graduate", semesters: ["2023-02"] },
-        ],
-      },
-      {
         name: "Métodos Multivariados para la Psicología",
         descriptionEn: "Multivariate statistical methods for psychological research at the graduate level.",
         descriptionEs: "Métodos estadísticos multivariados para la investigación psicológica a nivel de posgrado.",
@@ -116,8 +108,7 @@ export const teachingDomains: TeachingDomain[] = [
         descriptionEn: "Selected topics in cognitive psychology: attention, memory, reasoning, and language.",
         descriptionEs: "Temas selectos en psicología cognitiva: atención, memoria, razonamiento y lenguaje.",
         instances: [
-          { university: "Pontificia Universidad Javeriana, Cali", level: "undergraduate", semesters: ["2023-02", "2024-01", "2024-02", "2025-01"] },
-          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2020-01", "2025-02"] },
+          { university: "Universidad del Valle", level: "undergraduate", semesters: ["2020-01", "2023-02", "2024-01", "2024-02", "2025-01", "2025-02"] },
         ],
       },
       {

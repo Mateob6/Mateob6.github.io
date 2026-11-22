@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CV } from "@/components/content/profile-links";
 
 const NAV_LINKS = [
   { href: "/publications", en: "Publications", es: "Publicaciones" },
@@ -30,6 +31,17 @@ export function Footer() {
           ))}
         </nav>
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-4">
+          {(["en", "es"] as const).map((lang) => (
+            <a
+              key={`cv-${lang}`}
+              href={CV[lang]}
+              target="_blank"
+              rel="noopener"
+              className={`${lang} text-xs text-muted hover:text-accent transition-colors`}
+            >
+              CV
+            </a>
+          ))}
           {PROFILE_LINKS.map((link) => (
             <a
               key={link.href}
