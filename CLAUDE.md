@@ -313,7 +313,7 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 ## Pending
 
 - **Materials, phase 2** (the page exists since 2026-11-22, see «Materials» above). Still open from the 2026-10-17 discussion:
-  - **Zenodo archive**: one DOI per course, a new version each semester (PDF of the classes), resource type Lesson, CC BY 4.0. The page keeps linking the live slides; the DOI would be added per course. Needs a Zenodo account (ORCID login) and an API token in `~/.zshrc`
+  - **Zenodo archive**: one DOI per course, a new version each semester (PDF of the classes), resource type Lesson, CC BY 4.0. The page keeps linking the live slides; the DOI would be added per course. Zenodo account created 2026-11-22: sign-in with ORCID, username `mateob6`, name «Mateo Belalcazar», affiliation Universidad del Valle, email mateo.belalcazar6@gmail.com. **Still to do (Mateo)**: confirm the email (Zenodo does not keep the session until then), then create a personal token at zenodo.org → Applications → Personal access tokens with scopes `deposit:write` and `deposit:actions`, and save it as `export ZENODO_TOKEN=…` in `~/.zshrc` (never in the chat or the repo)
   - **Posters and congress talks** could go on the same page (one DOI each, linked to the paper via "isSupplementTo"), with a "Slides" link on the matching entry in `/publications`
   - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo)
   - Filter before any DOI (permanent): no unpublished results, co-authors agree, no identifiable participant data, own or free figures. Never Cancillería, consultorías, Univalle Contigo, Tenorio. No exams, solutions or rubrics in use
