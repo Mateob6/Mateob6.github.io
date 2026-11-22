@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { pageMetadata, PERSON_ID, SITE_URL } from "@/lib/seo";
 import { T } from "@/components/content/t";
 import { CourseCover, CourseUnits, UnitTrack } from "@/components/content/materials";
-import { formatUpdated, getCourse, getMaterials, SLIDES_URL } from "@/data/materials";
+import { COURSE_DOI, formatUpdated, getCourse, getMaterials, SLIDES_URL } from "@/data/materials";
 import { teachingDomains } from "@/data/teaching";
 
 // One page per course that already has classes; courses without classes only show on /materials
@@ -35,6 +35,7 @@ export default async function CoursePage({ params }: { params: Promise<{ curso: 
   const counts = Object.fromEntries(c.units.map((u) => [u.unit.slug, u.classes.length]));
   const updated = formatUpdated(c.updated!);
   const k = c.total;
+  const doi = COURSE_DOI[c.slug];
 
   const schema = {
     "@context": "https://schema.org",
@@ -45,6 +46,10 @@ export default async function CoursePage({ params }: { params: Promise<{ curso: 
     url: `${SITE_URL}/materials/${c.slug}`,
     inLanguage: "es",
     provider: { "@id": PERSON_ID },
+    ...(doi && {
+      identifier: { "@type": "PropertyValue", propertyID: "DOI", value: doi },
+      sameAs: `https://doi.org/${doi}`,
+    }),
     hasPart: c.units.flatMap((u) =>
       u.classes.map((d) => ({
         "@type": "LearningResource",
@@ -87,6 +92,19 @@ export default async function CoursePage({ params }: { params: Promise<{ curso: 
               es={`${k} ${k === 1 ? "clase" : "clases"} · Actualizado en ${updated.es} · En español e inglés · CC BY 4.0`}
             />
           </p>
+          {doi && (
+            <p className="text-[11px] text-muted">
+              <T en="Archived in Zenodo · DOI " es="Archivado en Zenodo · DOI " />
+              <a
+                href={`https://doi.org/${doi}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
+              >
+                {doi}
+              </a>
+            </p>
+          )}
         </div>
         <CourseCover course={c} className="order-1 rounded-xl border border-border shadow-sm sm:order-2" />
       </header>

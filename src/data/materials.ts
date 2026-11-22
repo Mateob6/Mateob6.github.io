@@ -6,6 +6,12 @@
 
 export const SLIDES_URL = "https://mateob6.github.io/diapositivas/";
 
+/** Zenodo archive of each course: the concept DOI, which always resolves to the latest version
+ *  (one version per semester with the class PDFs and the offline .html). Record of 2026-2: 10.5281/zenodo.24450378 */
+export const COURSE_DOI: Record<string, string> = {
+  estadistica: "10.5281/zenodo.24450377",
+};
+
 export type Unit = { numero: number; slug: string; es: string; en: string };
 
 export type Course = {
