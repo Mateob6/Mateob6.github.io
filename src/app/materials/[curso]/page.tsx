@@ -49,9 +49,10 @@ export default async function CoursePage({ params }: { params: Promise<{ curso: 
       u.classes.map((d) => ({
         "@type": "LearningResource",
         name: d.titulo,
+        alternateName: d.titulo_en || undefined,
         description: d.resumen,
         url: `${SLIDES_URL}${d.ruta}/`,
-        inLanguage: "es",
+        inLanguage: d.titulo_en ? ["es", "en"] : "es",
         learningResourceType: "Presentation",
         educationalLevel: "Undergraduate",
         license: LICENSE_URL,
@@ -82,8 +83,8 @@ export default async function CoursePage({ params }: { params: Promise<{ curso: 
           </p>
           <p className="text-[11px] text-muted">
             <T
-              en={`${k} ${k === 1 ? "class" : "classes"} · Updated ${updated.en} · Slides in Spanish · CC BY 4.0`}
-              es={`${k} ${k === 1 ? "clase" : "clases"} · Actualizado en ${updated.es} · En español · CC BY 4.0`}
+              en={`${k} ${k === 1 ? "class" : "classes"} · Updated ${updated.en} · Spanish and English · CC BY 4.0`}
+              es={`${k} ${k === 1 ? "clase" : "clases"} · Actualizado en ${updated.es} · En español e inglés · CC BY 4.0`}
             />
           </p>
         </div>

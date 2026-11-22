@@ -62,8 +62,8 @@ export default async function MaterialsPage() {
         <div className="space-y-4">
           <p className="text-sm text-muted leading-relaxed">
             <T
-              en="Slides I build and use in my courses, organized by course and unit. Each class opens in the browser and can be downloaded as a PDF."
-              es="Diapositivas que preparo y uso en mis cursos, organizadas por curso y unidad. Cada clase se abre en el navegador y se puede bajar en PDF."
+              en="Slides I build and use in my courses, organized by course and unit. Each class opens in the browser, in Spanish or English, and can be downloaded as a PDF."
+              es="Diapositivas que preparo y uso en mis cursos, organizadas por curso y unidad. Cada clase se abre en el navegador, en español o en inglés, y se puede bajar en PDF."
             />
           </p>
           <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted">
@@ -77,7 +77,7 @@ export default async function MaterialsPage() {
               CC BY 4.0
             </a>
             <span className="rounded-full border border-border px-2.5 py-0.5">
-              <T en="Slides in Spanish" es="En español" />
+              <T en="Spanish · English" es="Español · inglés" />
             </span>
             <span className="ml-1">
               <Counts courses={courses} />

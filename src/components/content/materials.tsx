@@ -5,17 +5,42 @@ import { formatUpdated, SLIDES_URL, type ClassDeck, type MaterialsCourse, type U
 
 const abs = (path: string) => (path.startsWith("/") || path.startsWith("http") ? path : `${SLIDES_URL}${path}`);
 
-/** The slide chosen as thumbnail, light or dark following the site theme (classes in globals.css) */
-export function Thumb({ deck }: { deck: ClassDeck }) {
+/** The slide chosen as thumbnail, light or dark following the site theme (classes in globals.css),
+    and in Spanish or English following the site language (the .es/.en wrappers) */
+function ThumbImages({ claro, oscuro, alt }: { claro: string; oscuro?: string; alt: string }) {
   const img = "absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]";
   return (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={abs(claro)} alt={alt} loading="lazy" className={`thumb-light ${img}`} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={abs(oscuro || claro)} alt="" aria-hidden="true" loading="lazy" className={`thumb-dark ${img}`} />
+    </>
+  );
+}
+
+export function Thumb({ deck }: { deck: ClassDeck }) {
+  const es = <ThumbImages claro={deck.miniatura} oscuro={deck.miniatura_oscura} alt={`Diapositiva de la clase ${deck.titulo}`} />;
+  return (
     <span className="relative block aspect-video overflow-hidden bg-surface">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={abs(deck.miniatura)} alt={`Diapositiva de la clase ${deck.titulo}`} loading="lazy" className={`thumb-light ${img}`} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={abs(deck.miniatura_oscura || deck.miniatura)} alt="" aria-hidden="true" loading="lazy" className={`thumb-dark ${img}`} />
+      {deck.miniatura_en ? (
+        <T
+          en={<ThumbImages claro={deck.miniatura_en} oscuro={deck.miniatura_en_oscura} alt={`Slide from the class ${deck.titulo_en || deck.titulo}`} />}
+          es={es}
+        />
+      ) : (
+        es
+      )}
     </span>
   );
+}
+
+/** Link to the deck: in English it opens with ?en */
+const verUrl = (deck: ClassDeck, en: boolean) => `${abs(deck.ruta)}/${en && deck.titulo_en ? "?en" : ""}`;
+
+/** The class title, in English when the site is in English and a translation exists */
+export function DeckTitle({ deck }: { deck: ClassDeck }) {
+  return <T en={deck.titulo_en || deck.titulo} es={deck.titulo} />;
 }
 
 function Meta({ deck }: { deck: ClassDeck }) {
@@ -31,14 +56,14 @@ function Buttons({ deck }: { deck: ClassDeck }) {
   const base = "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors";
   return (
     <div className="flex flex-wrap gap-2">
-      <a href={`${abs(deck.ruta)}/`} target="_blank" rel="noopener noreferrer" className={`${base} bg-accent text-accent-foreground hover:opacity-90`}>
-        <T en="View slides" es="Ver presentación" />
-        <span aria-hidden="true">↗</span>
-      </a>
-      <a href={abs(deck.pdf)} download className={`${base} border border-border text-foreground hover:border-accent/40 hover:text-accent`}>
-        PDF
-        <span aria-hidden="true">↓</span>
-      </a>
+      <T
+        en={<a href={verUrl(deck, true)} target="_blank" rel="noopener noreferrer" className={`${base} bg-accent text-accent-foreground hover:opacity-90`}>View slides <span aria-hidden="true">↗</span></a>}
+        es={<a href={verUrl(deck, false)} target="_blank" rel="noopener noreferrer" className={`${base} bg-accent text-accent-foreground hover:opacity-90`}>Ver presentación <span aria-hidden="true">↗</span></a>}
+      />
+      <T
+        en={<a href={abs(deck.pdf_en || deck.pdf)} download className={`${base} border border-border text-foreground hover:border-accent/40 hover:text-accent`}>PDF <span aria-hidden="true">↓</span></a>}
+        es={<a href={abs(deck.pdf)} download className={`${base} border border-border text-foreground hover:border-accent/40 hover:text-accent`}>PDF <span aria-hidden="true">↓</span></a>}
+      />
     </div>
   );
 }
@@ -55,11 +80,14 @@ function Summary({ deck }: { deck: ClassDeck }) {
 export function ClassRow({ deck }: { deck: ClassDeck }) {
   return (
     <article className="group flex flex-col gap-5 border-b border-border/40 py-5 last:border-b-0 sm:flex-row">
-      <a href={`${abs(deck.ruta)}/`} target="_blank" rel="noopener noreferrer" className="block shrink-0 overflow-hidden rounded-lg border border-border sm:w-60" tabIndex={-1}>
-        <Thumb deck={deck} />
-      </a>
+      <div className="shrink-0 sm:w-60">
+        <T
+          en={<a href={verUrl(deck, true)} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg border border-border" tabIndex={-1}><Thumb deck={deck} /></a>}
+          es={<a href={verUrl(deck, false)} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg border border-border" tabIndex={-1}><Thumb deck={deck} /></a>}
+        />
+      </div>
       <div className="flex-1 space-y-2">
-        <h3 className="font-serif text-lg leading-snug text-foreground">{deck.titulo}</h3>
+        <h3 className="font-serif text-lg leading-snug text-foreground"><DeckTitle deck={deck} /></h3>
         <Summary deck={deck} />
         <Meta deck={deck} />
         <div className="pt-1">
@@ -224,13 +252,13 @@ export function RecentList({ items }: { items: { deck: ClassDeck; course: Materi
     <ul className="grid gap-4 sm:grid-cols-3">
       {items.map(({ deck, course }) => (
         <li key={deck.ruta}>
-          <a href={`${abs(deck.ruta)}/`} target="_blank" rel="noopener noreferrer" className="group flex gap-3 sm:flex-col">
+          <a href={verUrl(deck, false)} target="_blank" rel="noopener noreferrer" className="group flex gap-3 sm:flex-col">
             <span className="w-32 shrink-0 overflow-hidden rounded-md border border-border sm:w-full">
               <Thumb deck={deck} />
             </span>
             <span className="min-w-0">
               <span className="block text-[11px] uppercase tracking-wider text-accent">{course.course.nombre}</span>
-              <span className="block font-serif text-[15px] leading-snug text-foreground group-hover:text-accent">{deck.titulo}</span>
+              <span className="block font-serif text-[15px] leading-snug text-foreground group-hover:text-accent"><DeckTitle deck={deck} /></span>
             </span>
           </a>
         </li>

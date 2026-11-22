@@ -30,6 +30,11 @@ export type ClassDeck = {
   actualizada: string; // YYYY-MM-DD
   miniatura: string; // WebP 960 × 540 of the slide chosen in publicacion.json (light theme)
   miniatura_oscura?: string; // same slide in the deck's dark mode
+  // English version (the decks are written in Spanish; ?en shows them in English, rule of 2026-11-22)
+  titulo_en?: string;
+  pdf_en?: string;
+  miniatura_en?: string;
+  miniatura_en_oscura?: string;
 };
 
 export type MaterialsCourse = {
