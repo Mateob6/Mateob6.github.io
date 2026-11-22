@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { pageMetadata, PERSON_ID, SITE_URL } from "@/lib/seo";
 import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
-import { getMaterials, formatUpdated, SLIDES_URL, type ClassDeck } from "@/data/materials";
+import { Counts, MaterialsCourses } from "@/components/content/materials";
+import { getMaterials, SLIDES_URL } from "@/data/materials";
 
 export const metadata: Metadata = pageMetadata({
   title: "Materials",
@@ -37,6 +38,7 @@ export default async function MaterialsPage() {
           license: LICENSE_URL,
           author: { "@id": PERSON_ID },
           dateModified: k.actualizada,
+          image: `${SLIDES_URL}${k.miniatura}`,
           encoding: { "@type": "MediaObject", contentUrl: `${SLIDES_URL}${k.pdf}`, encodingFormat: "application/pdf" },
         }))
       )
@@ -59,77 +61,36 @@ export default async function MaterialsPage() {
       </ScrollReveal>
 
       <ScrollReveal>
-        <div className="space-y-3 text-sm text-muted leading-relaxed">
-          <p>
+        <div className="space-y-4">
+          <p className="text-sm text-muted leading-relaxed">
             <T
-              en="Slides I build and use in my courses, organized by course and unit. Each class opens in the browser and can be downloaded as a PDF. The slides are in Spanish."
+              en="Slides I build and use in my courses, organized by course and unit. Each class opens in the browser and can be downloaded as a PDF."
               es="Diapositivas que preparo y uso en mis cursos, organizadas por curso y unidad. Cada clase se abre en el navegador y se puede bajar en PDF."
             />
           </p>
-          <p>
-            <T
-              en={<>Licensed under <a href={LICENSE_URL} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">CC BY 4.0</a>. You may share and adapt them with attribution.</>}
-              es={<>Licencia <a href={`${LICENSE_URL}deed.es`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">CC BY 4.0</a>. Se pueden compartir y adaptar citando la autoría.</>}
-            />
-          </p>
+          <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted">
+            <a
+              href={LICENSE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Creative Commons Attribution 4.0"
+              className="rounded-full border border-border px-2.5 py-0.5 transition-colors hover:border-accent/40 hover:text-accent"
+            >
+              CC BY 4.0
+            </a>
+            <span className="rounded-full border border-border px-2.5 py-0.5">
+              <T en="Slides in Spanish" es="En español" />
+            </span>
+            <span className="ml-1">
+              <Counts courses={courses} />
+            </span>
+          </div>
         </div>
       </ScrollReveal>
 
-      {courses.map(({ slug, course, units }) => (
-        <ScrollReveal key={slug}>
-          <section id={slug} className="scroll-mt-20 space-y-8">
-            <div>
-              <h2 className="font-serif text-xl font-bold text-foreground pb-3 border-b border-accent/15">{course.nombre}</h2>
-              <p className="text-sm text-muted leading-relaxed mt-3">
-                <T en={course.descripcion.en} es={course.descripcion.es} />
-              </p>
-            </div>
-
-            {units.map(({ unit, classes }) => (
-              <div key={unit.slug} className="space-y-3">
-                <h3 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
-                  <T en={`Unit ${unit.numero} · ${unit.en}`} es={`Unidad ${unit.numero} · ${unit.es}`} />
-                </h3>
-                <div className="pl-4 border-l-2 border-accent/20">
-                  {classes.map((k) => (
-                    <ClassEntry key={k.ruta} deck={k} />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </section>
-        </ScrollReveal>
-      ))}
+      <ScrollReveal>
+        <MaterialsCourses courses={courses} />
+      </ScrollReveal>
     </div>
-  );
-}
-
-function ClassEntry({ deck }: { deck: ClassDeck }) {
-  const updated = formatUpdated(deck.actualizada);
-  const button =
-    "inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs font-medium text-foreground transition-colors hover:border-accent/40 hover:text-accent";
-  return (
-    <article className="py-4 border-b border-border/40 last:border-b-0 space-y-2">
-      <h4 className="font-serif text-lg text-foreground leading-snug">{deck.titulo}</h4>
-      <p className="text-[13px] text-muted leading-relaxed">
-        <T en={deck.resumen_en || deck.resumen} es={deck.resumen} />
-      </p>
-      <p className="text-[11px] text-muted">
-        <T
-          en={`${deck.diapositivas} slides · Updated ${updated.en}`}
-          es={`${deck.diapositivas} diapositivas · Actualizada en ${updated.es}`}
-        />
-      </p>
-      <div className="flex flex-wrap gap-2 pt-1">
-        <a href={`${SLIDES_URL}${deck.ruta}/`} target="_blank" rel="noopener noreferrer" className={button}>
-          <T en="View slides" es="Ver presentación" />
-          <span aria-hidden="true">↗</span>
-        </a>
-        <a href={`${SLIDES_URL}${deck.pdf}`} download className={button}>
-          PDF
-          <span aria-hidden="true">↓</span>
-        </a>
-      </div>
-    </article>
   );
 }

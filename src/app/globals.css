@@ -376,3 +376,12 @@ html { scroll-behavior: smooth; }
   .teaching-diagram .diagram-domain-node { opacity: 1; }
   .teaching-diagram .diagram-line { stroke-dashoffset: 0; }
 }
+
+/* Materials: each class thumbnail has a light and a dark image; show the one that matches the site theme */
+.thumb-dark { display: none; }
+:root[data-theme="dark"] .thumb-dark { display: block; }
+:root[data-theme="dark"] .thumb-light { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .thumb-dark { display: block; }
+  :root:not([data-theme="light"]) .thumb-light { display: none; }
+}

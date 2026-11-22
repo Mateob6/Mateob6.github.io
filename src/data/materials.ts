@@ -27,6 +27,8 @@ export type ClassDeck = {
   pdf: string;
   diapositivas: number;
   actualizada: string; // YYYY-MM-DD
+  miniatura: string; // WebP 960 × 540 of the slide chosen in publicacion.json (light theme)
+  miniatura_oscura?: string; // same slide in the deck's dark mode
 };
 
 export type MaterialsCourse = {
