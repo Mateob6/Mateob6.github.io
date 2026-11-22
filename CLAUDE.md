@@ -247,7 +247,7 @@ All three profiles were audited and configured on 2026-09-04. Citation tracking 
 
 ## Analytics (GoatCounter — mateob6.goatcounter.com)
 
-Last export: 2026-10-10. Tracking since ~2026-09-01.
+Last reading: 2026-11-22 (dashboard read in Chrome, period Oct 10 – Nov 22; see «Second reading» below). Previous export: 2026-10-10. Tracking since ~2026-09-01. Logged in as the personal Gmail (mateo.belalcazar6); the same account also holds the `journalfinder` site.
 
 **Summary (sep 1 – oct 9, 2026):** 84 hits in 29 days with data. Average 2.9 hits/day, ~20/week.
 
@@ -278,7 +278,20 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 5. Stable at ~20 visits/week with no sustained growth yet. Normal for a 1st-year doctoral student's academic profile (5 weeks old). Growth expected with new publications and indexable content
 6. `/skills` and `/awards` were merged into `/more` on 2026-10-17; historical hits stay under the old paths (not summed into `/more`)
 
-**Next export to-do:** first export with navigation tracking — check what share of home visitors continue to a subpage, and which one
+**Second reading (Oct 10 – Nov 22, 2026; first one with navigation tracking):** 101 visits in 44 days (≈ 2.3/day, ≈ 16/week). GoatCounter's dashboard counts *visits*, the first export counted *hits*, so the drop from 2.9/day is not a clean comparison.
+
+| Metric | Breakdown |
+|--------|-----------|
+| **Pages** | `/` 80, `/publications` 7, `/teaching` 5, `/materials` 3, `/materials/estadistica` 3, `/more` 3 |
+| **Sources** | Unknown/direct 37 %, Instagram 39 % (`ig` 35 + `l.instagram.com` 4), Facebook 10 %, Google 7 % |
+| **Countries** | Colombia 85 %, USA 12 %, China, Ireland, Sweden 1 % each |
+| **Devices** | Phones 50 %, tablets 5 %, computers 46 % |
+
+- Navigation depth: 21 subpage visits against 80 home visits, so at most ~1 in 4 home visitors goes on to a subpage (fewer if some of those 21 landed directly); Publications first, then Teaching
+- The Materials and `/more` visits are almost all on Nov 22, the day those pages changed: probably Mateo's own checks (and possibly Lighthouse runs), so not audience yet
+- Instagram is now the top named source; Google is still small (7 %) because until Nov 22 only the home was indexed and no sitemap had been submitted (see SEO)
+
+**Next reading:** after Google indexes the subpages (≈ mid-December), compare Google's share and the subpage landings
 
 ## SEO (implemented 2026-10-09)
 
