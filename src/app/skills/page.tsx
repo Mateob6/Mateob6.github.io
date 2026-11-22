@@ -13,7 +13,7 @@ export default function SkillsRedirect() {
     <div className="py-12">
       <meta httpEquiv="refresh" content="0; url=/more#skills" />
       <Link href="/more#skills" className="text-sm text-accent link-hover">
-        <T en="Skills moved to More →" es="Habilidades se movió a Más →" />
+        <T en="Skills moved to Recognition →" es="Habilidades se movió a Reconocimientos →" />
       </Link>
     </div>
   );

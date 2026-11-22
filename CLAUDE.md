@@ -47,7 +47,7 @@ src/
 │   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 12 courses); «Materials →» on courses with slides
 │   ├── materials/page.tsx       ← class slides by course → unit → class (data fetched at build from the slides site)
 │   ├── materials/[curso]/page.tsx ← one static page per course with classes
-│   ├── more/page.tsx            ← "More": #awards (4 awards & grants) + #skills (Statistical Analysis + Tools & Methods)
+│   ├── more/page.tsx            ← "Recognition": #awards (4 awards & grants) + #skills (Statistical Analysis + Tools & Methods)
 │   ├── skills/page.tsx          ← redirect stub → /more#skills (meta refresh, noindex)
 │   └── awards/page.tsx          ← redirect stub → /more#awards (meta refresh, noindex)
 ├── components/
@@ -177,7 +177,7 @@ Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas
 
 ### More (`/more`)
 
-Merged Skills + Awards page (2026-10-17). Nav label "More" / "Más"; H1 "Awards & Skills" / "Premios y Habilidades". Awards first (they're short and high-signal), then skills. Anchors `#awards` and `#skills` with `scroll-mt-20` so the sticky header doesn't cover them. Professional experience stays only in the CV (Mateo's decision, 2026-11-22); Materials and the CV have their own places (/materials, the «CV» link).
+Merged Skills + Awards page (2026-10-17). Nav label "Recognition" / "Reconocimientos" (renamed from "More" on 2026-11-22: Lighthouse flagged "More" as generic link text; mobile nav says "Awards" / "Premios" because the long word does not fit); H1 "Awards & Skills" / "Premios y Habilidades". Awards first (they're short and high-signal), then skills. Anchors `#awards` and `#skills` with `scroll-mt-20` so the sticky header doesn't cover them. Professional experience stays only in the CV (Mateo's decision, 2026-11-22); Materials and the CV have their own places (/materials, the «CV» link).
 
 **Awards** (`#awards`): 4 `AwardCard`s under an h2 styled like the skills headers.
 
@@ -203,7 +203,7 @@ All three h2s have `border-b border-accent/15` for consistency.
 | Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
 | Profile links | 8 (CV, Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
 | Pages | 5 (Home, Publications, Teaching, Materials, More) + one page per course with slides under /materials + 2 redirect stubs |
-| Nav items | 4 (Publications, Teaching, Materials, More) |
+| Nav items | 4 (Publications, Teaching, Materials, Recognition) |
 
 ## Downloadable CV (since 2026-11-22)
 
@@ -293,7 +293,7 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 - [x] Alt text on all images, header avatar width/height for CLS
 - [x] Google Search Console verification in place
 - [ ] Verify GSC indexing status post-deploy (manual)
-- [ ] Run PageSpeed Insights post-deploy
+- [x] Lighthouse 2026-11-22 (the PageSpeed API without a key hit its daily quota, so `npx lighthouse@12` locally against the live site): desktop 99–100 performance on home, Materials and Publications; mobile 83–100 (home 96–97 on repeat runs; a first run at 52 was noise). Fixed: mobile nav labels had 2.9:1 contrast (`opacity-60` removed), DOI links were `text-accent/70` and relied on color only (now full accent + underline), «More» was generic link text (renamed «Recognition»)
 - [ ] Evaluate blog/notes section for indexable content (deferred)
 - [ ] Hreflang (deferred — requires i18n routing restructure)
 

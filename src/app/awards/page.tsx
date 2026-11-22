@@ -13,7 +13,7 @@ export default function AwardsRedirect() {
     <div className="py-12">
       <meta httpEquiv="refresh" content="0; url=/more#awards" />
       <Link href="/more#awards" className="text-sm text-accent link-hover">
-        <T en="Awards & Grants moved to More →" es="Premios y Becas se movieron a Más →" />
+        <T en="Awards & Grants moved to Recognition →" es="Premios y Becas se movieron a Reconocimientos →" />
       </Link>
     </div>
   );

@@ -240,7 +240,7 @@ function SelectedPublication({ pub }: { pub: Publication }) {
               href={`https://doi.org/${pub.doi}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-accent/70 hover:text-accent transition-colors break-all"
+              className="text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent transition-colors break-all"
             >
               https://doi.org/{pub.doi}
             </a>

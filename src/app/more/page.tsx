@@ -37,7 +37,7 @@ export default function MorePage() {
       <ScrollReveal direction="left">
         <header className="subpage-hero pl-8">
           <p className="uppercase tracking-wider text-accent text-xs font-semibold mb-2">
-            <T en="More" es="Más" />
+            <T en="Recognition" es="Reconocimientos" />
           </p>
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
             <T en="Awards & Skills" es="Premios y Habilidades" />
