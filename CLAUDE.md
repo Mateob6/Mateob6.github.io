@@ -295,6 +295,14 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
   - **Posters and congress talks** could go on the same page (one DOI each, linked to the paper via "isSupplementTo"), with a "Slides" link on the matching entry in `/publications`
   - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo)
   - Filter before any DOI (permanent): no unpublished results, co-authors agree, no identifiable participant data, own or free figures. Never Cancillería, consultorías, Univalle Contigo, Tenorio. No exams, solutions or rubrics in use
+- **Background decoration: a honeycomb texture for the whole site** (reflected 2026-11-22; Mateo will decide later). He liked the thin hexagon lines of the «Coming soon» cards in Materials (`HexPattern` in `components/content/materials.tsx`) and wants more style in the background. Rules agreed in the reflection: never pattern behind running text (the reading column stays plain); very faint (lines in `--border` at ~5–8 % visibility, same in dark mode); a single motif for the whole site. Options, from less to more:
+  1. Page margins: a fixed lattice visible at the sides on desktop, faded toward the center column with a mask; none on mobile
+  2. Subpage hero: the lattice behind the header from the top-left, dissolving downward, next to the existing gradient left border
+  3. Materials panel: faint lattice inside the panel, stronger near the curved top edge, fading down; «Coming soon» cards keep their stronger one
+  4. «Filled cells» (only Materials): a few cells tinted with `accent-subtle`; each course with classes is a filled cell and the coming ones are empty, so the honeycomb fills as Mateo publishes
+  5. Optional motion: cells near the pointer brighten slightly (desktop only, off with `prefers-reduced-motion`); test last
+  - Recommendation given: 1 + 2 + 3 site-wide, 4 in Materials, and replace the home's floating dots and pulsing rings with the same lattice for a single visual language; motion later in a mock-up
+  - **Open decisions**: scope (whole site or Materials first); keep or replace the home dots/rings; filled cells yes/no; pointer motion now/later/never. Suggested next step: a mock-up with two intensities, light and dark, on the home page and Materials
 - Professional Experience section (research projects, consulting). Anonymize Cancillería as above
 - Downloadable CV link (decide between `fuentes/academico` and `fuentes/industria`; never `historico/2026-09_cv_industria_v1`)
 - `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
