@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Lora, Inter } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
@@ -96,7 +95,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <MobileNav />
-        <Analytics />
         <GoatCounterTracker />
         <script
           data-goatcounter="https://mateob6.goatcounter.com/count"

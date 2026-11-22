@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Academic profile website for Mateo Belalcazar (doctoral student in Psychology, Universidad del Valle). Deployed via **GitHub Pages** at **mateob6.github.io** (primary, public) and **Vercel** at **paginapersonal-swart.vercel.app** (secondary, analytics). Migrated from static HTML to **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4** with static export (`output: "export"`).
+Academic profile website for Mateo Belalcazar (doctoral student in Psychology, Universidad del Valle). Deployed via **GitHub Pages** at **mateob6.github.io**. (The old Vercel copy, paginapersonal-swart.vercel.app, is no longer maintained since 2026-11-22: Mateo only uses GoatCounter.) Migrated from static HTML to **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4** with static export (`output: "export"`).
 
 Private `sistema/` layer (gitignored) contains deep context about Mateo's full digital ecosystem. Read only when explicitly asked.
 
@@ -12,8 +12,8 @@ Private `sistema/` layer (gitignored) contains deep context about Mateo's full d
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/postcss` (no tailwind.config — uses `@theme inline` in CSS)
 - **Fonts**: Lora (serif, headings/name) + Inter (sans, body) via `next/font/google`
 - **Icons**: Inline SVGs (no external icon library)
-- **Analytics**: GoatCounter (`mateob6.goatcounter.com`, script in layout.tsx, tracks GitHub Pages) + `@vercel/analytics` (Vercel deployment only). `count.js` only counts full page loads, so `GoatCounterTracker` (`components/layout/goatcounter-tracker.tsx`) calls `goatcounter.count()` on client-side route changes (since 2026-10-17)
-- **Deploy**: GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`) + Vercel (linked project `pagina_personal`)
+- **Analytics**: GoatCounter only (`mateob6.goatcounter.com`, script in layout.tsx). `@vercel/analytics` was removed 2026-11-22. `count.js` only counts full page loads, so `GoatCounterTracker` (`components/layout/goatcounter-tracker.tsx`) calls `goatcounter.count()` on client-side route changes (since 2026-10-17)
+- **Deploy**: GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`)
 - **Export**: Static HTML in `/out` directory
 
 ## Development
@@ -28,11 +28,9 @@ npx serve out    # preview static build locally
 
 ```bash
 git push origin main          # GitHub Actions → GitHub Pages (automatic)
-vercel deploy --prod          # Vercel (manual, for analytics)
 ```
 
 Repo: `https://github.com/Mateob6/Mateob6.github.io.git`
-Vercel project: `pagina_personal` (team `mateu7`)
 
 ## File Structure
 
@@ -40,7 +38,7 @@ Vercel project: `pagina_personal` (team `mateu7`)
 src/
 ├── app/
 │   ├── globals.css              ← theme tokens + bilingual CSS + dark mode + animations
-│   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, Analytics, FOUC prevention)
+│   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, GoatCounter, honeycomb, FOUC prevention)
 │   ├── page.tsx                 ← HOME: hero + about + education + research lines + research groups + selected publications + explore grid
 │   ├── icon.svg                 ← favicon (MB monogram)
 │   ├── sitemap.ts               ← 5 URLs (dynamic lastModified)
@@ -179,7 +177,7 @@ Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas
 
 ### More (`/more`)
 
-Merged Skills + Awards page (2026-10-17). Nav label "More" / "Más"; H1 "Awards & Skills" / "Premios y Habilidades". Awards first (they're short and high-signal), then skills. Anchors `#awards` and `#skills` with `scroll-mt-20` so the sticky header doesn't cover them. Meant to also hold future pending content (professional experience, materials, CV).
+Merged Skills + Awards page (2026-10-17). Nav label "More" / "Más"; H1 "Awards & Skills" / "Premios y Habilidades". Awards first (they're short and high-signal), then skills. Anchors `#awards` and `#skills` with `scroll-mt-20` so the sticky header doesn't cover them. Professional experience stays only in the CV (Mateo's decision, 2026-11-22); Materials and the CV have their own places (/materials, the «CV» link).
 
 **Awards** (`#awards`): 4 `AwardCard`s under an h2 styled like the skills headers.
 
@@ -306,7 +304,6 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
   - **Posters and congress talks** could go on the same page (one DOI each, linked to the paper via "isSupplementTo"), with a "Slides" link on the matching entry in `/publications`
   - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo)
   - Filter before any DOI (permanent): no unpublished results, co-authors agree, no identifiable participant data, own or free figures. Never Cancillería, consultorías, Univalle Contigo, Tenorio. No exams, solutions or rubrics in use
-- Professional Experience section (research projects, consulting). Anonymize Cancillería as above
 - `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
 - Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
 - Teaching data source of truth: `cv/fuentes/academico.tex`. Sync when CV updates.
