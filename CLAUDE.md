@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Academic profile website for Mateo Belalcazar (doctoral student in Psychology, Universidad del Valle). Deployed via **GitHub Pages** at **mateob6.github.io**. (The old Vercel copy, paginapersonal-swart.vercel.app, is no longer maintained since 2026-11-22: Mateo only uses GoatCounter.) Migrated from static HTML to **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4** with static export (`output: "export"`).
+Academic profile website for Mateo Belalcazar (doctoral student in Psychology, Universidad del Valle). Deployed via **GitHub Pages** at **mateob6.github.io**. (The Vercel copy, paginapersonal-swart.vercel.app, project `pagina_personal` of team `mateu7`, was deleted on 2026-11-22: Mateo only uses GoatCounter. It had been auto-deploying from the GitHub repo.) Migrated from static HTML to **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4** with static export (`output: "export"`).
 
 Private `sistema/` layer (gitignored) contains deep context about Mateo's full digital ecosystem. Read only when explicitly asked.
 
@@ -292,7 +292,7 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 - [x] Sitemap dates dynamic (`new Date()` at build time)
 - [x] Alt text on all images, header avatar width/height for CLS
 - [x] Google Search Console verification in place
-- [ ] Verify GSC indexing status post-deploy (manual)
+- [x] Google Search Console (2026-11-22). Property `https://mateob6.github.io/` (URL prefix), verified by the Univalle account (mateo.belalcazar@correounivalle.edu.co, HTML file in `public/`); the personal Gmail (mateo.belalcazar6@gmail.com, «personal1») was added as owner the same day. State found: only the home was indexed and **no sitemap had ever been submitted** (18 web clicks Aug–Nov). Done: `sitemap.xml` submitted (first status «No se ha podido obtener», usual for a few hours; the file is valid XML, 200, `application/xml`) and indexing requested for `/materials` and `/materials/estadistica`. **Next check**: Sitemaps should show «Correcto» with 6 pages discovered, and Páginas should show more than 1 indexed. Request indexing for each new course page when it gets classes
 - [x] Lighthouse 2026-11-22 (the PageSpeed API without a key hit its daily quota, so `npx lighthouse@12` locally against the live site): desktop 99–100 performance on home, Materials and Publications; mobile 83–100 (home 96–97 on repeat runs; a first run at 52 was noise). Fixed: mobile nav labels had 2.9:1 contrast (`opacity-60` removed), DOI links were `text-accent/70` and relied on color only (now full accent + underline), «More» was generic link text (renamed «Recognition»)
 - [ ] Evaluate blog/notes section for indexable content (deferred)
 - [ ] Hreflang (deferred — requires i18n routing restructure)
