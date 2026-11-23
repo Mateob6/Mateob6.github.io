@@ -416,19 +416,24 @@ body { overflow-x: clip; }
 
 /* ========== Panal (honeycomb background, 2026-11-22) ==========
    One faint lattice for the whole site, drawn as a CSS mask so it follows the theme.
-   - .panal-fondo: behind the whole document; shows only in the side margins (desktop) and, on
-     subpages, in a patch that dissolves from the top left of the hero. Never behind the reading column.
-   - .panal-panel: inside the Materials panel, under the blue curve, fading downwards.
-   - *-luz: the same lattice in the accent color, lit only around the pointer
-     (mouse only, off with reduced motion; --px/--py come from PanalLuz). */
+   - .panal-fondo: behind the whole document. Full strength in the side margins (desktop) and, on
+     subpages, in a patch that dissolves from the top left of the hero; much fainter under the
+     reading column (--panal-texto), so it is everywhere, phones included, without competing with the text.
+   - .panal-panel: inside the Materials panel, strong under the blue curve, fading down to the same floor.
+   - *-luz: the same lattice in the accent color, lit only around the pointer, dimmed under the
+     column too (--panal-texto-luz). Mouse only, off with reduced motion; --px/--py come from PanalLuz. */
 :root {
   --panal-hex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='45'%3E%3Cpath d='M-12.5 0L0.5 7.5V22.5L-12.5 30L-25.5 22.5V7.5ZM-12.5 30V45M-25.5 22.5L-38.5 30M0.5 22.5L13.5 30M13.5 0L26.5 7.5V22.5L13.5 30L0.5 22.5V7.5ZM13.5 30V45M0.5 22.5L-12.5 30M26.5 22.5L39.5 30M39.5 0L52.5 7.5V22.5L39.5 30L26.5 22.5V7.5ZM39.5 30V45M26.5 22.5L13.5 30M52.5 22.5L65.5 30' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
   /* the panel curve as a mask (same path as PanelCurve in materials.tsx), stretched like the SVG */
   --panal-curva: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 64 C 380 64 640 66 860 50 C 1060 34 1190 26 1290 34 C 1360 40 1410 66 1440 96 L1440 120 L0 120 Z'/%3E%3C/svg%3E");
   /* line strength: a share of the text color, so light and dark read the same */
   --panal-fuerza: 8%;
-  /* margins: clear over the reading column, lattice from ~26–36rem off the center outwards */
-  --panal-margenes: linear-gradient(90deg, #000 0, #000 calc(50% - 36rem), transparent calc(50% - 26rem), transparent calc(50% + 26rem), #000 calc(50% + 36rem), #000 100%);
+  /* under the reading column: the share of that strength that is left (lattice, and its pointer light) */
+  --panal-texto: 0.25; /* 8 % × 0.25 = 2 %, chosen on a mock-up of 2 / 3 / 4 % (2026-11-22) */
+  --panal-texto-luz: var(--panal-texto);
+  /* margins: full lattice from ~26–36rem off the center outwards, the faint floor over the column */
+  --panal-margenes: linear-gradient(90deg, #000 0, #000 calc(50% - 36rem), rgb(0 0 0 / var(--panal-texto)) calc(50% - 26rem), rgb(0 0 0 / var(--panal-texto)) calc(50% + 26rem), #000 calc(50% + 36rem), #000 100%);
+  --panal-margenes-luz: linear-gradient(90deg, #000 0, #000 calc(50% - 36rem), rgb(0 0 0 / var(--panal-texto-luz)) calc(50% - 26rem), rgb(0 0 0 / var(--panal-texto-luz)) calc(50% + 26rem), #000 calc(50% + 36rem), #000 100%);
   --panal-heroe: none;
   --panal-banda: 3rem; /* height of the panel curve: h-12, sm:h-20 */
 }
@@ -465,25 +470,25 @@ body { overflow-x: clip; }
 }
 /* lattice ∩ pointer circle ∩ (margins ∪ hero patch) */
 .panal-fondo-luz {
-  mask-image: var(--panal-hex), radial-gradient(circle 9rem at var(--px, -99rem) var(--py, -99rem), #000, transparent), var(--panal-margenes), var(--panal-heroe);
+  mask-image: var(--panal-hex), radial-gradient(circle 9rem at var(--px, -99rem) var(--py, -99rem), #000, transparent), var(--panal-margenes-luz), var(--panal-heroe);
   mask-size: 26px 45px, 100% 100%, 100% 100%, 100% 100%;
   mask-composite: intersect, intersect, add;
 }
 
 /* Materials panel: over the panel background, under its content (which sits at z-index 1) */
 .panal-panel,
-.panal-panel-luz { inset: 0 0 auto 0; height: 44rem; z-index: 0; }
-/* lattice ∩ fade down ∩ (under the curve ∪ below the curve band) */
+.panal-panel-luz { inset: 0; z-index: 0; }
+/* lattice ∩ fade down to the floor by 44rem ∩ (under the curve ∪ below the curve band) */
 .panal-panel {
-  mask-image: var(--panal-hex), linear-gradient(#000 0, rgb(0 0 0 / 0.6) calc(var(--panal-banda) + 6rem), transparent 100%), var(--panal-curva), linear-gradient(transparent var(--panal-banda), #000 var(--panal-banda));
+  mask-image: var(--panal-hex), linear-gradient(#000 0, rgb(0 0 0 / 0.6) calc(var(--panal-banda) + 6rem), rgb(0 0 0 / var(--panal-texto)) 44rem), var(--panal-curva), linear-gradient(transparent var(--panal-banda), #000 var(--panal-banda));
   mask-size: 26px 45px, 100% 100%, 100% var(--panal-banda), 100% 100%;
   mask-composite: intersect, intersect, add;
 }
-/* lattice ∩ pointer circle ∩ (under the curve ∪ below the curve band) */
+/* lattice ∩ pointer circle ∩ the same fade (down to the light's floor) ∩ (under the curve ∪ below the curve band) */
 .panal-panel-luz {
-  mask-image: var(--panal-hex), radial-gradient(circle 9rem at var(--px, -99rem) var(--py, -99rem), #000, transparent), var(--panal-curva), linear-gradient(transparent var(--panal-banda), #000 var(--panal-banda));
-  mask-size: 26px 45px, 100% 100%, 100% var(--panal-banda), 100% 100%;
-  mask-composite: intersect, intersect, add;
+  mask-image: var(--panal-hex), radial-gradient(circle 9rem at var(--px, -99rem) var(--py, -99rem), #000, transparent), linear-gradient(#000 0, rgb(0 0 0 / 0.6) calc(var(--panal-banda) + 6rem), rgb(0 0 0 / var(--panal-texto-luz)) 44rem), var(--panal-curva), linear-gradient(transparent var(--panal-banda), #000 var(--panal-banda));
+  mask-size: 26px 45px, 100% 100%, 100% 100%, 100% var(--panal-banda), 100% 100%;
+  mask-composite: intersect, intersect, intersect, add;
 }
 
 .panal-fondo-luz[data-activo],
