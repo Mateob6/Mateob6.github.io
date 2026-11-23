@@ -1,6 +1,8 @@
 import { T } from "./t";
 
 interface AwardCardProps {
+  /** anchor: /more#<id> */
+  id?: string;
   titleEn: string;
   titleEs: string;
   institution: string;
@@ -26,9 +28,9 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-export function AwardCard({ titleEn, titleEs, institution, year, icon }: AwardCardProps) {
+export function AwardCard({ id, titleEn, titleEs, institution, year, icon }: AwardCardProps) {
   return (
-    <div className="flex items-start gap-4 rounded-xl border border-border bg-surface-raised p-4 card-lift badge-shimmer">
+    <div id={id} className="scroll-mt-24 flex items-start gap-4 rounded-xl border border-border bg-surface-raised p-4 card-lift badge-shimmer">
       <span className="mt-0.5 text-accent">{icons[icon]}</span>
       <div>
         <p className="text-sm font-medium text-foreground">

@@ -1,3 +1,6 @@
+import { CV } from "@/data/profile";
+import { getLang } from "@/lib/lang-server";
+
 const LINKS = [
   {
     href: "mailto:mateo.belalcazar6@gmail.com",
@@ -64,9 +67,6 @@ const LINKS = [
   },
 ];
 
-// Academic CV (public version, Cancillería anonymized): copied from
-// ~/Desktop/Proyectos/Certificados laborales/cv/fuentes/academico{,_en}.pdf. The link follows the site language.
-export const CV = { en: "/cv/mateo-belalcazar-cv-en.pdf", es: "/cv/mateo-belalcazar-cv-es.pdf" } as const;
 
 const CV_ICON = (
   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -78,12 +78,10 @@ export function ProfileLinks() {
   const linkClass = "link-hover flex items-center gap-1.5 text-muted hover:text-accent";
   return (
     <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm">
-      {(["en", "es"] as const).map((lang) => (
-        <a key={`cv-${lang}`} href={CV[lang]} target="_blank" rel="noopener" className={`${lang} ${linkClass}`}>
-          {CV_ICON}
-          CV
-        </a>
-      ))}
+      <a href={CV[getLang()]} target="_blank" rel="noopener" className={linkClass}>
+        {CV_ICON}
+        CV
+      </a>
       {LINKS.map((link) => (
         <a
           key={link.label}

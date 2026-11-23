@@ -1,23 +1,40 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
 import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { TeachingExplorer } from "@/components/content/teaching-diagram";
 import { CurvedPanel } from "@/components/content/curved-panel";
 import { teachingDomains } from "@/data/teaching";
 import { getMaterialsLinks } from "@/data/materials";
+import { pick, type Lang } from "@/lib/i18n";
+import { setLang } from "@/lib/lang-server";
+import { breadcrumbs, jsonLd, teachingSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Teaching",
-  description:
-    "University courses taught by Mateo Belalcazar in statistics, quantitative methods, research methodology, and cognitive development at three Colombian universities.",
-  path: "/teaching",
-});
+export function teachingMetadata(lang: Lang): Metadata {
+  return pageMetadata({
+    lang,
+    title: pick(lang, "Teaching", "Docencia"),
+    description: pick(
+      lang,
+      "University courses taught by Mateo Belalcazar in statistics, quantitative methods, research methodology, and cognitive development at three Colombian universities.",
+      "Cursos universitarios de Mateo Belalcazar en estadística, métodos cuantitativos, metodología de la investigación y desarrollo cognitivo, en tres universidades colombianas."
+    ),
+    path: "/teaching",
+  });
+}
 
-export default async function TeachingPage() {
+export async function TeachingView({ lang }: { lang: Lang }) {
+  setLang(lang);
   const materials = await getMaterialsLinks();
   return (
     <div className="pt-12 space-y-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd({
+          "@context": "https://schema.org",
+          "@graph": [teachingSchema(lang, materials), breadcrumbs(lang, [{ name: pick(lang, "Teaching", "Docencia"), path: "/teaching" }])],
+        })}
+      />
       <ScrollReveal direction="left">
         <header className="subpage-hero pl-8">
           <p className="uppercase tracking-wider text-accent text-xs font-semibold mb-2">
@@ -43,7 +60,7 @@ export default async function TeachingPage() {
         <h2 id="cursos-docencia" className="sr-only">
           <T en="Courses" es="Cursos" />
         </h2>
-        <TeachingExplorer domains={teachingDomains} materials={materials} />
+        <TeachingExplorer lang={lang} domains={teachingDomains} materials={materials} />
       </CurvedPanel>
     </div>
   );

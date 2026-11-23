@@ -1,12 +1,8 @@
 import Link from "next/link";
-import { CV } from "@/components/content/profile-links";
-
-const NAV_LINKS = [
-  { href: "/publications", en: "Publications", es: "Publicaciones" },
-  { href: "/teaching", en: "Teaching", es: "Docencia" },
-  { href: "/materials", en: "Materials", es: "Materiales" },
-  { href: "/more", en: "Recognition", es: "Reconocimientos" },
-];
+import { CV } from "@/data/profile";
+import { T } from "@/components/content/t";
+import { getLang, href } from "@/lib/lang-server";
+import { NAV_LINKS } from "@/lib/nav";
 
 const PROFILE_LINKS = [
   { href: "https://scholar.google.com/citations?user=RoI0VQ8AAAAJ", label: "Scholar" },
@@ -15,33 +11,25 @@ const PROFILE_LINKS = [
 ];
 
 export function Footer() {
+  const lang = getLang();
   return (
     <footer className="border-t border-border py-8">
       <div className="max-w-3xl mx-auto px-6">
-        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
+        <nav aria-label={lang === "es" ? "Secciones" : "Sections"} className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={href(link.href)}
               className="text-xs text-muted hover:text-accent transition-colors"
             >
-              <span className="en">{link.en}</span>
-              <span className="es">{link.es}</span>
+              <T en={link.en} es={link.es} />
             </Link>
           ))}
         </nav>
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-4">
-          {(["en", "es"] as const).map((lang) => (
-            <a
-              key={`cv-${lang}`}
-              href={CV[lang]}
-              target="_blank"
-              rel="noopener"
-              className={`${lang} text-xs text-muted hover:text-accent transition-colors`}
-            >
-              CV
-            </a>
-          ))}
+          <a href={CV[lang]} target="_blank" rel="noopener" className="text-xs text-muted hover:text-accent transition-colors">
+            CV
+          </a>
           {PROFILE_LINKS.map((link) => (
             <a
               key={link.href}
@@ -55,9 +43,7 @@ export function Footer() {
           ))}
         </div>
         <p className="text-xs text-muted text-center">
-          Cali, Colombia ·{" "}
-          <span className="en">Updated November 2026</span>
-          <span className="es">Actualizado en noviembre de 2026</span>
+          Cali, Colombia · <T en="Updated November 2026" es="Actualizado en noviembre de 2026" />
         </p>
       </div>
     </footer>

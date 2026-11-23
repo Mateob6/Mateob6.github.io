@@ -1,34 +1,39 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { pageMetadata, PERSON_ID, SITE_URL } from "@/lib/seo";
+import { absUrl, pageMetadata, PERSON_ID } from "@/lib/seo";
+import { localePath, pick, type Lang } from "@/lib/i18n";
+import { href, setLang } from "@/lib/lang-server";
+import { breadcrumbs, jsonLd } from "@/lib/schema";
 import { T } from "@/components/content/t";
 import { CourseCover, CourseUnits, UnitTrack } from "@/components/content/materials";
 import { COURSE_DOI, formatUpdated, getCourse, getMaterials, SLIDES_URL } from "@/data/materials";
 import { teachingDomains } from "@/data/teaching";
 
 // One page per course that already has classes; courses without classes only show on /materials
-export const dynamicParams = false;
-
-export async function generateStaticParams() {
+export async function courseStaticParams() {
   return (await getMaterials()).filter((c) => c.total > 0).map((c) => ({ curso: c.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ curso: string }> }): Promise<Metadata> {
-  const { curso } = await params;
+export async function courseMetadata(lang: Lang, curso: string): Promise<Metadata> {
   const c = await getCourse(curso);
   if (!c) return {};
   return pageMetadata({
-    title: `${c.course.nombre} — Materials`,
-    description: `${c.course.descripcion.en} Class slides by Mateo Belalcazar, in Spanish: view them in the browser or download them as PDF.`,
+    lang,
+    title: `${c.course.nombre} — ${pick(lang, "Materials", "Materiales")}`,
+    description: pick(
+      lang,
+      `${c.course.descripcion.en} Class slides by Mateo Belalcazar, in Spanish and English: view them in the browser or download them as PDF.`,
+      `${c.course.descripcion.es} Diapositivas de clase de Mateo Belalcazar, en español y en inglés: se ven en el navegador o se bajan en PDF.`
+    ),
     path: `/materials/${c.slug}`,
   });
 }
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
 
-export default async function CoursePage({ params }: { params: Promise<{ curso: string }> }) {
-  const { curso } = await params;
+export async function CourseView({ lang, curso }: { lang: Lang; curso: string }) {
+  setLang(lang);
   const c = await getCourse(curso);
   if (!c || c.total === 0) notFound();
   const domain = teachingDomains[c.course.dominio];
@@ -37,14 +42,14 @@ export default async function CoursePage({ params }: { params: Promise<{ curso: 
   const k = c.total;
   const doi = COURSE_DOI[c.slug];
 
-  const schema = {
-    "@context": "https://schema.org",
+  const url = absUrl(localePath(lang, `/materials/${c.slug}`));
+  const course = {
     "@type": "Course",
-    "@id": `${SITE_URL}/materials/${c.slug}`,
+    "@id": url,
     name: c.course.nombre,
-    description: c.course.descripcion.en,
-    url: `${SITE_URL}/materials/${c.slug}`,
-    inLanguage: "es",
+    description: pick(lang, c.course.descripcion.en, c.course.descripcion.es),
+    url,
+    inLanguage: ["es", "en"],
     provider: { "@id": PERSON_ID },
     ...(doi && {
       identifier: { "@type": "PropertyValue", propertyID: "DOI", value: doi },
@@ -53,10 +58,11 @@ export default async function CoursePage({ params }: { params: Promise<{ curso: 
     hasPart: c.units.flatMap((u) =>
       u.classes.map((d) => ({
         "@type": "LearningResource",
-        name: d.titulo,
-        alternateName: d.titulo_en || undefined,
-        description: d.resumen,
-        url: `${SLIDES_URL}${d.ruta}/`,
+        "@id": `${url}#${d.clase}`,
+        name: lang === "en" && d.titulo_en ? d.titulo_en : d.titulo,
+        alternateName: lang === "en" ? (d.titulo_en ? d.titulo : undefined) : d.titulo_en || undefined,
+        description: lang === "en" && d.resumen_en ? d.resumen_en : d.resumen,
+        url: `${SLIDES_URL}${d.ruta}/${lang === "en" && d.titulo_en ? "?en" : ""}`,
         inLanguage: d.titulo_en ? ["es", "en"] : "es",
         learningResourceType: "Presentation",
         educationalLevel: "Undergraduate",
@@ -64,16 +70,29 @@ export default async function CoursePage({ params }: { params: Promise<{ curso: 
         author: { "@id": PERSON_ID },
         dateModified: d.actualizada,
         image: `${SLIDES_URL}${d.miniatura}`,
-        encoding: { "@type": "MediaObject", contentUrl: `${SLIDES_URL}${d.pdf}`, encodingFormat: "application/pdf" },
+        encoding: [
+          { "@type": "MediaObject", contentUrl: `${SLIDES_URL}${d.pdf}`, encodingFormat: "application/pdf", inLanguage: "es" },
+          ...(d.pdf_en ? [{ "@type": "MediaObject", contentUrl: `${SLIDES_URL}${d.pdf_en}`, encodingFormat: "application/pdf", inLanguage: "en" }] : []),
+        ],
       }))
     ),
+  };
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      course,
+      breadcrumbs(lang, [
+        { name: pick(lang, "Materials", "Materiales"), path: "/materials" },
+        { name: c.course.nombre, path: `/materials/${c.slug}` },
+      ]),
+    ],
   };
 
   return (
     <div className="py-12 space-y-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(schema)} />
 
-      <Link href="/materials" className="inline-flex items-center gap-1 text-xs text-muted transition-colors hover:text-accent">
+      <Link href={href("/materials")} className="inline-flex items-center gap-1 text-xs text-muted transition-colors hover:text-accent">
         <T en="← All courses" es="← Todos los cursos" />
       </Link>
 

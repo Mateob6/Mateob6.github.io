@@ -4,18 +4,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/components/ui";
+import { localePath, pick, stripLocale, type Lang } from "@/lib/i18n";
+import { NAV_LINKS } from "@/lib/nav";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 
-const NAV_LINKS = [
-  { href: "/publications", en: "Publications", es: "Publicaciones" },
-  { href: "/teaching", en: "Teaching", es: "Docencia" },
-  { href: "/materials", en: "Materials", es: "Materiales" },
-  { href: "/more", en: "Recognition", es: "Reconocimientos" },
-];
-
-export function Header() {
-  const pathname = usePathname();
+export function Header({ lang }: { lang: Lang }) {
+  const pathname = stripLocale(usePathname());
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -36,18 +31,18 @@ export function Header() {
       )}
     >
       <div className="flex items-center gap-6">
-        <Link href="/" className="font-serif text-lg italic text-accent transition-opacity hover:opacity-70">
-          <span className="en">Home</span>
-          <span className="es">Inicio</span>
+        <Link href={localePath(lang, "/")} className="font-serif text-lg italic text-accent transition-opacity hover:opacity-70">
+          {pick(lang, "Home", "Inicio")}
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav aria-label={pick(lang, "Main", "Principal")} className="hidden items-center gap-1 md:flex">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
             return (
               <Link
                 key={link.href}
-                href={link.href}
+                href={localePath(lang, link.href)}
+                aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "relative rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
                   isActive
@@ -55,8 +50,7 @@ export function Header() {
                     : "text-muted hover:text-foreground"
                 )}
               >
-                <span className="en">{link.en}</span>
-                <span className="es">{link.es}</span>
+                {pick(lang, link.en, link.es)}
                 {isActive && (
                   <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-accent" />
                 )}
@@ -67,8 +61,8 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-2">
-        <LanguageToggle />
-        <ThemeToggle />
+        <LanguageToggle lang={lang} />
+        <ThemeToggle lang={lang} />
         <div className="hidden h-8 w-8 overflow-hidden rounded-full border border-border shadow-sm transition-shadow hover:shadow-md sm:block">
           <img src="/photo.jpg" alt="Mateo Belalcazar" width={32} height={32} className="h-full w-full object-cover" />
         </div>

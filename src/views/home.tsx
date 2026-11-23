@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { T } from "@/components/content/t";
 import { SectionHeader } from "@/components/content/section-header";
@@ -11,52 +12,36 @@ import { publications } from "@/data/publications";
 import { groups } from "@/data/groups";
 import { GroupCard } from "@/components/content/group-card";
 import type { ResearchLine, Publication } from "@/lib/types";
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON_ID } from "@/lib/seo";
+import { localePath, pick, type Lang } from "@/lib/i18n";
+import { href, setLang } from "@/lib/lang-server";
+import { jsonLd, personSchema } from "@/lib/schema";
+import { absUrl, HOME_TITLE, pageMetadata, PERSON_ID, SITE_DESCRIPTION } from "@/lib/seo";
 
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": PERSON_ID,
-  name: SITE_NAME,
-  // Name forms used in published work, so search engines link them to this profile
-  alternateName: ["Mateo Belalcázar", "Mateo Belalcázar Correa", "Mateo Belalcazar Correa"],
-  url: SITE_URL,
-  image: `${SITE_URL}/photo.jpg`,
-  description: SITE_DESCRIPTION,
-  jobTitle: "Doctoral Researcher in Psychology",
-  identifier: { "@type": "PropertyValue", propertyID: "ORCID", value: "0000-0001-8276-9734" },
-  worksFor: [
-    { "@type": "CollegeOrUniversity", name: "Universidad del Valle", url: "https://www.univalle.edu.co" },
-    { "@type": "CollegeOrUniversity", name: "Pontificia Universidad Javeriana Cali", url: "https://www.javerianacali.edu.co" },
-  ],
-  alumniOf: [{ "@type": "CollegeOrUniversity", name: "Universidad del Valle" }],
-  memberOf: groups.map((g) => ({ "@type": "Organization", name: g.name })),
-  knowsAbout: [
-    "Psychometrics",
-    "Psychological Measurement",
-    "Quantitative Methodology",
-    "Statistical Modeling",
-    "Computational Psychology",
-    "Cognitive Development",
-    "Educational Psychology",
-  ],
-  sameAs: [
-    "https://scholar.google.com/citations?user=RoI0VQ8AAAAJ",
-    "https://orcid.org/0000-0001-8276-9734",
-    "https://www.researchgate.net/profile/Mateo-Belalcazar",
-    "https://github.com/Mateob6",
-    "https://osf.io/phswz/",
-    "https://www.semanticscholar.org/author/2296970047",
-  ],
-};
+export function homeMetadata(lang: Lang): Metadata {
+  return pageMetadata({ lang, title: HOME_TITLE[lang], description: SITE_DESCRIPTION[lang], path: "/", absoluteTitle: true });
+}
 
-export default function HomePage() {
+/** ProfilePage (Google's profile structured data) whose main entity is the full Person */
+function profileJsonLd(lang: Lang) {
+  const url = absUrl(localePath(lang, "/"));
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${url}#profile`,
+    url,
+    name: HOME_TITLE[lang],
+    inLanguage: lang,
+    dateModified: new Date().toISOString().slice(0, 10),
+    about: { "@id": PERSON_ID },
+    mainEntity: personSchema(lang),
+  };
+}
+
+export function HomeView({ lang }: { lang: Lang }) {
+  setLang(lang);
   return (
     <div className="space-y-20 pt-12 relative">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(profileJsonLd(lang))} />
       {/* Decorative */}
       <div className="deco-dot" style={{ top: "6%", right: "6%" }} />
       <div className="deco-dot" style={{ top: "40%", left: "2%", animationDelay: "2s" }} />
@@ -66,7 +51,7 @@ export default function HomePage() {
       {/* ===== HERO ===== */}
       <section className="text-center mt-6 md:mt-10">
         <div className="hero-photo w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden mx-auto mb-5 border-2 border-border shadow-lg relative">
-          <img src="/photo.jpg" alt="Mateo Belalcazar — researcher in psychology, statistics, and computational methods" width={144} height={144} className="w-full h-full object-cover" />
+          <img src="/photo.jpg" alt={pick(lang, "Mateo Belalcazar — researcher in psychology, statistics, and computational methods", "Mateo Belalcazar — investigador en psicología, estadística y métodos computacionales")} width={144} height={144} className="w-full h-full object-cover" />
           <div className="absolute inset-0 rounded-full ring-2 ring-accent/10 ring-offset-4 ring-offset-background" />
         </div>
         <h1 className="hero-name font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4">
@@ -82,20 +67,19 @@ export default function HomePage() {
 
       {/* ===== ABOUT ===== */}
       <ScrollReveal>
-        <section id="about">
+        <section id="about" className="scroll-mt-20">
           <SectionHeader en="About" es="Acerca de" />
           <div className="space-y-4">
-            <p className="en text-muted leading-relaxed text-[15px]">{bio.en[0]}</p>
-            <p className="es text-muted leading-relaxed text-[15px]">{bio.es[0]}</p>
-            <p className="en text-muted leading-relaxed text-[15px]">{bio.en[1]}</p>
-            <p className="es text-muted leading-relaxed text-[15px]">{bio.es[1]}</p>
+            {pick<readonly string[]>(lang, bio.en, bio.es).map((p) => (
+              <p key={p} className="text-muted leading-relaxed text-[15px]">{p}</p>
+            ))}
           </div>
         </section>
       </ScrollReveal>
 
       {/* ===== EDUCATION (horizontal, chronological BSc → MSc → PhD) ===== */}
       <ScrollReveal>
-        <section id="education">
+        <section id="education" className="scroll-mt-20">
           <SectionHeader en="Education" es="Educación" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[...education].reverse().map((entry) => (
@@ -104,7 +88,7 @@ export default function HomePage() {
                 degreeEn={entry.degreeEn}
                 degreeEs={entry.degreeEs}
                 institution={entry.detail ? `${entry.institution} — ${entry.detail}` : entry.institution}
-                period={entry.period}
+                period={pick(lang, entry.period, entry.period.replace("present", "presente"))}
               />
             ))}
           </div>
@@ -115,7 +99,7 @@ export default function HomePage() {
 
       {/* ===== RESEARCH LINES ===== */}
       <ScrollReveal>
-        <section id="research">
+        <section id="research" className="scroll-mt-20">
           <SectionHeader en="Research Lines" es="Líneas de Investigación" />
           <div className="space-y-5">
             {researchLines.map((line, i) => (
@@ -129,7 +113,7 @@ export default function HomePage() {
 
       {/* ===== RESEARCH GROUPS ===== */}
       <ScrollReveal>
-        <section id="groups">
+        <section id="groups" className="scroll-mt-20">
           <SectionHeader en="Research Groups" es="Grupos de Investigación" />
           <div className="space-y-3">
             {groups.map((group, i) => (
@@ -151,7 +135,7 @@ export default function HomePage() {
 
       {/* ===== SELECTED PUBLICATIONS ===== */}
       <ScrollReveal>
-        <section id="publications">
+        <section id="publications" className="scroll-mt-20">
           <SectionHeader en="Selected Publications" es="Publicaciones Destacadas" />
           <div className="pl-4 border-l-2 border-accent/20">
             {publications
@@ -164,7 +148,7 @@ export default function HomePage() {
           </div>
           <div className="mt-6">
             <Link
-              href="/publications"
+              href={href("/publications")}
               className="text-sm text-accent hover:text-accent/80 transition-colors link-hover"
             >
               <T
@@ -189,7 +173,7 @@ export default function HomePage() {
             ].map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={href(link.href)}
                 className="rounded-xl border border-border bg-background p-4 text-center text-sm text-muted hover:text-accent hover:border-accent/30 transition-colors"
               >
                 <T en={link.en} es={link.es} />
@@ -231,6 +215,7 @@ function SelectedPublication({ pub }: { pub: Publication }) {
           <span className="italic text-foreground">{pub.title}</span>
         )}
         . <span className="text-foreground">{pub.journal}</span>
+
         {pub.doi && (
           <>
             .{" "}

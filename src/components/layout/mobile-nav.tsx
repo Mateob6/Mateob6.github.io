@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/components/ui";
+import { localePath, pick, stripLocale, type Lang } from "@/lib/i18n";
 
 const ITEMS = [
   {
@@ -58,11 +59,12 @@ const ITEMS = [
   },
 ];
 
-export function MobileNav() {
-  const pathname = usePathname();
+export function MobileNav({ lang }: { lang: Lang }) {
+  const pathname = stripLocale(usePathname());
 
   return (
     <nav
+      aria-label={pick(lang, "Main", "Principal")}
       className="fixed bottom-0 left-0 z-50 flex w-full items-center justify-around border-t border-border bg-surface shadow-[0_-4px_20px_rgba(0,0,0,0.06)] sm:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
@@ -71,7 +73,8 @@ export function MobileNav() {
         return (
           <Link
             key={item.href}
-            href={item.href}
+            href={localePath(lang, item.href)}
+            aria-current={isActive ? "page" : undefined}
             className={cn(
               "flex flex-col items-center gap-0.5 px-3 py-2.5 transition-colors",
               isActive ? "text-accent" : "text-muted hover:text-foreground",
@@ -80,8 +83,7 @@ export function MobileNav() {
           >
             {item.icon}
             <span className="text-[10px] font-semibold uppercase tracking-widest">
-              <span className="en">{item.en}</span>
-              <span className="es">{item.es}</span>
+              {pick(lang, item.en, item.es)}
             </span>
           </Link>
         );

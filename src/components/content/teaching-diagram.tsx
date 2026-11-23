@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import type { TeachingDomain } from "@/data/teaching";
+import { localePath, pick, type Lang } from "@/lib/i18n";
+import { formatPeriod, levelName } from "@/lib/teaching";
 
 const DOMAIN_META = [
   { en: ["Statistics &", "Quantitative Methods"], es: ["Estadística y", "Métodos Cuantitativos"] },
@@ -15,26 +17,22 @@ const SHORT_UNI: Record<string, string> = {
   "Universidad de San Buenaventura, Cali": "USB Cali",
 };
 
-function formatPeriod(semesters: string[]): { en: string; es: string } {
-  const startYear = semesters[0].split("-")[0];
-  const endYear = semesters[semesters.length - 1].split("-")[0];
-  const isActive = semesters[semesters.length - 1] === "2026-02";
-  if (startYear === endYear && !isActive) return { en: startYear, es: startYear };
-  return {
-    en: `${startYear}–${isActive ? "present" : endYear}`,
-    es: `${startYear}–${isActive ? "presente" : endYear}`,
-  };
-}
-
+// Each domain has its own URL: /teaching#statistics, #methodology, #cognitive-development.
+// The diagram nodes are real links to those anchors; a click swaps the table and updates the address bar,
+// and opening (or sharing) the URL shows that domain. All three tables are in the HTML, the inactive ones
+// hidden with a CSS class (not the `hidden` attribute), so crawlers and text extractors read every course.
 export function TeachingExplorer({
+  lang,
   domains,
   materials = {},
 }: {
+  lang: Lang;
   domains: TeachingDomain[];
-  /** course name → /materials anchor, for courses that already have published slides */
+  /** course name → /materials/<slug>, for courses that already have published slides */
   materials?: Record<string, string>;
 }) {
   const [selected, setSelected] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -53,6 +51,25 @@ export function TeachingExplorer({
     return () => observer.disconnect();
   }, []);
 
+  // The URL decides the domain: on load and when the hash changes (back button, typed URL, in-page links)
+  useEffect(() => {
+    const sync = () => {
+      const i = domains.findIndex((d) => `#${d.slug}` === window.location.hash);
+      if (i < 0) return;
+      setSelected(i);
+      requestAnimationFrame(() => rootRef.current?.scrollIntoView({ block: "start" }));
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [domains]);
+
+  function choose(e: MouseEvent, i: number) {
+    e.preventDefault();
+    setSelected(i);
+    window.history.replaceState(window.history.state, "", `#${domains[i].slug}`);
+  }
+
   const cx = 600;
   const rootY = 10;
   const rootH = 48;
@@ -65,19 +82,18 @@ export function TeachingExplorer({
   const startX = cx - totalW / 2;
   const positions = [startX, startX + nodeW + gap, startX + (nodeW + gap) * 2];
 
-  const activeDomain = domains[selected];
-
   return (
-    <div className="space-y-8">
+    <div ref={rootRef} className="scroll-mt-20 space-y-8">
       {/* === DIAGRAM === */}
       <div className="relative left-1/2 -translate-x-1/2 w-[100vw] max-w-6xl px-4">
         <svg
           ref={svgRef}
           viewBox="0 0 1200 275"
           className="teaching-diagram w-full"
-          role="img"
+          role="group"
+          aria-label={pick(lang, "Teaching domains", "Áreas de docencia")}
         >
-          <title>Teaching domains diagram</title>
+          <title>{pick(lang, "Teaching domains diagram", "Diagrama de las áreas de docencia")}</title>
 
           {/* Lines */}
           {positions.map((x, i) => {
@@ -103,115 +119,103 @@ export function TeachingExplorer({
           <g className="diagram-root-node">
             <rect x={cx - 85} y={rootY} width={170} height={rootH} rx={24} fill="var(--accent)" />
             <text x={cx} y={rootY + 31} textAnchor="middle" fill="var(--accent-foreground)" fontSize={17} fontWeight={700} letterSpacing="0.08em">
-              COURSES
+              {pick(lang, "COURSES", "CURSOS")}
             </text>
           </g>
 
-          {/* Domain nodes */}
+          {/* Domain nodes: links to each domain's anchor */}
           {DOMAIN_META.map((meta, i) => {
             const x = positions[i];
             const isActive = selected === i;
             const count = domains[i].courses.length;
             return (
-              <g
+              <a
                 key={i}
-                className="diagram-domain-node"
-                style={{ animationDelay: `${600 + i * 150}ms`, cursor: "pointer" }}
-                onClick={() => setSelected(i)}
+                href={`#${domains[i].slug}`}
+                onClick={(e) => choose(e, i)}
+                aria-current={isActive ? "true" : undefined}
+                aria-label={`${pick(lang, domains[i].nameEn, domains[i].nameEs)} (${count})`}
               >
-                <rect
-                  x={x}
-                  y={nodeY}
-                  width={nodeW}
-                  height={nodeH}
-                  rx={16}
-                  fill={isActive ? "var(--accent-subtle)" : "var(--background)"}
-                  stroke={isActive ? "var(--accent)" : "var(--border)"}
-                  strokeWidth={isActive ? 2 : 1.5}
-                  className="diagram-node-rect transition-all duration-300"
-                />
-                {meta.en.map((line, li) => (
-                  <text
-                    key={`en-${li}`}
-                    x={x + nodeW / 2}
-                    y={nodeY + 38 + li * 22}
-                    textAnchor="middle"
-                    fill={isActive ? "var(--accent)" : "var(--foreground)"}
-                    fontSize={16}
-                    fontWeight={isActive ? 700 : 500}
-                    className="en transition-all duration-300"
-                  >
-                    {line}
+                <g className="diagram-domain-node" style={{ animationDelay: `${600 + i * 150}ms` }}>
+                  <rect
+                    x={x}
+                    y={nodeY}
+                    width={nodeW}
+                    height={nodeH}
+                    rx={16}
+                    fill={isActive ? "var(--accent-subtle)" : "var(--background)"}
+                    stroke={isActive ? "var(--accent)" : "var(--border)"}
+                    strokeWidth={isActive ? 2 : 1.5}
+                    className="diagram-node-rect transition-all duration-300"
+                  />
+                  {pick(lang, meta.en, meta.es).map((line, li) => (
+                    <text
+                      key={li}
+                      x={x + nodeW / 2}
+                      y={nodeY + 38 + li * 22}
+                      textAnchor="middle"
+                      fill={isActive ? "var(--accent)" : "var(--foreground)"}
+                      fontSize={16}
+                      fontWeight={isActive ? 700 : 500}
+                      className="transition-all duration-300"
+                    >
+                      {line}
+                    </text>
+                  ))}
+                  <text x={x + nodeW / 2} y={nodeY + nodeH - 16} textAnchor="middle" fill="var(--muted)" fontSize={14}>
+                    {count} {count === 1 ? pick(lang, "course", "curso") : pick(lang, "courses", "cursos")}
                   </text>
-                ))}
-                {meta.es.map((line, li) => (
-                  <text
-                    key={`es-${li}`}
-                    x={x + nodeW / 2}
-                    y={nodeY + 38 + li * 22}
-                    textAnchor="middle"
-                    fill={isActive ? "var(--accent)" : "var(--foreground)"}
-                    fontSize={16}
-                    fontWeight={isActive ? 700 : 500}
-                    className="es transition-all duration-300"
-                  >
-                    {line}
-                  </text>
-                ))}
-                <text
-                  x={x + nodeW / 2}
-                  y={nodeY + nodeH - 16}
-                  textAnchor="middle"
-                  fill="var(--muted)"
-                  fontSize={14}
-                >
-                  {count} {count === 1 ? "course" : "courses"}
-                </text>
-              </g>
+                </g>
+              </a>
             );
           })}
         </svg>
       </div>
 
-      {/* === REACTIVE TABLE === */}
-      <div key={selected} className="animate-fade-in">
-        <h2 className="text-xs uppercase tracking-[0.15em] text-accent font-semibold pb-3 mb-4 border-b border-accent/15">
-          <span className="en">{activeDomain.nameEn}</span>
-          <span className="es">{activeDomain.nameEs}</span>
-        </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-[13px]">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
-                  <span className="en">Course</span><span className="es">Curso</span>
-                </th>
-                <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
-                  <span className="en">Level</span><span className="es">Nivel</span>
-                </th>
-                <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
-                  <span className="en">University</span><span className="es">Universidad</span>
-                </th>
-                <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2">
-                  <span className="en">Period</span><span className="es">Período</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {activeDomain.courses.flatMap((course) =>
-                course.instances.map((inst, ii) => {
-                  const period = formatPeriod(inst.semesters);
-                  return (
+      {/* === TABLES: one per domain, only the selected one shown === */}
+      {domains.map((domain, di) => (
+        <section
+          key={domain.slug}
+          id={domain.slug}
+          aria-labelledby={`${domain.slug}-title`}
+          className={selected === di ? "scroll-mt-20 animate-fade-in" : "hidden"}
+        >
+          <h3
+            id={`${domain.slug}-title`}
+            className="text-xs uppercase tracking-[0.15em] text-accent font-semibold pb-3 mb-4 border-b border-accent/15"
+          >
+            {pick(lang, domain.nameEn, domain.nameEs)}
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-[13px]">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
+                    {pick(lang, "Course", "Curso")}
+                  </th>
+                  <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
+                    {pick(lang, "Level", "Nivel")}
+                  </th>
+                  <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
+                    {pick(lang, "University", "Universidad")}
+                  </th>
+                  <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2">
+                    {pick(lang, "Period", "Período")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {domain.courses.flatMap((course) =>
+                  course.instances.map((inst, ii) => (
                     <tr key={`${course.name}-${ii}`} className="border-b border-border/40">
                       <td className="py-2.5 pr-4 text-foreground font-medium">
                         {ii === 0 ? course.name : ""}
                         {ii === 0 && materials[course.name] && (
                           <a
-                            href={materials[course.name]}
+                            href={localePath(lang, materials[course.name])}
                             className="ml-2 whitespace-nowrap text-[11px] font-normal text-accent hover:underline"
                           >
-                            <span className="en">Materials →</span>
-                            <span className="es">Materiales →</span>
+                            {pick(lang, "Materials →", "Materiales →")}
                           </a>
                         )}
                       </td>
@@ -221,23 +225,23 @@ export function TeachingExplorer({
                             ? "bg-accent/10 text-accent"
                             : "bg-amber-500/10 text-amber-700 dark:text-amber-400"
                         }`}>
-                          <span className="en">{inst.level === "graduate" ? "Graduate" : "Undergraduate"}</span>
-                          <span className="es">{inst.level === "graduate" ? "Posgrado" : "Pregrado"}</span>
+                          {levelName(inst.level, lang)}
                         </span>
                       </td>
-                      <td className="py-2.5 pr-4 text-muted">{SHORT_UNI[inst.university] || inst.university}</td>
-                      <td className="py-2.5 text-muted">
-                        <span className="en">{period.en}</span>
-                        <span className="es">{period.es}</span>
+                      <td className="py-2.5 pr-4 text-muted">
+                        <abbr title={inst.university} className="no-underline">
+                          {SHORT_UNI[inst.university] || inst.university}
+                        </abbr>
                       </td>
+                      <td className="py-2.5 text-muted">{formatPeriod(inst.semesters, lang)}</td>
                     </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))}
     </div>
   );
 }

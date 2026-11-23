@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ViewTransition } from "react";
 import { T } from "@/components/content/t";
 import { formatUpdated, SLIDES_URL, type ClassDeck, type MaterialsCourse, type Unit } from "@/data/materials";
+import { getLang, href } from "@/lib/lang-server";
 
 const abs = (path: string) => (path.startsWith("/") || path.startsWith("http") ? path : `${SLIDES_URL}${path}`);
 
@@ -76,10 +77,11 @@ function Summary({ deck }: { deck: ClassDeck }) {
   );
 }
 
-/** One row per class: thumbnail on the left, text and buttons on the right (stacked on mobile) */
+/** One row per class: thumbnail on the left, text and buttons on the right (stacked on mobile).
+ *  Its anchor (/materials/<course>#<class>) links straight to the class. */
 export function ClassRow({ deck }: { deck: ClassDeck }) {
   return (
-    <article className="group flex flex-col gap-5 border-b border-border/40 py-5 last:border-b-0 sm:flex-row">
+    <article id={deck.clase} className="group scroll-mt-20 flex flex-col gap-5 border-b border-border/40 py-5 last:border-b-0 sm:flex-row">
       <div className="shrink-0 sm:w-60">
         <T
           en={<a href={verUrl(deck, true)} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg border border-border" tabIndex={-1}><Thumb deck={deck} /></a>}
@@ -182,7 +184,7 @@ function CourseStats({ course }: { course: MaterialsCourse }) {
 export function CourseCard({ course }: { course: MaterialsCourse }) {
   return (
     <Link
-      href={`/materials/${course.slug}`}
+      href={href(`/materials/${course.slug}`)}
       className="group card-lift flex flex-col overflow-hidden rounded-xl border border-border bg-background"
     >
       <CourseCover course={course} className="border-b border-border" />
@@ -233,7 +235,7 @@ export function RecentList({ items }: { items: { deck: ClassDeck; course: Materi
     <ul className="grid gap-4 sm:grid-cols-3">
       {items.map(({ deck, course }) => (
         <li key={deck.ruta}>
-          <a href={verUrl(deck, false)} target="_blank" rel="noopener noreferrer" className="group flex gap-3 sm:flex-col">
+          <a href={verUrl(deck, getLang() === "en")} target="_blank" rel="noopener noreferrer" className="group flex gap-3 sm:flex-col">
             <span className="w-32 shrink-0 overflow-hidden rounded-md border border-border sm:w-full">
               <Thumb deck={deck} />
             </span>

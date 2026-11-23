@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { pageMetadata, PERSON_ID, SITE_URL } from "@/lib/seo";
+import { absUrl, pageMetadata, PERSON_ID } from "@/lib/seo";
+import { localePath, pick, type Lang } from "@/lib/i18n";
+import { setLang } from "@/lib/lang-server";
+import { breadcrumbs, jsonLd } from "@/lib/schema";
 import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { ComingSoonCard, Counts, CourseCard, RecentList } from "@/components/content/materials";
@@ -7,17 +10,24 @@ import { CurvedPanel } from "@/components/content/curved-panel";
 import { getMaterials, getRecent } from "@/data/materials";
 import { teachingDomains } from "@/data/teaching";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Materials",
-  description:
-    "Class slides by Mateo Belalcazar for the courses he teaches, organized by course and unit: view them in the browser or download them as PDF. In Spanish, licensed CC BY 4.0.",
-  path: "/materials",
-});
+export function materialsMetadata(lang: Lang): Metadata {
+  return pageMetadata({
+    lang,
+    title: pick(lang, "Materials", "Materiales"),
+    description: pick(
+      lang,
+      "Class slides by Mateo Belalcazar for the courses he teaches, organized by course and unit: view them in the browser, in Spanish or English, or download them as PDF. Licensed CC BY 4.0.",
+      "Diapositivas de clase de Mateo Belalcazar para los cursos que dicta, organizadas por curso y unidad: se ven en el navegador, en español o en inglés, o se bajan en PDF. Licencia CC BY 4.0."
+    ),
+    path: "/materials",
+  });
+}
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
 const RECENT_MIN = 3; // «Recently published» shows up once there are at least this many classes
 
-export default async function MaterialsPage() {
+export async function MaterialsView({ lang }: { lang: Lang }) {
+  setLang(lang);
   const courses = await getMaterials();
   const totalClasses = courses.reduce((a, c) => a + c.total, 0);
   const recent = totalClasses >= RECENT_MIN ? await getRecent(3) : [];
@@ -25,28 +35,37 @@ export default async function MaterialsPage() {
     .map((d, i) => ({ domain: d, courses: courses.filter((c) => c.course.dominio === i) }))
     .filter((d) => d.courses.length > 0);
 
+  const url = absUrl(localePath(lang, "/materials"));
+  const title = pick(lang, "Materials", "Materiales");
   const schema = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "@id": `${SITE_URL}/materials`,
-    name: "Materials — Mateo Belalcazar",
-    url: `${SITE_URL}/materials`,
-    author: { "@id": PERSON_ID },
-    hasPart: courses
-      .filter((c) => c.total > 0)
-      .map((c) => ({
-        "@type": "Course",
-        name: c.course.nombre,
-        description: c.course.descripcion.en,
-        url: `${SITE_URL}/materials/${c.slug}`,
-        inLanguage: "es",
-        provider: { "@id": PERSON_ID },
-      })),
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": url,
+        name: `${title} — Mateo Belalcazar`,
+        url,
+        inLanguage: lang,
+        author: { "@id": PERSON_ID },
+        license: LICENSE_URL,
+        hasPart: courses
+          .filter((c) => c.total > 0)
+          .map((c) => ({
+            "@type": "Course",
+            name: c.course.nombre,
+            description: pick(lang, c.course.descripcion.en, c.course.descripcion.es),
+            url: absUrl(localePath(lang, `/materials/${c.slug}`)),
+            inLanguage: ["es", "en"],
+            provider: { "@id": PERSON_ID },
+          })),
+      },
+      breadcrumbs(lang, [{ name: title, path: "/materials" }]),
+    ],
   };
 
   return (
     <div className="pt-12 space-y-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(schema)} />
 
       <ScrollReveal direction="left">
         <header className="subpage-hero pl-8">
@@ -104,7 +123,7 @@ export default async function MaterialsPage() {
           )}
 
           {domains.map(({ domain, courses: group }) => (
-            <div key={domain.nameEn} className="space-y-5">
+            <div key={domain.nameEn} id={domain.slug} className="scroll-mt-20 space-y-5">
               <h3 className="border-b border-accent/15 pb-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
                 <T en={domain.nameEn} es={domain.nameEs} />
               </h3>

@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui";
+import { pick, type Lang } from "@/lib/i18n";
 
 type Theme = "system" | "dark" | "light";
 const CYCLE: Theme[] = ["system", "dark", "light"];
 
-export function ThemeToggle() {
+// The theme is a display preference of the visitor, not content: it has no URL (no duplicate pages for crawlers)
+export function ThemeToggle({ lang }: { lang: Lang }) {
   const [theme, setTheme] = useState<Theme>("system");
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export function ThemeToggle() {
   }
 
   return (
-    <Button variant="ghost" size="sm" onClick={cycle} aria-label="Change theme" title="Change theme" className="h-9 w-9 p-0">
+    <Button variant="ghost" size="sm" onClick={cycle} aria-label={pick(lang, "Change theme", "Cambiar tema")} title={pick(lang, "Change theme", "Cambiar tema")} className="h-9 w-9 p-0">
       {theme === "dark" && <span aria-hidden="true">☀</span>}
       {theme === "light" && <span aria-hidden="true">☾</span>}
       {theme === "system" && (

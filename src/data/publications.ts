@@ -2,6 +2,7 @@ import type { Publication } from "@/lib/types";
 
 export const publications: Publication[] = [
   {
+    id: "londono-moreno-2026",
     title: "Retirement Decision Inventory in Colombia and Spain: Cultural adaptation and validation study",
     authors: "Londoño-Moreno, A.M., **Belalcazar, M.**, Díaz-Bambula, F., Rubio, L., Dumitrache, C.G., Gabardo-Martins, L.M., & França, L.H.F.P.",
     journal: "Current Psychology, 45, 1467",
@@ -11,6 +12,8 @@ export const publications: Publication[] = [
     quartile: "Q1",
   },
   {
+    id: "gonzalez-cano-2026",
+    language: "es",
     title: "Perfiles de motivación y compromiso en matemática, desempeño académico y perfiles de apoyo a la autonomía e instruccional",
     authors: "González Cano, L.J., Uribe Guacas, I.J., **Belalcazar Correa, M.**, & Valencia Serrano, M.",
     journal: "Revista CES Psicología",
@@ -20,6 +23,7 @@ export const publications: Publication[] = [
     quartile: "Q3",
   },
   {
+    id: "cuervo-cuesta-2026",
     title: "Rewriting the crime divide: How executive functions and social cognition processes challenge violence classifications in the Colombian prison population",
     authors: "Cuervo Cuesta, M.T., Chagüendo-Quintero, M.A., Cadavid-Ruiz, N., Dorado-Ramírez, C.A., Herrera Murcia, E., **Belalcazar Correa, M.**, & Jodar Vicente, M.",
     journal: "Frontiers in Psychology, 17, 1741171",
@@ -29,6 +33,7 @@ export const publications: Publication[] = [
     quartile: "Q1",
   },
   {
+    id: "martinez-florez-2024",
     title: "Short-term memory binding is insensitive to the socioeconomic status of older adults with and without mild cognitive impairment",
     authors: "Martínez-Flórez, J.F., **Belalcazar, M.**, Alvarez, A., Erazo, O., Sevilla, S., & Parra, M.A.",
     journal: "The Clinical Neuropsychologist",
@@ -38,10 +43,19 @@ export const publications: Publication[] = [
     quartile: "Q1",
   },
   {
+    id: "pulido-moreno-2025",
+    language: "es",
     title: "Caracterización de perfiles de desempleados en un instrumento para evaluar la atribución del desempleo, la salud física, la salud mental y el apoyo social",
     authors: "Pulido-Moreno, N., & **Belalcazar, M.**",
     journal: "En J.M. Blanch-Ribas & F. Díaz-Bambula (Eds.), Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas (pp. 161–183). Editorial Bonaventuriana",
     year: 2025,
     type: "chapter",
+    book: {
+      title: "Trabajos y organizaciones en el siglo XXI. Perspectivas Iberoamericanas",
+      editors: ["J. M. Blanch-Ribas", "F. Díaz-Bambula"],
+      publisher: "Editorial Bonaventuriana",
+      isbn: "978-628-7559-70-7",
+      pages: [161, 183],
+    },
   },
 ];

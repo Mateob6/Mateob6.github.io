@@ -1,5 +1,9 @@
 import type { ProfileLink, ResearchLine } from "@/lib/types";
 
+// Academic CV (public version, Cancillería anonymized): copied from
+// ~/Desktop/Proyectos/Certificados laborales/cv/fuentes/academico{,_en}.pdf. The link follows the site language.
+export const CV = { en: "/cv/mateo-belalcazar-cv-en.pdf", es: "/cv/mateo-belalcazar-cv-es.pdf" } as const;
+
 export const bio = {
   en: [
     "I study how psychological constructs are built and measured, combining quantitative methodology with computational methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture, particularly in developmental cognitive and educational psychology.",

@@ -1,4 +1,6 @@
 interface PublicationCardProps {
+  /** anchor: /publications#<id> */
+  id?: string;
   type: "article" | "chapter";
   title: string;
   authors: string;
@@ -17,9 +19,9 @@ function renderAuthors(authors: string) {
   });
 }
 
-export function PublicationCard({ title, authors, venue, year, doi }: PublicationCardProps) {
+export function PublicationCard({ id, title, authors, venue, year, doi }: PublicationCardProps) {
   return (
-    <div className="py-3 border-b border-border/40 last:border-b-0">
+    <article id={id} className="scroll-mt-24 py-3 border-b border-border/40 last:border-b-0">
       <p className="text-[13px] text-muted leading-relaxed">
         {renderAuthors(authors)}{" "}
         <span>({year}).</span>{" "}
@@ -51,6 +53,6 @@ export function PublicationCard({ title, authors, venue, year, doi }: Publicatio
           </>
         )}
       </p>
-    </div>
+    </article>
   );
 }

@@ -12,6 +12,8 @@ export type CourseGroup = {
 };
 
 export type TeachingDomain = {
+  /** anchor on /teaching: /teaching#methodology opens that domain */
+  slug: string;
   nameEn: string;
   nameEs: string;
   courses: CourseGroup[];
@@ -19,6 +21,7 @@ export type TeachingDomain = {
 
 export const teachingDomains: TeachingDomain[] = [
   {
+    slug: "statistics",
     nameEn: "Statistics & Quantitative Methods",
     nameEs: "Estadística y Métodos Cuantitativos",
     courses: [
@@ -51,6 +54,7 @@ export const teachingDomains: TeachingDomain[] = [
     ],
   },
   {
+    slug: "methodology",
     nameEn: "Research Methodology",
     nameEs: "Metodología de la Investigación",
     courses: [
@@ -91,6 +95,7 @@ export const teachingDomains: TeachingDomain[] = [
     ],
   },
   {
+    slug: "cognitive-development",
     nameEn: "Cognitive Development & Learning",
     nameEs: "Desarrollo Cognitivo y Aprendizaje",
     courses: [

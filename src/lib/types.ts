@@ -1,4 +1,8 @@
 export type Publication = {
+  /** anchor on /publications (first author + year) */
+  id: string;
+  /** language of the work; English if absent */
+  language?: "en" | "es";
   title: string;
   authors: string;
   journal: string;
@@ -6,6 +10,8 @@ export type Publication = {
   doi?: string;
   type: "article" | "chapter";
   quartile?: string;
+  /** chapters: the book they belong to */
+  book?: { title: string; editors: string[]; publisher: string; isbn: string; pages: [number, number] };
 };
 
 export type Presentation = {
