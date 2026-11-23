@@ -4,6 +4,7 @@ import { SectionHeader } from "@/components/content/section-header";
 import { ProfileLinks } from "@/components/content/profile-links";
 import { EducationEntry } from "@/components/content/education-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
+import { CurvedPanel } from "@/components/content/curved-panel";
 import { bio, researchLines } from "@/data/profile";
 import { education } from "@/data/education";
 import { publications } from "@/data/publications";
@@ -51,7 +52,7 @@ const personJsonLd = {
 
 export default function HomePage() {
   return (
-    <div className="space-y-20 py-12 relative">
+    <div className="space-y-20 pt-12 relative">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -175,12 +176,10 @@ export default function HomePage() {
         </section>
       </ScrollReveal>
 
-      <div className="section-divider" />
-
-      {/* ===== EXPLORE ===== */}
-      <ScrollReveal>
-        <section id="explore">
-          <SectionHeader en="Explore" es="Explorar" />
+      {/* ===== EXPLORE: the doors to the rest of the site, on the curved panel ===== */}
+      <CurvedPanel final ancho="max-w-3xl" labelledBy="explore">
+        <ScrollReveal>
+          <SectionHeader id="explore" en="Explore" es="Explorar" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { href: "/publications", en: "Publications & Presentations", es: "Publicaciones y Presentaciones" },
@@ -191,15 +190,14 @@ export default function HomePage() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-xl border border-border p-4 text-center text-sm text-muted hover:text-accent hover:border-accent/30 transition-colors"
+                className="rounded-xl border border-border bg-background p-4 text-center text-sm text-muted hover:text-accent hover:border-accent/30 transition-colors"
               >
                 <T en={link.en} es={link.es} />
               </Link>
             ))}
           </div>
-        </section>
-      </ScrollReveal>
-
+        </ScrollReveal>
+      </CurvedPanel>
     </div>
   );
 }

@@ -426,6 +426,8 @@ body { overflow-x: clip; }
   --panal-hex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='45'%3E%3Cpath d='M-12.5 0L0.5 7.5V22.5L-12.5 30L-25.5 22.5V7.5ZM-12.5 30V45M-25.5 22.5L-38.5 30M0.5 22.5L13.5 30M13.5 0L26.5 7.5V22.5L13.5 30L0.5 22.5V7.5ZM13.5 30V45M0.5 22.5L-12.5 30M26.5 22.5L39.5 30M39.5 0L52.5 7.5V22.5L39.5 30L26.5 22.5V7.5ZM39.5 30V45M26.5 22.5L13.5 30M52.5 22.5L65.5 30' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
   /* the panel curve as a mask (same path as PanelCurve in materials.tsx), stretched like the SVG */
   --panal-curva: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 64 C 380 64 640 66 860 50 C 1060 34 1190 26 1290 34 C 1360 40 1410 66 1440 96 L1440 120 L0 120 Z'/%3E%3C/svg%3E");
+  /* the same curve mirrored (x → 1440 − x), for .panel-espejo */
+  --panal-curva-espejo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M1440 64 C 1060 64 800 66 580 50 C 380 34 250 26 150 34 C 80 40 30 66 0 96 L0 120 L1440 120 Z'/%3E%3C/svg%3E");
   /* line strength: a share of the text color, so light and dark read the same */
   --panal-fuerza: 8%;
   /* under the reading column: the share of that strength that is left (lattice, and its pointer light) */
@@ -493,6 +495,18 @@ body { overflow-x: clip; }
 
 .panal-fondo-luz[data-activo],
 .panal-panel-luz[data-activo] { opacity: 1; }
+
+/* ========== Curved panel (components/content/curved-panel.tsx) ========== */
+/* mirrored: the drawn curve and the honeycomb mask under it drop at the left */
+.panel-espejo { --panal-curva: var(--panal-curva-espejo); }
+.panel-espejo .panel-curva { transform: scaleX(-1); }
+/* a page that ends in the panel: the surface runs down into the footer, also on short pages / tall screens
+   (chosen over a flat end + cream strip on a mock-up, 2026-11-22) */
+body:has([data-panel-final]) > main { display: flex; flex-direction: column; padding-bottom: 0; }
+body:has([data-panel-final]) > main > * { flex: 1 0 auto; display: flex; flex-direction: column; }
+[data-panel-final] { flex: 1 0 auto; display: flex; flex-direction: column; }
+[data-panel-final] > .panel-cuerpo { flex: 1 0 auto; }
+body:has([data-panel-final]) > footer { background: var(--surface); }
 @media (prefers-reduced-motion: reduce), (hover: none) {
   .panal-fondo-luz, .panal-panel-luz { display: none; }
 }

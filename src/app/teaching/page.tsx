@@ -3,6 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { TeachingExplorer } from "@/components/content/teaching-diagram";
+import { CurvedPanel } from "@/components/content/curved-panel";
 import { teachingDomains } from "@/data/teaching";
 import { getMaterialsLinks } from "@/data/materials";
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = pageMetadata({
 export default async function TeachingPage() {
   const materials = await getMaterialsLinks();
   return (
-    <div className="py-12 space-y-10">
+    <div className="pt-12 space-y-10">
       <ScrollReveal direction="left">
         <header className="subpage-hero pl-8">
           <p className="uppercase tracking-wider text-accent text-xs font-semibold mb-2">
@@ -37,7 +38,13 @@ export default async function TeachingPage() {
         </p>
       </ScrollReveal>
 
-      <TeachingExplorer domains={teachingDomains} materials={materials} />
+      {/* The explorer (diagram + table) on the curved panel, mirrored: drops at the left */}
+      <CurvedPanel final espejo ancho="max-w-3xl" labelledBy="cursos-docencia">
+        <h2 id="cursos-docencia" className="sr-only">
+          <T en="Courses" es="Cursos" />
+        </h2>
+        <TeachingExplorer domains={teachingDomains} materials={materials} />
+      </CurvedPanel>
     </div>
   );
 }

@@ -125,7 +125,7 @@ export function TeachingExplorer({
                   width={nodeW}
                   height={nodeH}
                   rx={16}
-                  fill={isActive ? "var(--accent-subtle)" : "var(--surface)"}
+                  fill={isActive ? "var(--accent-subtle)" : "var(--background)"}
                   stroke={isActive ? "var(--accent)" : "var(--border)"}
                   strokeWidth={isActive ? 2 : 1.5}
                   className="diagram-node-rect transition-all duration-300"

@@ -248,17 +248,6 @@ export function RecentList({ items }: { items: { deck: ClassDeck; course: Materi
   );
 }
 
-/** The top edge of the courses panel: the curve Mateo drew (flat, a broad rise, then a drop at the right) */
-export function PanelCurve() {
-  const top = "M0 64 C 380 64 640 66 860 50 C 1060 34 1190 26 1290 34 C 1360 40 1410 66 1440 96";
-  return (
-    <svg aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" className="block h-12 w-full sm:h-20">
-      <path d={`${top} L1440 120 L0 120 Z`} className="fill-surface" />
-      <path d={top} fill="none" className="stroke-accent/40" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
-    </svg>
-  );
-}
-
 /** The units of one course (course page): heading per unit and its classes */
 export function CourseUnits({ course }: { course: MaterialsCourse }) {
   return (

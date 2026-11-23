@@ -8,7 +8,7 @@ Private `sistema/` layer (gitignored) contains deep context about Mateo's full d
 
 ## Current Status (2026-11-22)
 
-Done today: downloadable CV (EN/ES, cleaned for public use), honeycomb background (everywhere, 1 % under the text), Materials with English versions and the first Zenodo DOI (Estadística), Lighthouse fixes (nav renamed «Recognition»), Vercel removed (GoatCounter only), Search Console set up (sitemap submitted, personal Gmail added as owner), GoatCounter export analysed, CvLAC largely updated.
+Done today: downloadable CV (EN/ES, cleaned for public use), honeycomb background (everywhere, 1 % under the text), curved panels on Home, Teaching and Materials, Materials with English versions and the first Zenodo DOI (Estadística), Lighthouse fixes (nav renamed «Recognition»), Vercel removed (GoatCounter only), Search Console set up (sitemap submitted, personal Gmail added as owner), GoatCounter export analysed, CvLAC largely updated.
 
 Next:
 - **Search Console** (in a few days): sitemap «Correcto» with 6 pages, more than 1 page indexed
@@ -66,7 +66,8 @@ src/
 │   └── content/                 ← T (bilingual), SectionHeader, ScrollReveal, PublicationCard,
 │                                   TeachingExplorer (diagram+table), PresentationEntry,
 │                                   AwardCard, GroupCard, CourseEntry, EducationEntry, ProfileLinks (+ CV paths),
-│                                   materials (CourseCard, ComingSoonCard, ClassRow, UnitTrack, PanelCurve…)
+│                                   materials (CourseCard, ComingSoonCard, ClassRow, UnitTrack…),
+│                                   CurvedPanel (curved-panel.tsx: the curve + surface panel)
 ├── data/                        ← typed content (profile, publications, teaching, skills, materials, etc.)
 ├── types/react-canary.d.ts      ← types for React's <ViewTransition>
 └── lib/
@@ -106,7 +107,8 @@ Dark mode CSS: dual selector pattern — `@media (prefers-color-scheme: dark) { 
 - **Profile links**: animated underline on hover (`link-hover` class)
 - **Header**: scroll-aware (transparent → glass-blur + shadow on scroll). Logo text is bilingual "Home"/"Inicio" (not the full name)
 - **Decorative**: floating dots + pulsing rings (subtle, opacity 15%)
-- **Honeycomb background (panal, 2026-11-22)**: one faint hexagon lattice for the whole site, drawn as CSS masks in `globals.css` («Panal») with the layers in `components/layout/panal.tsx` (`PanalFondo`, `PanalLuz`, mounted in `layout.tsx`; `body` is `relative`). Lines are `--foreground` at **8 %** (`--panal-fuerza`), so light and dark read the same. **It is everywhere, phones included**: full strength in the side margins on desktop (from ~26–36rem off the center outwards), in a patch at the top left of every subpage hero (`body:has(.subpage-hero)`, ≥ 1024 px) and under the blue curve of the Materials panel; much fainter under the reading column, **1 %** (`--panal-texto: 0.125` of the 8 %, set in `--panal-margenes`). The Materials panel has its own layer (`.panal-panel`, curve path repeated in `--panal-curva`; the panel content sits at `z-[1]`) that fades from the curve down to the same floor by 44rem. A copy of the lattice in the accent color lights up around the mouse (`*-luz`, `--px/--py` set by `PanalLuz`; off on touch screens and with reduced motion), dimmed exactly where the lattice is (`--panal-texto-luz`, defaults to `--panal-texto`; can be lowered on its own if the light ever distracts while reading). Cards stay opaque (research lines, awards, course and «Coming soon» cards): objects on top of the honeycomb, no pattern of their own. The page lattice and the panel lattice are out of phase at the curve; accepted, the blue line separates them (aligning would need JS). Decided with Mateo on mock-ups: margins 5/7/12 % compared (→ 8 %), then the floor under the text 2/3/4 % in light and dark (→ 2 %, same in both themes), lowered to 1 % the same day after seeing it live (2026-11-22). The home keeps its dots and rings; «filled cells» were dropped
+- **Honeycomb background (panal, 2026-11-22)**: one faint hexagon lattice for the whole site, drawn as CSS masks in `globals.css` («Panal») with the layers in `components/layout/panal.tsx` (`PanalFondo`, `PanalLuz`, mounted in `layout.tsx`; `body` is `relative`). Lines are `--foreground` at **8 %** (`--panal-fuerza`), so light and dark read the same. **It is everywhere, phones included**: full strength in the side margins on desktop (from ~26–36rem off the center outwards), in a patch at the top left of every subpage hero (`body:has(.subpage-hero)`, ≥ 1024 px) and under the blue curve of every curved panel; much fainter under the reading column, **1 %** (`--panal-texto: 0.125` of the 8 %, set in `--panal-margenes`). Each curved panel has its own layer (`.panal-panel`, curve path repeated in `--panal-curva` / `--panal-curva-espejo`; the panel content sits at `z-[1]`) that fades from the curve down to the same floor by 44rem. A copy of the lattice in the accent color lights up around the mouse (`*-luz`, `--px/--py` set by `PanalLuz`; off on touch screens and with reduced motion), dimmed exactly where the lattice is (`--panal-texto-luz`, defaults to `--panal-texto`; can be lowered on its own if the light ever distracts while reading). Cards stay opaque (research lines, awards, course and «Coming soon» cards): objects on top of the honeycomb, no pattern of their own. The page lattice and the panel lattice are out of phase at the curve; accepted, the blue line separates them (aligning would need JS). Decided with Mateo on mock-ups: margins 5/7/12 % compared (→ 8 %), then the floor under the text 2/3/4 % in light and dark (→ 2 %, same in both themes), lowered to 1 % the same day after seeing it live (2026-11-22). The home keeps its dots and rings; «filled cells» were dropped
+- **Curved panels (2026-11-22)**: where a page turns from *reading* to *exploring*, the cream background gives way to a full-width surface panel whose top edge is the curve Mateo drew (flat, a broad rise, a drop at one side; fill + thin `accent/40` stroke). One component, `CurvedPanel` (`components/content/curved-panel.tsx`): props `espejo` (drop at the left: `.panel-espejo` flips the SVG and swaps `--panal-curva` for `--panal-curva-espejo`, so the honeycomb mask follows), `final` (the page ends in the panel: `data-panel-final`, and `globals.css` «Curved panel» makes `main` a flex column without bottom padding, stretches the panel and paints the footer `--surface`, so the white runs into the footer with no cream strip or gap), `ancho` (inner width) and `labelledBy`. Where: **Home** before Explore (normal), **Teaching** around the diagram + table (mirrored), **Materials** around the courses (normal). **Rules** (Mateo, 2026-11-22): at most one curve per page; only at that reading → exploring turn (a collection, a tool, the doors to the rest of the site); always the same two surfaces, no new colors or accent bands; reading pages (Publications, Recognition) stay flat; alternate the orientation between pages. Things on the panel use `bg-background` (cream) to stand out: course cards, Explore cards, inactive Teaching nodes. Chosen on a mock-up (normal vs mirrored; flat end + cream strip vs panel into the footer). Candidate for a later round: the course page (units and classes on a panel)
 
 ### FOUC Prevention
 
@@ -118,7 +120,7 @@ Two blocking scripts in `<head>` via `dangerouslySetInnerHTML`:
 
 ## Home Page Layout
 
-Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (3 GroupCards with rank badges: Instituto CIDEAS, A1, A) → Selected Publications (4 articles in APA reference format, link to /publications) → Explore (2 × 2 grid, stacked on mobile, linking to the 4 subpages)
+Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (3 GroupCards with rank badges: Instituto CIDEAS, A1, A) → Selected Publications (4 articles in APA reference format, link to /publications) → Explore (2 × 2 grid of cream cards, stacked on mobile, linking to the 4 subpages) on a curved panel that runs into the footer (no section divider before it: the curve does that job)
 
 Person JSON-LD schema in home page with `sameAs` linking to 6 academic profiles. WebSite JSON-LD in root layout.
 
@@ -155,7 +157,7 @@ APA-style reference list format. No cards — flat typographic entries with `bor
 
 ### Teaching (`/teaching`)
 
-Interactive SVG tree diagram + reactive table. `TeachingExplorer` client component with `selectedDomain` state.
+Interactive SVG tree diagram + reactive table. `TeachingExplorer` client component with `selectedDomain` state. Both sit on a mirrored curved panel (`CurvedPanel final espejo`, sr-only h2 «Courses»), so inactive domain nodes are filled with `--background` (cream on the white panel).
 
 **Diagram:** Central "COURSES" node branching to 3 domains. Animated on scroll (line drawing + node fade-in). Active domain has accent fill/border; inactive has muted styling. Click swaps the table below with fade-in transition. Pre-selects first domain on load. Breaks out of `max-w-3xl` container to `max-w-6xl` for prominence.
 
@@ -173,7 +175,7 @@ Data types in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance).
 Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas-web/`), organized **course → unit → class**. Only classes made with that engine, from 2026-11 on (no old PowerPoint or Gamma decks). Nav label "Materials" / "Materiales" (mobile: "Slides" / "Diapos"); also in footer, sitemap and as a 4th card in the home Explore grid (2 × 2).
 
 **Structure (decided 2026-11-22: "course front page + focused view", after weighing a sliding tabbed panel and a honeycomb)**
-- **`/materials` (front page)**: hero, one sentence, chips «CC BY 4.0» and «Spanish · English», counts («3 courses · 1 class»). Below, a **full-width panel** (`bg-surface`, same breakout as the Teaching diagram) whose top edge is the curve Mateo drew (`PanelCurve`: flat, broad rise, drop at the right; fill + thin `accent/40` stroke). Inside (`max-w-5xl`): «Recently published» (only when there are ≥ 3 classes; `RECENT_MIN` in the page), then the courses grouped by the teaching domains (same names as `/teaching`), as cards in a 1/2/3-column grid.
+- **`/materials` (front page)**: hero, one sentence, chips «CC BY 4.0» and «Spanish · English», counts («3 courses · 1 class»). Below, a **curved panel** (`CurvedPanel final`, see Architecture → Curved panels; drop at the right), the first one on the site. Inside (`max-w-5xl`): «Recently published» (only when there are ≥ 3 classes; `RECENT_MIN` in the page), then the courses grouped by the teaching domains (same names as `/teaching`), as cards in a 1/2/3-column grid.
   - **`CourseCard`** (course with classes): link to `/materials/<slug>`; 16:9 cover (thumbnail of the course's most recent class), name, description (2 lines), «3 units · 1 class · Nov 2026», «Open course →».
   - **`ComingSoonCard`** (course Mateo teaches but without classes yet): not a link, dashed border, a plain cover with «Coming soon / Próximamente» (its own honeycomb pattern was removed 2026-11-22; the panel lattice is behind the cards, so the card background is opaque). Every course in `cursos.json` shows up; today Estadística (with classes), Análisis Integrado de Datos and Psicología del Aprendizaje.
 - **`/materials/<slug>` (focused view)**: one static page per course **with classes** (`generateStaticParams`, `dynamicParams = false`, own metadata). «← All courses», header with domain label, name, description, counts and the cover on the right; `UnitTrack` (all units, faint until they have classes, «Coming soon»); then each unit with its `ClassRow`s (thumbnail on the left, title, summary, slide count and date, «View slides ↗» filled accent and «PDF ↓» outline; no download of the HTML itself, Mateo's decision).
@@ -340,6 +342,7 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 
 ## Pending
 
+- **Teaching on phones**: the course table is wider than the screen and the Period column is cut off (seen 2026-11-22, it predates the curved panel); the diagram is also very small at 390 px
 - **Materials**:
   - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo). The first Zenodo record was published before this check
   - **Posters and congress talks** could get one DOI each on Zenodo (linked to the paper via `isSupplementTo`), with a «Slides» link on the matching entry in `/publications`

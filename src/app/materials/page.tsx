@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { pageMetadata, PERSON_ID, SITE_URL } from "@/lib/seo";
 import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
-import { ComingSoonCard, Counts, CourseCard, PanelCurve, RecentList } from "@/components/content/materials";
+import { ComingSoonCard, Counts, CourseCard, RecentList } from "@/components/content/materials";
+import { CurvedPanel } from "@/components/content/curved-panel";
 import { getMaterials, getRecent } from "@/data/materials";
 import { teachingDomains } from "@/data/teaching";
 
@@ -87,41 +88,35 @@ export default async function MaterialsPage() {
       </ScrollReveal>
 
       {/* The courses panel: full width, with the curved top edge */}
-      <section className="relative left-1/2 w-[100vw] -translate-x-1/2" aria-labelledby="cursos">
-        <PanelCurve />
-        {/* the honeycomb under the blue curve, and its pointer light (globals.css «Panal») */}
-        <div aria-hidden="true" className="panal-panel" />
-        <div aria-hidden="true" className="panal-panel-luz" data-panal-luz="" />
-        <div className="bg-surface pb-20">
-          <div className="relative z-[1] mx-auto max-w-5xl space-y-14 px-6 pt-4">
-            <h2 id="cursos" className="sr-only">
-              <T en="Courses" es="Cursos" />
-            </h2>
+      <CurvedPanel final labelledBy="cursos">
+        <div className="space-y-14">
+          <h2 id="cursos" className="sr-only">
+            <T en="Courses" es="Cursos" />
+          </h2>
 
-            {recent.length > 0 && (
-              <div className="space-y-4">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-accent">
-                  <T en="Recently published" es="Recién publicadas" />
-                </h3>
-                <RecentList items={recent} />
-              </div>
-            )}
+          {recent.length > 0 && (
+            <div className="space-y-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-accent">
+                <T en="Recently published" es="Recién publicadas" />
+              </h3>
+              <RecentList items={recent} />
+            </div>
+          )}
 
-            {domains.map(({ domain, courses: group }) => (
-              <div key={domain.nameEn} className="space-y-5">
-                <h3 className="border-b border-accent/15 pb-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
-                  <T en={domain.nameEn} es={domain.nameEs} />
-                </h3>
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.map((c) =>
-                    c.total > 0 ? <CourseCard key={c.slug} course={c} /> : <ComingSoonCard key={c.slug} course={c} />
-                  )}
-                </div>
+          {domains.map(({ domain, courses: group }) => (
+            <div key={domain.nameEn} className="space-y-5">
+              <h3 className="border-b border-accent/15 pb-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
+                <T en={domain.nameEn} es={domain.nameEs} />
+              </h3>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {group.map((c) =>
+                  c.total > 0 ? <CourseCard key={c.slug} course={c} /> : <ComingSoonCard key={c.slug} course={c} />
+                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </CurvedPanel>
     </div>
   );
 }
