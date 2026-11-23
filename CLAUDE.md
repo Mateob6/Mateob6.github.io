@@ -6,15 +6,16 @@ Academic profile website for Mateo Belalcazar (doctoral student in Psychology, U
 
 Private `sistema/` layer (gitignored) contains deep context about Mateo's full digital ecosystem. Read only when explicitly asked.
 
-## Current Status (2026-11-22)
+## Current Status (as of 2026-11-23)
 
-Done today: downloadable CV (EN/ES, cleaned for public use), honeycomb background (everywhere, 1 % under the text), curved panels on Home, Teaching and Materials, Materials with English versions and the first Zenodo DOI (Estadística), Lighthouse fixes (nav renamed «Recognition»), Vercel removed (GoatCounter only), Search Console set up (sitemap submitted, personal Gmail added as owner), GoatCounter export analysed, CvLAC largely updated.
+Done on 2026-11-22: downloadable CV (EN/ES, cleaned for public use), honeycomb background (everywhere, 1 % under the text), curved panels on Home, Teaching and Materials, Materials with English versions and the first Zenodo DOI (Estadística), Lighthouse fixes (nav renamed «Recognition»), Vercel removed (GoatCounter only), Search Console set up (sitemap submitted, personal Gmail added as owner), GoatCounter export analysed, CvLAC largely updated.
 
 Next:
 - **Search Console** (in a few days): sitemap «Correcto» with 6 pages, more than 1 page indexed
 - **GoatCounter** (≈ mid-December): Google's share and direct landings on subpages
 - **CvLAC**: co-authors/keywords/areas of the 4 articles, the book chapter, PhD advisor, recent events, peer review, awards (see «CvLAC»)
 - **Materials**: Univalle and Javeriana rules on class material (Mateo); a new Zenodo version each semester
+- **Teaching on phones**: the course table overflows (Period column cut off) and the diagram is tiny at 390 px (see «Pending»)
 
 ## Stack
 
