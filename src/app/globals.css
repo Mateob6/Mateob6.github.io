@@ -429,7 +429,7 @@ body { overflow-x: clip; }
   /* line strength: a share of the text color, so light and dark read the same */
   --panal-fuerza: 8%;
   /* under the reading column: the share of that strength that is left (lattice, and its pointer light) */
-  --panal-texto: 0.25; /* 8 % × 0.25 = 2 %, chosen on a mock-up of 2 / 3 / 4 % (2026-11-22) */
+  --panal-texto: 0.125; /* 8 % × 0.125 = 1 %: 2 % chosen on a mock-up of 2 / 3 / 4 %, then lowered by Mateo (2026-11-22) */
   --panal-texto-luz: var(--panal-texto);
   /* margins: full lattice from ~26–36rem off the center outwards, the faint floor over the column */
   --panal-margenes: linear-gradient(90deg, #000 0, #000 calc(50% - 36rem), rgb(0 0 0 / var(--panal-texto)) calc(50% - 26rem), rgb(0 0 0 / var(--panal-texto)) calc(50% + 26rem), #000 calc(50% + 36rem), #000 100%);
