@@ -6,6 +6,16 @@ Academic profile website for Mateo Belalcazar (doctoral student in Psychology, U
 
 Private `sistema/` layer (gitignored) contains deep context about Mateo's full digital ecosystem. Read only when explicitly asked.
 
+## Current Status (2026-11-22)
+
+Done today: downloadable CV (EN/ES, cleaned for public use), honeycomb background, Materials with English versions and the first Zenodo DOI (Estadística), Lighthouse fixes (nav renamed «Recognition»), Vercel removed (GoatCounter only), Search Console set up (sitemap submitted, personal Gmail added as owner), GoatCounter export analysed, CvLAC largely updated.
+
+Next:
+- **Search Console** (in a few days): sitemap «Correcto» with 6 pages, more than 1 page indexed
+- **GoatCounter** (≈ mid-December): Google's share and direct landings on subpages
+- **CvLAC**: co-authors/keywords/areas of the 4 articles, the book chapter, PhD advisor, recent events, peer review, awards (see «CvLAC»)
+- **Materials**: Univalle and Javeriana rules on class material (Mateo); a new Zenodo version each semester
+
 ## Stack
 
 - **Framework**: Next.js 16 + React 19 + TypeScript
@@ -41,7 +51,7 @@ src/
 │   ├── layout.tsx               ← root layout (Lora+Inter fonts, Header, Footer, MobileNav, GoatCounter, honeycomb, FOUC prevention)
 │   ├── page.tsx                 ← HOME: hero + about + education + research lines + research groups + selected publications + explore grid
 │   ├── icon.svg                 ← favicon (MB monogram)
-│   ├── sitemap.ts               ← 5 URLs (dynamic lastModified)
+│   ├── sitemap.ts               ← home, publications, teaching, materials, one per course with classes, more (dynamic lastModified)
 │   ├── robots.ts
 │   ├── publications/page.tsx    ← APA-style reference list (4 articles + 1 chapter + 10 presentations) + ScholarlyArticle JSON-LD
 │   ├── teaching/page.tsx        ← interactive SVG tree diagram + reactive table (3 domains, 12 courses); «Materials →» on courses with slides
@@ -52,10 +62,11 @@ src/
 │   └── awards/page.tsx          ← redirect stub → /more#awards (meta refresh, noindex)
 ├── components/
 │   ├── ui/                      ← cn, Card, Badge, Button
-│   ├── layout/                  ← Header, Footer, MobileNav, ThemeToggle, LanguageToggle
+│   ├── layout/                  ← Header, Footer, MobileNav, ThemeToggle, LanguageToggle, GoatCounterTracker, panal (PanalFondo, PanalLuz)
 │   └── content/                 ← T (bilingual), SectionHeader, ScrollReveal, PublicationCard,
 │                                   TeachingExplorer (diagram+table), PresentationEntry,
-│                                   AwardCard, GroupCard, CourseEntry, EducationEntry, ProfileLinks
+│                                   AwardCard, GroupCard, CourseEntry, EducationEntry, ProfileLinks (+ CV paths),
+│                                   materials (CourseCard, ComingSoonCard, ClassRow, UnitTrack, PanelCurve…)
 ├── data/                        ← typed content (profile, publications, teaching, skills, materials, etc.)
 ├── types/react-canary.d.ts      ← types for React's <ViewTransition>
 └── lib/
@@ -172,10 +183,11 @@ Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas
 - **Thumbnails**: `miniatura.webp` / `miniatura-oscura.webp` (960 × 540) next to each class, from the slide number in its `publicacion.json`; both `<img>` are rendered and `.thumb-light` / `.thumb-dark` in `globals.css` show the one matching the site theme (Tailwind `dark:` follows only the OS, so it is not used).
 - **English version (2026-11-22)**: the decks are written and shown in Spanish; a cover button (or `?en`) switches the whole deck to English (engine rule; Claude translates each class when it is finished, `clase.py traducir`). `clases.json` carries `titulo_en`, `pdf_en`, `miniatura_en` and `miniatura_en_oscura`. When the site is in English, Materials shows the English title and thumbnail (`DeckTitle`, `Thumb` with `<T>`), «View slides» opens the deck with `?en` (`verUrl`) and «PDF» downloads the English PDF; classes without a translation fall back to Spanish. Course page meta line: «Spanish and English»; JSON-LD `inLanguage` ["es", "en"] and `alternateName`.
 - **License**: CC BY 4.0. **JSON-LD**: `CollectionPage` with `Course` items on the front page; `Course` with `LearningResource` parts on each course page.
+- **Zenodo archive (since 2026-11-22)**: one record per course, a new version each semester. The course page shows «Archived in Zenodo · DOI …» with the **concept DOI** (always the latest version), from `COURSE_DOI` in `src/data/materials.ts`; the Course JSON-LD carries it as `identifier` + `sameAs`. Estadística: concept DOI `10.5281/zenodo.24450377`, version 2026-2 `10.5281/zenodo.24450378` (record https://zenodo.org/record/24450378): «Estadística: diapositivas de clase (2026-2)», type Lesson, CC BY 4.0, ORCID as creator, bilingual description, files = the class PDF in Spanish and English plus the single-file offline `.html` (`clase.py empaquetar`; Zenodo stores it but does not serve it as a live page, so the record links the web deck with `isVariantFormOf`). Account: Zenodo user `mateob6`, ORCID sign-in, mateo.belalcazar6@gmail.com; token `perfil-materiales` (`deposit:write`, `deposit:actions`) in `~/.zshrc` as `ZENODO_TOKEN` (it was pasted once in a chat; recreate it with `pbpaste` if that matters). Next semester: «New version» of the same record; a new course gets its own record and a `COURSE_DOI` entry. Before any upload, apply the filter in «Pending → Materials»
 - **Old slides index**: `mateob6.github.io/diapositivas/` redirects to `/materials`.
 - **Later** (decided): a short looping video of each class on hover; a page per course already exists, so growth needs no restructuring.
 
-### More (`/more`)
+### Recognition (`/more`)
 
 Merged Skills + Awards page (2026-10-17). Nav label "Recognition" / "Reconocimientos" (renamed from "More" on 2026-11-22: Lighthouse flagged "More" as generic link text; mobile nav says "Awards" / "Premios" because the long word does not fit); H1 "Awards & Skills" / "Premios y Habilidades". Awards first (they're short and high-signal), then skills. Anchors `#awards` and `#skills` with `scroll-mt-20` so the sticky header doesn't cover them. Professional experience stays only in the CV (Mateo's decision, 2026-11-22); Materials and the CV have their own places (/materials, the «CV» link).
 
@@ -202,7 +214,7 @@ All three h2s have `border-b border-accent/15` for consistency.
 | Education | 3 (PhD, MSc, BSc) |
 | Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
 | Profile links | 8 (CV, Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
-| Pages | 5 (Home, Publications, Teaching, Materials, More) + one page per course with slides under /materials + 2 redirect stubs |
+| Pages | 5 (Home, Publications, Teaching, Materials, Recognition) + one page per course with slides under /materials + 2 redirect stubs |
 | Nav items | 4 (Publications, Teaching, Materials, Recognition) |
 
 ## Downloadable CV (since 2026-11-22)
@@ -211,15 +223,18 @@ First link in the hero («CV») and in the footer. It follows the site language:
 
 Both academic CVs were cleaned on 2026-11-22 for public use: the Cancillería work reads «concurso público de méritos para una entidad del Estado colombiano» / «public merit-based competitive examination for a Colombian state entity», with no entity, contract numbers, item or applicant counts, cities, scoring model or appeals. Keep it that way before copying a new version here.
 
+Also fixed on 2026-11-22: the CvLAC link in both CVs pointed to someone else's profile (now `cod_rh=0000095645`), and the book chapter lists only Pulido-Moreno and Belalcazar as authors, with Blanch-Ribas and Díaz-Bambula as editors (pp. 161–183, Editorial Bonaventuriana, ISBN 978-628-7559-70-7).
+
 ## Professional Documentation (offline)
 
 Employment documents in `~/Desktop/Proyectos/Certificados laborales/`. Teaching dates from official documents:
 - **PUJ**: Jul 2022–present (3 departments)
-- **Univalle**: Nov 2020–present (Cali + Palmira)
-- **USB**: 2024
+- **Univalle**: Cali Nov 2020–present (hora cátedra; linked to research projects since 2018); Palmira Nov 2020–Dec 2025
+- **USB**: Feb–Jun 2024
+- **Public merit-based exam** (Fundación Mixta Politécnico Univalle Yumbo): Aug 2025–Nov 2026
 
 **CVs** (reorganized 2026-09-11) live in `~/Desktop/Proyectos/Certificados laborales/cv/`:
-- `fuentes/academico.tex` — academic master CV (Spanish, 6 pp.)
+- `fuentes/academico.tex` / `academico_en.tex` — academic master CV in Spanish and English (6 pp. each), the public versions linked from the site
 - `fuentes/industria.tex` — corporate CV (Spanish, 3 pp.) oriented to computational methods + AI, analytics and measurement; sent to Tecnoquímicas 2026-09-11 (frozen copy in `enviados/`)
 - `fuentes/anthropic_campus_en.tex` — English resume (2 pp.) for Anthropic's Claude Campus Ambassador program, PhD track (deadline 2026-09-12 11:59 PM PT). Research with Claude, teaching and community, fellowship, all 5 publications (no MAGA) + 4 under review + 1 in preparation. Sending copy and verified figures in `~/Desktop/Convocatorias, eventos y más/claude-campus-ambassador-2026/`
 - `historico/2026-09_cv_industria_v1.*` contains internal Cancillería figures — **never publish or link it**
@@ -227,27 +242,55 @@ Employment documents in `~/Desktop/Proyectos/Certificados laborales/`. Teaching 
 
 **Cancillería confidentiality**: contract CI-006-2026 has a continuing confidentiality clause. If the site ever lists this work, describe it as a public merit-based contest for a Colombian state entity, without the entity name, item counts, applicant counts, cities, scoring model (2PL) or appeals.
 
-## Academic Profiles (external, synced 2026-09-04)
+## Academic Profiles (external; audited 2026-09-04, rechecked 2026-11-22)
 
-All three profiles were audited and configured on 2026-09-04. Citation tracking is automatic.
+Citation tracking is automatic in Scholar, ORCID and Semantic Scholar.
 
 | Platform | ID / URL | State |
 |----------|----------|-------|
 | Google Scholar | `RoI0VQ8AAAAJ` — scholar.google.com/citations?user=RoI0VQ8AAAAJ | 6 entries (Current Psychology added manually 2026-09-09), 4 citations, h=1. Auto-updates ON, citation alerts ON. Other names registered (Belalcázar Correa, Belalcázar). Areas: psychometrics, quantitative methodology, computational psychology, cognitive development, mathematics education. Metadata of CES, chapter and MAGA entries corrected by hand |
-| ORCID | `0000-0001-8276-9734` | 5 works (4 with DOI + chapter), sources Crossref/Scopus/manual. Current Psychology pending auto-index via Crossref. 5 name variants under "Also known as". Public API: `pub.orcid.org/v3.0/<id>/works` |
-| Semantic Scholar | author `2296970047` | Claimed & verified. 4 papers (no chapter), 2 citations. Current Psychology pending auto-index. Public API, no key needed: `api.semanticscholar.org/graph/v1/author/2296970047?fields=papers.title,papers.externalIds,citationCount` |
+| ORCID | `0000-0001-8276-9734` | 5 works (4 with DOI + chapter), sources Crossref/Scopus/manual. Current Psychology indexed (checked 2026-11-22). 5 name variants under "Also known as". Public API: `pub.orcid.org/v3.0/<id>/works` |
+| Semantic Scholar | author `2296970047` | Claimed & verified. 4 papers (no chapter, Current Psychology included), 3 citations (2026-11-22). Public API, no key needed: `api.semanticscholar.org/graph/v1/author/2296970047?fields=papers.title,papers.externalIds,citationCount` |
 | ResearchGate | researchgate.net/profile/Mateo-Belalcazar | Current Psychology added manually 2026-09-09 |
-| CvLAC (Minciencias) | **`cod_rh=0000095645`** — scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000095645 (the `0001867285` used until 2026-11-22 in this file and in the CVs belongs to someone else; fixed in `academico.tex`, `academico_en.tex` and the Anthropic grant CV) | Audited and partly updated 2026-11-22. **Done**: the 4 articles (Current Psychology, Frontiers, CES, TCN; journal and city codes set, DOI as web link), MSc graduation Dec 2023 + thesis (approved), PhD item (Univalle Sede Cali, program «Psicología», from Aug 2025, 3 semesters, scholarship, thesis title «Integrar sin Excluir: IA para Mapear Interacciones Multimodales entre Niños, Maestros y Artefactos en Escenarios STEAM+H…»), Scholar + ResearchGate + ORCID identifiers, citation names «BELALCAZAR, M.; BELALCAZAR CORREA, M.; BELALCÁZAR, M.»; professional experience by institution (no course-level activities, Mateo's choice): Univalle Sede Cali (2018–, **current affiliation**, 9 h), Javeriana Cali (Jul 2022–, 12 h, not «current»: CvLAC allows only one), Univalle Sede Palmira (Nov 2020–Dec 2025, 9 h), San Buenaventura Cali (Feb–Jun 2024, 6 h), Fundación Mixta Politécnico Univalle Yumbo (Aug 2025–Nov 2026, 20 h, public merit-based exam, entity not named). Weekly hours follow Mateo's rule: 3 h per course in the current (or busiest) semester. **Pending**: co-authors, keywords and areas of the 4 articles (popup windows, Mateo clicks); the book chapter (book and Editorial Bonaventuriana are not in the CvLAC catalog: create editorial → book ISBN 978-628-7559-70-7, 420 pp., Dec 2025 → chapter pp. 161–183, Pulido-Moreno & Belalcazar); PhD advisor (Yenny Otálora) under «Personas vinculadas»; recent events; peer reviewer; awards. Technique that works: popups that only write fields into `window.opener` can be replaced by reading the popup page in another tab and setting the same fields (`cod_revista`/`tpo_revista`/`txt_nme_revista`; `_loc_<n>`, `_locValue_<n>`, `_locRHValue_<n>`, `_locPaisValue_<n>`). Sessions expire after a few idle minutes. Skill `/cvlac`; data bridge `herramientas/chrome/perfil.py` reads from `src/data/*.ts` and `~/Desktop/Convocatorias, eventos y más/consultoria/`. Login: Claude fills «Nombres», Mateo clicks «Ingresar» |
+| CvLAC (Minciencias) | **`cod_rh=0000095645`** — scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000095645 | Partly updated 2026-11-22; see «CvLAC» below |
+| Zenodo | user `mateob6` (ORCID sign-in) | Course slides archive; see «Materials → Zenodo archive» |
 
 **Google Scholar edit-form gotcha**: the Authors field expects `Surname, Given; Surname, Given` (semicolon-separated). Comma-only input is parsed as a single author.
 
 **Signing convention**: always sign as **Mateo Belalcazar** (no tilde, no second surname) going forward. Past papers used "Belalcazar Correa, M." and "Belalcázar, M."; the name variants above cover them.
 
+### CvLAC
+
+- **ID**: `cod_rh=0000095645`. The `0001867285` used until 2026-11-22 here and in the CVs belongs to someone else.
+- **Login**: Claude fills «Nombres»; Mateo clicks «Ingresar» (Chrome autofills document and password). Sessions expire after a few idle minutes: fill and save in one go, and click «Salir» at the end.
+- **Updated 2026-11-22**: 4 articles (Current Psychology, Frontiers, CES, TCN, with journal and city codes and the DOI as web link); MSc graduation Dec 2023 + thesis (approved); PhD (Univalle Sede Cali, program «Psicología», from Aug 2025, 3 semesters, scholarship, thesis «Integrar sin Excluir: IA para Mapear Interacciones Multimodales entre Niños, Maestros y Artefactos en Escenarios STEAM+H que Relacionen Pensamiento Matemático-Espacial y Resolución Pacífica de Problemáticas en el Pacífico Colombiano»); Scholar, ResearchGate and ORCID identifiers; citation names «BELALCAZAR, M.; BELALCAZAR CORREA, M.; BELALCÁZAR, M.»; professional experience by institution, without course-level activities (Mateo's choice): Univalle Sede Cali (2018–, **current affiliation**, 9 h), Javeriana Cali (Jul 2022–, 12 h; not «current» because CvLAC allows only one), Univalle Sede Palmira (Nov 2020–Dec 2025, 9 h), San Buenaventura Cali (Feb–Jun 2024, 6 h), Fundación Mixta Politécnico Univalle Yumbo (Aug 2025–Nov 2026, 20 h, the public merit-based exam without naming the entity). Weekly hours follow Mateo's rule: 3 h per course in the current (or busiest) semester.
+- **Pending**: co-authors, keywords and areas of the 4 articles (popup windows, Mateo clicks); the book chapter (neither the book nor Editorial Bonaventuriana is in the catalog: create editorial → book ISBN 978-628-7559-70-7, 420 pp., Dec 2025 → chapter pp. 161–183, Pulido-Moreno & Belalcazar); PhD advisor (Yenny Otálora) under «Personas vinculadas»; recent events; peer reviewer; awards.
+- **How to fill it**: popups that only write fields into `window.opener` can be replaced by reading the popup page in another tab and setting the same fields (journal: `cod_revista`, `tpo_revista`, `txt_nme_revista`; place: `_loc_<n>`, `_locValue_<n>`, `_locRHValue_<n>`, `_locPaisValue_<n>`, where `<n>` changes with each page load). Institution and program pickers in Formación/Experiencia are in-page dialogs that work directly; the academic program picker only works as a popup (Mateo clicks). Skill `/cvlac`; data bridge `herramientas/chrome/perfil.py`.
+
 **Current Psychology paper**: published 2026-09-09. DOI `10.1007/s12144-026-10024-9`, vol. 45(17), article 1467. Entry in `src/data/publications.ts` updated. Project folder: `~/Desktop/articulos/Jubilación y validación IDA Colombia-España/`.
 
 ## Analytics (GoatCounter — mateob6.goatcounter.com)
 
-Last reading: 2026-11-22 (dashboard read in Chrome, period Oct 10 – Nov 22; see «Second reading» below). Previous export: 2026-10-10. Tracking since ~2026-09-01. Logged in as the personal Gmail (mateo.belalcazar6); the same account also holds the `journalfinder` site.
+Tracking since ~2026-09-01. Logged in with the personal Gmail (mateo.belalcazar6), which also holds the `journalfinder` site. The extension needs permission for goatcounter.com to read the dashboard in Chrome; exports arrive as a ZIP of JSONL aggregates (Settings → Export).
+
+**Latest: full export 2026-11-22** (`goatcounter-export-mateob6-20261122T231754Z.zip` in Downloads; new JSONL format with hourly aggregates, not raw hits; analysis script kept only in the session scratchpad). Aug 31 – Nov 22: 185 visits; without Nov 22 (15, Mateo's own checks: internal referrers from /teaching and /diapositivas) 170 in 83 days ≈ 2/day, no growth. Weekly: 24 at launch, 4–16 in Sep, peak 34 + 23 in the weeks of Oct 12 and 19 (Instagram and Facebook, Oct 16–20), then 10, 4 and 3 in late Oct – mid Nov (no social pushes), 10 the week of Nov 16. Sources overall: direct/unknown 43 %, Instagram 35 % (`ig` + `l.instagram.com`), Google + Bing 11 %, Facebook 6 % (all in Oct–Nov). Subpages: from Oct 10 to Nov 21 only 9 of 86 visits (10 %) were not the home. Screens: computers 48 %, phones 45 %, tablets 7 %. Busiest: Monday and Friday; 9–12 h and 15–18 h, also 21–24 h (Colombia time). Countries: Colombia 86 %, USA 12 %. Reading: traffic depends on social posts; without them it falls to 3–4 visits a week
+
+**Second reading (Oct 10 – Nov 22, 2026; first one with navigation tracking):** 101 visits in 44 days (≈ 2.3/day, ≈ 16/week). The Nov 22 export shows the first period also had 84 of these units (Aug 31 – Oct 9), so the two periods are comparable: flat at ≈ 2 visits/day.
+
+| Metric | Breakdown |
+|--------|-----------|
+| **Pages** | `/` 80, `/publications` 7, `/teaching` 5, `/materials` 3, `/materials/estadistica` 3, `/more` 3 |
+| **Sources** | Unknown/direct 37 %, Instagram 39 % (`ig` 35 + `l.instagram.com` 4), Facebook 10 %, Google 7 % |
+| **Countries** | Colombia 85 %, USA 12 %, China, Ireland, Sweden 1 % each |
+| **Devices** | Phones 50 %, tablets 5 %, computers 46 % |
+
+- Navigation depth: 21 subpage visits against 80 home visits, so at most ~1 in 4 home visitors goes on to a subpage (fewer if some of those 21 landed directly); Publications first, then Teaching
+- The Materials and `/more` visits are almost all on Nov 22, the day those pages changed: probably Mateo's own checks (and possibly Lighthouse runs), so not audience yet
+- Instagram is now the top named source; Google is still small (7 %) because until Nov 22 only the home was indexed and no sitemap had been submitted (see SEO)
+
+**Next reading:** after Google indexes the subpages (≈ mid-December), compare Google's share and the subpage landings
+
+### History
 
 **Summary (sep 1 – oct 9, 2026):** 84 hits in 29 days with data. Average 2.9 hits/day, ~20/week.
 
@@ -278,23 +321,6 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 5. Stable at ~20 visits/week with no sustained growth yet. Normal for a 1st-year doctoral student's academic profile (5 weeks old). Growth expected with new publications and indexable content
 6. `/skills` and `/awards` were merged into `/more` on 2026-10-17; historical hits stay under the old paths (not summed into `/more`)
 
-**Second reading (Oct 10 – Nov 22, 2026; first one with navigation tracking):** 101 visits in 44 days (≈ 2.3/day, ≈ 16/week). The Nov 22 export shows the first period also had 84 of these units (Aug 31 – Oct 9), so the two periods are comparable: flat at ≈ 2 visits/day.
-
-| Metric | Breakdown |
-|--------|-----------|
-| **Pages** | `/` 80, `/publications` 7, `/teaching` 5, `/materials` 3, `/materials/estadistica` 3, `/more` 3 |
-| **Sources** | Unknown/direct 37 %, Instagram 39 % (`ig` 35 + `l.instagram.com` 4), Facebook 10 %, Google 7 % |
-| **Countries** | Colombia 85 %, USA 12 %, China, Ireland, Sweden 1 % each |
-| **Devices** | Phones 50 %, tablets 5 %, computers 46 % |
-
-- Navigation depth: 21 subpage visits against 80 home visits, so at most ~1 in 4 home visitors goes on to a subpage (fewer if some of those 21 landed directly); Publications first, then Teaching
-- The Materials and `/more` visits are almost all on Nov 22, the day those pages changed: probably Mateo's own checks (and possibly Lighthouse runs), so not audience yet
-- Instagram is now the top named source; Google is still small (7 %) because until Nov 22 only the home was indexed and no sitemap had been submitted (see SEO)
-
-**Full export 2026-11-22** (`goatcounter-export-mateob6-20261122T231754Z.zip` in Downloads; new JSONL format with hourly aggregates, not raw hits; analysis script kept only in the session scratchpad). Aug 31 – Nov 22: 185 visits; without Nov 22 (15, Mateo's own checks: internal referrers from /teaching and /diapositivas) 170 in 83 days ≈ 2/day, no growth. Weekly: 24 at launch, 4–16 in Sep, peak 34 + 23 in the weeks of Oct 12 and 19 (Instagram and Facebook, Oct 16–20), then 10, 4 and 3 in late Oct – mid Nov (no social pushes), 10 the week of Nov 16. Sources overall: direct/unknown 43 %, Instagram 35 % (`ig` + `l.instagram.com`), Google + Bing 11 %, Facebook 6 % (all in Oct–Nov). Subpages: from Oct 10 to Nov 21 only 9 of 86 visits (10 %) were not the home. Screens: computers 48 %, phones 45 %, tablets 7 %. Busiest: Monday and Friday; 9–12 h and 15–18 h, also 21–24 h (Colombia time). Countries: Colombia 86 %, USA 12 %. Reading: traffic depends on social posts; without them it falls to 3–4 visits a week
-
-**Next reading:** after Google indexes the subpages (≈ mid-December), compare Google's share and the subpage landings
-
 ## SEO (implemented 2026-10-09)
 
 - [x] Per-page meta descriptions and OG metadata for all subpages
@@ -314,11 +340,11 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 
 ## Pending
 
-- **Materials, phase 2** (the page exists since 2026-11-22, see «Materials» above). Still open from the 2026-10-17 discussion:
-  - **Zenodo archive**: one DOI per course, a new version each semester (PDF of the classes), resource type Lesson, CC BY 4.0. The page keeps linking the live slides; the DOI would be added per course. Zenodo account created 2026-11-22: sign-in with ORCID, username `mateob6`, name «Mateo Belalcazar», affiliation Universidad del Valle, email mateo.belalcazar6@gmail.com (confirmed). Token `perfil-materiales` (scopes `deposit:write`, `deposit:actions`) in `~/.zshrc` as `ZENODO_TOKEN`; scripts read it from there (an earlier token with the same name was deleted). **First record, published 2026-11-22**: deposition `24450378`, «Estadística: diapositivas de clase (2026-2)», type Lesson, CC BY 4.0, version `2026-2`, both PDFs of «Probabilidad, inferencia y prueba de hipótesis» (ES + `-en.pdf`) plus the packaged single-file `.html` (`clase.py empaquetar`, 1.6 MB, works offline from `file://`, cover button for English; Zenodo stores it but does not serve it as a live page), bilingual description, related identifier `isVariantFormOf` the web deck; version DOI `10.5281/zenodo.24450378`, **concept DOI `10.5281/zenodo.24450377`** (always the latest version), record https://zenodo.org/record/24450378. It passed the filter below (simulated data and teaching cases, no exams, no third-party images; the exercise Google Sheet linked from the deck is an empty template, per Mateo). Mateo published before checking the Univalle/Javeriana IP rules. The course page shows «Archived in Zenodo · DOI …» with the concept DOI, from `COURSE_DOI` in `src/data/materials.ts` (also `identifier` + `sameAs` in the Course JSON-LD). Next semester: «New version» of the same record (same concept DOI) with that term's PDFs and `.html`; a new course gets its own record and an entry in `COURSE_DOI`
-  - **Posters and congress talks** could go on the same page (one DOI each, linked to the paper via "isSupplementTo"), with a "Slides" link on the matching entry in `/publications`
-  - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo)
-  - Filter before any DOI (permanent): no unpublished results, co-authors agree, no identifiable participant data, own or free figures. Never Cancillería, consultorías, Univalle Contigo, Tenorio. No exams, solutions or rubrics in use
+- **Materials**:
+  - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo). The first Zenodo record was published before this check
+  - **Posters and congress talks** could get one DOI each on Zenodo (linked to the paper via `isSupplementTo`), with a «Slides» link on the matching entry in `/publications`
+  - Filter before any DOI (permanent): no unpublished results, co-authors agree, no identifiable participant data, own or free figures, linked spreadsheets only as empty templates. Never Cancillería, consultorías, Univalle Contigo, Tenorio. No exams, solutions or rubrics in use
+  - Later: a short looping video of each class on hover
 - `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
 - Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
 - Teaching data source of truth: `cv/fuentes/academico.tex`. Sync when CV updates.
