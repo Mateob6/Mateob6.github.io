@@ -6,7 +6,9 @@ Academic profile website for Mateo Belalcazar (doctoral student in Psychology, U
 
 Private `sistema/` layer (gitignored) contains deep context about Mateo's full digital ecosystem. Read only when explicitly asked.
 
-## Current Status (as of 2026-11-23)
+## Current Status (as of 2026-11-26)
+
+Done on 2026-11-26: Teaching works on phones (vertical tree below 1024 px, the table reflows below 640 px) and its diagram shows at once with reduced motion.
 
 Done on 2026-11-23 (SEO / GEO, see «Findability»): every page in English **and Spanish with its own URL** (`/es/...`), every in-page action with a URL (language, Teaching domains, anchors on sections and entries), all content in the static HTML (one language per page, all three Teaching tables), richer JSON-LD (ProfilePage, Chapter, Course list, breadcrumbs), hreflang in pages and sitemap, `/llms.txt`, `/llms-full.txt` and a `.md` copy of every page, AI crawlers named in robots.txt, a real 404 page.
 
@@ -17,7 +19,6 @@ Next:
 - **GoatCounter** (≈ mid-December): Google's share and direct landings on subpages
 - **CvLAC**: co-authors/keywords/areas of the 4 articles, the book chapter, PhD advisor, recent events, peer review, awards (see «CvLAC»)
 - **Materials**: Univalle and Javeriana rules on class material (Mateo); a new Zenodo version each semester
-- **Teaching on phones**: the course table overflows (Period column cut off) and the diagram is tiny at 390 px (see «Pending»)
 
 ## Stack
 
@@ -183,9 +184,9 @@ APA-style reference list format. No cards — flat typographic entries with `bor
 
 Interactive SVG tree diagram + reactive table. `TeachingExplorer` client component with `selected` state, **driven by the URL** (2026-11-23): each domain has an anchor (`slug` in `teaching.ts`: `#statistics`, `#methodology`, `#cognitive-development`); the diagram nodes are SVG `<a href="#slug">` links, a click swaps the table and updates the address bar (`history.replaceState`), and opening a URL with the anchor (or a `hashchange`) selects that domain and scrolls to the explorer. **All three tables are in the HTML**; the inactive ones are hidden with the `hidden` CSS class, not the `hidden` attribute, so crawlers and text extractors (Readability-style tools drop `[hidden]`) read every course. Both sit on a mirrored curved panel (`CurvedPanel final espejo`, sr-only h2 «Courses»), so inactive domain nodes are filled with `--background` (cream on the white panel).
 
-**Diagram:** Central "COURSES" node branching to 3 domains. Animated on scroll (line drawing + node fade-in). Active domain has accent fill/border; inactive has muted styling. Click swaps the table below with fade-in transition. Pre-selects the first domain unless the URL has an anchor. Breaks out of `max-w-3xl` container to `max-w-6xl` for prominence.
+**Diagram:** Central "COURSES" node branching to 3 domains. Animated on scroll (line drawing + node fade-in). Active domain has accent fill/border; inactive has muted styling. Click swaps the table below with fade-in transition. Pre-selects the first domain unless the URL has an anchor. Breaks out of `max-w-3xl` container to `max-w-6xl` for prominence. **Only from 1024 px (`lg`)**: below that its text would shrink under 13 px (it was ~5 px at 390). Phones and tablets get the same tree **vertical and in HTML** (2026-11-26): the «COURSES» pill, a trunk on the left and one rounded link per domain (full name + count; same anchors and `choose()`), labels that wrap, `max-w-lg`. Each `<li>` draws its piece of trunk (`::before`) and its branch (`::after`). No animation. Reduced motion: `.teaching-diagram * { animation-delay: 0s }` so the SVG nodes and lines show at once.
 
-**Table:** one table per domain, only the selected one shown (each a `<section id=slug>` with an h3). Columns: Course, Level (badge: amber Pregrado, blue Posgrado), University (short names), Period. Courses with multiple instances get multiple rows.
+**Table:** one table per domain, only the selected one shown (each a `<section id=slug>` with an h3). Columns: Course, Level (badge: amber Pregrado, blue Posgrado), University (short names), Period. Courses with multiple instances get multiple rows. **Below 640 px (`sm`)** the same table reflows (2026-11-26; before, the Period column was cut off): no header row, each course is a block with its name on top and one line per university (level · university · period right-aligned), aligned across the whole table by a grid on `<tbody>` with `subgrid` rows; a separator only after each course. Explicit ARIA roles (`table`, `rowgroup`, `row`, `cell`) keep the table semantics Safari drops when `display` changes.
 
 3 domains, 12 courses, 17 instances across 3 universities (source of truth: `cv/fuentes/academico.tex`):
 1. **Statistics & Quantitative Methods** (3 courses)
@@ -380,9 +381,7 @@ Goal (Mateo): every action on the site has a URL, and all the content is visible
 
 ## Pending
 
-- **Teaching on phones**: the course table is wider than the screen and the Period column is cut off (seen 2026-11-22, it predates the curved panel); the diagram is also very small at 390 px
 - **Trailing slash**: `mateob6.github.io/materials/` (and `/publications/`, etc.) gives 404; without the slash they work. GitHub Pages serves `materials.html` for `/materials`, but `/materials/` looks for `materials/index.html`. Options: `trailingSlash: true` in `next.config.ts` (changes every URL, canonical and sitemap entry; Search Console would need the new ones) or leave it, since internal links, the sitemap and canonicals never use the slash
-- **Reduced motion on Teaching**: the domain nodes keep their inline `animationDelay` (600–900 ms) and stay invisible until then; the reduced-motion block in `globals.css` could add `animation-delay: 0s !important` for `.teaching-diagram` nodes and lines
 - **Local Vercel leftovers**: `.vercel/` and `.env.local` (a `VERCEL_OIDC_TOKEN` from the CLI) are still on disk after the project was deleted; both are gitignored and can be removed
 - **Materials**:
   - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo). The first Zenodo record was published before this check

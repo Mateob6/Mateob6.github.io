@@ -84,8 +84,8 @@ export function TeachingExplorer({
 
   return (
     <div ref={rootRef} className="scroll-mt-20 space-y-8">
-      {/* === DIAGRAM === */}
-      <div className="relative left-1/2 -translate-x-1/2 w-[100vw] max-w-6xl px-4">
+      {/* === DIAGRAM (laptops and up): the horizontal tree. Below 1024 px its text would shrink under 13 px === */}
+      <div className="relative left-1/2 hidden w-[100vw] max-w-6xl -translate-x-1/2 px-4 lg:block">
         <svg
           ref={svgRef}
           viewBox="0 0 1200 275"
@@ -172,7 +172,46 @@ export function TeachingExplorer({
         </svg>
       </div>
 
-      {/* === TABLES: one per domain, only the selected one shown === */}
+      {/* === TREE (phones and tablets): the same tree, vertical and in HTML, so the labels wrap and keep their size.
+          Each item draws its piece of the trunk (::before) and its branch (::after) === */}
+      <div className="lg:hidden" role="group" aria-label={pick(lang, "Teaching domains", "Áreas de docencia")}>
+        <span className="inline-block rounded-full bg-accent px-5 py-2 text-[11px] font-bold tracking-[0.12em] text-accent-foreground">
+          {pick(lang, "COURSES", "CURSOS")}
+        </span>
+        <ul className="ml-5 max-w-lg space-y-3 pt-3">
+          {domains.map((domain, i) => {
+            const isActive = selected === i;
+            const count = domain.courses.length;
+            return (
+              <li
+                key={domain.slug}
+                className="relative pl-6 before:absolute before:left-0 before:top-[-12px] before:h-[calc(100%+12px)] before:w-[1.5px] before:bg-accent after:absolute after:left-0 after:top-1/2 after:h-[1.5px] after:w-6 after:bg-accent last:before:h-[calc(50%+12px)]"
+              >
+                <a
+                  href={`#${domain.slug}`}
+                  onClick={(e) => choose(e, i)}
+                  aria-current={isActive ? "true" : undefined}
+                  className={`flex items-center justify-between gap-4 rounded-2xl border-[1.5px] px-4 py-3 transition-colors duration-300 ${
+                    isActive ? "border-accent bg-accent-subtle" : "border-border bg-background hover:border-accent"
+                  }`}
+                >
+                  <span className={`text-[15px] leading-snug ${isActive ? "font-bold text-accent" : "font-medium text-foreground"}`}>
+                    {pick(lang, domain.nameEn, domain.nameEs)}
+                  </span>
+                  <span className="shrink-0 text-xs text-muted">
+                    {count} {count === 1 ? pick(lang, "course", "curso") : pick(lang, "courses", "cursos")}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      {/* === TABLES: one per domain, only the selected one shown.
+          On phones each course becomes a block: its name, then one aligned line per university
+          (level · university · period), on a grid whose rows share columns (subgrid). From 640 px, a table.
+          The explicit roles keep the table semantics that Safari drops when the display changes === */}
       {domains.map((domain, di) => (
         <section
           key={domain.slug}
@@ -187,28 +226,39 @@ export function TeachingExplorer({
             {pick(lang, domain.nameEn, domain.nameEs)}
           </h3>
           <div className="overflow-x-auto">
-            <table className="w-full text-[13px]">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
+            <table role="table" className="block w-full text-[13px] sm:table">
+              <thead role="rowgroup" className="hidden sm:table-header-group">
+                <tr role="row" className="border-b border-border">
+                  <th role="columnheader" className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
                     {pick(lang, "Course", "Curso")}
                   </th>
-                  <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
+                  <th role="columnheader" className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
                     {pick(lang, "Level", "Nivel")}
                   </th>
-                  <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
+                  <th role="columnheader" className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2 pr-4">
                     {pick(lang, "University", "Universidad")}
                   </th>
-                  <th className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2">
+                  <th role="columnheader" className="text-left text-[10px] uppercase tracking-wider text-accent font-semibold py-2">
                     {pick(lang, "Period", "Período")}
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody role="rowgroup" className="grid grid-cols-[auto_auto_1fr] gap-x-3 sm:table-row-group">
                 {domain.courses.flatMap((course) =>
                   course.instances.map((inst, ii) => (
-                    <tr key={`${course.name}-${ii}`} className="border-b border-border/40">
-                      <td className="py-2.5 pr-4 text-foreground font-medium">
+                    <tr
+                      role="row"
+                      key={`${course.name}-${ii}`}
+                      className={`col-span-3 grid grid-cols-subgrid items-center border-border/40 sm:table-row sm:border-b ${
+                        ii === course.instances.length - 1 ? "border-b pb-3" : ""
+                      }`}
+                    >
+                      <td
+                        role="cell"
+                        className={`text-foreground font-medium sm:table-cell sm:py-2.5 sm:pr-4 ${
+                          ii === 0 ? "col-span-3 pt-3 pb-1.5" : "hidden"
+                        }`}
+                      >
                         {ii === 0 ? course.name : ""}
                         {ii === 0 && materials[course.name] && (
                           <a
@@ -219,7 +269,7 @@ export function TeachingExplorer({
                           </a>
                         )}
                       </td>
-                      <td className="py-2.5 pr-4">
+                      <td role="cell" className="py-1 sm:py-2.5 sm:pr-4">
                         <span className={`inline-block px-1.5 py-px text-[10px] font-medium rounded-sm ${
                           inst.level === "graduate"
                             ? "bg-accent/10 text-accent"
@@ -228,12 +278,14 @@ export function TeachingExplorer({
                           {levelName(inst.level, lang)}
                         </span>
                       </td>
-                      <td className="py-2.5 pr-4 text-muted">
+                      <td role="cell" className="py-1 text-muted sm:py-2.5 sm:pr-4">
                         <abbr title={inst.university} className="no-underline">
                           {SHORT_UNI[inst.university] || inst.university}
                         </abbr>
                       </td>
-                      <td className="py-2.5 text-muted">{formatPeriod(inst.semesters, lang)}</td>
+                      <td role="cell" className="py-1 text-right text-muted sm:py-2.5 sm:text-left">
+                        {formatPeriod(inst.semesters, lang)}
+                      </td>
                     </tr>
                   ))
                 )}

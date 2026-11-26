@@ -375,6 +375,8 @@ html { scroll-behavior: smooth; }
   .teaching-diagram .diagram-root-node,
   .teaching-diagram .diagram-domain-node { opacity: 1; }
   .teaching-diagram .diagram-line { stroke-dashoffset: 0; }
+  /* the inline staggered delays (300–900 ms) would keep the lines and nodes hidden until they pass */
+  .teaching-diagram * { animation-delay: 0s !important; }
 }
 
 /* Materials: each class thumbnail has a light and a dark image; show the one that matches the site theme */
