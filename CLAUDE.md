@@ -8,17 +8,19 @@ Private `sistema/` layer (gitignored) contains deep context about Mateo's full d
 
 ## Current Status (as of 2026-11-26)
 
-Done on 2026-11-26: Teaching works on phones (vertical tree below 1024 px, the table reflows below 640 px) and its diagram shows at once with reduced motion. **Recognition joined the home** (Mateo): Awards & Grants and Skills are the last sections of the home, before Explore; the nav is Publications · Teaching · Materials (mobile bar: Home · Pubs · Teaching · Materials, with the desktop names); `/more` and `/es/more` are now redirect stubs to `/#awards` and `/es#awards` (see «Awards & Skills»). **First preprint on the site**: Anomia embeddings on PsyArXiv (`10.31234/osf.io/veqhn`), in a new «Preprints» section of `/publications` and first in the home's Selected Publications (see «Publications»).
+Done on 2026-11-26: Teaching works on phones (vertical tree below 1024 px, the table reflows below 640 px) and its diagram shows at once with reduced motion. **Recognition joined the home** (Mateo): Awards & Grants and Skills are the last sections of the home, before Explore; the nav is Publications · Teaching · Materials (mobile bar: Home · Pubs · Teaching · Materials, with the desktop names); `/more` and `/es/more` are now redirect stubs to `/#awards` and `/es#awards` (see «Awards & Skills»). **First preprint on the site**: Anomia embeddings on PsyArXiv (`10.31234/osf.io/veqhn`), in a new «Preprints» section of `/publications` and first in the home's Selected Publications (see «Publications»). Publications and Teaching lost the intro sentence under the hero. **Materials**: course cards read «Curso – Estadística» (the kind first, so other kinds of material fit later); the intro speaks of topics («organizadas por tema», «cada presentación»), not of course and unit; and a new topic, **«Aproximaciones Computacionales en Psicología»**, closes the page, empty with a «Próximamente» strip (the talk of Oct 2026 waits, see «Materials → Topics beyond the teaching areas»).
 
 Done on 2026-11-23 (SEO / GEO, see «Findability»): every page in English **and Spanish with its own URL** (`/es/...`), every in-page action with a URL (language, Teaching domains, anchors on sections and entries), all content in the static HTML (one language per page, all three Teaching tables), richer JSON-LD (ProfilePage, Chapter, Course list, breadcrumbs), hreflang in pages and sitemap, `/llms.txt`, `/llms-full.txt` and a `.md` copy of every page, AI crawlers named in robots.txt, a real 404 page.
 
 Done on 2026-11-22: downloadable CV (EN/ES, cleaned for public use), honeycomb background (everywhere, 1 % under the text), curved panels on Home, Teaching and Materials, Materials with English versions and the first Zenodo DOI (Estadística), Lighthouse fixes (nav renamed «Recognition»), Vercel removed (GoatCounter only), Search Console set up (sitemap submitted, personal Gmail added as owner), GoatCounter export analysed, CvLAC largely updated.
 
 Next:
-- **Search Console** (in a few days): sitemap «Correcto» with **10 pages** (5 English + 5 Spanish since 2026-11-26; it was 12 with `/more`), more than 1 page indexed. `/more` and `/es/more` will show up as «Excluida por la etiqueta noindex»: expected, they are now redirect stubs. Request indexing of `/` and `/es` again (the home changed on Nov 26). Done 2026-11-23 after the deploy: sitemap resubmitted (it still said «No se ha podido obtener» from Nov 22) and indexing requested for 9 pages not yet in Google: `/publications`, `/teaching`, `/more`, `/es`, `/es/publications`, `/es/teaching`, `/es/materials`, `/es/more`, `/es/materials/estadistica`. Already indexed: `/` and `/materials`. The 10th request (re-index `/` after its changes) hit the daily quota: try it again on Nov 24 (`/materials/estadistica` was not checked)
+- **Search Console** (in a few days): sitemap «Correcto» with **10 pages** (5 English + 5 Spanish since 2026-11-26; 12 while `/more` existed), more than 1 page indexed. `/more` and `/es/more` will show up as «Excluida por la etiqueta noindex»: expected, they are redirect stubs now. **Request indexing of `/` and `/es`** (the home changed on Nov 26; the re-index of `/` has been waiting since the daily quota ran out on Nov 23), and of `/publications` and `/es/publications` (preprint). History: on 2026-11-23 the sitemap was resubmitted and indexing requested for `/publications`, `/teaching`, `/more`, `/es`, `/es/publications`, `/es/teaching`, `/es/materials`, `/es/more`, `/es/materials/estadistica`; `/` and `/materials` were already indexed; `/materials/estadistica` was not checked
+- **Preprint (Anomia embeddings)**: add it to both academic CVs (`academico.tex`, `academico_en.tex`; neither has it) and copy the PDFs to `public/cv/`; check that ORCID, Google Scholar, ResearchGate and CvLAC list it; confirm Joan's surname («Díaz-Moná» on the site, «Diaz Mona» in PsyArXiv); when AMPPS publishes it, turn it into an article with the journal's DOI
+- **Materials title**: the page still says «Materiales de clase» / «Class Materials» (h1 and the home's Explore card). Asked on 2026-11-26 whether to make it «Materiales» so talks fit; no answer yet
 - **GoatCounter** (≈ mid-December): Google's share and direct landings on subpages
-- **CvLAC**: co-authors/keywords/areas of the 4 articles, the book chapter, PhD advisor, recent events, peer review, awards (see «CvLAC»)
-- **Materials**: Univalle and Javeriana rules on class material (Mateo); a new Zenodo version each semester
+- **CvLAC**: co-authors/keywords/areas of the 4 articles, the book chapter, PhD advisor, recent events, peer review, awards (see «CvLAC»); later the preprint
+- **Materials**: Univalle and Javeriana rules on class material (Mateo); a new Zenodo version each semester. The computational topic stays empty until Mateo decides to add talks («toca esperar a crecer más como investigador»)
 
 ## Stack
 
@@ -39,11 +41,14 @@ npx serve out    # preview static build locally
 # or, without npx: cd out && python3 -m http.server 3001  → pages need the suffix: /publications.html
 ```
 
+- **Stale dev types**: after running `next dev`, removing a route (as `more.md/` on 2026-11-26) makes `next build` fail with `TS2307 … .next/dev/types/validator.ts`. The fix is `rm -rf .next/dev` (generated cache) and building again.
+- **Checking redirects and console errors**: a small Node script that starts headless Chrome with `--remote-debugging-port`, opens each URL over the DevTools WebSocket (Node ≥ 22 has `WebSocket`) and reads `location.href`, `<html lang>` and console errors. Used on 2026-11-26 for `/more`, `/es/more`, `/skills`, `/awards` and every page (script in the session scratchpad).
+
 ### Visual mock-ups and checks (how the 2026-11-22 decisions were made)
 
 Visual changes are decided with Mateo on a **comparison sheet**: headless Chrome screenshots of each variant, assembled with Pillow (`uv run --with pillow`, scripts in the session scratchpad), opened with `open`, plus live links to `npm run dev` so he can try the mouse effects himself. Variants are switched with **temporary URL parameters** read in `PanalLuz` (`components/layout/panal.tsx`), and removed before committing. Headless Chrome (`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new --screenshot=…`) gotchas:
 - **Phones**: `--window-size=390,…` does not narrow the layout. Load the page in a 390 × 844 `<iframe>` inside a local HTML file and capture that.
-- **Animations**: `--virtual-time-budget` does not advance CSS transitions or animation delays, so ScrollReveal content and the honeycomb light come out half-faded. Use `--timeout=5000` (real time) with `--force-prefers-reduced-motion` for static checks. Reduced motion hides the pointer light, though, and the Teaching domain nodes keep their 0.6–0.9 s delay, so they can be missing in the capture.
+- **Animations**: `--virtual-time-budget` does not advance CSS transitions or animation delays, so ScrollReveal content and the honeycomb light come out half-faded. Use `--timeout=5000` (real time) with `--force-prefers-reduced-motion` for static checks. Reduced motion hides the pointer light, though. (The Teaching diagram's delays are zeroed under reduced motion since 2026-11-26.)
 - **Pointer light**: to capture it, a temporary `?mouse=x,y` parameter sets `--px/--py`, adds `data-activo` and sets `transition: none` on the `[data-panal-luz]` layers.
 - **Dark mode**: `--force-dark-mode --blink-settings=preferredColorScheme=0` works on the static build and the live site but did not on `next dev`; there a temporary `?tema=dark` parameter (sets `data-theme`) was used.
 - **Long pages**: `window.scrollTo` before `--screenshot` does not work. Measure the page height first (a temporary parameter writes `scrollHeight` into the DOM, read with `--dump-dom`), then capture with the window as tall as the page and crop.
@@ -391,11 +396,11 @@ Goal (Mateo): every action on the site has a URL, and all the content is visible
 - **Local Vercel leftovers**: `.vercel/` and `.env.local` (a `VERCEL_OIDC_TOKEN` from the CLI) are still on disk after the project was deleted; both are gitignored and can be removed
 - **Materials**:
   - **Intellectual property**: check Univalle and Javeriana rules on class material (Mateo). The first Zenodo record was published before this check
-  - **Posters and congress talks** could get one DOI each on Zenodo (linked to the paper via `isSupplementTo`), with a «Slides» link on the matching entry in `/publications`
+  - **Posters and congress talks** go in their topic (`TALKS`, see «Topics beyond the teaching areas») when Mateo decides; each could also get a DOI on Zenodo (linked to the paper via `isSupplementTo`), with a «Slides» link on the matching entry in `/publications`
   - Filter before any DOI (permanent): no unpublished results, co-authors agree, no identifiable participant data, own or free figures, linked spreadsheets only as empty templates. Never Cancillería, consultorías, Univalle Contigo, Tenorio. No exams, solutions or rubrics in use
   - Later: a short looping video of each class on hover
 - `publications.ts` includes `quartile` field (Q1/Q3) — not displayed on site, available for future use
-- Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter "Belalcazar, M."
+- Published name forms (APA): Current Psychology and TCN "Belalcázar, M."; Frontiers and CES "Belalcázar Correa, M."; chapter and preprint "Belalcazar, M."
 - Teaching data source of truth: `cv/fuentes/academico.tex`. Sync when CV updates.
 
 <!-- BEGIN:nextjs-agent-rules -->
