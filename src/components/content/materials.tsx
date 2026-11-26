@@ -180,6 +180,19 @@ function CourseStats({ course }: { course: MaterialsCourse }) {
   return <T en={`${u.en} · ${k.en} · ${d.en}`} es={`${u.es} · ${k.es} · ${d.es}`} />;
 }
 
+/** A course's name on the cards, with its kind first: «Curso – Estadística» (Mateo, 2026-11-26), so that other
+ *  kinds of material added later can sit next to the courses and still be told apart. Course names are not translated */
+function CourseName({ nombre }: { nombre: string }) {
+  return (
+    <>
+      <span className="font-normal text-muted">
+        <T en="Course" es="Curso" /> –{" "}
+      </span>
+      {nombre}
+    </>
+  );
+}
+
 /** A course with classes: the whole card opens its page */
 export function CourseCard({ course }: { course: MaterialsCourse }) {
   return (
@@ -189,7 +202,7 @@ export function CourseCard({ course }: { course: MaterialsCourse }) {
     >
       <CourseCover course={course} className="border-b border-border" />
       <span className="flex flex-1 flex-col gap-2 p-5">
-        <span className="font-serif text-lg font-bold leading-snug text-foreground">{course.course.nombre}</span>
+        <span className="font-serif text-lg font-bold leading-snug text-foreground"><CourseName nombre={course.course.nombre} /></span>
         <span className="line-clamp-2 text-[13px] leading-relaxed text-muted">
           <T en={course.course.descripcion.en} es={course.course.descripcion.es} />
         </span>
@@ -217,7 +230,7 @@ export function ComingSoonCard({ course }: { course: MaterialsCourse }) {
         </span>
       </span>
       <span className="flex flex-1 flex-col gap-2 p-5">
-        <span className="font-serif text-lg font-bold leading-snug text-foreground/70">{course.course.nombre}</span>
+        <span className="font-serif text-lg font-bold leading-snug text-foreground/70"><CourseName nombre={course.course.nombre} /></span>
         <span className="line-clamp-2 text-[13px] leading-relaxed text-muted">
           <T en={course.course.descripcion.en} es={course.course.descripcion.es} />
         </span>
@@ -240,7 +253,9 @@ export function RecentList({ items }: { items: { deck: ClassDeck; course: Materi
               <Thumb deck={deck} />
             </span>
             <span className="min-w-0">
-              <span className="block text-[11px] uppercase tracking-wider text-accent">{course.course.nombre}</span>
+              <span className="block text-[11px] uppercase tracking-wider text-accent">
+                <T en="Course" es="Curso" /> – {course.course.nombre}
+              </span>
               <span className="block font-serif text-[15px] leading-snug text-foreground group-hover:text-accent"><DeckTitle deck={deck} /></span>
             </span>
           </a>
