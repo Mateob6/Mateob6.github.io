@@ -1,20 +1,7 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { T } from "@/components/content/t";
+import { MovedView, movedMetadata } from "@/views/moved";
 
-export const metadata: Metadata = {
-  robots: { index: false },
-  alternates: { canonical: "/more" },
-};
+export const metadata = movedMetadata("en");
 
-// Static export can't do server redirects: meta refresh (hoisted to <head>) sends old links to /more
-export default function SkillsRedirect() {
-  return (
-    <div className="py-12">
-      <meta httpEquiv="refresh" content="0; url=/more#skills" />
-      <Link href="/more#skills" className="text-sm text-accent link-hover">
-        <T en="Skills moved to Recognition →" es="Habilidades se movió a Reconocimientos →" />
-      </Link>
-    </div>
-  );
+export default function Page() {
+  return <MovedView lang="en" anchor="skills" en="Skills are now on the home page →" es="Las habilidades están ahora en la página de inicio →" />;
 }

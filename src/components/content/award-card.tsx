@@ -1,7 +1,7 @@
 import { T } from "./t";
 
 interface AwardCardProps {
-  /** anchor: /more#<id> */
+  /** anchor on the home: /#<id> */
   id?: string;
   titleEn: string;
   titleEs: string;

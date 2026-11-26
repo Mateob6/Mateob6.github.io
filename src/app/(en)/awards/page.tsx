@@ -1,20 +1,7 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { T } from "@/components/content/t";
+import { MovedView, movedMetadata } from "@/views/moved";
 
-export const metadata: Metadata = {
-  robots: { index: false },
-  alternates: { canonical: "/more" },
-};
+export const metadata = movedMetadata("en");
 
-// Static export can't do server redirects: meta refresh (hoisted to <head>) sends old links to /more
-export default function AwardsRedirect() {
-  return (
-    <div className="py-12">
-      <meta httpEquiv="refresh" content="0; url=/more#awards" />
-      <Link href="/more#awards" className="text-sm text-accent link-hover">
-        <T en="Awards & Grants moved to Recognition →" es="Premios y Becas se movieron a Reconocimientos →" />
-      </Link>
-    </div>
-  );
+export default function Page() {
+  return <MovedView lang="en" anchor="awards" en="Awards & Grants are now on the home page →" es="Premios y Becas están ahora en la página de inicio →" />;
 }

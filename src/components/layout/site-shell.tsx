@@ -16,7 +16,7 @@ const THEME_SCRIPT = `(function(){var t=localStorage.getItem('theme');if(t==='da
 
 // The language the visitor chose with the toggle (LanguageToggle stores it): a page opened in the other language is
 // replaced by its counterpart before paint. Crawlers keep no storage, so they always get the URL they asked for.
-// /skills and /awards exist only in English (they redirect to /more).
+// /skills and /awards exist only in English (they redirect to the home: /#skills, /#awards).
 const LANG_SCRIPT = `(function(){try{var p=localStorage.getItem('lang'),l=document.documentElement.lang,s=location.pathname;if((p!=='en'&&p!=='es')||p===l||/^\\/(skills|awards)\\/?$/.test(s))return;var t=p==='es'?(s==='/'?'/es':'/es'+s):(s==='/es'||s==='/es/'?'/':s.replace(/^\\/es(?=\\/)/,''));location.replace(t+location.search+location.hash)}catch(e){}})();`;
 
 export function SiteShell({ lang, children }: { lang: Lang; children: React.ReactNode }) {

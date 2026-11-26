@@ -6,6 +6,7 @@ import { ProfileLinks } from "@/components/content/profile-links";
 import { EducationEntry } from "@/components/content/education-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { CurvedPanel } from "@/components/content/curved-panel";
+import { AwardsSection, SkillsSection } from "@/components/content/recognition";
 import { bio, researchLines } from "@/data/profile";
 import { education } from "@/data/education";
 import { publications } from "@/data/publications";
@@ -160,16 +161,21 @@ export function HomeView({ lang }: { lang: Lang }) {
         </section>
       </ScrollReveal>
 
+      <div className="section-divider" />
+
+      {/* ===== AWARDS & SKILLS (their own page, /more, until 2026-11-26) ===== */}
+      <AwardsSection />
+      <SkillsSection />
+
       {/* ===== EXPLORE: the doors to the rest of the site, on the curved panel ===== */}
       <CurvedPanel final ancho="max-w-3xl" labelledBy="explore">
         <ScrollReveal>
           <SectionHeader id="explore" en="Explore" es="Explorar" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { href: "/publications", en: "Publications & Presentations", es: "Publicaciones y Presentaciones" },
               { href: "/teaching", en: "Teaching", es: "Docencia" },
               { href: "/materials", en: "Class Materials", es: "Materiales de clase" },
-              { href: "/more", en: "Awards & Skills", es: "Premios y Habilidades" },
             ].map((link) => (
               <Link
                 key={link.href}

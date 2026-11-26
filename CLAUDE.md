@@ -8,14 +8,14 @@ Private `sistema/` layer (gitignored) contains deep context about Mateo's full d
 
 ## Current Status (as of 2026-11-26)
 
-Done on 2026-11-26: Teaching works on phones (vertical tree below 1024 px, the table reflows below 640 px) and its diagram shows at once with reduced motion.
+Done on 2026-11-26: Teaching works on phones (vertical tree below 1024 px, the table reflows below 640 px) and its diagram shows at once with reduced motion. **Recognition joined the home** (Mateo): Awards & Grants and Skills are the last sections of the home, before Explore; the nav is Publications · Teaching · Materials (mobile bar: Home · Pubs · Teaching · Materials, with the desktop names); `/more` and `/es/more` are now redirect stubs to `/#awards` and `/es#awards` (see «Awards & Skills»).
 
 Done on 2026-11-23 (SEO / GEO, see «Findability»): every page in English **and Spanish with its own URL** (`/es/...`), every in-page action with a URL (language, Teaching domains, anchors on sections and entries), all content in the static HTML (one language per page, all three Teaching tables), richer JSON-LD (ProfilePage, Chapter, Course list, breadcrumbs), hreflang in pages and sitemap, `/llms.txt`, `/llms-full.txt` and a `.md` copy of every page, AI crawlers named in robots.txt, a real 404 page.
 
 Done on 2026-11-22: downloadable CV (EN/ES, cleaned for public use), honeycomb background (everywhere, 1 % under the text), curved panels on Home, Teaching and Materials, Materials with English versions and the first Zenodo DOI (Estadística), Lighthouse fixes (nav renamed «Recognition»), Vercel removed (GoatCounter only), Search Console set up (sitemap submitted, personal Gmail added as owner), GoatCounter export analysed, CvLAC largely updated.
 
 Next:
-- **Search Console** (in a few days): sitemap «Correcto» with **12 pages** (6 English + 6 Spanish since 2026-11-23), more than 1 page indexed. Done 2026-11-23 after the deploy: sitemap resubmitted (it still said «No se ha podido obtener» from Nov 22) and indexing requested for 9 pages not yet in Google: `/publications`, `/teaching`, `/more`, `/es`, `/es/publications`, `/es/teaching`, `/es/materials`, `/es/more`, `/es/materials/estadistica`. Already indexed: `/` and `/materials`. The 10th request (re-index `/` after its changes) hit the daily quota: try it again on Nov 24 (`/materials/estadistica` was not checked)
+- **Search Console** (in a few days): sitemap «Correcto» with **10 pages** (5 English + 5 Spanish since 2026-11-26; it was 12 with `/more`), more than 1 page indexed. `/more` and `/es/more` will show up as «Excluida por la etiqueta noindex»: expected, they are now redirect stubs. Request indexing of `/` and `/es` again (the home changed on Nov 26). Done 2026-11-23 after the deploy: sitemap resubmitted (it still said «No se ha podido obtener» from Nov 22) and indexing requested for 9 pages not yet in Google: `/publications`, `/teaching`, `/more`, `/es`, `/es/publications`, `/es/teaching`, `/es/materials`, `/es/more`, `/es/materials/estadistica`. Already indexed: `/` and `/materials`. The 10th request (re-index `/` after its changes) hit the daily quota: try it again on Nov 24 (`/materials/estadistica` was not checked)
 - **GoatCounter** (≈ mid-December): Google's share and direct landings on subpages
 - **CvLAC**: co-authors/keywords/areas of the 4 articles, the book chapter, PhD advisor, recent events, peer review, awards (see «CvLAC»)
 - **Materials**: Univalle and Javeriana rules on class material (Mateo); a new Zenodo version each semester
@@ -64,18 +64,18 @@ src/
 ├── app/                         ← only routes: each page.tsx is 5 lines that call a view with its language
 │   ├── globals.css              ← theme tokens + dark mode + animations
 │   ├── (en)/layout.tsx          ← root layout of the English pages (/, /publications, …) → SiteShell lang="en"
-│   ├── (en)/page.tsx, publications/, teaching/, materials/, materials/[curso]/, more/
-│   ├── (en)/skills, (en)/awards ← redirect stubs → /more#skills, /more#awards (meta refresh, noindex; English only)
+│   ├── (en)/page.tsx, publications/, teaching/, materials/, materials/[curso]/
+│   ├── (en)/more, (en)/skills, (en)/awards ← redirect stubs → /#awards, /#skills, /#awards (meta refresh, noindex; views/moved.tsx)
 │   ├── es/layout.tsx            ← root layout of the Spanish pages (/es, /es/publications, …) → SiteShell lang="es"
-│   ├── es/page.tsx, publications/, teaching/, materials/, materials/[curso]/, more/
+│   ├── es/page.tsx, publications/, teaching/, materials/, materials/[curso]/, more/ (stub → /es#awards)
 │   ├── global-not-found.tsx     ← the 404 (out/404.html), its own document, both languages (needs experimental.globalNotFound)
 │   ├── llms.txt/, llms-full.txt/ ← route handlers → static /llms.txt, /llms-full.txt
-│   ├── index.md/, publications.md/, teaching.md/, materials.md/, more.md/ (+ the same under es/) ← plain-text pages
+│   ├── index.md/, publications.md/, teaching.md/, materials.md/ (+ the same under es/) ← plain-text pages
 │   ├── icon.svg                 ← favicon (MB monogram)
 │   ├── sitemap.ts               ← every page in both languages with hreflang alternates (dynamic lastModified)
 │   └── robots.ts                ← all allowed; AI crawlers named
 ├── views/                       ← the pages themselves, one function per page taking `lang` + its metadata function:
-│                                   home, publications, teaching, materials, course, recognition
+│                                   home, publications, teaching, materials, course; moved (the redirect stubs)
 ├── components/
 │   ├── ui/                      ← cn, Card, Badge, Button
 │   ├── layout/                  ← SiteShell (<html>, head scripts, WebSite JSON-LD), Header, Footer, MobileNav, ThemeToggle,
@@ -83,6 +83,7 @@ src/
 │   └── content/                 ← T (bilingual), SectionHeader, ScrollReveal, PublicationCard,
 │                                   TeachingExplorer (diagram+table), PresentationEntry,
 │                                   AwardCard, GroupCard, EducationEntry, ProfileLinks,
+│                                   recognition (AwardsSection, SkillsSection: the end of the home),
 │                                   materials (CourseCard, ComingSoonCard, ClassRow, UnitTrack…),
 │                                   CurvedPanel (curved-panel.tsx: the curve + surface panel)
 ├── data/                        ← typed content (profile + CV paths, publications, teaching, skills, materials, etc.)
@@ -119,7 +120,7 @@ Dark mode CSS: dual selector pattern — `@media (prefers-color-scheme: dark) { 
 
 - **English at the root** (the URLs Google already knew), **Spanish under `/es`** with the same slugs: `/teaching` ↔ `/es/teaching`, `/` ↔ `/es`. Two root layouts (`app/(en)/layout.tsx`, `app/es/layout.tsx`), both rendering `SiteShell` with their `lang`; each route file calls the shared view (`src/views/*`) with its language. Moving between the two is a full page load (different root layouts), which is fine
 - **Each page renders only its own language** (before, both were in the HTML and CSS hid one: crawlers and LLMs got both mixed). `<T en es>` is a Server Component that reads the page language from `lib/lang-server.ts` (`setLang` is called by `SiteShell` and by every view; React `cache()` keeps one value per request, the same trick as next-intl's `setRequestLocale`). Client components (Header, MobileNav, toggles, TeachingExplorer) get `lang` as a prop and use `pick(lang, en, es)`. Internal links: `href("/x")` in Server Components, `localePath(lang, "/x")` in client ones. Never import from a `"use client"` file into a Server Component for data (shared constants live in `lib/`)
-- **Language toggle** = a real link to the same page in the other language (keeps the `#anchor`) and stores `localStorage('lang')`. `LANG_SCRIPT` in `SiteShell` (blocking, in `<head>`) sends a visitor who chose a language to that version before paint; crawlers keep no storage, so they always get the URL they asked for. `/skills` and `/awards` are excluded (English only). No redirect by browser language (as before: no stored choice → the URL decides)
+- **Language toggle** = a real link to the same page in the other language (keeps the `#anchor`) and stores `localStorage('lang')`. `LANG_SCRIPT` in `SiteShell` (blocking, in `<head>`) sends a visitor who chose a language to that version before paint; crawlers keep no storage, so they always get the URL they asked for. `/skills` and `/awards` are excluded (English-only stubs); `/more` exists in both languages, so it is not. No redirect by browser language (as before: no stored choice → the URL decides)
 - The old CSS rules `html[lang] .en/.es` are still in `globals.css` but nothing uses those classes any more
 - Default: English (`x-default`)
 - **Not translated**: publication titles, course names, university names, technical skills, author names, journal names
@@ -133,7 +134,7 @@ Dark mode CSS: dual selector pattern — `@media (prefers-color-scheme: dark) { 
 - **Header**: scroll-aware (transparent → glass-blur + shadow on scroll). Logo text is bilingual "Home"/"Inicio" (not the full name)
 - **Decorative**: floating dots + pulsing rings (subtle, opacity 15%)
 - **Honeycomb background (panal, 2026-11-22)**: one faint hexagon lattice for the whole site, drawn as CSS masks in `globals.css` («Panal») with the layers in `components/layout/panal.tsx` (`PanalFondo`, `PanalLuz`, mounted in `site-shell.tsx`; `body` is `relative`). Lines are `--foreground` at **8 %** (`--panal-fuerza`), so light and dark read the same. **It is everywhere, phones included**: full strength in the side margins on desktop (from ~26–36rem off the center outwards), in a patch at the top left of every subpage hero (`body:has(.subpage-hero)`, ≥ 1024 px) and under the blue curve of every curved panel; much fainter under the reading column, **1 %** (`--panal-texto: 0.125` of the 8 %, set in `--panal-margenes`). Each curved panel has its own layer (`.panal-panel`, curve path repeated in `--panal-curva` / `--panal-curva-espejo`; the panel content sits at `z-[1]`) that fades from the curve down to the same floor by 44rem. A copy of the lattice in the accent color lights up around the mouse (`*-luz`, `--px/--py` set by `PanalLuz`; off on touch screens and with reduced motion), dimmed exactly where the lattice is (`--panal-texto-luz`, defaults to `--panal-texto`; can be lowered on its own if the light ever distracts while reading). Cards stay opaque (research lines, awards, course and «Coming soon» cards): objects on top of the honeycomb, no pattern of their own. The page lattice and the panel lattice are out of phase at the curve; accepted, the blue line separates them (aligning would need JS). Decided with Mateo on mock-ups: margins 5/7/12 % compared (→ 8 %), then the floor under the text 2/3/4 % in light and dark (→ 2 %, same in both themes), lowered to 1 % the same day after seeing it live (2026-11-22). The home keeps its dots and rings; «filled cells» were dropped
-- **Curved panels (2026-11-22)**: where a page turns from *reading* to *exploring*, the cream background gives way to a full-width surface panel whose top edge is the curve Mateo drew (flat, a broad rise, a drop at one side; fill + thin `accent/40` stroke). One component, `CurvedPanel` (`components/content/curved-panel.tsx`): props `espejo` (drop at the left: `.panel-espejo` flips the SVG and swaps `--panal-curva` for `--panal-curva-espejo`, so the honeycomb mask follows), `final` (the page ends in the panel: `data-panel-final`, and `globals.css` «Curved panel» makes `main` a flex column without bottom padding, stretches the panel and paints the footer `--surface`, so the white runs into the footer with no cream strip or gap), `ancho` (inner width) and `labelledBy`. Where: **Home** before Explore (normal), **Teaching** around the diagram + table (mirrored), **Materials** around the courses (normal). **Rules** (Mateo, 2026-11-22): at most one curve per page; only at that reading → exploring turn (a collection, a tool, the doors to the rest of the site); always the same two surfaces, no new colors or accent bands; reading pages (Publications, Recognition) stay flat; alternate the orientation between pages. Things on the panel use `bg-background` (cream) to stand out: course cards, Explore cards, inactive Teaching nodes. Chosen on a mock-up (normal vs mirrored; flat end + cream strip vs panel into the footer). Candidate for a later round: the course page (units and classes on a panel)
+- **Curved panels (2026-11-22)**: where a page turns from *reading* to *exploring*, the cream background gives way to a full-width surface panel whose top edge is the curve Mateo drew (flat, a broad rise, a drop at one side; fill + thin `accent/40` stroke). One component, `CurvedPanel` (`components/content/curved-panel.tsx`): props `espejo` (drop at the left: `.panel-espejo` flips the SVG and swaps `--panal-curva` for `--panal-curva-espejo`, so the honeycomb mask follows), `final` (the page ends in the panel: `data-panel-final`, and `globals.css` «Curved panel» makes `main` a flex column without bottom padding, stretches the panel and paints the footer `--surface`, so the white runs into the footer with no cream strip or gap), `ancho` (inner width) and `labelledBy`. Where: **Home** before Explore (normal), **Teaching** around the diagram + table (mirrored), **Materials** around the courses (normal). **Rules** (Mateo, 2026-11-22): at most one curve per page; only at that reading → exploring turn (a collection, a tool, the doors to the rest of the site); always the same two surfaces, no new colors or accent bands; reading pages (Publications) stay flat; alternate the orientation between pages. Things on the panel use `bg-background` (cream) to stand out: course cards, Explore cards, inactive Teaching nodes. Chosen on a mock-up (normal vs mirrored; flat end + cream strip vs panel into the footer). Candidate for a later round: the course page (units and classes on a panel)
 
 ### FOUC Prevention
 
@@ -145,7 +146,7 @@ Two blocking scripts in `<head>` (`SiteShell`) via `dangerouslySetInnerHTML`:
 
 ## Home Page Layout
 
-Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (3 GroupCards with rank badges: Instituto CIDEAS, A1, A) → Selected Publications (4 articles in APA reference format, link to /publications) → Explore (2 × 2 grid of cream cards, stacked on mobile, linking to the 4 subpages) on a curved panel that runs into the footer (no section divider before it: the curve does that job)
+Hero (photo, name, profile links) → About (bio) → Education (3 entries, horizontal grid) → Research Lines (2 cards, stacked) → Research Groups (3 GroupCards with rank badges: Instituto CIDEAS, A1, A) → Selected Publications (4 articles in APA reference format, link to /publications) → Awards & Grants → Skills (both since 2026-11-26, see «Awards & Skills») → Explore (3 cream cards in a row, stacked on mobile, linking to Publications, Teaching and Materials) on a curved panel that runs into the footer (no section divider before it: the curve does that job)
 
 Person JSON-LD schema in home page with `sameAs` linking to 6 academic profiles. WebSite JSON-LD in root layout.
 
@@ -197,7 +198,7 @@ Data types in `teaching.ts` (TeachingDomain → CourseGroup → CourseInstance).
 
 ### Materials (`/materials` and `/materials/<course>`) — added 2026-11-22
 
-Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas-web/`), organized **course → unit → class**. Only classes made with that engine, from 2026-11 on (no old PowerPoint or Gamma decks). Nav label "Materials" / "Materiales" (mobile: "Slides" / "Diapos"); also in footer, sitemap and as a 4th card in the home Explore grid (2 × 2).
+Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas-web/`), organized **course → unit → class**. Only classes made with that engine, from 2026-11 on (no old PowerPoint or Gamma decks). Nav label "Materials" / "Materiales" (mobile too); also in footer, sitemap and as the 3rd card in the home Explore row. Mobile label «Slides» / «Diapos» until 2026-11-26, now «Materials» / «Materiales» like the menu.
 
 **Structure (decided 2026-11-22: "course front page + focused view", after weighing a sliding tabbed panel and a honeycomb)**
 - **`/materials` (front page)**: hero, one sentence, chips «CC BY 4.0» and «Spanish · English», counts («3 courses · 1 class»). Below, a **curved panel** (`CurvedPanel final`, see Architecture → Curved panels; drop at the right), the first one on the site. Inside (`max-w-5xl`): «Recently published» (only when there are ≥ 3 classes; `RECENT_MIN` in the page), then the courses grouped by the teaching domains (same names as `/teaching`), as cards in a 1/2/3-column grid.
@@ -214,19 +215,19 @@ Class slides built with Mateo's own slide engine (`~/Desktop/Cursos/diapositivas
 - **Old slides index**: `mateob6.github.io/diapositivas/` redirects to `/materials`.
 - **Later** (decided): a short looping video of each class on hover; a page per course already exists, so growth needs no restructuring.
 
-### Recognition (`/more`)
+### Awards & Skills (on the home since 2026-11-26)
 
-Merged Skills + Awards page (2026-10-17). Nav label "Recognition" / "Reconocimientos" (renamed from "More" on 2026-11-22: Lighthouse flagged "More" as generic link text; mobile nav says "Awards" / "Premios" because the long word does not fit); H1 "Awards & Skills" / "Premios y Habilidades". Awards first (they're short and high-signal), then skills. Anchors `#awards` and `#skills` with `scroll-mt-20` so the sticky header doesn't cover them. Professional experience stays only in the CV (Mateo's decision, 2026-11-22); Materials and the CV have their own places (/materials, the «CV» link).
+History: `/skills` and `/awards` were merged into one page, `/more`, on 2026-10-17; its nav label went from "More" to "Recognition" / "Reconocimientos" on 2026-11-22 (Lighthouse flagged "More" as generic link text). On **2026-11-26** Mateo moved the whole page to the end of the home, so the nav keeps only Publications, Teaching and Materials. Professional experience stays only in the CV (Mateo's decision, 2026-11-22).
 
-**Awards** (`#awards`): 4 `AwardCard`s under an h2 styled like the skills headers.
+Code: `components/content/recognition.tsx` (`AwardsSection`, `SkillsSection`), used in `views/home.tsx` after Selected Publications and a `section-divider`, before the Explore panel. Same content and design as the old page, headings one level down: h2 «Awards & Grants» / «Premios y Becas» and «Skills» / «Habilidades» (`SectionHeader`, like the other home sections); h3 «Statistical Analysis» and «Tools & Methods» (serif, `border-b border-accent/15`); h4 for the subgroups. The old page's intro sentence was dropped (home sections have none).
 
-**Skills** (`#skills`): editorial typography layout (no cards or chips). Two sections:
-1. **Statistical Analysis** — 2×2 grid of subgroups (Inference & Modeling, Psychometrics & Measurement, Simulation & Design, Exploration) with serif subheadings and dot-bulleted text lists
-2. **Tools & Methods** — 3-column grid (Computational, Languages & Frameworks, Platforms) with dot-bulleted text lists
+**Awards** (`#awards`, one anchor per award `#<year>-<slug>`): 4 `AwardCard`s.
 
-All three h2s have `border-b border-accent/15` for consistency.
+**Skills** (`#skills`): editorial typography layout (no cards or chips). Two parts:
+1. **Statistical Analysis** (`#statistical-analysis`) — 2×2 grid of subgroups (Inference & Modeling, Psychometrics & Measurement, Simulation & Design, Exploration) with serif subheadings and dot-bulleted text lists
+2. **Tools & Methods** (`#tools-and-methods`) — 3-column grid (Computational, Languages & Frameworks, Platforms) with dot-bulleted text lists
 
-**Old URLs**: `/skills` and `/awards` are stubs with `<meta httpEquiv="refresh">` (React 19 hoists it to `<head>`) + visible link, `noindex`, canonical `/more`. `redirect()` from `next/navigation` does NOT emit a meta refresh under `output: "export"` (it only works with client JS), so don't use it for this.
+**Old URLs**: `/more` → `/#awards`, `/es/more` → `/es#awards`, `/skills` → `/#skills`, `/awards` → `/#awards`. All four are stubs built with `views/moved.tsx` (`MovedView`, `movedMetadata`): `<meta httpEquiv="refresh">` (React 19 hoists it to `<head>`) + visible link, `noindex`, canonical to the home of their language. `redirect()` from `next/navigation` does NOT emit a meta refresh under `output: "export"` (it only works with client JS), so don't use it for this. `/more.md` and `/es/more.md` were removed (their content is in `index.md`). `recognitionSchema` was removed: the home `Person` already carries `award` and `knowsAbout` with every skill.
 
 ## Content Inventory
 
@@ -241,8 +242,8 @@ All three h2s have `border-b border-accent/15` for consistency.
 | Education | 3 (PhD, MSc, BSc) |
 | Skills sections | 2 (Statistical Analysis with 4 subgroups; Tools & Methods with 3 groups) |
 | Profile links | 8 (CV, Email, Scholar, ORCID, RG, GitHub, OSF, S2) |
-| Pages | 5 (Home, Publications, Teaching, Materials, Recognition) + one page per course with slides under /materials, **each in English and Spanish** (/es/…) + 2 redirect stubs (English only) + 404 |
-| Nav items | 4 (Publications, Teaching, Materials, Recognition) |
+| Pages | 4 (Home, Publications, Teaching, Materials; Awards & Skills are home sections since 2026-11-26) + one page per course with slides under /materials, **each in English and Spanish** (/es/…) + 4 redirect stubs (/more, /es/more, /skills, /awards) + 404 |
+| Nav items | 3 (Publications, Teaching, Materials); mobile bar 4 (Home, Pubs, Teaching, Materials) |
 
 ## Downloadable CV (since 2026-11-22)
 
@@ -346,7 +347,7 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 3. Google indexed the site within 5 weeks (11% organic traffic)
 4. Audience is 88% Colombian — matches target
 5. Stable at ~20 visits/week with no sustained growth yet. Normal for a 1st-year doctoral student's academic profile (5 weeks old). Growth expected with new publications and indexable content
-6. `/skills` and `/awards` were merged into `/more` on 2026-10-17; historical hits stay under the old paths (not summed into `/more`)
+6. `/skills` and `/awards` were merged into `/more` on 2026-10-17, and `/more` into the home on 2026-11-26; historical hits stay under the old paths (not summed into `/more` or `/`). From 2026-11-26 a visit to `/more` counts as the stub plus the home
 
 ## SEO (implemented 2026-10-09)
 
@@ -356,7 +357,7 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 - [x] OG image regenerated 2026-10-17 (old one had a blank white square): photo in a circle, name, "Psychology · Psychometrics · Computational Methods". Made with Pillow + Georgia from `public/photo.jpg`
 - [x] Canonical URLs on all pages
 - [x] JSON-LD: WebSite (layout), Person (home, 6 sameAs profiles), ScholarlyArticle (publications, 4 articles). Linked by `@id` (`/#person`, `/#website`): Person has `alternateName` (published name variants with tilde/second surname), ORCID `identifier`, `worksFor` Univalle + Javeriana Cali, `memberOf` from `groups.ts`; Mateo's author entry in each ScholarlyArticle points to `/#person`
-- [x] Internal linking: Explore section on home (2 × 2 grid), footer nav + profile links
+- [x] Internal linking: Explore section on home (3 cards since 2026-11-26), footer nav + profile links
 - [x] Sitemap dates dynamic (`new Date()` at build time)
 - [x] Alt text on all images, header avatar width/height for CLS
 - [x] Google Search Console verification in place
@@ -369,13 +370,13 @@ Until this date `count.js` only counted full page loads; clicks between pages vi
 
 Goal (Mateo): every action on the site has a URL, and all the content is visible to search engines and to AI agents (GEO, generative engine optimization).
 
-- **URLs for every action**: language = `/es/...` (Bilingual System); Teaching domain = `#statistics` / `#methodology` / `#cognitive-development`; anchors with `scroll-mt` on the home sections (`#about`, `#education`, `#research`, `#groups`, `#publications`, `#explore`), Publications (`#articles`, `#book-chapters`, `#presentations`, and one per entry: articles by first author + year from `id` in `publications.ts`, e.g. `#londono-moreno-2026`; presentations `#<year>-<first words>`), Recognition (`#awards`, `#skills`, `#statistical-analysis`, `#tools-and-methods`, one per award), Materials (`#<domain slug>`), course pages (`#<course>-<unit>` already, plus `#<class slug>` per class). The **theme toggle has no URL on purpose**: it is a display preference, and a URL for it would only create duplicate pages
-- **Content in the HTML**: one language per page; the three Teaching tables; short intro sentences added on Publications (with counts) and Recognition, like Teaching and Materials already had. Course descriptions (`teaching.ts`) are not shown in the Teaching table (design unchanged); they are in the JSON-LD and the `.md` pages
+- **URLs for every action**: language = `/es/...` (Bilingual System); Teaching domain = `#statistics` / `#methodology` / `#cognitive-development`; anchors with `scroll-mt` on the home sections (`#about`, `#education`, `#research`, `#groups`, `#publications`, `#awards`, `#skills`, `#statistical-analysis`, `#tools-and-methods`, `#explore`, plus one per award), Publications (`#articles`, `#book-chapters`, `#presentations`, and one per entry: articles by first author + year from `id` in `publications.ts`, e.g. `#londono-moreno-2026`; presentations `#<year>-<first words>`), Materials (`#<domain slug>`), course pages (`#<course>-<unit>` already, plus `#<class slug>` per class). The **theme toggle has no URL on purpose**: it is a display preference, and a URL for it would only create duplicate pages
+- **Content in the HTML**: one language per page; the three Teaching tables; short intro sentences added on Publications (with counts), like Teaching and Materials already had. Course descriptions (`teaching.ts`) are not shown in the Teaching table (design unchanged); they are in the JSON-LD and the `.md` pages
 - **Head of every page** (`pageMetadata` in `lib/seo.ts`): canonical in its own language, `hreflang` en / es / x-default, `<link rel="alternate" type="text/markdown">` to its `.md` copy, `og:locale` en_US or es_CO. Home titles are absolute (no « — Mateo Belalcazar» suffix)
-- **JSON-LD** (`lib/schema.ts`, everything linked to `/#person`): home = `ProfilePage` whose `mainEntity` is the full Person (name variants, ORCID, email, jobTitle, worksFor, affiliation CIDEAS, alumniOf, `hasCredential` for the finished degrees, memberOf groups, awards, `knowsAbout` with research topics and all skills, Cali location, `sameAs` 7 profiles including CvLAC); Publications = 4 `ScholarlyArticle` (journal, volume, DOI, language) + `Chapter` inside a `Book` (editors, publisher, ISBN 978-628-7559-70-7, pp. 161–183; data in `publications.ts → book`) + 10 presentations as `CreativeWork` (not `Event`, to avoid Search Console event warnings); Teaching = `ItemList` of 12 `Course` with description, universities as `provider`, one `CourseInstance` per university (instructor, dates, semesters); Materials = `CollectionPage` / `Course` with `LearningResource` per class (Spanish and English PDFs); Recognition = Person fragment with awards and skills; `BreadcrumbList` on every subpage; `WebSite` in `SiteShell`
-- **For AI agents**: `/llms.txt` (llmstxt.org index: who, what, links to every `.md`), `/llms-full.txt` (the whole site in English in one file), and a Markdown copy of each page (`/index.md`, `/publications.md`, `/teaching.md`, `/materials.md`, `/more.md`, and the same under `/es/`). All are route handlers with `dynamic = "force-static"` built from the same data as the HTML (`lib/markdown.ts`), so they cannot drift. GitHub Pages serves them as text/markdown and text/plain
+- **JSON-LD** (`lib/schema.ts`, everything linked to `/#person`): home = `ProfilePage` whose `mainEntity` is the full Person (name variants, ORCID, email, jobTitle, worksFor, affiliation CIDEAS, alumniOf, `hasCredential` for the finished degrees, memberOf groups, awards, `knowsAbout` with research topics and all skills, Cali location, `sameAs` 7 profiles including CvLAC); Publications = 4 `ScholarlyArticle` (journal, volume, DOI, language) + `Chapter` inside a `Book` (editors, publisher, ISBN 978-628-7559-70-7, pp. 161–183; data in `publications.ts → book`) + 10 presentations as `CreativeWork` (not `Event`, to avoid Search Console event warnings); Teaching = `ItemList` of 12 `Course` with description, universities as `provider`, one `CourseInstance` per university (instructor, dates, semesters); Materials = `CollectionPage` / `Course` with `LearningResource` per class (Spanish and English PDFs); `BreadcrumbList` on every subpage; `WebSite` in `SiteShell`
+- **For AI agents**: `/llms.txt` (llmstxt.org index: who, what, links to every `.md`), `/llms-full.txt` (the whole site in English in one file), and a Markdown copy of each page (`/index.md` — with awards and skills since 2026-11-26 —, `/publications.md`, `/teaching.md`, `/materials.md`, and the same under `/es/`). All are route handlers with `dynamic = "force-static"` built from the same data as the HTML (`lib/markdown.ts`), so they cannot drift. GitHub Pages serves them as text/markdown and text/plain
 - **robots.txt**: everything allowed; the main AI crawlers are named explicitly (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended, Meta-ExternalAgent, Amazonbot, DuckAssistBot, MistralAI-User, CCBot)
-- **Sitemap**: 12 URLs (6 pages × 2 languages), each with its hreflang alternates
+- **Sitemap**: 10 URLs (5 pages × 2 languages, counting the Estadística course page; 12 until `/more` left on 2026-11-26), each with its hreflang alternates
 - **404**: `app/global-not-found.tsx` → `out/404.html`, links to both homes and the sections (before, GitHub Pages showed Next's default 404)
 - Checked 2026-11-23 on the static build (`npx serve out` + headless Chrome through CDP, script in the session scratchpad): lang attribute per page, no mixed-language text, all JSON-LD parses, toggle keeps anchors and the stored choice redirects, Teaching hash in and out, client navigation keeps the language, no console errors
 

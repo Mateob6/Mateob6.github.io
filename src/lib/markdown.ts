@@ -75,6 +75,7 @@ export function homeMd(lang: Lang): string {
     "",
     `${pick(lang, "All publications", "Todas las publicaciones")}: ${md(lang, "/publications")}`,
     "",
+    ...awardsAndSkills(lang),
     `## ${pick(lang, "Academic profiles", "Perfiles académicos")}`,
     "",
     ...PROFILES.map((p) => `- ${p.label}: ${p.url}`),
@@ -84,7 +85,6 @@ export function homeMd(lang: Lang): string {
     `- ${pick(lang, "Publications and presentations", "Publicaciones y ponencias")}: ${url(lang, "/publications")} (${md(lang, "/publications")})`,
     `- ${pick(lang, "Teaching", "Docencia")}: ${url(lang, "/teaching")} (${md(lang, "/teaching")})`,
     `- ${pick(lang, "Class materials", "Materiales de clase")}: ${url(lang, "/materials")} (${md(lang, "/materials")})`,
-    `- ${pick(lang, "Awards and skills", "Premios y habilidades")}: ${url(lang, "/more")} (${md(lang, "/more")})`,
     ""
   );
   return out.join("\n");
@@ -182,9 +182,9 @@ export async function materialsMd(lang: Lang): Promise<string> {
   return out.join("\n");
 }
 
-export function recognitionMd(lang: Lang): string {
+/** Awards & Grants and Skills: sections of the home (their own page, /more, until 2026-11-26) */
+function awardsAndSkills(lang: Lang): string[] {
   const out = [
-    header(lang, pick(lang, "Awards & Skills — Mateo Belalcazar", "Premios y Habilidades — Mateo Belalcazar"), "/more"),
     `## ${pick(lang, "Awards and grants", "Premios y becas")}`,
     "",
     ...awards.map((a) => `- ${awardText(a, lang)}`),
@@ -198,7 +198,7 @@ export function recognitionMd(lang: Lang): string {
     for (const s of g.subgroups ?? []) out.push(`- ${pick(lang, s.labelEn, s.labelEs)}: ${s.items.join(", ")}`);
     if (g.subgroups) out.push("");
   }
-  return out.join("\n");
+  return out;
 }
 
 /** /llms.txt: what the site is and where the plain-text pages are (llmstxt.org format) */
@@ -217,11 +217,10 @@ export async function llmsTxt(): Promise<string> {
     "",
     "## Pages",
     "",
-    `- [Profile](${md("en", "/")}): bio, education, research lines, research groups and selected publications`,
+    `- [Profile](${md("en", "/")}): bio, education, research lines, research groups, selected publications, ${awards.length} awards and grants, and skills (statistical, psychometric and computational methods)`,
     `- [Publications and presentations](${md("en", "/publications")}): ${articles.length} peer-reviewed articles with DOI, ${chapters.length} book chapter${chapters.length === 1 ? "" : "s"} and ${presentations.length} conference presentations`,
     `- [Teaching](${md("en", "/teaching")}): ${nCourses} university courses at three Colombian universities, by area, with semesters`,
     `- [Class materials](${md("en", "/materials")}): open class slides (CC BY 4.0) by course and unit, ${classes} ${classes === 1 ? "class" : "classes"} published so far, with PDFs in Spanish and English, archived in Zenodo`,
-    `- [Awards and skills](${md("en", "/more")}): ${awards.length} awards and grants; statistical, psychometric and computational methods`,
     "",
     "## En español",
     "",
@@ -229,7 +228,6 @@ export async function llmsTxt(): Promise<string> {
     `- [Publicaciones y ponencias](${md("es", "/publications")})`,
     `- [Docencia](${md("es", "/teaching")})`,
     `- [Materiales de clase](${md("es", "/materials")})`,
-    `- [Premios y habilidades](${md("es", "/more")})`,
     "",
     "## Academic profiles",
     "",
@@ -247,7 +245,7 @@ export async function llmsTxt(): Promise<string> {
 
 /** /llms-full.txt: every English page, one after the other */
 export async function llmsFullTxt(): Promise<string> {
-  const pages = [homeMd("en"), publicationsMd("en"), await teachingMd("en"), await materialsMd("en"), recognitionMd("en")];
+  const pages = [homeMd("en"), publicationsMd("en"), await teachingMd("en"), await materialsMd("en")];
   return pages.join("\n---\n\n");
 }
 

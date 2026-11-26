@@ -15,7 +15,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/teaching", lastModified: now },
     { path: "/materials", lastModified: now },
     ...courses.map((c) => ({ path: `/materials/${c.slug}`, lastModified: new Date(c.updated!) })),
-    { path: "/more", lastModified: now },
   ];
   return pages.flatMap(({ path, lastModified }) => {
     const languages = {

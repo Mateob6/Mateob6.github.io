@@ -221,12 +221,3 @@ export function teachingSchema(lang: Lang, materials: Record<string, string>) {
   };
 }
 
-/** Awards and skills, merged by search engines into the same Person */
-export function recognitionSchema(lang: Lang) {
-  return {
-    ...person,
-    name: SITE_NAME,
-    award: awards.map((a) => awardText(a, lang)),
-    knowsAbout: allSkills(),
-  };
-}
