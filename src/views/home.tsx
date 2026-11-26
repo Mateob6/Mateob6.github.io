@@ -140,7 +140,7 @@ export function HomeView({ lang }: { lang: Lang }) {
           <SectionHeader en="Selected Publications" es="Publicaciones Destacadas" />
           <div className="pl-4 border-l-2 border-accent/20">
             {publications
-              .filter((p) => p.type === "article")
+              .filter((p) => p.type !== "chapter")
               .map((pub, i) => (
                 <ScrollReveal key={pub.doi} delay={i * 100}>
                   <SelectedPublication pub={pub} />
@@ -220,6 +220,7 @@ function SelectedPublication({ pub }: { pub: Publication }) {
         ) : (
           <span className="italic text-foreground">{pub.title}</span>
         )}
+        {pub.type === "preprint" && " [Preprint]"}
         . <span className="text-foreground">{pub.journal}</span>
 
         {pub.doi && (

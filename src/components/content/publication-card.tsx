@@ -1,7 +1,7 @@
 interface PublicationCardProps {
   /** anchor: /publications#<id> */
   id?: string;
-  type: "article" | "chapter";
+  type: "article" | "preprint" | "chapter";
   title: string;
   authors: string;
   venue: string;
@@ -19,7 +19,7 @@ function renderAuthors(authors: string) {
   });
 }
 
-export function PublicationCard({ id, title, authors, venue, year, doi }: PublicationCardProps) {
+export function PublicationCard({ id, type, title, authors, venue, year, doi }: PublicationCardProps) {
   return (
     <article id={id} className="scroll-mt-24 py-3 border-b border-border/40 last:border-b-0">
       <p className="text-[13px] text-muted leading-relaxed">
@@ -37,6 +37,7 @@ export function PublicationCard({ id, title, authors, venue, year, doi }: Public
         ) : (
           <span className="italic text-foreground">{title}</span>
         )}
+        {type === "preprint" && " [Preprint]"}
         .{" "}
         <span className="text-foreground">{venue}</span>
         {doi && (

@@ -16,8 +16,8 @@ export function publicationsMetadata(lang: Lang): Metadata {
     title: pick(lang, "Publications & Presentations", "Publicaciones y Presentaciones"),
     description: pick(
       lang,
-      "Peer-reviewed articles, book chapters, and conference presentations by Mateo Belalcazar on cognitive development, neuropsychology, psychometrics, and quantitative methodology.",
-      "Artículos revisados por pares, capítulos de libro y ponencias de Mateo Belalcazar sobre desarrollo cognitivo, neuropsicología, psicometría y metodología cuantitativa."
+      "Peer-reviewed articles, preprints, book chapters, and conference presentations by Mateo Belalcazar on psychometrics, computational methods, cognitive development, neuropsychology, and quantitative methodology.",
+      "Artículos revisados por pares, preprints, capítulos de libro y ponencias de Mateo Belalcazar sobre psicometría, métodos computacionales, desarrollo cognitivo, neuropsicología y metodología cuantitativa."
     ),
     path: "/publications",
   });
@@ -26,6 +26,7 @@ export function publicationsMetadata(lang: Lang): Metadata {
 export function PublicationsView({ lang }: { lang: Lang }) {
   setLang(lang);
   const articles = publications.filter((p) => p.type === "article");
+  const preprints = publications.filter((p) => p.type === "preprint");
   const chapters = publications.filter((p) => p.type === "chapter");
   const title = pick(lang, "Publications & Presentations", "Publicaciones y Presentaciones");
 
@@ -50,8 +51,8 @@ export function PublicationsView({ lang }: { lang: Lang }) {
       <ScrollReveal>
         <p className="text-sm text-muted leading-relaxed">
           <T
-            en={`${articles.length} peer-reviewed articles, ${chapters.length} ${chapters.length === 1 ? "book chapter" : "book chapters"}, and ${presentations.length} conference presentations on psychometrics, neuropsychology, cognitive development, and quantitative methodology.`}
-            es={`${articles.length} artículos revisados por pares, ${chapters.length} ${chapters.length === 1 ? "capítulo de libro" : "capítulos de libro"} y ${presentations.length} ponencias en congresos sobre psicometría, neuropsicología, desarrollo cognitivo y metodología cuantitativa.`}
+            en={`${articles.length} peer-reviewed articles, ${preprints.length} ${preprints.length === 1 ? "preprint" : "preprints"}, ${chapters.length} ${chapters.length === 1 ? "book chapter" : "book chapters"}, and ${presentations.length} conference presentations on psychometrics, computational methods, neuropsychology, cognitive development, and quantitative methodology.`}
+            es={`${articles.length} artículos revisados por pares, ${preprints.length} ${preprints.length === 1 ? "preprint" : "preprints"}, ${chapters.length} ${chapters.length === 1 ? "capítulo de libro" : "capítulos de libro"} y ${presentations.length} ponencias en congresos sobre psicometría, métodos computacionales, neuropsicología, desarrollo cognitivo y metodología cuantitativa.`}
           />
         </p>
       </ScrollReveal>
@@ -65,6 +66,30 @@ export function PublicationsView({ lang }: { lang: Lang }) {
         <ScrollReveal>
           <div className="pl-4 border-l-2 border-accent/20">
             {articles.map((pub) => (
+              <PublicationCard
+                key={pub.title}
+                id={pub.id}
+                type={pub.type}
+                title={pub.title}
+                authors={pub.authors}
+                venue={pub.journal}
+                year={pub.year}
+                doi={pub.doi}
+              />
+            ))}
+          </div>
+        </ScrollReveal>
+      </section>
+
+      <section id="preprints" aria-labelledby="preprints-title" className="scroll-mt-20 space-y-4">
+        <ScrollReveal>
+          <h2 id="preprints-title" className="text-xs uppercase tracking-[0.15em] text-accent font-semibold">
+            Preprints
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal>
+          <div className="pl-4 border-l-2 border-accent/20">
+            {preprints.map((pub) => (
               <PublicationCard
                 key={pub.title}
                 id={pub.id}

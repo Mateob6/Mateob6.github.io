@@ -8,7 +8,8 @@ export type Publication = {
   journal: string;
   year: number;
   doi?: string;
-  type: "article" | "chapter";
+  /** preprint: APA «[Preprint]» after the title; `journal` holds the server (PsyArXiv) */
+  type: "article" | "preprint" | "chapter";
   quartile?: string;
   /** chapters: the book they belong to */
   book?: { title: string; editors: string[]; publisher: string; isbn: string; pages: [number, number] };

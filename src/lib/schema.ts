@@ -151,6 +151,14 @@ export function publicationSchema(pub: Publication, lang: Lang) {
       },
     };
   }
+  if (pub.type === "preprint") {
+    return {
+      "@type": "ScholarlyArticle",
+      ...common,
+      creativeWorkStatus: "Preprint",
+      publisher: { "@type": "Organization", name: pub.journal },
+    };
+  }
   const [journal, volume, article] = pub.journal.split(",").map((s) => s.trim());
   return {
     "@type": "ScholarlyArticle",

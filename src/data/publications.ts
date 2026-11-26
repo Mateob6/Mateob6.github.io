@@ -2,6 +2,18 @@ import type { Publication } from "@/lib/types";
 
 export const publications: Publication[] = [
   {
+    // Anomia embeddings (~/Desktop/articulos/Anomia/Anomia_embeddings). v1 posted 2026-11-23; the DOI without version
+    // always points to the latest. Submitted to AMPPS on 2026-11-26 (not shown, Mateo's decision): when it is accepted,
+    // turn it into an article with the journal's DOI. Joan's surname as in the PDF (tilde pending his confirmation)
+    id: "belalcazar-2026",
+    title: "Do Scales Semantically Resemble the Sources They Cite? Embedding Analysis of Construct Proliferation in Five Anomy Instruments",
+    authors: "**Belalcazar, M.**, Díaz-Moná, J.S., Molina Valencia, N., & Otálora Sevilla, Y.",
+    journal: "PsyArXiv",
+    year: 2026,
+    doi: "10.31234/osf.io/veqhn",
+    type: "preprint",
+  },
+  {
     id: "londono-moreno-2026",
     title: "Retirement Decision Inventory in Colombia and Spain: Cultural adaptation and validation study",
     authors: "Londoño-Moreno, A.M., **Belalcazar, M.**, Díaz-Bambula, F., Rubio, L., Dumitrache, C.G., Gabardo-Martins, L.M., & França, L.H.F.P.",

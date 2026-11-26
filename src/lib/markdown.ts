@@ -19,10 +19,11 @@ const url = (lang: Lang, path: string) => absUrl(localePath(lang, path));
 const md = (lang: Lang, path: string) => `${SITE_URL}${mdPath(lang, path)}`;
 
 const articles = publications.filter((p) => p.type === "article");
+const preprints = publications.filter((p) => p.type === "preprint");
 const chapters = publications.filter((p) => p.type === "chapter");
 
 function reference(p: (typeof publications)[number]) {
-  return `${p.authors} (${p.year}). ${p.title}. ${p.journal}.${p.doi ? ` https://doi.org/${p.doi}` : ""}${
+  return `${p.authors} (${p.year}). ${p.title}${p.type === "preprint" ? " [Preprint]" : ""}. ${p.journal}.${p.doi ? ` https://doi.org/${p.doi}` : ""}${
     p.book ? ` ISBN ${p.book.isbn}.` : ""
   }`;
 }
@@ -71,7 +72,7 @@ export function homeMd(lang: Lang): string {
     "",
     `## ${pick(lang, "Selected publications", "Publicaciones destacadas")}`,
     "",
-    ...articles.map((p) => `- ${reference(p)}`),
+    ...publications.filter((p) => p.type !== "chapter").map((p) => `- ${reference(p)}`),
     "",
     `${pick(lang, "All publications", "Todas las publicaciones")}: ${md(lang, "/publications")}`,
     "",
@@ -96,6 +97,10 @@ export function publicationsMd(lang: Lang): string {
     `## ${pick(lang, "Peer-reviewed articles", "Artículos revisados por pares")}`,
     "",
     ...articles.map((p) => `- ${reference(p)}${p.quartile ? ` [${p.quartile}]` : ""}`),
+    "",
+    `## Preprints`,
+    "",
+    ...preprints.map((p) => `- ${reference(p)}`),
     "",
     `## ${pick(lang, "Book chapters", "Capítulos de libro")}`,
     "",
@@ -218,7 +223,7 @@ export async function llmsTxt(): Promise<string> {
     "## Pages",
     "",
     `- [Profile](${md("en", "/")}): bio, education, research lines, research groups, selected publications, ${awards.length} awards and grants, and skills (statistical, psychometric and computational methods)`,
-    `- [Publications and presentations](${md("en", "/publications")}): ${articles.length} peer-reviewed articles with DOI, ${chapters.length} book chapter${chapters.length === 1 ? "" : "s"} and ${presentations.length} conference presentations`,
+    `- [Publications and presentations](${md("en", "/publications")}): ${articles.length} peer-reviewed articles with DOI, ${preprints.length} preprint${preprints.length === 1 ? "" : "s"}, ${chapters.length} book chapter${chapters.length === 1 ? "" : "s"} and ${presentations.length} conference presentations`,
     `- [Teaching](${md("en", "/teaching")}): ${nCourses} university courses at three Colombian universities, by area, with semesters`,
     `- [Class materials](${md("en", "/materials")}): open class slides (CC BY 4.0) by course and unit, ${classes} ${classes === 1 ? "class" : "classes"} published so far, with PDFs in Spanish and English, archived in Zenodo`,
     "",
