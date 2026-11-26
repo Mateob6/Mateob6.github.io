@@ -16,8 +16,8 @@ export function materialsMetadata(lang: Lang): Metadata {
     title: pick(lang, "Materials", "Materiales"),
     description: pick(
       lang,
-      "Class slides by Mateo Belalcazar for the courses he teaches, organized by course and unit: view them in the browser, in Spanish or English, or download them as PDF. Licensed CC BY 4.0.",
-      "Diapositivas de clase de Mateo Belalcazar para los cursos que dicta, organizadas por curso y unidad: se ven en el navegador, en español o en inglés, o se bajan en PDF. Licencia CC BY 4.0."
+      "Slides by Mateo Belalcazar, organized by topic: view them in the browser, in Spanish or English, or download them as PDF. Licensed CC BY 4.0.",
+      "Diapositivas de Mateo Belalcazar, organizadas por tema: se ven en el navegador, en español o en inglés, o se bajan en PDF. Licencia CC BY 4.0."
     ),
     path: "/materials",
   });
@@ -82,8 +82,8 @@ export async function MaterialsView({ lang }: { lang: Lang }) {
         <div className="space-y-4">
           <p className="text-sm text-muted leading-relaxed">
             <T
-              en="Slides I build and use in my courses, organized by course and unit. Each class opens in the browser, in Spanish or English, and can be downloaded as a PDF."
-              es="Diapositivas que preparo y uso en mis cursos, organizadas por curso y unidad. Cada clase se abre en el navegador, en español o en inglés, y se puede bajar en PDF."
+              en="Slides I build and use, organized by topic. Each deck opens in the browser, in Spanish or English, and can be downloaded as a PDF."
+              es="Diapositivas que preparo y uso, organizadas por tema. Cada presentación se abre en el navegador, en español o en inglés, y se puede bajar en PDF."
             />
           </p>
           <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted">

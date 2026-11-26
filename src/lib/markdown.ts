@@ -145,8 +145,8 @@ export async function materialsMd(lang: Lang): Promise<string> {
     header(lang, pick(lang, "Class Materials — Mateo Belalcazar", "Materiales de clase — Mateo Belalcazar"), "/materials"),
     pick(
       lang,
-      "Slides I build and use in my courses, organized by course and unit. Each class opens in the browser, in Spanish or English (add ?en to the slides URL), and can be downloaded as a PDF. License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).",
-      "Diapositivas que preparo y uso en mis cursos, organizadas por curso y unidad. Cada clase se abre en el navegador, en español o en inglés (con ?en al final de la dirección), y se puede bajar en PDF. Licencia: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)."
+      "Slides I build and use, organized by topic. Each deck opens in the browser, in Spanish or English (add ?en to the slides URL), and can be downloaded as a PDF. License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).",
+      "Diapositivas que preparo y uso, organizadas por tema. Cada presentación se abre en el navegador, en español o en inglés (con ?en al final de la dirección), y se puede bajar en PDF. Licencia: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)."
     ),
     "",
   ];
@@ -225,7 +225,7 @@ export async function llmsTxt(): Promise<string> {
     `- [Profile](${md("en", "/")}): bio, education, research lines, research groups, selected publications, ${awards.length} awards and grants, and skills (statistical, psychometric and computational methods)`,
     `- [Publications and presentations](${md("en", "/publications")}): ${articles.length} peer-reviewed articles with DOI, ${preprints.length} preprint${preprints.length === 1 ? "" : "s"}, ${chapters.length} book chapter${chapters.length === 1 ? "" : "s"} and ${presentations.length} conference presentations`,
     `- [Teaching](${md("en", "/teaching")}): ${nCourses} university courses at three Colombian universities, by area, with semesters`,
-    `- [Class materials](${md("en", "/materials")}): open class slides (CC BY 4.0) by course and unit, ${classes} ${classes === 1 ? "class" : "classes"} published so far, with PDFs in Spanish and English, archived in Zenodo`,
+    `- [Class materials](${md("en", "/materials")}): open slides (CC BY 4.0) organized by topic, ${classes} ${classes === 1 ? "class" : "classes"} published so far, with PDFs in Spanish and English, archived in Zenodo`,
     "",
     "## En español",
     "",
