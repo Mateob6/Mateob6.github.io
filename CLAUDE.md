@@ -13,7 +13,7 @@ Done on 2026-11-23 (SEO / GEO, see «Findability»): every page in English **and
 Done on 2026-11-22: downloadable CV (EN/ES, cleaned for public use), honeycomb background (everywhere, 1 % under the text), curved panels on Home, Teaching and Materials, Materials with English versions and the first Zenodo DOI (Estadística), Lighthouse fixes (nav renamed «Recognition»), Vercel removed (GoatCounter only), Search Console set up (sitemap submitted, personal Gmail added as owner), GoatCounter export analysed, CvLAC largely updated.
 
 Next:
-- **Search Console** (in a few days): sitemap «Correcto» with **12 pages** (6 English + 6 Spanish since 2026-11-23), more than 1 page indexed; request indexing for `/es` and `/es/publications` once the deploy is live
+- **Search Console** (in a few days): sitemap «Correcto» with **12 pages** (6 English + 6 Spanish since 2026-11-23), more than 1 page indexed. Done 2026-11-23 after the deploy: sitemap resubmitted (it still said «No se ha podido obtener» from Nov 22) and indexing requested for 9 pages not yet in Google: `/publications`, `/teaching`, `/more`, `/es`, `/es/publications`, `/es/teaching`, `/es/materials`, `/es/more`, `/es/materials/estadistica`. Already indexed: `/` and `/materials`. The 10th request (re-index `/` after its changes) hit the daily quota: try it again on Nov 24 (`/materials/estadistica` was not checked)
 - **GoatCounter** (≈ mid-December): Google's share and direct landings on subpages
 - **CvLAC**: co-authors/keywords/areas of the 4 articles, the book chapter, PhD advisor, recent events, peer review, awards (see «CvLAC»)
 - **Materials**: Univalle and Javeriana rules on class material (Mateo); a new Zenodo version each semester
