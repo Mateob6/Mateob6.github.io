@@ -48,14 +48,6 @@ export function PublicationsView({ lang }: { lang: Lang }) {
         </header>
       </ScrollReveal>
 
-      <ScrollReveal>
-        <p className="text-sm text-muted leading-relaxed">
-          <T
-            en={`${articles.length} peer-reviewed articles, ${preprints.length} ${preprints.length === 1 ? "preprint" : "preprints"}, ${chapters.length} ${chapters.length === 1 ? "book chapter" : "book chapters"}, and ${presentations.length} conference presentations on psychometrics, computational methods, neuropsychology, cognitive development, and quantitative methodology.`}
-            es={`${articles.length} artículos revisados por pares, ${preprints.length} ${preprints.length === 1 ? "preprint" : "preprints"}, ${chapters.length} ${chapters.length === 1 ? "capítulo de libro" : "capítulos de libro"} y ${presentations.length} ponencias en congresos sobre psicometría, métodos computacionales, neuropsicología, desarrollo cognitivo y metodología cuantitativa.`}
-          />
-        </p>
-      </ScrollReveal>
 
       <section id="articles" aria-labelledby="articles-title" className="scroll-mt-20 space-y-4">
         <ScrollReveal>

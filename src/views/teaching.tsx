@@ -46,14 +46,6 @@ export async function TeachingView({ lang }: { lang: Lang }) {
         </header>
       </ScrollReveal>
 
-      <ScrollReveal>
-        <p className="text-sm text-muted leading-relaxed">
-          <T
-            en="My teaching spans three areas, across undergraduate and graduate programs at three Colombian universities."
-            es="Mi docencia abarca tres áreas, en programas de pregrado y posgrado en tres universidades colombianas."
-          />
-        </p>
-      </ScrollReveal>
 
       {/* The explorer (diagram + table) on the curved panel, mirrored: drops at the left */}
       <CurvedPanel final espejo ancho="max-w-3xl" labelledBy="cursos-docencia">
