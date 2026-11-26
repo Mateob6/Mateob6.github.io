@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ViewTransition } from "react";
 import { T } from "@/components/content/t";
-import { formatUpdated, SLIDES_URL, type ClassDeck, type MaterialsCourse, type Unit } from "@/data/materials";
+import { formatUpdated, SLIDES_URL, type ClassDeck, type MaterialsCourse, type Talk, type Unit } from "@/data/materials";
 import { getLang, href } from "@/lib/lang-server";
 
 const abs = (path: string) => (path.startsWith("/") || path.startsWith("http") ? path : `${SLIDES_URL}${path}`);
@@ -180,17 +180,24 @@ function CourseStats({ course }: { course: MaterialsCourse }) {
   return <T en={`${u.en} · ${k.en} · ${d.en}`} es={`${u.es} · ${k.es} · ${d.es}`} />;
 }
 
-/** A course's name on the cards, with its kind first: «Curso – Estadística» (Mateo, 2026-11-26), so that other
- *  kinds of material added later can sit next to the courses and still be told apart. Course names are not translated */
-function CourseName({ nombre }: { nombre: string }) {
+/** A name on the cards with its kind first: «Curso – Estadística», «Ponencia – …» (Mateo, 2026-11-26), so that
+ *  courses, talks and whatever comes later can sit together and still be told apart. Names are not translated */
+function KindName({ kind, nombre }: { kind: { en: string; es: string }; nombre: string }) {
   return (
     <>
       <span className="font-normal text-muted">
-        <T en="Course" es="Curso" /> –{" "}
+        <T en={kind.en} es={kind.es} /> –{" "}
       </span>
       {nombre}
     </>
   );
+}
+
+const COURSE = { en: "Course", es: "Curso" };
+const TALK = { en: "Talk", es: "Ponencia" };
+
+function CourseName({ nombre }: { nombre: string }) {
+  return <KindName kind={COURSE} nombre={nombre} />;
 }
 
 /** A course with classes: the whole card opens its page */
@@ -217,9 +224,9 @@ export function CourseCard({ course }: { course: MaterialsCourse }) {
   );
 }
 
-/** A course Mateo teaches but without published classes: visible, not clickable.
+/** Something listed but not published yet: visible, not clickable, dashed, «Coming soon» where the cover goes.
  *  Opaque (same color as background/60 over the panel) so the panel honeycomb does not show through. */
-export function ComingSoonCard({ course }: { course: MaterialsCourse }) {
+function SoonCard({ name, description, meta }: { name: React.ReactNode; description: React.ReactNode; meta: React.ReactNode }) {
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-dashed border-border bg-[color-mix(in_oklab,var(--background)_60%,var(--surface))]" aria-disabled="true">
       <span className="relative block aspect-video overflow-hidden border-b border-dashed border-border">
@@ -230,15 +237,43 @@ export function ComingSoonCard({ course }: { course: MaterialsCourse }) {
         </span>
       </span>
       <span className="flex flex-1 flex-col gap-2 p-5">
-        <span className="font-serif text-lg font-bold leading-snug text-foreground/70"><CourseName nombre={course.course.nombre} /></span>
-        <span className="line-clamp-2 text-[13px] leading-relaxed text-muted">
-          <T en={course.course.descripcion.en} es={course.course.descripcion.es} />
-        </span>
-        <span className="mt-auto pt-2 text-[11px] text-muted">
-          <CourseStats course={course} />
-        </span>
+        <span className="font-serif text-lg font-bold leading-snug text-foreground/70">{name}</span>
+        <span className="line-clamp-2 text-[13px] leading-relaxed text-muted">{description}</span>
+        <span className="mt-auto pt-2 text-[11px] text-muted">{meta}</span>
       </span>
     </div>
+  );
+}
+
+/** A course Mateo teaches but without published classes */
+export function ComingSoonCard({ course }: { course: MaterialsCourse }) {
+  return (
+    <SoonCard
+      name={<CourseName nombre={course.course.nombre} />}
+      description={<T en={course.course.descripcion.en} es={course.course.descripcion.es} />}
+      meta={<CourseStats course={course} />}
+    />
+  );
+}
+
+/** A topic with nothing published yet: one dashed «Coming soon» strip across the grid */
+export function EmptyTopic() {
+  return (
+    <p className="rounded-xl border border-dashed border-border bg-[color-mix(in_oklab,var(--background)_60%,var(--surface))] py-6 text-center text-[11px] font-medium uppercase tracking-wider text-muted">
+      <T en="Coming soon" es="Próximamente" />
+    </p>
+  );
+}
+
+/** A talk: where and when it was given. Only «Coming soon» for now (no talk is published yet) */
+export function TalkCard({ talk }: { talk: Talk }) {
+  const d = formatUpdated(talk.fecha);
+  return (
+    <SoonCard
+      name={<KindName kind={TALK} nombre={talk.titulo} />}
+      description={<T en={talk.descripcion.en} es={talk.descripcion.es} />}
+      meta={<T en={`${talk.lugar.en} · ${d.en}`} es={`${talk.lugar.es} · ${d.es}`} />}
+    />
   );
 }
 

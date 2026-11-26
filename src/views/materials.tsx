@@ -5,9 +5,9 @@ import { setLang } from "@/lib/lang-server";
 import { breadcrumbs, jsonLd } from "@/lib/schema";
 import { T } from "@/components/content/t";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
-import { ComingSoonCard, Counts, CourseCard, RecentList } from "@/components/content/materials";
+import { ComingSoonCard, Counts, CourseCard, EmptyTopic, RecentList, TalkCard } from "@/components/content/materials";
 import { CurvedPanel } from "@/components/content/curved-panel";
-import { getMaterials, getRecent } from "@/data/materials";
+import { getMaterials, getRecent, TALKS, TOPICS } from "@/data/materials";
 import { teachingDomains } from "@/data/teaching";
 
 export function materialsMetadata(lang: Lang): Metadata {
@@ -34,6 +34,8 @@ export async function MaterialsView({ lang }: { lang: Lang }) {
   const domains = teachingDomains
     .map((d, i) => ({ domain: d, courses: courses.filter((c) => c.course.dominio === i) }))
     .filter((d) => d.courses.length > 0);
+  // Mateo's own topics (talks…), after the teaching areas; shown even while empty
+  const topics = TOPICS.map((t) => ({ topic: t, talks: TALKS.filter((k) => k.tema === t.slug) }));
 
   const url = absUrl(localePath(lang, "/materials"));
   const title = pick(lang, "Materials", "Materiales");
@@ -110,7 +112,7 @@ export async function MaterialsView({ lang }: { lang: Lang }) {
       <CurvedPanel final labelledBy="cursos">
         <div className="space-y-14">
           <h2 id="cursos" className="sr-only">
-            <T en="Courses" es="Cursos" />
+            <T en="Materials by topic" es="Materiales por tema" />
           </h2>
 
           {recent.length > 0 && (
@@ -132,6 +134,23 @@ export async function MaterialsView({ lang }: { lang: Lang }) {
                   c.total > 0 ? <CourseCard key={c.slug} course={c} /> : <ComingSoonCard key={c.slug} course={c} />
                 )}
               </div>
+            </div>
+          ))}
+
+          {topics.map(({ topic, talks }) => (
+            <div key={topic.slug} id={topic.slug} className="scroll-mt-20 space-y-5">
+              <h3 className="border-b border-accent/15 pb-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
+                <T en={topic.en} es={topic.es} />
+              </h3>
+              {talks.length === 0 ? (
+                <EmptyTopic />
+              ) : (
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  {talks.map((k) => (
+                    <TalkCard key={k.slug} talk={k} />
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

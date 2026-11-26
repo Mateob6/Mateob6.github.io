@@ -12,6 +12,27 @@ export const COURSE_DOI: Record<string, string> = {
   estadistica: "10.5281/zenodo.24450377",
 };
 
+/** Topics of /materials after the teaching areas (which hold the courses): Mateo's own work, such as talks and
+ *  conferences (2026-11-26). Shown at the end of the page, in this order. */
+export type Topic = { slug: string; en: string; es: string };
+export const TOPICS: Topic[] = [
+  { slug: "computational-approaches", en: "Computational Approaches in Psychology", es: "Aproximaciones Computacionales en Psicología" },
+];
+
+/** A talk or conference. Its title is not translated (like publication titles). None is listed yet: Mateo decided
+ *  on 2026-11-26 to keep the topic empty for now (see CLAUDE.md, «Materials → Topics beyond the teaching areas») */
+export type Talk = {
+  slug: string;
+  tema: string; // Topic slug
+  titulo: string;
+  descripcion: { es: string; en: string };
+  evento: string;
+  lugar: { es: string; en: string };
+  fecha: string; // YYYY-MM-DD
+};
+
+export const TALKS: Talk[] = [];
+
 export type Unit = { numero: number; slug: string; es: string; en: string };
 
 export type Course = {

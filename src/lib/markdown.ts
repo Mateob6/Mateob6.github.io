@@ -4,7 +4,7 @@
 import { awards } from "@/data/awards";
 import { education } from "@/data/education";
 import { groups } from "@/data/groups";
-import { COURSE_DOI, getMaterials, SLIDES_URL } from "@/data/materials";
+import { COURSE_DOI, formatUpdated, getMaterials, SLIDES_URL, TALKS, TOPICS } from "@/data/materials";
 import { presentations } from "@/data/presentations";
 import { bio, CV, researchLines } from "@/data/profile";
 import { publications } from "@/data/publications";
@@ -182,6 +182,21 @@ export async function materialsMd(lang: Lang): Promise<string> {
           ""
         );
       }
+    }
+  }
+  for (const t of TOPICS) {
+    const talks = TALKS.filter((k) => k.tema === t.slug);
+    out.push(`## ${pick(lang, t.en, t.es)}`, "");
+    if (talks.length === 0) out.push(pick(lang, "Coming soon.", "Próximamente."), "");
+    for (const k of talks) {
+      out.push(
+        `### ${pick(lang, "Talk", "Ponencia")}: ${k.titulo}`,
+        "",
+        pick(lang, k.descripcion.en, k.descripcion.es),
+        "",
+        `${k.evento}, ${pick(lang, k.lugar.en, k.lugar.es)}, ${pick(lang, formatUpdated(k.fecha).en, formatUpdated(k.fecha).es)}. ${pick(lang, "Slides coming soon.", "Diapositivas próximamente.")}`,
+        ""
+      );
     }
   }
   return out.join("\n");
