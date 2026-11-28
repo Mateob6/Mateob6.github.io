@@ -7,13 +7,13 @@ export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 
 export const SITE_DESCRIPTION: Record<Lang, string> = {
-  en: "Psychologist and statistician at Universidad del Valle (Colombia) studying how psychological constructs are measured, through psychometrics and computational methods.",
-  es: "Psicólogo y estadístico de la Universidad del Valle (Colombia) que estudia cómo se miden los constructos psicológicos, con psicometría y métodos computacionales.",
+  en: "Psychologist and statistician at Universidad del Valle (Colombia) working in cognitive science and quantitative methods, with artificial intelligence as a research tool.",
+  es: "Psicólogo y estadístico de la Universidad del Valle (Colombia) que trabaja en ciencias cognitivas y métodos cuantitativos, con la inteligencia artificial como herramienta de investigación.",
 };
 
 export const HOME_TITLE: Record<Lang, string> = {
-  en: "Mateo Belalcazar — Psychometrics & Computational Psychology",
-  es: "Mateo Belalcazar — Psicometría y Psicología Computacional",
+  en: "Mateo Belalcazar — Cognitive Science & Quantitative Methods",
+  es: "Mateo Belalcazar — Ciencias Cognitivas y Métodos Cuantitativos",
 };
 
 const OG_LOCALE: Record<Lang, string> = { en: "en_US", es: "es_CO" };
@@ -88,8 +88,8 @@ export function rootMetadata(lang: Lang): Metadata {
       "Mateo Belalcázar",
       "Mateo Belalcázar Correa",
       ...(lang === "es"
-        ? ["psicometría", "metodología cuantitativa", "psicología computacional", "medición psicológica", "estadística", "desarrollo cognitivo"]
-        : ["psychometrics", "quantitative methodology", "computational psychology", "psychological measurement", "statistics", "cognitive development"]),
+        ? ["ciencias cognitivas", "métodos cuantitativos", "psicometría", "inteligencia artificial", "embeddings", "medición psicológica", "estadística", "desarrollo cognitivo"]
+        : ["cognitive science", "quantitative methods", "psychometrics", "artificial intelligence", "embeddings", "psychological measurement", "statistics", "cognitive development"]),
       "Universidad del Valle",
       "CIDEAS",
     ],

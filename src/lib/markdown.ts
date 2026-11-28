@@ -233,7 +233,7 @@ export async function llmsTxt(): Promise<string> {
     "",
     `> ${SITE_DESCRIPTION.en}`,
     "",
-    "Academic website of Mateo Belalcazar (also published as Mateo Belalcázar and Mateo Belalcázar Correa; ORCID 0000-0001-8276-9734), doctoral student in Psychology at Universidad del Valle (Instituto CIDEAS, Cali, Colombia), with a B.Sc. in Psychology and an M.Sc. in Statistics from the same university. University lecturer in statistics, research methodology and cognitive development at Pontificia Universidad Javeriana Cali and Universidad del Valle. The research combines psychometrics, quantitative methodology and computational methods (artificial intelligence, contextual embeddings) to study how psychological constructs are measured, mainly in cognitive development and education.",
+    "Academic website of Mateo Belalcazar (also published as Mateo Belalcázar and Mateo Belalcázar Correa; ORCID 0000-0001-8276-9734), doctoral student in Psychology at Universidad del Valle (Instituto CIDEAS, Cali, Colombia), with a B.Sc. in Psychology and an M.Sc. in Statistics from the same university. University lecturer in statistics, research methodology and cognitive development at Pontificia Universidad Javeriana Cali and Universidad del Valle. The research has two lines, cognitive science and quantitative methods, and uses artificial intelligence (contextual embeddings) in both to study how psychological constructs are built and measured, mainly in cognitive development and education.",
     "",
     `Every page exists in English (${SITE_URL}) and Spanish (${SITE_URL}/es). Each one has a plain-text copy: add .md to its address (the home is /index.md).`,
     "",

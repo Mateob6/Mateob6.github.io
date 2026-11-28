@@ -16,7 +16,7 @@ export const COURSE_DOI: Record<string, string> = {
  *  conferences (2026-11-26). Shown at the end of the page, in this order. */
 export type Topic = { slug: string; en: string; es: string };
 export const TOPICS: Topic[] = [
-  { slug: "computational-approaches", en: "Computational Approaches in Psychology", es: "Aproximaciones Computacionales en Psicología" },
+  { slug: "cognitive-science", en: "Cognitive Science", es: "Ciencias Cognitivas" }, // named after the home research line (2026-11-27)
 ];
 
 /** A talk or conference. Its title is not translated (like publication titles). None is listed yet: Mateo decided

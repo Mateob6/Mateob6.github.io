@@ -97,8 +97,8 @@ export function personSchema(lang: Lang) {
     knowsAbout: [
       ...pick(
         lang,
-        ["Psychometrics", "Psychological measurement", "Quantitative methodology", "Statistical modeling", "Computational psychology", "Cognitive development", "Educational psychology", "Mathematics education"],
-        ["Psicometría", "Medición psicológica", "Metodología cuantitativa", "Modelamiento estadístico", "Psicología computacional", "Desarrollo cognitivo", "Psicología educativa", "Educación matemática"]
+        ["Psychometrics", "Psychological measurement", "Quantitative methodology", "Statistical modeling", "Artificial intelligence", "Computational psychology", "Cognitive development", "Educational psychology", "Mathematics education"],
+        ["Psicometría", "Medición psicológica", "Metodología cuantitativa", "Modelamiento estadístico", "Inteligencia artificial", "Psicología computacional", "Desarrollo cognitivo", "Psicología educativa", "Educación matemática"]
       ),
       ...researchLines.map((r) => pick(lang, r.titleEn, r.titleEs)),
       // the Spanish list carries articles for the sentence («la semántica distribucional»): drop them here

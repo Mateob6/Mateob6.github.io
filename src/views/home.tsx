@@ -52,7 +52,7 @@ export function HomeView({ lang }: { lang: Lang }) {
       {/* ===== HERO ===== */}
       <section className="text-center mt-6 md:mt-10">
         <div className="hero-photo w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden mx-auto mb-5 border-2 border-border shadow-lg relative">
-          <img src="/photo.jpg" alt={pick(lang, "Mateo Belalcazar — researcher in psychology, statistics, and computational methods", "Mateo Belalcazar — investigador en psicología, estadística y métodos computacionales")} width={144} height={144} className="w-full h-full object-cover" />
+          <img src="/photo.jpg" alt={pick(lang, "Mateo Belalcazar — researcher in cognitive science and quantitative methods", "Mateo Belalcazar — investigador en ciencias cognitivas y métodos cuantitativos")} width={144} height={144} className="w-full h-full object-cover" />
           <div className="absolute inset-0 rounded-full ring-2 ring-accent/10 ring-offset-4 ring-offset-background" />
         </div>
         <h1 className="hero-name font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4">
