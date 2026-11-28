@@ -1,4 +1,5 @@
 import type { ProfileLink, ResearchLine } from "@/lib/types";
+import type { Lang } from "@/lib/i18n";
 
 // Academic CV (public version, Cancillería anonymized): copied from
 // ~/Desktop/Proyectos/Certificados laborales/cv/fuentes/academico{,_en}.pdf. The link follows the site language.
@@ -6,11 +7,11 @@ export const CV = { en: "/cv/mateo-belalcazar-cv-en.pdf", es: "/cv/mateo-belalca
 
 export const bio = {
   en: [
-    "I study how psychological constructs are built and measured, combining quantitative methodology with computational methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture, particularly in developmental cognitive and educational psychology.",
+    "I study how psychological constructs are built and measured, working between cognitive science and quantitative methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture, and on both fronts I use artificial intelligence to represent theory and what we record in a shared space.",
     "I hold degrees in Psychology and Statistics from Universidad del Valle, where I am a doctoral student in Psychology at CIDEAS. I teach across two universities.",
   ],
   es: [
-    "Estudio cómo se construyen y miden los constructos psicológicos, combinando metodología cuantitativa con métodos computacionales. Gran parte de mi trabajo aborda la distancia entre lo que teorizamos sobre un fenómeno psicológico y lo que nuestros instrumentos realmente capturan, particularmente en psicología del desarrollo cognitivo y educativa.",
+    "Estudio cómo se construyen y miden los constructos psicológicos, entre las ciencias cognitivas y los métodos cuantitativos. Gran parte de mi trabajo aborda la distancia entre lo que teorizamos sobre un fenómeno psicológico y lo que nuestros instrumentos realmente capturan, y en ambos frentes uso la inteligencia artificial para representar la teoría y lo que registramos en un mismo espacio.",
     "Tengo formación en Psicología y Estadística de la Universidad del Valle, donde soy estudiante doctoral en Psicología en CIDEAS. Soy docente en dos universidades.",
   ],
 } as const;
@@ -25,17 +26,34 @@ export const profileLinks: ProfileLink[] = [
   { label: "Semantic Scholar", href: "https://www.semanticscholar.org/author/Mateo-Belalc%C3%A1zar/2296970047", icon: "semantic-scholar" },
 ];
 
+// Research lines, renamed on 2026-11-27 after reading Mateo's papers and thesis (Wulff-style: one question per line,
+// no projects or populations; the concrete work lives in Publications). Before: «Computational Approaches in
+// Psychology» and «Applied Quantitative Methodology», with long descriptions. AI is in both lines on purpose.
 export const researchLines: ResearchLine[] = [
   {
-    titleEn: "Computational Approaches in Psychology",
-    titleEs: "Aproximaciones Computacionales en Psicología",
-    descriptionEn: "Using computational methods and artificial intelligence, I study how psychological constructs are built, represented, and measured. I develop methods to represent and measure multimodal psychological phenomena — gesture, speech, and interaction with artifacts, among others — that conventional measurement does not reach. Centered in cognitive development and education, this line addresses contexts where the distance between the construct and its measurement is most visible, for example, geometric reasoning in deaf children, multimodal interaction in STEM classrooms, or motivation in educational settings.",
-    descriptionEs: "Mediante métodos computacionales e inteligencia artificial, estudio cómo se construyen, representan y miden los constructos psicológicos. Desarrollo métodos para representar y medir fenómenos psicológicos multimodales — gesto, habla e interacción con artefactos, entre otros — que la medición convencional no alcanza. Centrada en el desarrollo cognitivo y la educación, esta línea aborda contextos donde la distancia entre el constructo y su medición es más visible, por ejemplo, el razonamiento geométrico en niños sordos, la interacción multimodal en aulas STEM o la motivación en contextos educativos.",
+    titleEn: "Cognitive Science",
+    titleEs: "Ciencias Cognitivas",
+    descriptionEn: "This line asks how people think and learn through the body, gesture, speech, and artifacts, and how artificial intelligence can represent that activity in relation to theory without reducing it to a single channel or score.",
+    descriptionEs: "Esta línea pregunta cómo se piensa y se aprende a través del cuerpo, el gesto, el habla y los artefactos, y cómo la inteligencia artificial puede representar esa actividad en relación con la teoría sin reducirla a un solo canal o a un solo puntaje.",
   },
   {
-    titleEn: "Applied Quantitative Methodology",
-    titleEs: "Metodología Cuantitativa Aplicada",
-    descriptionEn: "I work in quantitative methodology, statistical modeling, and psychometrics applied to empirical research across different fields of psychology. I collaborate on study design, development of statistical analyses, instrument validation, and scale adaptation, with particular attention to how methodological and theoretical decisions affect the conclusions we draw.",
-    descriptionEs: "Trabajo en metodología cuantitativa, modelamiento estadístico y psicometría, aplicados a la investigación empírica en diferentes campos de la psicología. Colaboro en diseño de estudios, desarrollo de análisis estadísticos, validación de instrumentos y adaptación de escalas, con especial atención a cómo las decisiones metodológicas y teóricas afectan las conclusiones que obtenemos.",
+    titleEn: "Quantitative Methods",
+    titleEs: "Métodos Cuantitativos",
+    descriptionEn: "This line asks how measurement and analysis decisions shape what we conclude about psychological phenomena, and how artificial intelligence can help examine how faithfully instruments capture the theories they claim to operationalize.",
+    descriptionEs: "Esta línea pregunta cómo las decisiones de medición y análisis moldean lo que concluimos sobre los fenómenos psicológicos, y cómo la inteligencia artificial puede ayudar a examinar qué tan fielmente los instrumentos recogen las teorías que dicen operacionalizar.",
   },
 ];
+
+/** Shown as one sentence under the research lines («Further interests include …», «También me interesan …»)
+ *  and listed in the Person JSON-LD (knowsAbout) */
+export const furtherInterests = {
+  en: ["distributional semantics", "cognitive development and education in diverse contexts", "spatial and mathematical thinking", "construct validity", "content analysis"],
+  es: ["la semántica distribucional", "el desarrollo cognitivo y la educación en contextos diversos", "el pensamiento espacial y matemático", "la validez de constructo", "el análisis de contenido"],
+} as const;
+
+
+/** «Further interests include a, b, and c.» / «También me interesan a, b y c.» */
+export function furtherInterestsSentence(lang: Lang): string {
+  const list = new Intl.ListFormat(lang, { style: "long", type: "conjunction" }).format(furtherInterests[lang]);
+  return lang === "en" ? `Further interests include ${list}.` : `También me interesan ${list}.`;
+}

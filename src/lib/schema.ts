@@ -5,7 +5,7 @@ import { education } from "@/data/education";
 import { groups } from "@/data/groups";
 import { presentations } from "@/data/presentations";
 import { publications } from "@/data/publications";
-import { researchLines } from "@/data/profile";
+import { furtherInterests, researchLines } from "@/data/profile";
 import { skillGroups } from "@/data/skills";
 import { teachingDomains } from "@/data/teaching";
 import { localePath, pick, slugify, type Lang } from "./i18n";
@@ -101,6 +101,8 @@ export function personSchema(lang: Lang) {
         ["Psicometría", "Medición psicológica", "Metodología cuantitativa", "Modelamiento estadístico", "Psicología computacional", "Desarrollo cognitivo", "Psicología educativa", "Educación matemática"]
       ),
       ...researchLines.map((r) => pick(lang, r.titleEn, r.titleEs)),
+      // the Spanish list carries articles for the sentence («la semántica distribucional»): drop them here
+      ...furtherInterests[lang].map((t) => t.replace(/(^| y )(la|el|los|las) /g, "$1").replace(/^./, (c) => c.toUpperCase())),
       ...allSkills(),
     ],
     knowsLanguage: ["es", "en"],

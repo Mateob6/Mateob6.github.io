@@ -7,7 +7,7 @@ import { EducationEntry } from "@/components/content/education-entry";
 import { ScrollReveal } from "@/components/content/scroll-reveal";
 import { CurvedPanel } from "@/components/content/curved-panel";
 import { AwardsSection, SkillsSection } from "@/components/content/recognition";
-import { bio, researchLines } from "@/data/profile";
+import { bio, furtherInterestsSentence, researchLines } from "@/data/profile";
 import { education } from "@/data/education";
 import { publications } from "@/data/publications";
 import { groups } from "@/data/groups";
@@ -109,6 +109,7 @@ export function HomeView({ lang }: { lang: Lang }) {
               </ScrollReveal>
             ))}
           </div>
+          <p className="text-[13px] text-muted mt-5 leading-relaxed px-1">{furtherInterestsSentence(lang)}</p>
         </section>
       </ScrollReveal>
 

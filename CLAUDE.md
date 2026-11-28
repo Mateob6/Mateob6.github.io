@@ -157,7 +157,7 @@ Person JSON-LD schema in home page with `sameAs` linking to 6 academic profiles.
 
 ### About Narrative
 
-Bio centers on constructs and measurement: "I study how psychological constructs are built and measured, combining quantitative methodology with computational methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture." Sober tone, no jargon. Does not lead with "doctoral student."
+Bio centers on constructs and measurement and states the thread of both research lines (rewritten 2026-11-27): "I study how psychological constructs are built and measured, working between cognitive science and quantitative methods. Much of my work addresses the distance between what we theorize about a psychological phenomenon and what our instruments actually capture, and on both fronts I use artificial intelligence to represent theory and what we record in a shared space." The AI clause is the common thread found in Mateo's work: in the thesis and in Anomia embeddings, AI places theory and the records (children's activity, scale items) in the same space. Sober tone, no jargon. Does not lead with "doctoral student." The domain («particularly in developmental cognitive and educational psychology») moved to the further-interests sentence
 
 ### Education
 
@@ -165,10 +165,18 @@ Bio centers on constructs and measurement: "I study how psychological constructs
 
 ### Research Lines
 
-Section titled "Líneas de Investigación" / "Research Lines". Two lines stacked vertically, each with title + multi-sentence description (no topic pills):
+Section titled "Líneas de Investigación" / "Research Lines". Two lines stacked vertically, each with title + **one sentence** (no topic pills), then one sentence of further interests under the cards (`furtherInterests` + `furtherInterestsSentence()` in `profile.ts`; also in `index.md` and the Person `knowsAbout`).
 
-1. **Computational Approaches in Psychology** (accent: blue) — Constructs studied via computational methods and AI. Multimodal phenomena (gesture, speech, artifacts). Centered in cognitive development and education. Examples: deaf children, STEM classrooms, motivation.
-2. **Applied Quantitative Methodology** (accent: green) — Psychometrics, statistical modeling, methodology applied across psychology fields. Collaborative framing ("I collaborate on..."). Attention to how methodological decisions affect conclusions.
+Renamed on **2026-11-27** (Mateo), after reading his 40 papers and the thesis proposal, on the model of Dirk Wulff's research statement (Max Planck): each line is the question it asks, with no projects, populations or methods; the concrete work lives in Publications; AI appears in both lines (Mateo's request). Order: Cognitive Science first (the thesis and his stated identity, «científico cognitivo computacional», April 2026), Methods second.
+
+1. **Cognitive Science / Ciencias Cognitivas** (accent: blue) — how people think and learn through the body, gesture, speech and artifacts, and how AI can represent that activity in relation to theory without reducing it to a single channel or score. «Behavioral sciences» was considered and rejected as a line name (it would overlap with Methods, and evokes behaviorism / behavioral economics); it names the breadth of his collaborations instead
+2. **Quantitative Methods / Métodos Cuantitativos** (accent: green) — how measurement and analysis decisions shape what we conclude, and how AI can help examine how faithfully instruments capture the theories they claim to operationalize. The «I collaborate as a methodologist» sentence was dropped (the publications show it)
+
+Further interests: distributional semantics, cognitive development and education in diverse contexts, spatial and mathematical thinking, construct validity, content analysis.
+
+Vocabulary (from the thesis): for what AI does with records, «representar», «posicionar», «configuración»; not «medir» an attribute. Before 2026-11-27 the lines were «Computational Approaches in Psychology» and «Applied Quantitative Methodology», ~80 words each.
+
+**Still to decide** (follow-ups of the rename): the Materials topic «Aproximaciones Computacionales en Psicología» was named after the old line (`TOPICS` in `materials.ts`); the home title «Psychometrics & Computational Psychology» and the `SITE_DESCRIPTION` / keywords in `seo.ts` and the llms.txt summary; the three research lines of the academic CVs (`academico.tex`, `academico_en.tex`).
 
 ### Selected Publications
 

@@ -6,7 +6,7 @@ import { education } from "@/data/education";
 import { groups } from "@/data/groups";
 import { COURSE_DOI, formatUpdated, getMaterials, SLIDES_URL, TALKS, TOPICS } from "@/data/materials";
 import { presentations } from "@/data/presentations";
-import { bio, CV, researchLines } from "@/data/profile";
+import { bio, CV, furtherInterestsSentence, researchLines } from "@/data/profile";
 import { publications } from "@/data/publications";
 import { skillGroups } from "@/data/skills";
 import { teachingDomains } from "@/data/teaching";
@@ -66,6 +66,8 @@ export function homeMd(lang: Lang): string {
     `## ${pick(lang, "Research lines", "Líneas de investigación")}`,
     "",
     ...researchLines.flatMap((r) => [`### ${pick(lang, r.titleEn, r.titleEs)}`, "", pick(lang, r.descriptionEn, r.descriptionEs), ""]),
+    furtherInterestsSentence(lang),
+    "",
     `## ${pick(lang, "Research groups", "Grupos de investigación")}`,
     "",
     ...groups.map((g) => `- ${g.name} — ${g.institution}, ${g.period.replace("present", pick(lang, "present", "presente"))}${g.rank === "Instituto" ? "" : ` (${pick(lang, "Minciencias category", "categoría Minciencias")} ${g.rank})`}`),
